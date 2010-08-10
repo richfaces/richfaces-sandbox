@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	>
+
+<ui:composition>
+<p>dataScroller component provided in order to implement Ajax pagination for data iteration components.</p>
+<p>Starting from 4.x version - no more additional updated should be defined by end-developer in order to 
+synchronize different dataScrollers attached to the same table as in example below.</p>
+	<h:form id="form">
+		<rich:dataScroller for="table" maxPages="6"/>
+		<rich:dataTable value="#{carsBean.allInventoryItems}" var="car"
+			id="table" rows="10">
+			<rich:column accept="#{carsFiteringBean.acceptVendor}">
+				<f:facet name="header">
+					<h:outputText value="Vendor " />
+				</f:facet>
+				<h:outputText value="#{car.vendor}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Model" />
+				</f:facet>
+				<h:outputText value="#{car.model}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Price" />
+				</f:facet>
+				<h:outputText value="#{car.price}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Mileage" />
+				</f:facet>
+				<h:outputText value="#{car.mileage}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+						<h:outputText value="VIN " />
+				</f:facet>
+				<h:outputText value="#{car.vin}" />
+			</rich:column>
+		</rich:dataTable>
+		<rich:dataScroller for="table" maxPages="6"/>
+	</h:form>
+</ui:composition>
+
+</html>

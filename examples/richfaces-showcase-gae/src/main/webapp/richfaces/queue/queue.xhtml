@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:r="http://java.sun.com/jsf/composite/rich">
+<p>JSF 2 provides queue mechanism out-of the box already. And RichFaces queue just provides
+some additional customizations to improve the queue usability and allow to tune your
+performance while using Ajax as much as possible.</p>
+<p>The only big difference which the developers who used queue in 3.3.x should remember:
+as JSF 2 already provides single queue and not allows to have more than one queue instance(currently)
+you can't really fire concurrent requests anymore. So the queue in RF now not actually defines 
+logical queue but just a component for defining queueing options.
+</p>
+<p>Here you could explore additional optimization parameters of the queue and learn how they 
+influence Ajax requests. This example is a good start to learn about Ajax requests 
+flood protection.</p>
+
+<p>Pay attention to next point in the example:</p>
+<ul>
+<li>Setting request delay to greater value reduces the greatly requests count on fast typing. (More similar requests are combined in the result)</li>
+</ul>
+Also pay your attention to the queue definition. Such definition (inside some form without a name) means that the queue options becomes global for the form. 
+	<r:panel>
+	<h:form id="form">
+		<a4j:queue requestDelay="#{queueBean.requestDelay}"/>
+		<h:panelGrid columns="1" width="100%">
+				<h:panelGrid columns="2">
+					<h:outputText value="Type here:" />
+					<h:inputText id="myinput" value="#{queueBean.text}"
+						onkeyup="addEvent();" disabled="#{not (facesContext.maximumSeverity==null)}">
+						<a4j:ajax onbegin="addRequest();"  event="keyup" render="outtext"
+							oncomplete="printCounts()" onbeforedomupdate="addUpdate()" />
+					</h:inputText>  
+					<h:outputText value="Repeated text:" />
+					<h:outputText value="#{queueBean.text}" id="outtext"
+						style="font-weight:bold;" />
+					<h:outputText value="Events count:" />
+					<h:outputText value="0" id="events" />
+					<h:outputText value="Requests count:" />
+					<h:outputText value="0" id="requests" />
+					<h:outputText value="DOM updates count:" />
+					<h:outputText value="0" id="updates" />
+				</h:panelGrid>
+				<r:message for="form:delay" style="color:red;" />
+				<h:panelGrid columns="2">
+					<h:outputText value="Request delay:" />
+					<h:inputText value="#{queueBean.requestDelay}" id="delay"
+						converterMessage="Delay field should be a number (Demo input disabled till this resolved)">
+						<f:convertNumber integerOnly="true"/>
+					</h:inputText>
+					<f:facet name="footer">
+						<h:commandButton value="Apply" action="#{queueBean.resetText}" />
+					</f:facet>
+				</h:panelGrid>
+		</h:panelGrid>
+	</h:form>
+	</r:panel>
+	<script type="text/javascript">
+		var events = 0;
+		var updates = 0;
+		var outEvents = #{rich:element('events')};
+		var outUpdates = #{rich:element('updates')};
+		var outRequests = #{rich:element('requests')};
+		
+		var requests=0;
+		function addEvent(){
+			events++;
+		}
+		function addUpdate(){
+			updates++; 
+		}
+		function addRequest(){
+			requests++;
+		}
+
+		function printCounts(){
+			outEvents.innerHTML=events;
+			outUpdates.innerHTML=updates;
+			outRequests.innerHTML=requests;
+		}
+	</script>
+	<p>Queue could be defined as</p>
+	<ul><li><b>Default for view.</b> In this case - the parameters will be used for all 
+	the Ajax requests in view(if not redefined). In order to define such queue - just place 
+	 <b>a4j:queu</b> outside of any forms without defining <b>name</b></li>
+	 <li><b>Default for form.</b> Similar to view-scoped but should be defiend in some form without defining <b>name</b></li>
+	 <li><b>Referenced from ajax behaviors/components.</b> Queue should be defined with name and referenced using attachQueue tag(see corresponding sample).</li></ul>
+</ui:composition>
+

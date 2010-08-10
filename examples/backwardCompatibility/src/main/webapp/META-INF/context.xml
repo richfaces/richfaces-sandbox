@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context >
+
+	<!-- url: The JDBC connection url for connecting to your MySQL dB.
+		The autoReconnect=true argument to the url makes sure that the
+		mm.mysql JDBC Driver will automatically reconnect if mysqld closed the
+		connection.  mysqld by default closes idle connections after 8 hours.
+	-->
+
+	<Resource name="jdbc/DS" auth="Container"
+		type="javax.sql.DataSource" username="sa" password=""
+		driverClassName="org.hsqldb.jdbcDriver" url="jdbc:hsqldb:." />
+		<!--
+		<Transaction factory="org.objectweb.jotm.UserTransactionFactory"
+		jotm.timeout="60"/>
+	-->
+</Context>

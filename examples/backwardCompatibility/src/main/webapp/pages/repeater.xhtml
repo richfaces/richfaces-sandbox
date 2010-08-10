@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<head><title>Simple repeater in seam</title></head>
+	<body>
+	  <h1>Simple ajax repeater</h1>
+	  <h:form>
+	   <h:panelGrid columns="3" border="1">
+	      <h:inputText value="#{seamBean.text}">
+	         <a4j:support reRender="out,conversation" event="onkeyup"></a4j:support>
+	      </h:inputText>
+	      <h:outputText id="out" value="#{seamBean.text}"></h:outputText>
+	      <h:outputText value="All form submit."></h:outputText>
+	      <h:inputText value="#{seamBean.text2}">
+	         <a4j:support reRender="out,outs,conversation" event="onkeyup"></a4j:support>
+	      </h:inputText>
+	      <h:outputText id="outs" value="#{seamBean.text2}"></h:outputText>
+	      <h:outputText value="AJAX Single submit."></h:outputText>
+	      <h:outputText id="conversation" value="Conversation ID: #{conversation.id}"></h:outputText>
+	      <a4j:commandButton action="#{seamBean.start}" value="Start conversation" reRender="out,conversation"></a4j:commandButton>
+	      <a4j:commandButton action="#{seamBean.stop}" value="Stop conversation" reRender="out,conversation"></a4j:commandButton>
+	   </h:panelGrid>
+	      <a4j:commandButton action="#{seamBean.clearSession}" value="Set session expiration to 10 sec" reRender="out,conversation"></a4j:commandButton>
+	   <a4j:outputPanel ajaxRendered="true">
+	     <h:messages></h:messages>
+	   </a4j:outputPanel>
+	   <a4j:status startText="Request..." stopText=""></a4j:status>
+	   <h2>Non-Ajax conversation</h2>
+	   	  <h:commandButton action="#{seamBean.start}" value="Start conversation" reRender="out,conversation"></h:commandButton>
+	      <h:commandButton action="#{seamBean.stop}" value="Stop conversation" reRender="out,conversation"></h:commandButton>
+	      <h:commandButton  value="Refresh" ></h:commandButton>	   
+	      <h:commandButton  value="Reference to non-existed action" action="#{seamBean.delete}"></h:commandButton>	   
+	  </h:form>
+	  <a4j:log hotkey="M"></a4j:log>
+	</body>
+</html>

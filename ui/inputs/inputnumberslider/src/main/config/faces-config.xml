@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+<faces-config version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://richfaces.org/cdk/extensions"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<component>
+		<component-type>org.richfaces.InputNumberSlider</component-type>
+		<component-class>org.richfaces.component.HTMLInputNumberSlider</component-class>
+		<property>
+			<property-name>accesskey</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>decreaseClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>decreaseSelectedClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>delay</property-name>
+			<property-class>int</property-class>
+			<default-value>200</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>disabled</property-name>
+			<property-class>boolean</property-class>
+			<default-value>false</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>enableManualInput</property-name>
+			<property-class>boolean</property-class>
+			<default-value>true</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>handleClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>handleSelectedClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>increaseClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>increaseSelectedClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>inputClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>inputPosition</property-name>
+			<property-class>org.richfaces.renderkit.html.PositionType</property-class>
+			<default-value>PositionType.right</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>inputSize</property-name>
+			<property-class>int</property-class>
+			<default-value>3</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>maxValue</property-name>
+			<property-class>java.lang.Number</property-class>
+			<default-value>100</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>maxlength</property-name>
+			<property-class>int</property-class>
+			<default-value>Integer.MIN_VALUE</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>minValue</property-name>
+			<property-class>java.lang.Number</property-class>
+			<default-value>0</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>showArrows</property-name>
+			<property-class>boolean</property-class>
+			<default-value>false</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>showBoundaryValues</property-name>
+			<property-class>boolean</property-class>
+			<default-value>true</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>showInput</property-name>
+			<property-class>boolean</property-class>
+			<default-value>true</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>showToolTip</property-name>
+			<property-class>boolean</property-class>
+			<default-value>true</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>step</property-name>
+			<property-class>java.lang.Number</property-class>
+			<default-value>1</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>style</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>styleClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>tabindex</property-name>
+			<property-class>int</property-class>
+			<default-value>Integer.MIN_VALUE</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>toolTipClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
+			<property-name>trackClass</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<component-extension>
+			<cdk:generate>true</cdk:generate>
+			<cdk:base-class>javax.faces.component.UIInput</cdk:base-class>
+			<cdk:component-family>javax.faces.Input</cdk:component-family>
+			<cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>
+			<cdk:tag>
+				<cdk:tag-name>inputnumberslider</cdk:tag-name>
+				<cdk:tag-type>Facelets</cdk:tag-type>
+			</cdk:tag>
+		</component-extension>
+	</component>
+	<faces-config-extension>
+		<cdk:taglib>
+			<cdk:shortName>ins</cdk:shortName>
+			<cdk:uri>http://richfaces.org/inputnumberslider</cdk:uri>
+		</cdk:taglib>
+	</faces-config-extension>
+</faces-config>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ng="http://alliancedata.com/jsf/nextgen"
+      xmlns:a="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:s="http://jboss.com/products/seam/taglib">
+
+<f:view contentType="text/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="2700;url=/nextgen/logout.seam"/>
+
+    <link href="css/ads.css" rel="stylesheet" type="text/css"/>
+    <link href="css/date.css" rel="stylesheet" type="text/css"/>
+    <link href="css/drop_down.css" type="text/css" rel="stylesheet" />
+    <link href="css/notepad.css" rel="stylesheet" type="text/css"/>
+    <script src="javascript/tooltip.js" type="text/javascript" ></script>
+    <script src="javascript/common.js" type="text/javascript" ></script>
+    <script src="javascript/html-form-input-mask.js" type="text/javascript" ></script>
+
+    <link href="/nextgen/img/ads.ico" rel="icon" />
+
+    <LINK REL="SHORTCUT ICON" HREF="/nextgen/img/ads.ico"/>
+
+
+    <ng:standardTitle/>
+
+    <ui:insert name="headerContent"/>
+
+</head>
+
+<body onload="Xaprb.InputMask.setupElementMasks()" >
+
+<div id="maincontainer" style="width:1280px;">
+    <ui:include src="/_header.xhtml">
+        <c:if test="#{globalPageAction.showGlobalPage}">
+            <ui:param name="enableMenu" value="false"/>
+        </c:if>
+    </ui:include>
+
+    <div id="contentwrapper">
+
+        <div id="contentcolumn">
+            <div class="innertube" style="margin-top:2px">
+
+                <div style="#{(globalPageAction.showGlobalPage)?'display:none':''}">
+                    <ui:insert name="content"/>
+                </div>
+
+                <c:if test="#{globalPageAction.showGlobalPage}">
+                    <ui:include src="#{globalPageAction.globalPage}"/>
+                </c:if>
+
+            </div>
+        </div>
+        <div id="bottomcontent">
+            <div class="innertube" style="margin-top:2px">
+                <ui:include src="_notepad.xhtml"/>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="leftcolumn" >
+        <div class="innertube">
+
+
+            <ui:include src="/_quickCustomerReference.xhtml">
+                <ui:param name="navigate" value="#{navigate}"/>
+            </ui:include>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</f:view>
+
+</html>

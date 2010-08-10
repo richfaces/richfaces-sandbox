@@ -1,0 +1,87 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ng="http://alliancedata.com/jsf/nextgen"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j"
+                template="_activeAccountTemplate.xhtml">
+    <ui:param name="navigate" value="true"/>
+    <ui:param name="enableMenu" value="#{ledgerTransactionHistoryAction.selectedTransaction.class.name != 'com.alliancedata.ecis.dto.ledger.BillingTransactionDto'}"/>
+
+    <ui:define name="headerContent">
+        <ng:standardTitle/>
+    </ui:define>
+
+    <ui:define name="content">
+    <rich:panel id="tp"
+                styleClass="panel"
+                headerClass="blueHeader"
+                bodyClass="grayPanelBody"
+                style="width:99.5%">
+        <f:facet name="header" >
+            <h:panelGroup>
+                <h:outputText styleClass="panelHeaderText" value="Transaction Detail"/>
+                <h:outputText styleClass="panelHeaderText" value="-"/>
+                <h:outputText styleClass="panelHeaderText" value="Payment History" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.PaymentTransactionDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Late Charge History" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.LateChargeHistoryDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Unposted Payment"  rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.UnpostedPaymentDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Unposted Adjustment" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.MiscellaneousChargeDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Deposit History" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.DepositDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Contract History" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.ContractHistoryDto'}"/>
+                <h:outputText styleClass="panelHeaderText" value="Billing History" rendered="#{ledgerTransactionHistoryAction.selectedTransaction.class.name eq 'com.alliancedata.ecis.dto.ledger.BillingTransactionDto'}"/>
+            </h:panelGroup>
+        </f:facet>
+
+
+         <rich:tabPanel width="100%"
+                selectedTab="#{ledgerTransactionHistoryAction.selectedTab}"
+                switchType="client" id="ledger_tab_panel"
+                rendered="#{ledgerAction.initialized}"
+                contentClass="tabContent" activeTabClass="tabActive"
+                disabledTabClass="tabDisabled" inactiveTabClass="tabInactive"
+                tabClass="tab" styleClass="standardTabPanel">
+
+             <rich:spacer style="height:3px" />
+            <rich:tab  id="tranHistoryTab" name="tranHistoryTab" label="History"
+                       action="#{ledgerTransactionHistoryAction.fetchTransactionHistory}" >
+                <div class="tabContentLayout">
+
+                <ui:include src="ledger/_transactionHistory.xhtml"/>
+                </div>
+                <h:form>
+                    <rich:toolBar height="34" styleClass="buttonBar">
+
+                        <rich:toolBarGroup styleClass="buttonBar" location="right">
+                            <s:button value="Close" view="/ledger.xhtml" styleClass="btn"/>
+                        </rich:toolBarGroup>
+                    </rich:toolBar>
+                </h:form>
+
+            </rich:tab>
+            <rich:tab name="distributionTab" id="distributionTab" label="Allocation"
+                      disabled="#{ledgerTransactionHistoryAction.selectedTransaction.class.name == 'com.alliancedata.ecis.dto.ledger.UnpostedPaymentDto' or  ledgerTransactionHistoryAction.selectedTransaction.class.name == 'com.alliancedata.ecis.dto.ledger.MiscellaneousChargeDto'}"
+                      action="#{ledgerTransactionHistoryAction.fetchTransactionDistrubution}" >
+                <div class="tabContentLayout">
+                <ui:include src="ledger/_ledgerTranasctionDistribution.xhtml"/>
+                <h:form>
+                    <rich:toolBar height="34" styleClass="buttonBar">
+
+                        <rich:toolBarGroup styleClass="buttonBar" location="right">
+                            <s:button value="Close" view="/ledger.xhtml" styleClass="btn"/>
+                        </rich:toolBarGroup>
+                    </rich:toolBar>
+                </h:form>
+                </div>
+
+            </rich:tab>
+
+        </rich:tabPanel>
+        </rich:panel>
+    </ui:define>
+
+</ui:composition>

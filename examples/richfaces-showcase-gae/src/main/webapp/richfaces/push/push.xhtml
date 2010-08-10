@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+		<p>The <b>&lt;a4j:push&gt;</b> periodically perform AJAX request to
+		server, to simulate 'push' data.</p>
+		<p><b>&lt;a4j:push&gt;</b> makes request to
+		minimal code only (not to JSF tree) in order to check the presence of
+		messages in the queue. If the message exists the complete request will
+		be performed. The component doesn't poll registered beans but
+		registers EventListener which receives messages about events.</p>
+		<p>Attribute '<b>interval</b>' is used as for poll component. It
+		specifies the interval in ms. for call push request. Simple example of
+		usage:</p>
+	<h:form>
+		<h:dataTable value="#{choicesBean.choices}" var="choice" id="choiceVotes">
+			<f:facet name="header">
+				<h:outputText value="Voting for favorite fruit" />
+			</f:facet>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Choice name" />
+				</f:facet>
+				<h:outputText value="#{choice.label}" id="choiceLabel" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Current Votes" />
+				</f:facet>
+				<h:outputText value="#{choice.votesCount}" id="choiceVotes" />
+			</h:column>
+		</h:dataTable>
+		
+		<a4j:jsFunction name="startPush" action="#{choicesBean.start}" execute="@this" render="push, stop, start"/>
+		<a4j:jsFunction name="stopPush" action="#{choicesBean.stop}"  execute="@this" render="push, stop, start"/>
+		
+		<h:commandButton onclick="startPush()" value="Start" id="start" disabled="#{choicesBean.enabled}" type="button"/>
+
+		<h:commandButton onclick="stopPush()" type="button" value="Stop" id="stop" disabled="#{!choicesBean.enabled}"/>
+		
+		<a4j:outputPanel layout="block" id="tempResults">
+			<h:outputText
+				value="Latest update votes was: #{choicesBean.updateInfo} at #{choicesBean.timeStamp}"
+				rendered="#{choicesBean.enabled}" />
+		</a4j:outputPanel>
+
+		<a4j:push enabled="#{choicesBean.enabled}" interval="1000"
+			eventProducer="#{choicesBean.addListener}" id="push" action="#{choicesBean.processUpdates}">
+			<a4j:ajax render="choiceVotes push tempResults" /> 
+		</a4j:push> 
+	</h:form>
+</ui:composition>
+
+</html>

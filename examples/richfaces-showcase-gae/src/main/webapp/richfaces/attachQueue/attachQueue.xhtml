@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+<p>In RichFaces 4 all request settings related to queue was moved out of components attributes and 
+now customization available using new a4j:attachQueue tag. Next sample shows how requestGroupingId
+(former similarityGroupingId) could be set for different components making the requests from them similar.
+Besides setting requestGroupingId - attach queue tag at second button redefines default queue
+request delay from 500ms to 1500ms.
+</p>
+
+<p>If you will click the buttons fast - requests will be combined and only last click will 
+be processed</p>
+
+<a4j:queue requestDelay="500"></a4j:queue>
+	<h:form>
+		<rich:panel>
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="Set Name to Alex" render="rep">
+					<a4j:attachQueue requestGroupingId="group1"/>
+					<a4j:param name="username" value="Alex" assignTo="#{userBean.name}" />
+				</a4j:commandButton>
+ 	 
+				<a4j:commandButton value="Set Name to John" render="rep">
+					<a4j:attachQueue requestGroupingId="group1" requestDelay="1500"/>					
+					<a4j:param name="username" value="John"
+						assignTo="#{userBean.name}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</rich:panel>
+
+		<rich:panel>
+			<h:outputText id="rep" value="Selected Name:#{userBean.name}" />
+		</rich:panel>
+	</h:form>
+</ui:composition>
+

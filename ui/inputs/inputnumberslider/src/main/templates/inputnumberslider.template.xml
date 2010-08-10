@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el" xmlns:cdk="http://richfaces.org/cdk/core"
+	xmlns:cc="http://richfaces.org/cdk/jsf/composite" xmlns:c="http://richfaces.org/cdk/jstl/core"
+	xmlns:xi="http://www.w3.org/2001/XInclude">
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.InputNumberSliderRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.InputRendererBase</cdk:superclass>
+		<cdk:component-family>javax.faces.Input</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>
+		<cdk:resource-dependency name="inputNumberSlider.ecss" />
+		<cdk:resource-dependency library="javax.faces" name="jsf.js" />
+		<cdk:resource-dependency name="jquery.js" />
+		<cdk:resource-dependency name="jquery.position.js" />
+		<cdk:resource-dependency name="richfaces.js" />
+		<cdk:resource-dependency name="richfaces-base-component.js" />
+		<cdk:resource-dependency name="inputNumberSlider.js" />
+	</cc:interface>
+	<cc:implementation>
+		<span id="#{clientId}" class="rf-ins #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+			<c:if test="#{PositionType.valueOf('left') == component.attributes['inputPosition']
+				|| PositionType.valueOf('top') == component.attributes['inputPosition']}">
+				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
+				<c:if test="#{PositionType.valueOf('top') == component.attributes['inputPosition'] and component.attributes['showInput']}">
+					<br />
+				</c:if>
+			</c:if>
+			<c:if test="#{component.attributes['showArrows']}">
+				<span class="rf-ins-db#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['decreaseClass']}" />
+			</c:if>
+			<span class="rf-ins-ta">
+				<c:if test="#{component.attributes['showBoundaryValues']}">
+					<span class="rf-ins-mn">#{component.attributes['minValue']}</span>
+					<span class="rf-ins-mx">#{component.attributes['maxValue']}</span>
+				</c:if>
+				<span class="rf-ins-t #{component.attributes['trackClass']}">
+					<span class="rf-ins-h#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['handleClass']}" />
+				</span>
+			</span>
+			<c:if test="#{component.attributes['showArrows']}">
+				<span class="rf-ins-ib#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['increaseClass']}" />
+			</c:if>
+			<c:if test="#{PositionType.valueOf('right') == component.attributes['inputPosition']
+				|| PositionType.valueOf('bottom') == component.attributes['inputPosition']}">
+				<c:if test="#{PositionType.valueOf('bottom') == component.attributes['inputPosition'] and component.attributes['showInput']}">
+					<br />
+				</c:if>
+				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
+			</c:if>
+			<c:if test="#{component.attributes['showToolTip']}">
+				<span class="rf-ins-tt #{component.attributes['toolTipClass']}">#{getInputValue(facesContext, component)}</span>
+			</c:if>
+			<script type="text/javascript">new RichFaces.ui.InputNumberSlider('#{clientId}', {
+				delay: #{component.attributes['delay']},
+				disabled: #{component.attributes['disabled']},
+				maxValue: #{component.attributes['maxValue']},
+				minValue: #{component.attributes['minValue']},
+				step: #{component.attributes['step']},
+				tabIndex: #{RenderKitUtils.shouldRenderAttribute(component.attributes['tabindex']) ? component.attributes['tabindex'] : 'null'}
+			}, {
+				decreaseSelectedClass: '#{component.attributes['decreaseSelectedClass']}',
+				handleSelectedClass: '#{component.attributes['handleSelectedClass']}',
+				increaseSelectedClass: '#{component.attributes['increaseSelectedClass']}'
+			});</script>
+		</span>
+	</cc:implementation>
+</cdk:root>

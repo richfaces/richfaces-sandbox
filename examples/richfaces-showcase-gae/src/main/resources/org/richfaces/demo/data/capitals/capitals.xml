@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capitals>
+	<capital>
+		<state>Alabama</state>
+		<name>Montgomery</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Birmingham</item>
+			<item>Montgomery</item>
+			<item>Mobile</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Alaska</state>
+		<name>Juneau</name>
+		<timeZone>GMT-9</timeZone>
+		<data>
+			<item>Anchorage</item>
+			<item>Fairbanks</item>
+			<item>Juneau</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Arizona</state>
+		<name>Phoenix</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Phoenix</item>
+			<item>Tucson</item>
+			<item>Mesa</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Arkansas</state>
+		<name>Little Rock</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Little Rock</item>
+			<item>Fort Smith</item>
+			<item>Fayetteville</item>
+		</data>
+	</capital>
+	<capital>
+		<state>California</state>
+		<name>Sacramento</name>
+		<timeZone>GMT-8</timeZone>
+		<data>
+			<item>Los Angeles</item>
+			<item>San Diego</item>
+			<item>San Jose</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Colorado</state>
+		<name>Denver</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Denver</item>
+			<item>Colorado Springs</item>
+			<item>Aurora</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Connecticut</state>
+		<name>Hartford</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Bridgeport</item>
+			<item>New Haven</item>
+			<item>Hartford</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Delaware</state>
+		<name>Dover</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Wilmington</item>
+			<item>Dover</item>
+			<item>Newark</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Florida</state>
+		<name>Tallahassee</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Jacksonville</item>
+			<item>Miami</item>
+			<item>Tampa</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Georgia</state>
+		<name>Atlanta</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Atlanta</item>
+			<item>Augusta</item>
+			<item>Columbus</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Hawaii</state>
+		<name>Honolulu</name>
+		<timeZone>GMT-10</timeZone>
+		<data>
+			<item>Honolulu1</item>
+			<item>Hilo1</item>
+			<item>Kailua1</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Idaho</state>
+		<name>Boise</name>
+		<timeZone>GMT-8</timeZone>
+		<data>
+			<item>Boise</item>
+			<item>Nampa</item>
+			<item>Meridian</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Illinois</state>
+		<name>Springfield</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Chicago</item>
+			<item>Aurora</item>
+			<item>Rockford</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Indiana</state>
+		<name>Indianapolis</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Indianapolis</item>
+			<item>Fort Wayne</item>
+			<item>Evansville</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Iowa</state>
+		<name>Des Moines</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Des Moines</item>
+			<item>Cedar Rapids</item>
+			<item>Davenport</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Kansas</state>
+		<name>Topeka</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Wichita</item>
+			<item>Overland Park</item>
+			<item>Kansas City</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Kentucky</state>
+		<name>Frankfort</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Louisville</item>
+			<item>Lexington</item>
+			<item>Owensboro</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Louisiana</state>
+		<name>Baton Rouge</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>New Orleans</item>
+			<item>Baton Rouge</item>
+			<item>Shreveport</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Maine</state>
+		<name>Augusta</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Portland</item>
+			<item>Lewiston</item>
+			<item>Bangor</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Maryland</state>
+		<name>Annapolis</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Baltimore</item>
+			<item>Columbia</item>
+			<item>Silver Spring</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Massachusetts</state>
+		<name>Boston</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Boston</item>
+			<item>Worcester</item>
+			<item>Springfield</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Michigan</state>
+		<name>Lansing</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Detroit</item>
+			<item>Grand Rapids</item>
+			<item>Warren</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Minnesota</state>
+		<name>St. Paul</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Minneapolis</item>
+			<item>Saint Paul</item>
+			<item>Rochester</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Mississippi</state>
+		<name>Jackson</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Jackson</item>
+			<item>Gulfport</item>
+			<item>Biloxi</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Missouri</state>
+		<name>Jefferson City</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Kansas City</item>
+			<item>Saint Louis</item>
+			<item>Springfield</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Montana</state>
+		<name>Helena</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Billings</item>
+			<item>Missoula</item>
+			<item>Great Falls</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Nebraska</state>
+		<name>Lincoln</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Omaha</item>
+			<item>Lincoln</item>
+			<item>Bellevue</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Nevada</state>
+		<name>Carson City</name>
+		<timeZone>GMT-8</timeZone>
+		<data>
+			<item>Las Vegas</item>
+			<item>Henderson</item>
+			<item>Reno</item>
+		</data>
+	</capital>
+	<capital>
+		<state>New Hampshire</state>
+		<name>Concord</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Manchester</item>
+			<item>Nashua</item>
+			<item>Concord</item>
+		</data>
+	</capital>
+	<capital>
+		<state>New Jersey</state>
+		<name>Trenton</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Newark</item>
+			<item>Jersey City</item>
+			<item>Paterson</item>
+		</data>
+	</capital>
+	<capital>
+		<state>New Mexico</state>
+		<name>Santa Fe</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Albuquerque</item>
+			<item>Las Cruces</item>
+			<item>Santa Fe</item>
+		</data>
+	</capital>
+	<capital>
+		<state>New York</state>
+		<name>Albany</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>New York City</item>
+			<item>Buffalo</item>
+			<item>Rochester</item>
+		</data>
+	</capital>
+	<capital>
+		<state>North Carolina</state>
+		<name>Raleigh</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Charlotte</item>
+			<item>Raleigh</item>
+			<item>Greensboro</item>
+		</data>
+	</capital>
+	<capital>
+		<state>North Dakota</state>
+		<name>Bismarck</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Fargo</item>
+			<item>Bismarck</item>
+			<item>Grand Forks</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Ohio</state>
+		<name>Columbus</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Columbus</item>
+			<item>Cleveland</item>
+			<item>Cincinnati</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Oklahoma</state>
+		<name>Oklahoma City</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Oklahoma City</item>
+			<item>Tulsa</item>
+			<item>Norman</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Oregon</state>
+		<name>Salem</name>
+		<timeZone>GMT-8</timeZone>
+		<data>
+			<item>Portland</item>
+			<item>Salem</item>
+			<item>Eugene</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Pennsylvania</state>
+		<name>Harrisburg</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Philadelphia</item>
+			<item>Pittsburgh</item>
+			<item>Allentown</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Rhode Island</state>
+		<name>Providence</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Providence</item>
+			<item>Warwick</item>
+			<item>Cranston</item>
+		</data>
+	</capital>
+	<capital>
+		<state>South Carolina</state>
+		<name>Columbia</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Columbia</item>
+			<item>Charleston</item>
+			<item>North Charleston</item>
+		</data>
+	</capital>
+	<capital>
+		<state>South Dakota</state>
+		<name>Pierre</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Sioux Falls</item>
+			<item>Rapid City</item>
+			<item>Aberdeen</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Tennessee</state>
+		<name>Nashville</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Memphis</item>
+			<item>Nashville</item>
+			<item>Knoxville</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Texas</state>
+		<name>Austin</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Houston</item>
+			<item>San Antonio</item>
+			<item>Dallas</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Utah</state>
+		<name>Salt Lake City</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Salt Lake City</item>
+			<item>Provo</item>
+			<item>West Valley City</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Vermont</state>
+		<name>Montpelier</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Burlington</item>
+			<item>Rutland</item>
+			<item>South Burlington</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Virginia</state>
+		<name>Richmond</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Virginia Beach</item>
+			<item>Norfolk</item>
+			<item>Chesapeake</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Washington</state>
+		<name>Olympia</name>
+		<timeZone>GMT-8</timeZone>
+		<data>
+			<item>Seattle</item>
+			<item>Spokane</item>
+			<item>Tacoma</item>
+		</data>
+	</capital>
+	<capital>
+		<state>West Virginia</state>
+		<name>Charleston</name>
+		<timeZone>GMT-5</timeZone>
+		<data>
+			<item>Charleston</item>
+			<item>Huntington</item>
+			<item>Parkersburg</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Wisconsin</state>
+		<name>Madison</name>
+		<timeZone>GMT-6</timeZone>
+		<data>
+			<item>Milwaukee</item>
+			<item>Madison</item>
+			<item>Green Bay</item>
+		</data>
+	</capital>
+	<capital>
+		<state>Wyoming</state>
+		<name>Cheyenne</name>
+		<timeZone>GMT-7</timeZone>
+		<data>
+			<item>Cheyenne</item>
+			<item>Casper</item>
+			<item>Laramie</item>
+		</data>
+	</capital>
+</capitals>

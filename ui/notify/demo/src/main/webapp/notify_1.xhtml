@@ -1,0 +1,252 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:notify="http://richfaces.org/notify">
+<h:head>
+    <title>Notify sample</title>
+    <style type="text/css">
+        .black .rf-ny-co {
+            background: #000;
+            color: #fff;
+        }
+
+        .mail .rf-ny-co {
+            padding: 0 10px;
+        }
+
+        .mail .rf-ny-cl {
+            margin-top: 4px;
+        }
+
+        .mail .rf-ny-ic {
+            display: block;
+            background: url(mail.png) no-repeat 50% 50%;
+            width: 18px;
+            height: 20px;
+        }
+
+        .topLeft {
+            bottom: auto;
+            left: 10px;
+            top: 10px;
+            right: auto;
+        }
+
+        .topRight {
+            bottom: auto;
+            right: 10px;
+            top: 10px;
+            left: auto;
+        }
+
+        .bottomLeft {
+            bottom: 10px;
+            left: 10px;
+            top: auto;
+            right: auto;
+        }
+
+        .bottomRight {
+            bottom: 10px;
+            right: 10px;
+            top: auto;
+            left: auto;
+        }
+    </style>
+</h:head>
+<h:body class="rich-container">
+    <ui:include src="menu.xhtml"/>
+    <h:form>
+        <a4j:outputPanel ajaxRendered="true">
+            <notify:notifyStack id="customStack"
+                                stackDir1="#{greeter.stackDir1}"
+                                stackDir2="#{greeter.stackDir2}"
+                                push="#{greeter.stackPush}"
+                                styleClass="#{greeter.stackStyleClass}"
+                    />
+            <notify:notify title="#{greeter.title}"
+                           text="#{greeter.text}"
+                           nonblocking="#{greeter.nonblocking}"
+                           showShadow="#{greeter.showShadow}"
+                           showHistory="#{greeter.showHistory}"
+                           showCloseButton="#{greeter.showCloseButton}"
+                           sticky="#{greeter.sticky}"
+                           stayTime="#{greeter.stayTime}"
+                           appearAnimation="#{greeter.appearAnimation}"
+                           hideAnimation="#{greeter.hideAnimation}"
+                           animationSpeed="#{greeter.animationSpeed}"
+                           nonblockingOpacity="#{greeter.nonblockingOpacity}"
+                           styleClass="#{greeter.styleClass}"
+                           stackDir1="#{greeter.stackDir1}"
+                           stackDir2="#{greeter.stackDir2}"
+                           stackPush="#{greeter.stackPush}"
+                           stack="customStack"
+                    />
+        </a4j:outputPanel>
+        <notify:notifyMessages interval="#{greeter.interval}"
+                               nonblocking="#{greeter.nonblocking}"
+                               showShadow="#{greeter.showShadow}"
+                               showHistory="#{greeter.showHistory}"
+                               showCloseButton="#{greeter.showCloseButton}"
+                               sticky="#{greeter.sticky}"
+                               stayTime="#{greeter.stayTime}"
+                               appearAnimation="#{greeter.appearAnimation}"
+                               hideAnimation="#{greeter.hideAnimation}"
+                               animationSpeed="#{greeter.animationSpeed}"
+                               nonblockingOpacity="#{greeter.nonblockingOpacity}"
+                               styleClass="#{greeter.styleClass}"
+                               stackDir1="#{greeter.stackDir1}"
+                               stackDir2="#{greeter.stackDir2}"
+                               stackPush="#{greeter.stackPush}"
+                               stack="customStack"/>
+        <a4j:commandButton value="Say Hello" action="#{greeter.sayHello}" execute="@form"/>
+        <a4j:commandButton value="Warn me" action="#{greeter.warnMe}" execute="@form"/>
+        <a4j:commandButton value="Say error" action="#{greeter.sayError}" execute="@form"/>
+        <a4j:commandButton value="Say fatal" action="#{greeter.sayFatal}" execute="@form"/>
+        <h:panelGrid columns="2">
+            <h:panelGroup>
+                <f:facet name="header">Common</f:facet>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Nonblocking" for="nonblocking"/>
+                    <h:selectBooleanCheckbox value="#{greeter.nonblocking}" id="nonblocking"/>
+                    <h:outputLabel value="Show detail" for="showDetail"/>
+                    <h:selectBooleanCheckbox value="#{greeter.showDetail}" id="showDetail"/>
+                    <h:outputLabel value="Show summary" for="showSummary"/>
+                    <h:selectBooleanCheckbox value="#{greeter.showSummary}" id="showSummary"/>
+                    <h:outputLabel value="Sticky" for="sticky"/>
+                    <h:selectBooleanCheckbox value="#{greeter.sticky}" id="sticky"/>
+                    <h:outputLabel value="Show history" for="showHistory"/>
+                    <h:selectBooleanCheckbox value="#{greeter.showHistory}" id="showHistory"/>
+                    <h:outputLabel value="Show shadow" for="showShadow"/>
+                    <h:selectBooleanCheckbox value="#{greeter.showShadow}" id="showShadow"/>
+                    <h:outputLabel value="Show close button" for="showCloseButton"/>
+                    <h:panelGroup>
+                        <h:selectBooleanCheckbox value="#{greeter.showCloseButton}" id="showCloseButton"/>
+                        Applicable only with nonblocking set to false.
+                    </h:panelGroup>
+                    <h:outputLabel value="Messages count" for="messagesCount"/>
+                    <h:inputText value="#{greeter.messagesCount}" id="messagesCount"/>
+                    <h:outputLabel value="Stay time" for="stayTime"/>
+                    <h:inputText value="#{greeter.stayTime}" id="stayTime"/>
+                    <h:outputLabel value="Delay" for="delay"/>
+                    <h:inputText value="#{greeter.delay}" id="delay"/>
+                    <h:outputLabel value="Nonblocking opacity" for="nonblockingOpacity"/>
+                    <h:inputText value="#{greeter.nonblockingOpacity}" id="nonblockingOpacity"/>
+                    <h:outputLabel value="Animation speed" for="animationSpeed"/>
+                    <h:inputText value="#{greeter.animationSpeed}" id="animationSpeed"/>
+                    <h:outputLabel value="Style class" for="styleClass"/>
+                    <h:selectOneListbox value="#{greeter.styleClass}" id="styleClass" size="1">
+                        <f:selectItem itemValue="" itemLabel="(none)"/>
+                        <f:selectItem itemValue="mail" itemLabel="mail"/>
+                        <f:selectItem itemValue="rf-ny-error" itemLabel="rf-ny-error"/>
+                        <f:selectItem itemValue="black" itemLabel="black"/>
+                    </h:selectOneListbox>
+                    <h:outputLabel value="Appear animation" for="appearAnimation"/>
+                    <h:selectOneListbox value="#{greeter.appearAnimation}" id="appearAnimation" size="1">
+                        <f:selectItem itemValue="none" itemLabel="none"/>
+                        <f:selectItem itemValue="show" itemLabel="show"/>
+                        <f:selectItem itemValue="fade" itemLabel="fade"/>
+                        <f:selectItem itemValue="slide" itemLabel="slide"/>
+                    </h:selectOneListbox>
+                    <h:outputLabel value="Hide animation" for="hideAnimation"/>
+                    <h:selectOneListbox value="#{greeter.hideAnimation}" id="hideAnimation" size="1">
+                        <f:selectItem itemValue="none" itemLabel="none"/>
+                        <f:selectItem itemValue="show" itemLabel="show"/>
+                        <f:selectItem itemValue="fade" itemLabel="fade"/>
+                        <f:selectItem itemValue="slide" itemLabel="slide"/>
+                    </h:selectOneListbox>
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:panelGrid columns="1">
+                    <f:facet name="header">Notify</f:facet>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="title" for="title"/>
+                        <h:inputText value="#{greeter.title}" id="title"/>
+                        <h:outputLabel value="text" for="text"/>
+                        <h:inputText value="#{greeter.text}" id="text"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <f:facet name="header">NotifyMessages</f:facet>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Interval" for="interval"/>
+                        <h:inputText value="#{greeter.interval}" id="interval"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <f:facet name="header">Stack</f:facet>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Stacking direction 1" for="stackDir1"/>
+                        <h:selectOneRadio value="#{greeter.stackDir1}" id="stackDir1" size="1">
+                            <f:selectItem itemValue="up" itemLabel="up"/>
+                            <f:selectItem itemValue="down" itemLabel="down"/>
+                            <f:selectItem itemValue="left" itemLabel="left"/>
+                            <f:selectItem itemValue="right" itemLabel="right"/>
+                        </h:selectOneRadio>
+                        <h:outputLabel value="Stacking direction 2" for="stackDir2"/>
+                        <h:selectOneRadio value="#{greeter.stackDir2}" id="stackDir2" size="1">
+                            <f:selectItem itemValue="up" itemLabel="up"/>
+                            <f:selectItem itemValue="down" itemLabel="down"/>
+                            <f:selectItem itemValue="left" itemLabel="left"/>
+                            <f:selectItem itemValue="right" itemLabel="right"/>
+                        </h:selectOneRadio>
+                        <h:outputLabel value="Stack push" for="stackPush"/>
+                        <h:selectOneRadio value="#{greeter.stackPush}" id="stackPush" size="1">
+                            <f:selectItem itemValue="top" itemLabel="top"/>
+                            <f:selectItem itemValue="bottom" itemLabel="bottom"/>
+                        </h:selectOneRadio>
+                        <h:outputLabel value="Stack position" for="stackStyleClass"/>
+                        <h:selectOneListbox value="#{greeter.stackStyleClass}" id="stackStyleClass" size="1">
+                            <f:selectItem itemValue="topLeft" itemLabel="topLeft"/>
+                            <f:selectItem itemValue="topRight" itemLabel="topRight"/>
+                            <f:selectItem itemValue="bottomLeft" itemLabel="bottomLeft"/>
+                            <f:selectItem itemValue="bottomRight" itemLabel="bottomRight"/>
+                        </h:selectOneListbox>
+                        <ul>Good combinations are :
+                            <li>right,down,bottom,topLeft</li>
+                            <li>left,down,bottom,topRight</li>
+                            <li>right,up,bottom,bottomLeft</li>
+                            <li>left,up,bottom,bottomRight</li>
+                        </ul>
+                    </h:panelGrid>
+                    Changing stack attributes is bad if messages are added
+                    in ajax mode, because current widget implementation
+                    does not allow to refresh messages styleClass that should be
+                    borrowed from stack (this is done on server side)
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:panelGrid>
+    </h:form>
+    <!--
+    TODO uncomment this once rich:insert is implemented
+    <rich:insert src="/notify_1.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    -->
+</h:body>
+</html>

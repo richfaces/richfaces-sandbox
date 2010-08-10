@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition>
+	<script src="#{facesContext.externalContext.requestContextPath}/script/swfobject.js" type="text/javascript"/>
+	<p>SWF Movie:</p> 
+	<a4j:outputPanel id="flashPanelDynamic">
+		
+		<a4j:mediaOutput element="a" id="swfLink" style="display: none;" cacheable="false" session="true"
+			createContent="#{mediaBean.paintFlash}" value="#{mediaData}" />
+
+		<a4j:outputPanel layout="block" id="myFlashContent" style="width: 200px; height: 200px">
+			<a href="http://www.adobe.com/go/getflashplayer">
+				<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+			</a>
+		</a4j:outputPanel>
+
+		<script type="text/javascript">
+			var flashvars = {};
+			var params = {};
+			var attributes = {};
+			swfobject.embedSWF(document.getElementById('page:swfLink').href, document.getElementById('myFlashContent'), "200", "200", "9.0.0", false, flashvars, params, attributes);
+		</script>
+
+	</a4j:outputPanel>
+
+	<br />
+	<br />
+	
+	</ui:composition>
+
+</html>

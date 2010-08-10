@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition>
+			<p>a4j:mediaOutput allows to generate images, video, sounds and other binary
+			resources defined by a user on-the-fly.
+			</p>
+			<p><b>createContent</b> attribute references to the method that will be used 
+			for content creating. The method accepts two parameters. The first parameter
+			has an OutputStream type. It is a reference to the steam that should be used for output.
+			The second parameter is a reference to a 'value' attribute of the component.
+			</p>
+			<p>
+			<b>value</b> attribute references to data that can be used as input data for a content
+			creator method. The data should be serializable because it is encoded to the URL
+			of the resource. 
+			</p>
+			<p>
+			<b>mimeType</b> attribute defines the type of output content. It is used to define 
+			the corresponded type in the header of an HTTP response. 
+			</p>
+			<p>
+			<b>cacheable</b> attribute is a flag that defines the caching strategy. If 'cacheable'
+				is set to false, the response will not be cached. If it is set to true, it will be cached 
+			and the serialized value of 'value' attribute plays the role of a cache key.
+			</p>
+			
+		<p>Dynamically generated JPEG file:</p>
+	
+		<a4j:mediaOutput element="img" cacheable="false" session="true"
+			createContent="#{mediaBean.paint}" value="#{mediaData}" mimeType="image/jpeg" />
+		<br/><br/>	
+	</ui:composition>
+
+</html>

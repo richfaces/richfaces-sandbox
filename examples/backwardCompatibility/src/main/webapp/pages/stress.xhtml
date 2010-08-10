@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jstl/core"  
+      >
+      <head>
+      <title>Stress test for an AJAX requests</title>
+		<script type="text/javascript">
+		function inspect(data,time){
+		   LOG.info("Data is "+data+" at time "+time);
+		}
+		</script>
+      </head>
+      <body>      
+	<f:view>
+	<h1>Stress test for an AJAX requests</h1>
+	<h:form>
+	<a4j:jsFunction name="stress" action="#{stressBean.next}" reRender="text" eventsQueue="stress"/>
+	<h:panelGrid columns="2">
+	  <a4j:commandButton  value="Next" action="#{stressBean.next}" reRender="text" />
+	  <h:outputText id="text" value="#{stressBean.counter}"/>
+	  <input id="startBtn" type="button" value="Start" onclick="start()"/>
+	  <input id="stopBtn" type="button" value="Stop" onclick="stop()" />
+	</h:panelGrid>
+		<script type="text/javascript">
+		// <![CDATA[
+		   var stressInterval;
+		   function start(){
+		     stressInterval=window.setInterval(stress,20);
+		   };
+		   function stop() {
+		     window.clearInterval(stressInterval);
+		   };
+		// ]]>
+		</script>
+	</h:form>
+	<a4j:log hotkey="M" />
+	</f:view>
+	</body>
+</html>	

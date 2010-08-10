@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+	<!--
+		Configure a Jotm instance which provides a javax.transaction.TransactionManager     
+		and a javax.transaction.UserTransaction implementation.                             
+		<New id="jotm" class="org.objectweb.jotm.Jotm">
+		<Arg type="boolean">True</Arg>
+		<Arg type="boolean">False</Arg>
+		<Call id="tm" name="getTransactionManager" />
+		<Call id="ut" name="getUserTransaction" />
+		</New>
+		Set up the UserTransaction impl from JOTM as the transaction manager for jetty6     
+		<New class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>TransactionManager</Arg>
+		<Arg>
+		<Ref id="tm" />
+		</Arg>
+		</New>
+		<New id="tx" class="org.mortbay.jetty.plus.naming.Transaction">
+		<Arg>
+		<Ref id="ut" />
+		</Arg>
+		</New>
+		
+	--><!-- Add a DataSource only valid for this webapp                     -->
+	<New id="mydatasource"
+		class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/DS</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">org.hsqldb.jdbcDriver</Set>
+				<Set name="url">jdbc:hsqldb:.</Set>
+				<Set name="username">sa</Set>
+				<Set name="password"></Set>
+				<!--
+					<Set name="transactionManager">
+					<Ref id="tm" />
+					</Set>
+					<Set name="transactionManagerName">
+					TransactionManager
+				</Set>
+				-->
+			</New>
+		</Arg>
+	</New>
+</Configure>

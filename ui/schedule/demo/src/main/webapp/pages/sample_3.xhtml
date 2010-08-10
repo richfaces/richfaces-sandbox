@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:schedule="http://richfaces.org/schedule">
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        <p>Different views can have different display options.
+            This can be achieved by inserting appropriate tags within schedule tag.
+        </p>
+        <h:form>
+            <schedule:schedule switchType="client"
+                               value="#{myBean.lazyDataModel}" var="event"
+                               headerCenter="title"
+                               headerLeft="prevYear,nextYear"
+                               headerRight="basicDay,basicWeek agendaDay,agendaWeek month today prev,next"
+                               date="#{myBean.initialDate}"
+                               editable="true"
+
+                               dragOpacity="#{myBean.dragOpacity}"
+                               columnFormat="#{myBean.columnFormat}"
+                               titleFormat="#{myBean.titleFormat}"
+                               timeFormat="#{myBean.timeFormat}"
+                    >
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}" allDay="#{event.allDay}"
+                                       styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
+                <schedule:scheduleMonthView weekMode="#{myBean.weekMode}" titleFormat="MMM/yyyy" timeFormat="h:mt"
+                                            columnFormat="ddd" dragOpacity=".1"/>
+                <schedule:scheduleAgendaDayView titleFormat="dd/MM/yyyy" timeFormat="hh:m:s{ - hh:m:s}"
+                                                columnFormat="dd/MMM" dragOpacity=".3"/>
+                <schedule:scheduleBasicDayView titleFormat="d/M/yy" timeFormat="h:mm:ss" columnFormat="d/MM"
+                                               dragOpacity=".5"/>
+                <schedule:scheduleAgendaWeekView titleFormat="MMM d[ yyyy]{ '&#8212;'[ MMM] d[ yyyy]}"
+                                                 timeFormat="HH:mm{ - HH:mm}" columnFormat="dd/MM" dragOpacity=".7"/>
+                <schedule:scheduleBasicWeekView titleFormat="d/M/yy{ '&#8212;'d/M/yy}" timeFormat="h(:mm)tt"
+                                                columnFormat="d/M" dragOpacity=".9"/>
+            </schedule:schedule>
+        </h:form>
+        <rich:insert src="/pages/sample_3.xhtml" highlight="xhtml"/>
+    </ui:define>
+</ui:composition>
+</html>	

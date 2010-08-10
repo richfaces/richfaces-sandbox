@@ -1,0 +1,11 @@
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+
+try {
+} catch(Throwable t) {
+    t.printStackTrace();
+    return false;
+}
+
+return true;

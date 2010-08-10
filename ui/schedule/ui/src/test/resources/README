@@ -1,0 +1,58 @@
+Files named displayedDaysFor*CalculationTestData hold data for testing if UISchedule caluclates dates that javascript
+widget will need for initial date range.
+Here is the format:
+a,b,c,d,e,f,g,h,i,i,j,k
+where
+a - day of week from which week starts (1-sunday,2-monday,etc.)
+b - show weekends (1-true,0-false)
+c - initial date year
+d - initial date month
+e - initial date day
+f - expected start year
+g - expected start month
+h - expected start day
+i - expected end year
+j - expected end month
+k - expected end day
+
+If anything in algorithm changes and test data will become invalid, they can be easily recreated by putting following
+code into UISchedule.getScheduleData method
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+//        calendar.add(Calendar.DATE, 3); //for generating data for week view
+//        calendar.add(Calendar.DATE, 9); //for generating data for month view
+                                          //for generating data for day view no incrementing is required
+        setDate(calendar.getTime());
+        final Date firstDisplayedDay = getFirstDisplayedDay(this);
+        Calendar firstDayCalendar = Calendar.getInstance();
+        firstDayCalendar.setTime(firstDisplayedDay);
+        Calendar startDateCalendar = Calendar.getInstance();
+        startDateCalendar.setTime(startDate);
+        Calendar endDateCalendar = Calendar.getInstance();
+        endDateCalendar.setTime(endDate);
+        Calendar lastDayCalendar = Calendar.getInstance();
+        lastDayCalendar.setTime(getLastDisplayedDate(this));
+        System.out.println("" + getFirstDay() + "," + (isShowWeekends(this) ? 1 : 0) +
+                "," + calendar.get(Calendar.YEAR) + "," + calendar.get(Calendar.MONTH) + "," + calendar.get(Calendar.DATE)
+                + "," + startDateCalendar.get(Calendar.YEAR) + "," + startDateCalendar.get(Calendar.MONTH) + "," + startDateCalendar.get(Calendar.DATE)
+                + "," + endDateCalendar.get(Calendar.YEAR) + "," + endDateCalendar.get(Calendar.MONTH) + "," + endDateCalendar.get(Calendar.DATE)
+//                + "," + firstDayCalendar.get(Calendar.YEAR) + "," + firstDayCalendar.get(Calendar.MONTH) + "," + firstDayCalendar.get(Calendar.DATE)
+//                + "," + lastDayCalendar.get(Calendar.YEAR) + "," + lastDayCalendar.get(Calendar.MONTH) + "," + lastDayCalendar.get(Calendar.DATE)
+        );
+
+If you do not want to click several thousand times to navigate through dates in schedule widget just add this to your page (index.xhtml in demo fits great):
+		<input type="button" value="Lunch auto navigation" onclick="lunchAutoNavigation()"/>
+        <script>
+            function lunchAutoNavigation() {
+                var fc = jQuery('#sf\\:schedule:first');
+                fc.fullCalendar('next');
+                if(fc.fullCalendar('getDate').getFullYear() &lt; 2020)
+                    setTimeout("lunchAutoNavigation()",250);
+            }
+        </script>
+Test data should cover combinations of firstDay (1-7), showWeekends(true/false) and :
+	- 20 years for month view
+	- 5 years for week view
+For day view it is unnecesary to include combinations of firstDay, and date range should cover 2 years only.
+Just remember to avoid blank lines, especially at the end of file.

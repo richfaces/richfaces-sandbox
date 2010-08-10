@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		NOTES(TODO: move to some readme in future): id for sample should
+		equals to xhtml page name with the sample the same for demo id - it
+		should be equals to name of the folder where samples placed
+	-->
+<root>
+	<group>
+		<name>Ajax Action</name>
+		<demos>
+			<demo>
+				<id>ajax</id>
+				<name>a4j:ajax</name>
+				<samples>
+					<sample>
+						<id>ajax</id>
+						<name>Simple sample</name>
+					</sample>
+					<sample>
+						<id>selectsUpdates</id>
+						<name>Dynamic Selects</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>commandButton</id>
+				<name>a4j:commandButton</name>
+				<samples>
+					<sample>
+						<id>commandButton</id>
+						<name>Command Button Simple</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>commandLink</id>
+				<name>a4j:commandLink</name>
+				<samples>
+					<sample>
+						<id>commandLink</id>
+						<name>Command Link Simple</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>jsFunction</id>
+				<name>a4j:jsFunction</name>
+				<samples>
+					<sample>
+						<id>jsFunction</id>
+						<name>jsFunction Simple</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>poll</id>
+				<name>a4j:poll</name>
+				<samples>
+					<sample>
+						<id>poll</id>
+						<name>Poll Simple</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>push</id>
+				<name>a4j:push</name>
+				<samples>
+					<sample>
+						<id>push</id>
+						<name>push Simple</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>param</id>
+				<name>a4j:param</name>
+				<samples>
+					<sample>
+						<id>param</id>
+						<name>Param Simple Usage</name>
+					</sample>
+					<sample>
+						<id>skinChange</id>
+						<name>Parameters for non-Ajax components</name>
+					</sample>
+					<sample>
+						<id>clientParam</id>
+						<name>Parameters from client side</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
+	<group>
+		<name>Ajax Queue</name>
+		<demos>
+			<demo>
+				<id>queue</id>
+				<name>a4j:queue</name>
+				<samples>
+					<sample>
+						<id>queue</id>
+						<name>queue</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>attachQueue</id>
+				<name>a4j:attachQueue</name>
+				<samples>
+					<sample>
+						<id>attachQueue</id>
+						<name>attachQueue</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
+	<group>
+		<name>Ajax Output/Containers</name>
+		<demos>
+			<demo>
+				<id>outputPanel</id>
+				<name>a4j:outputPanel</name>
+				<samples>
+					<sample>
+						<id>simple</id>
+						<name>outputPanel Simple</name>
+					</sample>
+					<sample>
+						<id>compositemessages</id>
+						<name>Auto update for h:messages component</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>status</id>
+				<name>a4j:status</name>
+				<samples>
+					<sample>
+						<id>viewusage</id>
+						<name>Common status for view</name>
+					</sample>
+					<sample>
+						<id>simple</id>
+						<name>Status Simple</name>
+					</sample>
+					<sample>
+						<id>referencedusage</id>
+						<name>Referenced status</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>region</id>
+				<name>a4j:region</name>
+				<samples>
+					<sample>
+						<id>region</id>
+						<name>Region</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>mediaOutput</id>
+				<name>a4j:mediaOutput</name>
+				<samples>
+					<sample>
+						<id>imgUsage</id>
+						<name>mediaOutput for image output</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>log</id>
+				<name>a4j:log</name>
+				<samples>
+					<sample>
+						<id>log</id>
+						<name>Log usage</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
+	<group>
+		<name>Data Iteration</name>
+		<demos>
+			<demo>
+				<id>repeat</id>
+				<name>a4j:repeat</name>
+				<samples>
+					<sample>
+						<id>simpleGrid</id>
+						<name>Simple Grid Creation</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>dataTable</id>
+				<name>rich:dataTable</name>
+				<samples>
+					<sample>
+						<id>simpleTable</id>
+						<name>Data Table Basic</name>
+					</sample>
+					<sample>
+						<id>tableStyling</id>
+						<name>Data Table Styling</name>
+						<description>
+							<!-- TODO: rowClass should appears at this sample after completion -->
+							<!--
+								TODO: rowClasses should be used instead of jQuerry selectors
+								after will works
+							-->
+							<!--
+								TODO: onrowmouseover, onrowmouseout - should be used instead of
+								jQuery selector
+							-->
+						</description>
+					</sample>
+					<sample>
+						<id>tableSorting</id>
+						<name>Data Table Sorting</name>
+					</sample>
+					<sample>
+						<id>tableFiltering</id>
+						<name>Data Table Filtering</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>extendedDataTable</id>
+				<name>rich:extendedDataTable</name>
+				<samples>
+					<sample>
+						<id>simpleTable</id>
+						<name>ExtendedData Table Basic Usage</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>subTableToggleControl</id>
+				<name>rich:subTableToggleControl</name>
+				<samples>
+					<sample>
+						<id>subTableToggleControl</id>
+						<name>rich:subTableToggleControl Basic Usage</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>dataScroller</id>
+				<name>rich:dataScroller</name>
+				<samples>
+					<sample>
+						<id>simpleScrolling</id>
+						<name>DataScroller Basic Usage</name>
+					</sample>
+					<sample>
+						<id>dataScrollerAPI</id>
+						<name>DataScroller API</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo new="true">
+				<id>list</id>
+				<name>rich:list</name>
+				<samples>
+					<sample>
+						<id>lists</id>
+						<name>Data Lists Component</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo new="true">
+				<id>dataGrid</id>
+				<name>rich:dataGrid</name>
+				<samples>
+					<sample>
+						<id>grid</id>
+						<name>Data Grid Component</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
+	<group>
+		<name>Output/Panels</name>
+		<demos>
+			<demo>
+				<id>panel</id>
+				<name>rich:panel</name>
+				<samples>
+					<sample>
+						<id>simple</id>
+						<name>Simple Panels</name>
+					</sample>
+					<sample>
+						<id>lookCustomization</id>
+						<name>Look and feel customization</name>
+					</sample>					
+				</samples>
+			</demo>
+		</demos>
+	</group>
+
+	<group>
+		<name>Misc Components/Features</name>
+		<demos>
+			<demo>
+				<id>standardSkinning</id>
+				<name>Standard elements skinning</name>
+				<samples>
+					<sample>
+						<id>standardSkinning</id>
+						<name>Standard elements skinning feature</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>functions</id>
+				<name>RichFaces functions</name>
+				<samples>
+					<sample>
+						<id>functions</id>
+						<name>RichFaces Functions</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>componentControl</id>
+				<name>rich:componentControl</name>
+				<samples>
+					<sample>
+						<id>tableFilteringAPI</id>
+						<name>Table Filtering using componentControl and API</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
+</root>

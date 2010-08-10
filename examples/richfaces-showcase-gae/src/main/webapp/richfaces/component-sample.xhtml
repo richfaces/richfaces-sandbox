@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="demoSampleParameters">
+		<f:metadata>
+			<f:viewParam name="sample" value="#{demoNavigator.sample}" />
+			<f:viewParam name="demo" value="#{demoNavigator.demo}" />
+			<f:viewParam name="skin" value="#{skinBean.skin}"/>
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<rich:panel styleClass="samples-navigator">
+			<ui:repeat value="#{demoNavigator.currentDemo.samples}" var="s" varStatus="status">
+				<h:link value="#{s.name}" includeViewParams="true">
+					<f:param name="sample" value="#{s.id}" />
+					<f:attribute name="style" value="#{(s.id == demoNavigator.currentSample.id) ? 'color:orange' : ''}"/>
+				</h:link>
+				<h:outputText value=" | " rendered="#{not status.last}" />
+			</ui:repeat>
+		</rich:panel>
+		<fieldset><legend><b>#{demoNavigator.currentSample.name}</b></legend>
+		<ui:include src="#{demoNavigator.sampleURI}" /></fieldset>
+	</ui:define>
+</ui:composition>
+
+</html>

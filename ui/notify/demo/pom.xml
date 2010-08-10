@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.ui.notify</groupId>
+        <artifactId>richfaces-ui-notify-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.richfaces.ui.notify</groupId>
+    <artifactId>notify-demo</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <name>Richfaces UI Components: notify demo</name>
+    <packaging>war</packaging>
+    <build>
+        <finalName>notify-demo</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces.ui.notify</groupId>
+                <artifactId>richfaces-ui-notify-bom</artifactId>
+                <version>${version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces.ui.core</groupId>
+            <artifactId>richfaces-ui-core-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.notify</groupId>
+            <artifactId>richfaces-ui-notify-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${jsf2.api.groupid}</groupId>
+            <artifactId>${jsf2.api.artifactid}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${jsf2.impl.groupid}</groupId>
+            <artifactId>${jsf2.impl.artifactid}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+
+

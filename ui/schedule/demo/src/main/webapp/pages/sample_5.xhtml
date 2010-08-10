@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        This section will be available once it is decided how to transfer additional data
+        in RF4
+        <!--
+        TODO uncomment this once it is decided how to transfer additional data
+            <script type="text/javascript">
+                function notify(item, event, request, data) {
+                    RichFaces.Notify({title:'Data',text:data,sticky:false,styleClass:'rf-ny-info'})
+                }
+
+            </script>
+            <h:form>
+
+                <schedule:schedule switchType="ajax"
+                                   value="#{myBean.lazyDataModel}" var="event"
+                                   date="#{myBean.initialDate}"
+                                   editable="true"
+                                   selectable="true"
+                                   headerCenter="title"
+                                   headerLeft="prevYear,nextYear"
+                                   headerRight="basicDay,basicWeek agendaDay,agendaWeek month today prev,next"
+                                   styleClass="customFC"
+                                   data="#{myBean.selectable}"
+                                   ajaxSingle="true"
+                                   reRender="editPanelContent"
+                                   itemSelectedListener="#{myBean.taskSelected}"
+                                   onItemSelectedComplete="notify(item,event,request,data)"
+                        >
+                    <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                           endDate="#{event.endDate}" allDay="#{event.allDay}"
+                                           styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
+                </schedule:schedule>
+            </h:form>
+            <rich:insert src="/pages/sample_5.xhtml" highlight="xhtml"/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>	

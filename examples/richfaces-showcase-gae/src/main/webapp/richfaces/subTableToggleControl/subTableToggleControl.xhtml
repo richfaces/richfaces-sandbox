@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+<p>This sample shows simple master-detail table implemented using<b> rich:dataTable</b> and<b> rich:subtable</b> components</p>
+<p>There is one feature which is completely new for 4.x - subtables now could be collapsed/expanded by using
+new component <b>rich:tableToggleControl</b></p>	
+<p>Switching customization:</p>
+<ul>
+<li>subTable's could be collapsed/expanded in different modes defined via subTable expandMode attribute
+- "<i>client</i>", "<i>ajax</i>" and "<i>server</i>"</li>
+<li>The developer could get control on current states of subTables using its <b>expanded</b> attribute.</li>
+</ul>
+	<h:form>
+		<rich:dataTable value="#{carsBean.inventoryVendorLists}" var="list">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="6">
+						<h:outputText value="Cars marketplace" />
+					</rich:column>
+					<rich:column breakRowBefore="true">
+						<h:outputText value="Model" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Price" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Mileage" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="VIN Code" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Items stock" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Days Live" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column colspan="6">
+				<rich:subTableToggleControl for="sbtbl"/>
+				<h:outputText value="#{list.vendor}" />
+			</rich:column>
+			<rich:subTable value="#{list.vendorItems}" var="item" id="sbtbl" expandMode="client">
+				<rich:column>
+					<h:outputText value="#{item.model}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{item.price}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{item.mileage}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{item.vin}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{item.stock}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText value="#{item.daysLive}" />
+				</rich:column>
+				<f:facet name="footer">
+					<h:outputText value="Total of #{list.vendor} Cars: #{list.count}" />
+				</f:facet>
+			</rich:subTable>
+		</rich:dataTable>
+	</h:form>
+</ui:composition>
+</html>

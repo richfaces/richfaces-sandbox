@@ -1,0 +1,151 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:notify="http://richfaces.org/notify"
+        >
+<h:head>
+    <title>Notify sample</title>
+</h:head>
+<h:body class="rich-container">
+    <style type="text/css">
+        .bottomLeft {
+            bottom: 10px;
+            left: 10px;
+            top: auto;
+            right: auto;
+        }
+
+        .bottomRight {
+            bottom: 10px;
+            right: 10px;
+            top: auto;
+            left: auto;
+        }
+    </style>
+    <ui:include src="menu.xhtml"/>
+
+    <p>
+        Here we have notify displaying all messages (not only global).
+        Severity is reflected in overriden style classes.
+    </p>
+    <h:form>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000"
+                       title="Default stack"
+                       text="Details of the message"
+                       nonblockingOpacity="0"/>
+
+        <notify:notify title="Before stack definition"
+                       text="This message is defined in code before stack"
+                       stack="bottomLeftStack"/>
+        <notify:notify title="Left bottom stack 2"
+                       text="This message alos should be displayed in the left bottom corner"
+                       showCloseButton="true" stack="bottomLeftStack"/>
+        <notify:notifyStack id="bottomLeftStack" styleClass="bottomLeft" stackDir1="up"
+                            stackDir2="right" push="top">
+            <notify:notify sticky="true"
+                           title="Left bottom stack"
+                           text="This message should be displayed in the left bottom corner
+                               and should stay until you close it"
+                           showCloseButton="true"/>
+            <notify:notify title="Nonblocking"
+                           nonblocking="true"/>
+        </notify:notifyStack>
+        <notify:notifyMessages interval="1000" stack="bottomRightStack" ajaxRendered="true"/>
+        <notify:notifyStack id="bottomRightStack" styleClass="bottomRight" stackDir1="up"
+                            stackDir2="left" push="bottom"/>
+        Leave this blank for error:
+        <br/>
+        <h:outputLabel for="greeting" value="Greeting"/>
+        <h:inputText id="greeting" value="#{greeter.greeting}" required="true"/>
+        *
+        <h:message for="greeting"/>
+        <br/>
+        <h:outputLabel for="number" value="Number"/>
+        <h:inputText id="number" required="true">
+            <f:validateLongRange minimum="5" maximum="10"/>
+        </h:inputText>
+        *
+        <h:message for="number"/>
+        <br/>
+        <a4j:commandButton value="Say Hello" action="#{greeter.sayHello}" execute="@form"/>
+        <a4j:commandButton value="Warn me" action="#{greeter.warnMe}" execute="@form"/>
+        <a4j:commandButton value="Say error" action="#{greeter.sayError}" execute="@form"/>
+        <a4j:commandButton value="Say fatal" action="#{greeter.sayFatal}" execute="@form"/>
+    </h:form>
+    <!--
+    TODO uncomment this once rich:insert is available
+    <rich:insert src="/notify.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    -->
+
+</h:body>
+</html>

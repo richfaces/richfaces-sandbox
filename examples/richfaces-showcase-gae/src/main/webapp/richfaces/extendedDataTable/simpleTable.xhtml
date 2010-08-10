@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+<p>ExtendedDataTable component provides next set of features:</p>
+<ul>
+  <li> Horizontal/Vertical scrolling </li>
+  <li> Ajax lazy loading on vertical scroll </li>
+  <li> Support "frozen" columns which are not scrolled on using horizontal scroll</li>
+</ul>
+
+	<h:form>
+		<rich:extendedDataTable value="#{carsBean.allInventoryItems}" var="car"
+			id="table" frozenColumns="2" style="height:300px; width:500px;">
+			<f:facet name="header">
+				<h:outputText value="Cars marketplace" />
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="vendor" />
+				</f:facet>
+				<h:outputText value="#{car.vendor}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Model" />
+				</f:facet>
+				<h:outputText value="#{car.model}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Price" />
+				</f:facet>
+				<h:outputText value="#{car.price}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Mileage" />
+				</f:facet>
+				<h:outputText value="#{car.mileage}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="VIN Code" />
+				</f:facet>
+				<h:outputText value="#{car.vin}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Items stock" />
+				</f:facet>
+				<h:outputText value="#{car.stock}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Days Live" />
+				</f:facet>
+				<h:outputText value="#{car.daysLive}" />
+			</rich:column>
+		</rich:extendedDataTable>
+	</h:form>
+	<p>In order to turn on Ajax loading - just specify clientRows attribute with number of rows 
+	to be loaded on the client</p>
+</ui:composition>
+
+</html>

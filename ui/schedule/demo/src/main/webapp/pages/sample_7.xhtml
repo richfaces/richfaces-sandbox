@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:schedule="http://richfaces.org/schedule">
+<ui:composition template="/pages/template.xhtml">
+
+    <ui:define name="body">
+        <p>
+            Schedule has support for internationalization.
+            You need to provide messages in bundle registered with JSF
+            as message-bundle (not resource-bundle!).
+            List of available messages can be found in
+        </p>
+        <pre>
+    org.richfaces.component.UIScheduleMessages_en.properties
+        </pre>
+        <p>
+            As for now component is shipped with english and polish translation.
+            This demo web app has additional myMessages_fr.properties with french translation
+            to show how you can add custom translation.
+            It should be packaged in WEB-INF/classes. (Maven apps can store it in src/main/resources)
+            You also need to configure faces-config.xml like this:
+        </p>
+        <pre>
+&lt;application>
+    &lt;message-bundle>
+        myMessages
+    &lt;/message-bundle>
+    &lt;locale-config>
+        &lt;default-locale>en&lt;/default-locale>
+        &lt;supported-locale>pl&lt;/supported-locale>
+        &lt;supported-locale>fr&lt;/supported-locale>
+        &lt;supported-locale>en&lt;/supported-locale>
+    &lt;/locale-config>
+&lt;/application>
+        </pre>
+
+        <p>
+            Note that if you want your component work in WebKit based browsers
+            (i.e.:chrome,safari) you cannot use html entities in your
+            messages. User numeric entities instead. i.e.: &amp;#160; instead of &amp;nbsp;
+        </p>
+
+        <p>
+            Unfortunately, in JSF 2.0.2 the locale changes are visible on next request, so
+            you must refresh screen or force two ajax requests.
+        </p>
+
+        <p>
+            Unfortunately, dynamicly generated javascript resource is not automatically
+            included by JSF, so if you want to use internationalization you must add this to your facelet:
+        </p>
+        <pre>
+    &lt;h:outputScript name="org.richfaces.renderkit.html.scripts.ScheduleMessages" target="head"/>
+        </pre>
+        <h:form>
+            <h:selectOneListbox size="1" value="#{myBean.locale}">
+                <f:selectItem itemValue="en" itemLabel="en"/>
+                <f:selectItem itemValue="pl" itemLabel="pl"/>
+                <f:selectItem itemValue="fr" itemLabel="fr"/>
+                <f:ajax render=":scheduleContainer"/>
+            </h:selectOneListbox>
+        </h:form>
+        <h:panelGrid id="scheduleContainer">
+            <ui:include src="schedule.xhtml">
+                <ui:param name="mode" value="ajax"/>
+            </ui:include>
+        </h:panelGrid>
+        <!--
+        TODO uncomment this once rich:insert is implemented
+        <rich:insert src="/pages/sample_7.xhtml" highlight="xhtml"/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>	

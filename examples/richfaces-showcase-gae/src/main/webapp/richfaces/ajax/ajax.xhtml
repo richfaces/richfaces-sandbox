@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition>
+		<p>The behavior that adds javascript call for sending Ajax request
+		to specified event on parent component</p>
+		<h:form>
+			<h:inputText value="#{userBean.name}">
+				<a4j:ajax event="keyup" render="out"/>
+			</h:inputText>
+			<h:outputText value="#{userBean.name}" id="out"/>
+		</h:form>
+		<p>Typical use-case of dependent select components. When you
+		choosing the type in the first select - corresponding items appears in
+		second one.</p>		
+	</ui:composition>
+
+</html>

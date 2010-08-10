@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+
+<ui:composition>
+	<p>This section overviews main principles of standard components
+	skinning with the Rich Faces framework.</p>
+	<p>This feature provides styling for standard HTML form elements in
+	order to be highly compilant with RichFaces common look'n'feel. There
+	should be two ways of applying skins to elements:</p>
+	<ul>
+		<li>Skinning style classes are applied to elements by element
+		name and type attribute (where applicable). No additional steps are
+		required from an application developer. Application initialization
+		parameter serves for enabling/disabling the feature.</li>
+		<li>Several style classes are provided for different types of
+		elements. That style classes have predefined names. Application
+		developer should manually assign classes to controls that need
+		skinning or assign a class to an element that contains controls.</li>
+	</ul>
+	<p>Standard controls skinning feature provides 2 levels of
+	skinning:</p>
+	<ol>
+		<li><b>Standard</b> - customization of only basic style
+		properties.</li>
+		<li><b>Extended</b> - extends basic level introducing
+		customizations of a broader number of style properties</li>
+	</ol>
+	<p>Skinning level is calculated automatically at server side
+	depending on user agent info.</p>
+	<rich:panel><b>NOTE:</b>Extended skinning is not applied to browsers with
+	rich visual styling for controls (e.g. Opera and Safari). Also advanced
+	level of skinning requires support of CSS 2 attribute selectors either
+	as implicit type attributes for button/textarea elements (e.g. IE7 in
+	standards compilant mode) or CSS 3 draft namespace selectors (e.g.
+	Mozilla Firefox).</rich:panel>
+
+	<p>Here is the skinned form example. Note there is no styling in
+	sources of that form</p>
+
+	<rich:panel id="panel" width="300" height="230">
+		<f:facet name="header">
+				Standard components skinning
+			</f:facet>
+		<i> All the controls below is just standard JSF components skinned
+		with Rich Faces: </i>
+		<hr />
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Enter Name:" />
+				<h:inputText id="input" />
+				<h:outputText value="Enter you interests:" />
+				<h:inputTextarea />
+				<h:outputText value="Choose your favourite color" />
+				<h:selectOneMenu>
+					<f:selectItem itemLabel="Red" itemValue="0" />
+					<f:selectItem itemLabel="Black" itemValue="1" />
+					<f:selectItem itemLabel="Green" itemValue="2" />
+					<f:selectItem itemLabel="White" itemValue="3" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			<hr />
+			<h:commandButton value="Action Button" />
+			<h:commandLink value="Action Link" />
+		</h:form>
+	</rich:panel>
+
+	<p>There three ways of applying skinning to application:</p>
+	<ul>
+		<li>By default <b>org.richfaces.ENABLE_CONTROL_SKINNING</b> context
+		param is set to <b>true</b> and it means that all standard elements
+		on the page will be skinned. (CSS style classes for elements based on
+		their names and type attribute values will be applied). You may
+		redefine it to <b>disable</b> in order to turn it off.</li>
+		<li>By default <b>org.richfaces.ENABLE_CONTROL_SKINNING_CLASSES</b>
+		context param is set to <b>false</b> and it means that basic elements
+		nested to element having <i>rich-container</i> class will be skinned.
+		It could be also turned off using <b>disable</b> value.</li>
+		<li>RichFaces also provides predefined classes which can be
+		applied by an end developer to elements need to be skinned separately.
+		This classes added to the page also according to <b>org.richfaces.ENABLE_CONTROL_SKINNING_CLASSES</b>
+		context-param.</li>
+	</ul>
+
+	<p>To get a better idea of standard component skinning we recommend
+	to explore CSS files located in
+	ui/core/src/main/resources/org/richfaces/ folder of RichFaces svn.</p>
+</ui:composition>
+
+</html>

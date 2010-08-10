@@ -1,0 +1,28 @@
+.rich-panel {
+	border-width: 1px;
+	border-style: solid;
+	padding: 1px;
+	color: '#{richSkin.generalTextColor}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
+	background-color: '#{richSkin.generalBackgroundColor}';
+	border-color: '#{richSkin.panelBorderColor}';
+}
+
+.rich-panel-header {
+	padding: 7px 20px;
+	border-width: 1px;
+	border-style: solid;
+	background-color: '#{richSkin.headerBackgroundColor}';
+	border-color: '#{richSkin.panelBorderColor}';
+	font-weight: bold;
+	background-position: left top;
+	background-repeat: repeat-x;
+	background-image:
+		"url(#{resource['org.richfaces.demo.images.PanelGradient']})";
+	color: '#{richSkin.headerTextColor}';
+}
+
+.rich-panel-body {
+	padding: 10px;
+}

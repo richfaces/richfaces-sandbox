@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	<p><b>rich:list</b> component allows to build one of the HTML lists
+	(UL, OL, DL) dynamically from backend data</p>
+	<p>It accepts the same data types as the other iteration components
+	and renders them according to <b>type</b> attribute.</p>
+	<h:form id="form">
+		<h:outputText value="List Type: " style="font-weight:bold" />
+		<a4j:commandLink value="ordered" render="list,form">
+			<a4j:param name="t" value="ordered" assignTo="#{listBean.listType}" />
+			<f:attribute name="style"
+				value="#{(listBean.listType=='ordered') ? 'color:orange' : ''}" />
+		</a4j:commandLink>
+		<h:outputText value=" | " />
+		<a4j:commandLink value="unordered" render="list,form">
+			<a4j:param name="t" value="unordered" assignTo="#{listBean.listType}" />
+			<f:attribute name="style"
+				value="#{(listBean.listType=='unordered') ? 'color:orange' : ''}" />
+		</a4j:commandLink>
+		<h:outputText value=" | " />
+		<a4j:commandLink value="definitions" render="list,form">
+			<a4j:param name="t" value="definitions"
+				assignTo="#{listBean.listType}" />
+			<f:attribute name="style"
+				value="#{(listBean.listType=='definitions') ? 'color:orange' : ''}" />
+		</a4j:commandLink>
+	</h:form>
+	
+	<rich:list value="#{carsBean.inventoryVendorLists}" id="list"
+		var="vendorList" type="#{listBean.listType}">
+		<f:facet name="term">
+			<h:panelGroup layout="block">
+				<h:outputText value="In stock: #{vendorList.count}"
+					style="font-weight:bold" />
+			</h:panelGroup>
+		</f:facet>
+		<h:outputText value="#{vendorList.vendor}" />
+	</rich:list>
+</ui:composition>
+</html>

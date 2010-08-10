@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view locale="#{myBean.locale}">
+    <h:head>
+        <style type="text/css">
+            .settingsPanel {
+                width: 200px;
+                float: left;
+            }
+
+            .settingsPanel, .settingsPanel input {
+                font-size: 10px;
+                font-family: Arial, sans-serif;
+            }
+
+            .settingsPanel input[type="text"] {
+                width: 60px;
+            }
+
+            .fc {
+                float: left;
+                width: 700px;
+            }
+
+            .first a {
+                background-color: orange;
+            }
+        </style>
+    </h:head>
+    <h:body styleClass="rich-container">
+        <ui:include src="menu.xhtml"/>
+        <ui:insert name="body">Body</ui:insert>
+        <h:outputScript name="org.richfaces.renderkit.html.scripts.ScheduleMessages" target="head"/>
+    </h:body>
+</f:view>
+</html>	

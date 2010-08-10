@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+
+<ui:composition>
+	<p>a4j:poll is one of the way how you can organize the periodical
+	polling of server data and updating the page. a4j:poll is a standard
+	RichFaces Ajax component. Thus, you can use the same approach as for
+	a4j:commandButton for example. I.e. you can use action attribute to
+	invoke the action method and reRender attribute to update area(s) on
+	the client when Ajax Response returns back. RichFaces uses the standard
+	form based request, so the form around the a4j:poll component is
+	required.</p>
+	<p>The following example shows how the date and time is updated on
+	the page based on the data taken from the server. To turn off polling,
+	press "Stop Polling" button.</p>
+
+	<h:form>
+		<a4j:poll id="poll" interval="1500" enabled="#{pollBean.pollEnabled}"
+			render="poll,grid" />
+	</h:form>
+
+	<h:form>
+		<h:panelGrid columns="2" width="80%" id="grid">
+			<h:panelGrid columns="1">
+
+				<h:outputText value="Polling Inactive"
+					rendered="#{not pollBean.pollEnabled}"></h:outputText>
+
+				<h:outputText value="Polling Active"
+					rendered="#{pollBean.pollEnabled}"></h:outputText>
+
+				<a4j:commandButton style="width:120px" id="control"
+					value="#{pollBean.pollEnabled?'Stop':'Start'} Polling"
+					render="poll, grid">
+					<a4j:param name="polling" value="#{!pollBean.pollEnabled}"
+						assignTo="#{pollBean.pollEnabled}" />
+				</a4j:commandButton>
+
+			</h:panelGrid>
+
+			<h:outputText id="serverDate" style="font-size:16px"
+				value="Server Date: #{pollBean.date}" />
+		</h:panelGrid>
+	</h:form>
+	<rich:panel>
+		<b>NOTE:</b>polling is automatically disabled in this demo after one minute of working.
+	</rich:panel>
+</ui:composition>
+</html>

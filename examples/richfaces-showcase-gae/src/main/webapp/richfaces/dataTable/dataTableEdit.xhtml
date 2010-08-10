@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition>
+		<h:form>
+			<h:dataTable value="#{carsBean.allCars}" var="car" id="table">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Make" />
+					</f:facet>
+					<h:outputText value="#{car.make}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Model" />
+					</f:facet>
+					<h:outputText value="#{car.model}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Price" />
+					</f:facet>
+					<h:outputText value="#{car.price}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Actions
+					</f:facet>
+					<a4j:commandLink value="Edit" action="#{carsBean.edit}" render="table"/>
+					<h:outputText value="  " />
+					<a4j:commandLink value="Remove" action="#{carsBean.remove}" render="table"/> 
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:composition>
+</html>

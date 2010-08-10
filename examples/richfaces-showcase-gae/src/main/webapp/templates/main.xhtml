@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<ui:insert name="demoSampleParameters"/>
+	
+<h:head>
+			<title>Components Gallery</title>
+</h:head>
+<h:body>
+			<h:outputStylesheet name="rich/css/page.ecss" />
+			<table border="0" cellpadding="0" cellspacing="0"
+				class="rich-page header_bg #{cc.attrs.pageClass}">
+				<tbody>
+					<tr>
+						<td>
+						<div
+							class="header_content rich-page-header #{cc.attrs.headerClass}">
+						<h1>Welcome to RichFaces demo!</h1>
+						</div>
+						</td>
+						<td align="right" class="header_links_container">
+							<h:outputLink value="http://jboss.org/richfaces">Project Site</h:outputLink>
+							<h:outputText value=" | "/>
+							<h:outputLink value="http://www.jboss.org/community/wiki/richfaceswikihomepage">Project Wiki</h:outputLink>
+							<h:outputText value=" | "/>
+							<h:outputLink value="http://community.jboss.org/community/richfaces">RichFaces Community Space</h:outputLink>
+							<h:outputText value=" | "/>
+							<h:outputLink value="http://downloads.jboss.org/richfaces/milestones/4.0.X/4.0.0.ALPHA2/richfaces-4.0.0.ALPHA2.zip">Download</h:outputLink>													
+							<h:outputText value=" | "/>
+							<h:outputLink value="http://anonsvn.jboss.org/repos/richfaces/root/examples/richfaces-showcase/">Sources</h:outputLink>													
+						</td>
+					</tr>
+					<tr>
+						<td width="100%" height="100%" class="bg_tabbody" colspan="2">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%"
+							height="100%" class="rich-page-content">
+							<tbody>
+								<tr>
+									<td class="menu_col rich-page-sidebar">
+									<div class="menu_width spacer"></div>
+									<ui:include src="/templates/includes/navigation.xhtml" /></td>
+									<td class="content_col  rich-page-body">
+									
+									<ui:remove>
+									<fieldset>
+										<legend>#{demoNavigator.currentComponent}</legend>
+									</fieldset>
+									</ui:remove>
+									<ui:include src="/templates/includes/skin-chooser.xhtml"/>
+									<ui:insert name="body">
+								      	Body content missed
+						       		</ui:insert></td>
+								</tr>
+							</tbody>
+						</table>
+						</td> 
+					</tr>
+					<tr>
+						<td class="footer_bg" colspan="2">
+						<div
+							class="footer_bg_content rich-page-footer">
+							#{a4j}
+						</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+</h:body> 
+</f:view>
+</html>

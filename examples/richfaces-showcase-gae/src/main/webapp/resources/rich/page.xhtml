@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+ <head>
+  <title>page</title>
+ </head>
+<body>
+ 
+<composite:interface>
+    <composite:attribute name="style" />
+    <composite:attribute name="styleClass"/>
+    <composite:attribute name="headerClass"/>
+    <composite:attribute name="bodyClass"/>
+    <composite:attribute name="sidebarClass"/>
+</composite:interface>
+<composite:implementation>
+<h:outputText value="&lt;!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34; &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;&gt;" escape="false"/>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<h:head>
+	<title>#{cc.attrs.pageTitle}</title>
+	<composite:renderFacet name="pageHeader"/>
+</h:head>
+<h:body>
+    <h:outputStylesheet name="rich/css/page.ecss" />
+			<table border="0" cellpadding="0" cellspacing="0" class="rich-page #{cc.attrs.pageClass}">
+			   <tbody>
+				<tr>
+					<td class="header_bg">
+							<div class="header_content rich-page-header #{cc.attrs.headerClass}">
+						         <composite:renderFacet name="header"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="100%" height="100%" class="bg_tabbody">
+						<table cellpadding="0" cellspacing="0" border="0"  width="100%" height="100%" class="rich-page-content #{cc.attrs.contentClass}">
+						  <tbody>
+							<tr>
+								<td class="menu_col rich-page-sidebar #{cc.attrs.sidebarClass}">
+									<div class="menu_width spacer" style="width:#{cc.attrs.sidebarWidth}px"></div>
+		         						<composite:renderFacet  name="sidebar"/>
+								</td>
+								<td class="content_col  rich-page-body #{cc.attrs.bodyClass}">
+								   <composite:insertChildren /> 
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="footer_bg">
+						<div class="footer_bg_content rich-page-footer #{cc.attrs.footerClass}">
+					          <composite:renderFacet name="footer"/>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+</h:body>
+</html>		
+</composite:implementation>
+</body>
+</html>

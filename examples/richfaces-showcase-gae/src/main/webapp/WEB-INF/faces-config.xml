@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              version="2.0">
+
+	<application>
+		<!-- system-event-listener>
+			<system-event-listener-class>org.richfaces.resource.MapBasedResourceCodecListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+		</system-event-listener -->
+	</application>
+
+	<managed-bean>
+		<managed-bean-name>opBean1</managed-bean-name>
+		<managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>opBean2</managed-bean-name>
+		<managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+</faces-config>

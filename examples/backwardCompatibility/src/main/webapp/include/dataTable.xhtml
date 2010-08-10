@@ -1,0 +1,39 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib"><!--<div style="overflow:auto;width:100%;height:450px">-->
+<h:form>
+	<a:outputPanel>
+		<rich:dataTable id="distTable" rows="10" width="100%" var="dist"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			value="#{distributionDetails}">
+			<f:facet name="header">
+
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText value="Utility" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Description" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputText value="#{dist.utilityCodeDescription}" />
+			</rich:column>
+
+			<rich:column>
+				<h:outputText value="#{dist.description}" />
+				<h:graphicImage url="img/blank.gif" width="0" height="0" border="0"
+					alt="" />
+			</rich:column>
+		</rich:dataTable>
+		<div class="datascroller"><rich:datascroller for="distTable" />
+		</div>
+	</a:outputPanel>
+</h:form> <!--</div>--></div>

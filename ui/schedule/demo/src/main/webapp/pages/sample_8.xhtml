@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<ui:composition template="/pages/template.xhtml">
+    <!--TODO write where are messages for each language located-->
+    <ui:define name="body">
+        <p>
+            Try out JavaScript API. For documentation see
+            <h:outputLink
+                    value="http://arshaw.com/fullcalendar/docs/">http://arshaw.com/fullcalendar/docs/
+            </h:outputLink>
+        </p>
+        <ui:include src="schedule.xhtml">
+            <ui:param name="mode" value="ajax"/>
+            <ui:param name="showSource" value="false"/>
+        </ui:include>
+
+        <div>
+            <i>CTRL+ENTER while in textarea to execute</i>
+            <textarea id="code" onkeypress="if(event.keyCode==13 &amp;&amp; event.ctrlKey) eval(this.value)" cols="50"
+                      rows="10">
+                schedule.today();
+                var today=new Date();
+                var tommorow=new Date(today.getFullYear(),today.getMonth(),today.getDate()+1);
+                schedule.select(today,tommorow);
+                schedule.unselect();
+                schedule.render();
+                RichFaces.Notify({title:schedule.getView().name});
+                schedule.changeView("agendaWeek");
+                var items = schedule.getItems();
+                if(items.length>0) {
+                var item = items[0];
+                item.title = window.prompt(item.title);
+                schedule.updateItem(item);
+                schedule.render();
+                }
+                schedule.next();
+            </textarea>
+            <input type="button" value="Execute" onclick="eval(document.getElementById('code').value)"/>
+
+            <ul style="float:left;">
+                Available methods:
+                <li>select(startDate,endDate[,allDay])</li>
+                <li>unselect()</li>
+                <li>render()</li>
+                <li>destroy()</li>
+                <li>getView()</li>
+                <li>changeView(viewName)</li>
+                <li>prev()</li>
+                <li>next()</li>
+                <li>prevYear()</li>
+                <li>nextYear()</li>
+                <li>today()</li>
+                <li>gotoDate(year [, month, [ date ]])</li>
+                <li>incrementDate(years [, months, [ days ]])</li>
+                <li>updateItem(item)</li>
+                <li>getItems(idOrFilterFunction)</li>
+                <li>removeItems(idOrFilterFunction)</li>
+                <li>refetchItems()</li>
+                <li>addEventSource(Array/URL/Function)</li>
+                <li>removeEventSource(Array/URL/Function)</li>
+                <li>renderEvent(event,stick)</li>
+                <li>rerenderEvents()</li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>	

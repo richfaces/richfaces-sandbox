@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:misc="http://richfaces.org/misc"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:schedule="http://richfaces.org/schedule"
+        >
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        This section will be available once modal panel gets implemented.
+        <!--
+        TODO uncomment this when modal panel is ready
+        <script type="text/javascript">
+            function process(request, event, data) {
+                RichFaces.Notify({title:'Data',text:data,sticky:false,styleClass:'rf-ny-info'})
+            }
+            function growl(title, text) {
+                RichFaces.Notify({title:title,text:text,sticky:false,styleClass:'rf-ny-info'})
+            }
+        </script>
+        <h:form>
+            <p>
+                Click on item to see modal panel with item details.
+                The difference between two shedules is that one shows modal panel after ajax event, which
+                rerenders modal panel, and the other does so after before ajax update.
+                In the second case you may see that modal panel appears, old data are still there and then,
+                blink, and new data show up. Length of that lag depends on your connection speed.<br/>
+                To cope with such behaviour, shedule is equipped with xxxComplete callbacks that are called
+                when ajax requests finish and all components on the page have been re-rendered. This works,
+                of course, only in ajax mode.
+            </p>
+            <rich:modalPanel id="editPanel" autosized="true">
+                <a4j:outputPanel id="editPanelContent">
+                    <h:panelGrid columns="2" rendered="#{not empty myBean.selectedTask}">
+                        <h:outputText value="Title"/>
+                        <rich:inplaceInput value="#{myBean.selectedTask.title}"/>
+                        <h:outputText value="Start's on"/>
+                        <rich:calendar value="#{myBean.selectedTask.startDate}"/>
+                        <h:outputText value="Ends's on" rendered="#{not myBean.selectedTask.allDay}"/>
+                        <rich:calendar value="#{myBean.selectedTask.endDate}"
+                                       rendered="#{not myBean.selectedTask.allDay}"/>
+                        <h:outputText value="This is all day event" rendered="#{myBean.selectedTask.allDay}"/>
+                        <h:outputText value="Details"/>
+                        <h:inputTextarea value="#{myBean.selectedTask.details}"/>
+                    </h:panelGrid>
+                    <a4j:commandButton value="Save"
+                                       oncomplete="#{misc:component('schedule1')}.refetchItems(); #{misc:component('schedule2')}.refetchItems();">
+                        <rich:componentControl for="editPanel" operation="hide" event="onclick"/>
+                    </a4j:commandButton>
+                    <h:commandButton value="Close">
+                        <rich:componentControl for="editPanel" operation="hide" event="onclick" disableDefault="true"/>
+                    </h:commandButton>
+                </a4j:outputPanel>
+            </rich:modalPanel>
+            <schedule:schedule switchType="ajax"
+                               id="schedule1"
+                               value="#{myBean.lazyDataModel}" var="event"
+                               widgetVar="schedule"
+                               date="#{myBean.initialDate}"
+                               ajaxSingle="true"
+                               reRender="editPanelContent"
+                               itemSelectedListener="#{myBean.taskSelected}"
+                               onItemSelectedComplete="#{misc:component('editPanel')}.show()"
+                    >
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}" allDay="#{event.allDay}"
+                                       styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
+            </schedule:schedule>
+            <schedule:schedule switchType="ajax"
+                               id="schedule2"
+                               value="#{myBean.lazyDataModel}" var="event"
+                               widgetVar="schedule"
+                               date="#{myBean.initialDate}"
+                               ajaxSingle="true"
+                               reRender="editPanelContent"
+                               itemSelectedListener="#{myBean.taskSelected}"
+                               onItemSelected="#{misc:component('editPanel')}.show()"
+                    >
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}" allDay="#{event.allDay}"
+                                       styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
+            </schedule:schedule>
+        </h:form>
+        <rich:insert src="/pages/sample_6.xhtml" highlight="xhtml"/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>	

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+   <head>
+      <title>Paint image in a4j:mediaOutput</title>
+   </head>
+   <body>
+      <f:view>
+         <h:form>
+               <h:panelGrid columns="2">
+                  Width: <h:inputText value="#{data.width}" required="true"/>
+                  Height: <h:inputText value="#{data.height}" required="true"/>
+               </h:panelGrid>
+               <a4j:mediaOutput mimeType="image/jpeg" createContent="#{media.paint}" session="true" value="#{data}"
+               cacheable="false" uriAttribute="src" element="img" style="width:#{data.width};height:#{data.height}"/>
+            <h:messages/>
+            <h:commandButton value="Paint" />
+         </h:form>
+      </f:view>
+   </body>
+
+</html>

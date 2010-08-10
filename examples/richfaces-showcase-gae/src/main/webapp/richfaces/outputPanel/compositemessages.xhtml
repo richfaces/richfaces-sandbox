@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://java.sun.com/jsf/composite/rich">
+
+	<ui:composition>
+		<p>
+			Next sample shows how you could simply create composite component from
+			standard h:messages and a4j:outputPanel in order to get them updated 
+			for any ajax request without render definition. 
+		</p>
+		<h:form>
+		<rich:panel id="psnel">
+			<f:facet name="header">
+				<h:outputText value="User Details Panel" />
+			</f:facet>
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="2">
+						<h:outputText value="User name:" />
+						<h:inputText value="#{userBean.name}" required="true" label="Name">
+							<f:validateLength minimum="3" maximum="12"/>
+						</h:inputText> 
+						<h:outputText value="Adress:" />
+						<h:inputTextarea value="#{userBean.address}" label="Adress" required="true">
+							<f:validateLength maximum="100"/>
+						</h:inputTextarea>
+				</h:panelGrid>
+				<rich:messages/>
+			</h:panelGrid>
+			<a4j:commandButton value="Submit" type="button" action="#{userBean.store}" execute="@form"/>
+			<a4j:outputPanel ajaxRendered="true">
+				<h:outputText value="#{userBean.recordStatus}" id="out" rendered="#{facesContext.maximumSeverity == null}"/>
+			</a4j:outputPanel>
+		</rich:panel>
+		</h:form>
+	</ui:composition>
+
+</html>

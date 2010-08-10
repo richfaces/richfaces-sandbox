@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+
+<html>
+<head>  
+	<title>Untitled</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Test Page</title>
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\jquery.js "></script>
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\jquery.position.js "></script>
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\richfaces.js "></script>
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\richfaces-event.js "></script>
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\richfaces-base-component.js "></script>		
+	<script type="text/javascript" src="..\..\..\..\..\..\..\..\..\..\core\trunk\impl\src\main\resources\META-INF\resources\richfaces-selection.js"></script>
+	<script type="text/javascript" src="SelectBase.js"></script>
+	<script type="text/javascript" src="ComboBox.js"></script>	
+	<style>
+	* {font-size : 11px; font-family : verdana; color : #000000}
+	
+	.cb_field_width{ width : 150px;}
+	.cb_list_width{ width : 250px;}
+	.cb_list_height{  max-height : 100px;}
+	
+	.cb_font{color : #000000/*generalTextColor*/} 
+	.cb_input {border : 0px; background : none; width : 100%;}
+	
+	.cb_field{ position : inline-block; border : 1px solid #A6A6A6/*panelBorderColor*/; display : inline-block; background : url(images/bg_field.png) top left repeat-x/*gradient - from additionalBackgroundColor to controlBackgroundColor, background-color - controlBackgroundColor*/; }
+	
+	.cb_button{ background : url(images/bg_btn.png) top left repeat-x #C0D1E7/*gradient - from headerGradientColor to headerBackgroundColor, background-color - headerBackgroundColor*/; text-align : center; border-left : 1px solid #A6A6A6/*panelBorderColor*/; width : 15px; position : absolute; top : 0px; right : 0px; height : 200px; padding-top : 1px }
+	.cb_button_arrow{  background : url(images/down.gif) center  no-repeat; cursor : pointer;}
+	
+	.cb_list_cord{ position : absolute; font-size : 0px;display : none}/*DDL is hidden!!!!!*/
+	.cb_list_position{ position : absolute; top: 0px; left: -1px; }
+	.cb_list_decoration{ border : 1px solid #A6A6A6  /*panelBorderColor*/;  padding : 0px; background : #FFFFFF; /*tableBackgroundColor*/}
+	.cb_list_scroll{ overflow : auto; overflow-x : hidden; list-style: none; margin:0px; padding:0px;}
+	.cb_option{ padding : 2px; white-space : nowrap; cursor : default; display:block; margin:0px; overflow:hidden;}
+	.cb_select{ padding : 1px; width : 100%; background-color: #DFE8F6; border : 1px dotted #a3bae9;/*generalTextColor*/}
+	
+	.cb_list_shadow{ position : absolute; width : 260px; height : 109px; margin-left : -4px; margin-top : -2px;}
+	
+	</style>
+</head>
+
+<body style="margin : 30px">
+<form>
+<div style="height:300px; width:300px; overflow:auto;">
+Text block text block text block text block text block text block text block text block 
+
+<div id="myCombo" class=" cb_field_width cb_field">
+	<div style=" position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
+		<input id="myComboInput" type="Text" class="cb_font cb_input">
+		<div id='myComboButton' class="cb_button">
+			<img src="images/down.gif" width="15" height="15" alt="" border="0">
+		</div>
+	</div>
+
+	<div id="myComboList" class="cb_list_cord">
+		<img src="images/bg_shadow.png" class="cb_list_shadow">
+		<div class="cb_list_position cb_list_width">
+			<div class="cb_list_decoration">
+				<ul id="myComboItems" class="cb_list_scroll cb_list_height">
+					<li class="cb_option cb_font">December</li>
+					<li class="cb_option cb_font"><span>November</span><img src="images/down.gif" width="20" height="20"/></li>
+					<li class="cb_option cb_font">October</li>
+					<li class="cb_option cb_font">September</li>
+					<li class="cb_option cb_font">August</li>
+					<li class="cb_option cb_font">July</li>
+					<li class="cb_option cb_font">June</li>
+					<li class="cb_option cb_font">May</li>
+					<li class="cb_option cb_font">April</li>
+					<li class="cb_option cb_font">March</li>
+					<li class="cb_option cb_font">February</li>
+					<li class="cb_option cb_font">January</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		new RichFaces.ui.ComboBox("myCombo", "myComboInput", {buttonId:'myComboButton', selectedItemClass:'cb_select'});
+	</script>
+</div><br/><select style="width:200px"><option>ccccc</option></select>
+&nbsp;text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block 
+text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block text block 
+</div>
+</form>
+
+</body>
+</html>

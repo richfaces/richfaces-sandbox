@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:c="http://java.sun.com/jstl/core"
+     xmlns:rich="http://richfaces.org/rich"
+     xmlns:a="http://richfaces.org/a4j"
+     xmlns:s="http://jboss.com/products/seam/taglib">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Rich tab panel</title>
+</head>
+<body>
+<rich:tabPanel width="100%" selectedTab="#{menuAction.selectedTab}"
+	switchType="ajax" id="ledger_tab_panel"
+	rendered="#{ledgerAction.initialized}" contentClass="tabContent"
+	activeTabClass="tabActive" disabledTabClass="tabDisabled"
+	inactiveTabClass="tabInactive" tabClass="tab"
+	styleClass="standardTabPanel">
+	<rich:tab name="ledgerTranTab" label="Ledger Transactions"
+		action="#{ledgerAction.initializeLedgerPage}">
+		<div class="tabContentLayout"><ui:include
+			src="/include/button.xhtml" /></div>
+		<h:form id="lform1">
+		   <h:commandButton value="Switch to repeater" action="#{ledgerAction.initializeRepeaterPage}" />
+		</h:form>
+	</rich:tab>
+	<rich:tab id="agingTab" name="agingTab" label="Aging"
+		action="#{ledgerAction.fetchLedgerAging}">
+		<div class="tabContentLayout"><ui:include
+			src="/include/dataTable.xhtml" /></div>
+		<h:form>
+		   <h:commandButton value="Switch to repeater" action="#{ledgerAction.initializeRepeaterPage}" />
+		</h:form>
+	</rich:tab>
+</rich:tabPanel>
+</body>
+</html>

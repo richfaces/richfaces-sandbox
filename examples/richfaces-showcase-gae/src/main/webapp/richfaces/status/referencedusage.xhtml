@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+<ui:composition>
+	<p>Example of status which referenced from the components</p>
+	<p>There are two inputs with Ajax behaviors attached. And there are two statuses which 
+	are referenced from that behaviors. <b>status</b> attribute at Ajax tags defined with
+	corresponding statuses <b>name</b> attributes values.</p>
+	<h:form>
+		<h:panelGrid columns="3" width="300px;">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="User Details Panel" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<h:outputText value="User name:" />
+					<h:inputText value="#{userBean.name}">
+						<a4j:ajax status="nameStatus" event="keyup" />
+					</h:inputText>
+					<a4j:status name="nameStatus">
+						<f:facet name="start">
+							<h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;"/>
+						</f:facet>
+					</a4j:status>
+					<h:outputText value="Adress:" />
+					<h:inputText value="#{userBean.address}">
+						<a4j:ajax status="adressStatus" event="keyup" />
+					</h:inputText>
+					<a4j:status name="adressStatus">
+						<f:facet name="start">
+							<h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;"/>
+						</f:facet>
+					</a4j:status>
+				</h:panelGrid>
+			</rich:panel>
+		</h:panelGrid>
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/templates/main.xhtml">
+	<ui:define name="body">
+	<h:form>
+		<p>	Sample of skinning</p>
+		Type in input name of skin. For example laguna, wine, ruby etc.. and press Change skin button.
+		<h:inputText value="#{skinBean.skin}" />
+		<h:commandButton value="Change skin"/>
+		<h:outputText styleClass="rich-fieldset" value="Panel Background color sample" />
+		<h:outputText styleClass="rich-link" value="General Link color sample" />
+		</h:form>
+	</ui:define>		
+	</ui:composition>
+</html>

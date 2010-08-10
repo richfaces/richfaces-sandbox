@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el" xmlns:cdk="http://richfaces.org/cdk/core"
+    xmlns:c="http://richfaces.org/cdk/jstl/core" xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.ComboBoxRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.ComboBoxRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Input</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ComboBoxRenderer
+        </cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="cb_field_width cb_field">
+        	<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="cb_font cb_input" />
+            <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
+                <input id="#{clientId}Input" name="#{clientId}" type="text" class="cb_font cb_input" />
+                <div id="#{clientId}Button" class="cb_button">
+                    <div class="cb_button_arrow"></div>
+                </div>
+            </div>
+
+            <div id="#{clientId}List" class="cb_list_cord">
+
+                <div class="cb_shadow">
+                    <div class="cb_shadow_t"></div>
+                    <div class="cb_shadow_l"></div>
+                    <div class="cb_shadow_r"></div>
+                    <div class="cb_shadow_b"></div>
+
+                    <div class="cb_list_decoration">
+                        <div class="cb_list_scroll cb_list_width cb_list_height">
+                            <cdk:body>
+                                <cdk:call expression="encodeItemsContainer(facesContext, component)"/>
+                            </cdk:body>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                new RichFaces.ui.AutoComplete("#{clientId}",
+                "#{clientId}Input", {buttonId:"#{clientId}Button",
+                selectedItemClass:'cb_select'});
+            </script>
+        </div>
+    </cc:implementation>
+
+</cdk:root>
