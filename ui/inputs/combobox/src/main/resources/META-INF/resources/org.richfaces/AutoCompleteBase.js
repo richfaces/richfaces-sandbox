@@ -65,7 +65,7 @@ $.extend(RichFaces.Event, {
 		
 		var inputEventHandlers = {};
 		
-		if (this.options.buttonId) {
+		if (this.options.buttonId && !this.options.disabled) {
 			inputEventHandlers["mousedown"+this.namespace] = onButtonShow;
 			inputEventHandlers["mouseup"+this.namespace] = onSelectMouseUp;
 			rf.Event.bindById(this.options.buttonId, inputEventHandlers, this);
@@ -133,7 +133,10 @@ $.extend(RichFaces.Event, {
 			}
 			if (flag) {
 				this.currentValue = this.getInputValue();
-				onShow.call(this, event);
+				if(value && value.length>=this.options.minChars){
+					onShow.call(this, event);
+				}
+				
 			}
 		}
 	};
@@ -196,7 +199,7 @@ $.extend(RichFaces.Event, {
 	/*
 	 * public API functions definition
 	 */
-	var show = function (event) {
+	var show = function (event, showButtonPressed) {
 		if (!this.isVisible) {
 			if (this.__onBeforeShow(event)!=false) {
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.selectId, this.hide, this, this.namespace);
@@ -207,7 +210,7 @@ $.extend(RichFaces.Event, {
 				}
 				$(rf.getDomElement(this.selectId)).setPosition({id: this.fieldId}, {type:"DROPDOWN", offset:[0,20]}).show();
 				this.isVisible = true;
-				this.__onShow(event);
+				this.__onShow(event, showButtonPressed);
 			}
 		}
 	};

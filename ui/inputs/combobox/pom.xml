@@ -28,8 +28,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.richfaces.ui.inputs-sandbox</groupId>
-	<artifactId>combobox</artifactId>
-	<name>Richfaces UI Sandbox Components: ComboBox Input Component</name>
+	<artifactId>autocomplete</artifactId>
+	<name>Richfaces UI Sandbox Components: AutoComplete Input Component</name>
 	<packaging>jar</packaging>
 
 	<build>

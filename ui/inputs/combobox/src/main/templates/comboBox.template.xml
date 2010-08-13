@@ -5,25 +5,58 @@
     xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.ComboBoxRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.ComboBoxRendererBase</cdk:superclass>
+        <cdk:class>org.richfaces.renderkit.html.AutoCompleteRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.AutoCompleteRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Input</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ComboBoxRenderer
+        <cdk:renderer-type>org.richfaces.AutoCompleteRenderer
         </cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
     <cc:implementation>
+    <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <div id="#{clientId}" class="cb_field_width cb_field">
         	<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="cb_font cb_input" />
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
-                <input id="#{clientId}Input" name="#{clientId}" type="text" class="cb_font cb_input" />
+            	<input onclick="#{component.attributes['onclick']}"
+				ondblclick="#{component.attributes['ondblclick']}"
+				onmouseup="#{component.attributes['onmouseup']}"
+				onmousedown="#{component.attributes['onmousedown']}"
+				onmousemove="#{component.attributes['onmousemove']}"
+				onblur="#{component.attributes['onblur']}"
+				onfocus="#{component.attributes['onfocus']}"
+				onmouseover="#{component.attributes['onmouseover']}"
+				onmouseout="#{component.attributes['onmouseout']}"
+				onkeyup="#{component.attributes['onkeyup']}"
+				onkeydown="#{component.attributes['onkeydown']}"
+				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" disabled="#{disabled}" name="#{clientId}" type="text" class="cb_font cb_input" />
+                <c:if test="#{component.attributes['showButton']}">
+                <c:if test="#{component.attributes['disabled']}">
                 <div id="#{clientId}Button" class="cb_button">
                     <div class="cb_button_arrow"></div>
                 </div>
+                </c:if>
+                <c:if test="#{!component.attributes['disabled']}">
+                <div id="#{clientId}Button" class="cb_button">
+                    <div class="cb_button_arrow"></div>
+                </div>
+                </c:if>
+                </c:if>
             </div>
 
-            <div id="#{clientId}List" class="cb_list_cord">
+            <div onclick="#{component.attributes['onlistclick']}" 
+				ondblclick="#{component.attributes['onlistdblclick']}"
+				onmouseup="#{component.attributes['onlistmouseup']}"
+				onmousedown="#{component.attributes['onlistmousedown']}"
+				onmousemove="#{component.attributes['onlistmousemove']}"
+				onmouseover="#{component.attributes['onlistmouseover']}"
+				onmouseout="#{component.attributes['onlistmouseout']}"
+				onblur="#{component.attributes['onlistblur']}"
+				onfocus="#{component.attributes['onlistfocus']}"
+				onkeyup="#{component.attributes['onlistkeyup']}"
+				onkeydown="#{component.attributes['onlistkeydown']}"
+				onkeypress="#{component.attributes['onlistkeypress']}"
+				 id="#{clientId}List" class="cb_list_cord">
 
                 <div class="cb_shadow">
                     <div class="cb_shadow_t"></div>
@@ -42,8 +75,8 @@
             </div>
             <script type="text/javascript">
                 new RichFaces.ui.AutoComplete("#{clientId}",
-                "#{clientId}Input", {buttonId:"#{clientId}Button",
-                selectedItemClass:'cb_select'});
+                "#{clientId}Input", #{getScriptOptions(component)}
+                 );
             </script>
         </div>
     </cc:implementation>

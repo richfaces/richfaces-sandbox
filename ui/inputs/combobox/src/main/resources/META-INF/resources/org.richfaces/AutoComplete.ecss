@@ -29,14 +29,14 @@ input.cb_input {
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
 	display: inline-block;
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboBoxFieldGradient']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutoCompleteFieldGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.controlBackgroundColor}';
 }
 
 .cb_button {
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboBoxButtonGradient']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutoCompleteButtonGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';

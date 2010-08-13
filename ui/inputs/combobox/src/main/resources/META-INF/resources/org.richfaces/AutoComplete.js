@@ -191,7 +191,7 @@
 			}
 		}
 		
-		var ajaxError = function () {
+		var ajaxError = function (event) {
 			//alert("error");
 		}
 		
@@ -199,7 +199,6 @@
 		//caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
 		var params = {};
 		params[this.id + ".ajax"] = "1";
-
 		rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
 	};
 	
@@ -237,6 +236,9 @@
 	};
 	
 	var onChangeValue = function (event, value) {
+		//if(this.options.onchange){
+				//this.options.onchange.call(this, event);
+		//}
 		selectItem.call(this);
 		
 		// value is undefined if called from AutoCompleteBase onChange
@@ -249,20 +251,28 @@
 			this.options.ajaxMode && callAjax.call(this, event, subValue);
 			return;
 		}
-		
+		if(!this.cache){
+			return;
+		}
 		var newItems = this.cache.getItems(subValue);
 		this.items = $(newItems);
 		//TODO: works only with simple markup, not with <tr>
 		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
 		this.index = -1;
 		this.value = subValue;
+		if (subValue.length<this.options.minChars){
+			this.hide();
+		}
 		if (this.options.selectFirst) {
 			if (event.which == rf.KEYS.RETURN || event.type == "click") {
 				this.setInputValue(subValue);
+				return;
 			} else {
 				selectItem.call(this, 0, false, event.which == rf.KEYS.BACKSPACE || event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT);
+				return;
 			}
 		}
+		this.setInputValue(subValue);
 	};
 	
 	var getSelectedItemValue = function () {
@@ -329,10 +339,10 @@
  			/*
  			 * Protected methods
  			 */
- 			__updateState: function () {
+ 			__updateState: function (event) {
 				var subValue = this.__getSubValue();
 				// called from onShow method, not actually value changed
-				if (this.items.length==0 && subValue.length>=this.options.minChars && this.isFirstAjax) {
+				if (this.items.length==0 && this.isFirstAjax) {
 					this.options.ajaxMode && callAjax.call(this, event, subValue);
 				}
 				return;
@@ -370,9 +380,11 @@
 				//rf.getDomElement(this.fieldId).focus();
  			},
  			__onShow: function (event) {
- 				if (event.which != rf.KEYS.BACKSPACE && this.items && this.items.length>0) {
- 					if (this.index!=0 && this.options.selectFirst) {
- 						selectItem.call(this, 0);
+ 				if (event.which != rf.KEYS.BACKSPACE) {
+ 					if(this.items && this.items.length>0){
+ 						if (this.index!=0 && this.options.selectFirst) {
+ 							selectItem.call(this, 0);
+ 						}
  					}
  				}
  			},

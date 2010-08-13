@@ -47,7 +47,7 @@ import org.richfaces.skin.SkinFactory;
  * 
  */
 @DynamicResource
-public abstract class ComboBoxBaseGradient implements Java2DUserResource, CacheableResource, StateHolderResource {
+public abstract class AutoCompleteBaseGradient implements Java2DUserResource, CacheableResource, StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(18, 8);
   
