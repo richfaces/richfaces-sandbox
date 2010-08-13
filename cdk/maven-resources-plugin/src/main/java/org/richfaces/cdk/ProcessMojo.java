@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -54,13 +55,16 @@ import org.reflections.util.ClasspathHelper;
 import org.richfaces.cdk.concurrent.CountingExecutorCompletionService;
 import org.richfaces.cdk.faces.FacesImpl;
 import org.richfaces.cdk.naming.FileNameMapperImpl;
-import org.richfaces.cdk.resource.ResourceUtil;
-import org.richfaces.cdk.resource.ResourceWriterImpl;
 import org.richfaces.cdk.resource.handler.impl.DynamicResourceHandler;
 import org.richfaces.cdk.resource.handler.impl.StaticResourceHandler;
 import org.richfaces.cdk.resource.scan.ResourcesScanner;
 import org.richfaces.cdk.resource.scan.impl.DynamicResourcesScanner;
 import org.richfaces.cdk.resource.scan.impl.StaticResourcesScanner;
+import org.richfaces.cdk.resource.util.ResourceUtil;
+import org.richfaces.cdk.resource.writer.ResourceProcessor;
+import org.richfaces.cdk.resource.writer.impl.CSSResourceProcessor;
+import org.richfaces.cdk.resource.writer.impl.JavaScriptResourceProcessor;
+import org.richfaces.cdk.resource.writer.impl.ResourceWriterImpl;
 import org.richfaces.cdk.task.ResourceTaskFactoryImpl;
 import org.richfaces.cdk.util.MoreConstraints;
 import org.richfaces.cdk.util.MorePredicates;
@@ -162,6 +166,10 @@ public class ProcessMojo extends AbstractMojo {
     
     private Collection<ResourceKey> foundResources = Sets.newHashSet();
     
+    private Collection<ResourceProcessor> resourceProcessors = Arrays.<ResourceProcessor>asList(
+        new JavaScriptResourceProcessor(getLog()), 
+        new CSSResourceProcessor());
+    
     // TODO executor parameters
     private static ExecutorService createExecutorService() {
         return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -221,30 +229,24 @@ public class ProcessMojo extends AbstractMojo {
         return fromUrls(Collections.singletonList(resolveWebRoot()));
     }
     
-    protected ClassLoader createProjectClassLoader(MavenProject project, boolean useCCL) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
+    protected URL[] getProjectClasspath() {
         try {
             List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(), MoreConstraints.cast(String.class));
             classpath.addAll((List<String>) project.getCompileClasspathElements());
             classpath.add(project.getBuild().getOutputDirectory());
 
             URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);            
-            if (useCCL) {
-                classLoader = new URLClassLoader(urlClasspath, classLoader);
-            } else {
-                classLoader = new URLClassLoader(urlClasspath);
-            }
+            return urlClasspath;
         } catch (DependencyResolutionRequiredException e) {
             getLog().error("Dependencies not resolved ", e);
         }
 
-        return classLoader;
+        return new URL[0];
     }
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        ClassLoader cCL = Thread.currentThread().getContextClassLoader();
+        ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         Faces faces = null;
         ExecutorService executorService = null;
         
@@ -252,7 +254,8 @@ public class ProcessMojo extends AbstractMojo {
         Collection<VFSRoot> cpResources = null;
         
         try {
-            ClassLoader projectCL = createProjectClassLoader(project, true);
+            URL[] projectCP = getProjectClasspath();
+            ClassLoader projectCL = new URLClassLoader(projectCP, contextCL);
             Thread.currentThread().setContextClassLoader(projectCL);
 
             webResources = getWebrootVfs();
@@ -276,7 +279,7 @@ public class ProcessMojo extends AbstractMojo {
             faces = new FacesImpl(null, new FileNameMapperImpl(Maps.fromProperties(fileNameMappings)), resourceHandler);
             faces.start();
             
-            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(resourceOutputDir, resourceMappingDir);
+            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(resourceOutputDir, resourceMappingDir, resourceProcessors);
             ResourceTaskFactoryImpl taskFactory = new ResourceTaskFactoryImpl(faces);
             taskFactory.setResourceWriter(resourceWriter);
 
@@ -320,7 +323,7 @@ public class ProcessMojo extends AbstractMojo {
             }
             
             if (webResources != null) {
-                for (VFSRoot vfsRoot : cpResources) {
+                for (VFSRoot vfsRoot : webResources) {
                     try {
                         vfsRoot.close();
                     } catch (IOException e) {
@@ -337,7 +340,7 @@ public class ProcessMojo extends AbstractMojo {
             if (faces != null) {
                 faces.stop();
             }
-            Thread.currentThread().setContextClassLoader(cCL);
+            Thread.currentThread().setContextClassLoader(contextCL);
         }
     }
 }

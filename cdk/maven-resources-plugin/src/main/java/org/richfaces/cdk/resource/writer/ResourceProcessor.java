@@ -19,15 +19,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdk;
+package org.richfaces.cdk.resource.writer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface FileNameMapper {
+public interface ResourceProcessor {
 
-    public String createName(String resourcePath);
+    public boolean isSupportedFile(String name);
+    
+    public void process(String resourceName, InputStream in, OutputStream out) throws IOException;
     
 }

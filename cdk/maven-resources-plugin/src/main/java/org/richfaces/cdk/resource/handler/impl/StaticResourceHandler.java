@@ -27,7 +27,7 @@ import java.util.Collections;
 import javax.activation.MimetypesFileTypeMap;
 import javax.faces.application.Resource;
 
-import org.richfaces.cdk.resource.ResourceUtil;
+import org.richfaces.cdk.resource.util.ResourceUtil;
 import org.richfaces.cdk.vfs.VirtualFile;
 
 import com.google.common.base.Strings;

@@ -33,6 +33,9 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.FileNameMapper;
+import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.VersionedResource;
 
 import com.google.common.base.Strings;
@@ -121,6 +124,10 @@ public class DynamicResourceWrapper extends Resource {
         }
     }
     
+    private FileNameMapper getFileNameMapper() {
+        return ServiceTracker.getService(FileNameMapper.class);
+    }
+    
     private String getVersion() {
         String version = null;
         if (resource instanceof VersionedResource) {
@@ -136,8 +143,9 @@ public class DynamicResourceWrapper extends Resource {
         String resourceExtension = getResourceExtension();
         
         String resourceName = DOT_JOINER.join(DASH_JOINER.join(mangledResourceName, getVersion()), resourceExtension);
-        
-        return SLASH_JOINER.join(mangledLibraryName, resourceName);
+        String resourcePath = SLASH_JOINER.join(mangledLibraryName, resourceName);
+
+        return ResourceFactory.SKINNED_RESOURCE_PREFIX + getFileNameMapper().createName(resourcePath);
     }
 
     @Override

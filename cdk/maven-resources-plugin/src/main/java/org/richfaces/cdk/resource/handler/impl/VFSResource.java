@@ -29,6 +29,8 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.FileNameMapper;
 import org.richfaces.cdk.vfs.VirtualFile;
 
 /**
@@ -51,6 +53,10 @@ public class VFSResource extends Resource {
         this.relativePath = relativePath;
     }
 
+    private FileNameMapper getFileNameMapper() {
+        return ServiceTracker.getService(FileNameMapper.class);
+    }
+    
     @Override
     public InputStream getInputStream() throws IOException {
         return file.getInputStream();
@@ -63,7 +69,7 @@ public class VFSResource extends Resource {
 
     @Override
     public String getRequestPath() {
-        return relativePath;
+        return getFileNameMapper().createName(relativePath);
     }
 
     @Override

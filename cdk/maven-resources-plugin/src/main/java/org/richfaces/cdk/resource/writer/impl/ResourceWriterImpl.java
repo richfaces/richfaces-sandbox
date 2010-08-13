@@ -19,27 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdk.resource;
+package org.richfaces.cdk.resource.writer.impl;
 
 import static org.richfaces.cdk.strings.Constants.COLON_JOINER;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.faces.application.Resource;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.cdk.FileNameMapper;
 import org.richfaces.cdk.ResourceWriter;
+import org.richfaces.cdk.resource.writer.ResourceProcessor;
+import org.richfaces.cdk.strings.Constants;
 import org.richfaces.resource.ResourceFactory;
 
-import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
-import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski
@@ -53,9 +52,12 @@ public class ResourceWriterImpl implements ResourceWriter {
     
     private Map<String, String> processedResources = Maps.newConcurrentMap();
     
-    public ResourceWriterImpl(File resourceContentsDir, File resourceMappingDir) {
+    private Iterable<ResourceProcessor> resourceProcessors;
+    
+    public ResourceWriterImpl(File resourceContentsDir, File resourceMappingDir, Iterable<ResourceProcessor> resourceProcessors) {
         this.resourceContentsDir = resourceContentsDir;
         this.resourceMappingDir = resourceMappingDir;
+        this.resourceProcessors = Iterables.concat(resourceProcessors, Collections.singleton(ThroughputResourceProcessor.INSTANCE));
         resourceContentsDir.mkdirs();
     }
 
@@ -63,56 +65,29 @@ public class ResourceWriterImpl implements ResourceWriter {
         return COLON_JOINER.join(resource.getLibraryName(), resource.getResourceName());
     }
     
-    private FileNameMapper getFileNameMapper() {
-        return ServiceTracker.getService(FileNameMapper.class);
-    }
-    
-    private File getRoot(String rootName) {
-        if (!Strings.isNullOrEmpty(rootName)) {
-            return new File(resourceContentsDir, rootName);
-        } else {
-            return resourceContentsDir;
-        }
-    }
-    
-    private String addSkinPrefix(String s) {
-        return "%skin%/" + s;
+    private File createOutputFile(String path) throws IOException {
+        File outFile = new File(resourceContentsDir, path);
+        outFile.getParentFile().mkdirs();
+        outFile.createNewFile();
+
+        return outFile;
     }
     
     public void writeResource(String skinName, Resource resource) throws IOException {
-        FileOutputStream fos = null;
-        InputStream is = null;
-        try {
-            is = resource.getInputStream();
-            String mappedName = getFileNameMapper().createName(resource);
-            File outFile = new File(getRoot(skinName), mappedName);
-            outFile.getParentFile().mkdirs();
-            outFile.createNewFile();
-            
-            fos = new FileOutputStream(outFile);
-            ByteStreams.copy(is, fos);
-            
-            if (!Strings.isNullOrEmpty(skinName)) {
-                mappedName = addSkinPrefix(mappedName);
-            }
-            
-            processedResources.put(getResourceQualifier(resource), mappedName);
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
-                }
-            }
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
-                }
+        String requestPath = resource.getRequestPath();
+        String requestPathWithSkin = requestPath;
+        
+        if (requestPath.startsWith(ResourceFactory.SKINNED_RESOURCE_PREFIX)) {
+            requestPathWithSkin = Constants.SLASH_JOINER.join(skinName, 
+                requestPath.substring(ResourceFactory.SKINNED_RESOURCE_PREFIX.length()));
+        }
+        
+        for (ResourceProcessor resourceProcessor : resourceProcessors) {
+            if (resourceProcessor.isSupportedFile(requestPath)) {
+                File outFile = createOutputFile(requestPathWithSkin); 
+                resourceProcessor.process(requestPathWithSkin, resource.getInputStream(), new FileOutputStream(outFile));
+                processedResources.put(getResourceQualifier(resource), requestPath);
+                return;
             }
         }
     }
@@ -123,6 +98,7 @@ public class ResourceWriterImpl implements ResourceWriter {
         FileOutputStream fos = null;
         try {
             File mappingsFile = new File(resourceMappingDir, ResourceFactory.STATIC_RESOURCE_MAPPINGS);
+            //TODO merge properties
             mappingsFile.delete();
             mappingsFile.getParentFile().mkdirs();
             mappingsFile.createNewFile();

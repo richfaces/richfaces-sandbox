@@ -24,8 +24,8 @@ package org.richfaces.cdk.resource.scan.impl;
 import java.util.Collection;
 
 import org.richfaces.cdk.ResourceKey;
-import org.richfaces.cdk.resource.ResourceUtil;
 import org.richfaces.cdk.resource.scan.ResourcesScanner;
+import org.richfaces.cdk.resource.util.ResourceUtil;
 import org.richfaces.cdk.vfs.VirtualFile;
 
 import com.google.common.collect.Sets;

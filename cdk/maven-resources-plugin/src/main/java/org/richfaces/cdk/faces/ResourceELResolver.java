@@ -37,9 +37,6 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.cdk.FileNameMapper;
-
 import com.google.common.collect.Lists;
 
 /**
@@ -92,10 +89,6 @@ public class ResourceELResolver extends ELResolver {
         return SLASH_JOINER.join(resultPathSegments);
     }
 
-    private FileNameMapper getFileNameMapper() {
-        return ServiceTracker.getService(FileNameMapper.class);
-    }
-    
     public Object getValue(ELContext context, Object base, Object property) {
         checkBaseAndProperty(base, property);
 
@@ -116,13 +109,11 @@ public class ResourceELResolver extends ELResolver {
             context.setPropertyResolved(true);
 
             if (resource != null) {
-                FileNameMapper fileNameMapper = getFileNameMapper();
-                
-                String requestPath = fileNameMapper.createName(resource);
+                String requestPath = resource.getRequestPath();
                 FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
                 Resource contextResource = CurrentResourceContext.getInstance(facesContext).getResource();
                 if (contextResource != null) {
-                    requestPath = relativize(requestPath, fileNameMapper.createName(contextResource));
+                    requestPath = relativize(requestPath, contextResource.getRequestPath());
                 }
 
                 return requestPath;

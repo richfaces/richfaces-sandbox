@@ -35,7 +35,7 @@ import org.richfaces.cdk.ResourceKey;
 import org.richfaces.cdk.ResourceTaskFactory;
 import org.richfaces.cdk.ResourceWriter;
 import org.richfaces.cdk.faces.CurrentResourceContext;
-import org.richfaces.cdk.resource.handler.impl.DynamicResourceWrapper;
+import org.richfaces.resource.ResourceFactory;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -111,8 +111,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
                     return;
                 }
                 
-                //TODO hack
-                skinDependent = (resource instanceof DynamicResourceWrapper);
+                skinDependent = resource.getRequestPath().startsWith(ResourceFactory.SKINNED_RESOURCE_PREFIX);
             } finally {
                 faces.setSkin(null);
                 faces.stopRequest();

@@ -19,15 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdk;
+package org.richfaces.cdk.resource.writer.impl;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
+import org.apache.maven.plugin.logging.Log;
+
+import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface FileNameMapper {
+public class JavaScriptResourceProcessor extends CharResourceProcessor {
 
-    public String createName(String resourcePath);
+    private Log log;
+    
+    public JavaScriptResourceProcessor(Log log) {
+        super();
+        this.log = log;
+    }
+
+    @Override
+    public boolean isSupportedFile(String name) {
+        return name.endsWith(".js");
+    }
+
+    @Override
+    protected void doActualProcess(String resourceName, Reader in, Writer out) throws IOException {
+        MavenLogErrorReporter reporter = new MavenLogErrorReporter(log, resourceName);
+        new JavaScriptCompressor(in, reporter).compress(out, 0, true, true, false, false);
+    }
     
 }

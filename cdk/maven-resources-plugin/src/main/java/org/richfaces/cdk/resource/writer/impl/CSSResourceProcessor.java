@@ -19,15 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdk;
+package org.richfaces.cdk.resource.writer.impl;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
+import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface FileNameMapper {
+public class CSSResourceProcessor extends CharResourceProcessor {
 
-    public String createName(String resourcePath);
+    @Override
+    public boolean isSupportedFile(String name) {
+        return name.endsWith(".css");
+    }
+
+    @Override
+    protected void doActualProcess(String resourceName, Reader in, Writer out) throws IOException {
+        new CssCompressor(in).compress(out, 0);
+    }
     
 }

@@ -27,8 +27,6 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.application.Resource;
-
 import org.richfaces.cdk.FileNameMapper;
 
 import com.google.common.collect.Lists;
@@ -80,25 +78,20 @@ public class FileNameMapperImpl implements FileNameMapper {
         return result;
     }
 
-    //TODO implement counter remapping
-    private String remapName(String name) {
-        if (name == null) {
-            return name;
+    @Override
+    public String createName(String resourcePath) {
+        if (resourcePath == null) {
+            return resourcePath;
         }
 
         for (Mapping mapping : fileNameMappings) {
-            Matcher matcher = mapping.getPattern().matcher(name);
+            Matcher matcher = mapping.getPattern().matcher(resourcePath);
             if (matcher.find()) {
                 return matcher.replaceAll(mapping.getReplacement());
             }
         }
 
-        return name;
-    } 
-
-    @Override
-    public String createName(Resource resource) {
-        return remapName(resource.getRequestPath());
+        return resourcePath;
     }
 
 }
