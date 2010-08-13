@@ -18,11 +18,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>reflections-repo</id>
-            <name>Reflections Maven2 Repository</name>
-            <url>http://reflections.googlecode.com/svn/repo</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -62,7 +57,7 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.5-RC2</version>
+            <version>0.9.5-RC2_jboss-SP1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>google-collections</artifactId>
@@ -103,6 +98,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.5.8</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.yahoo.platform.yui</groupId>
+        	<artifactId>yuicompressor</artifactId>
+        	<version>2.3.6</version>
         </dependency>
     </dependencies>
 
