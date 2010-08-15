@@ -17,7 +17,6 @@
 
     <modules>
 	    <module>combobox-demo</module>
-	    <module>inputnumberslider-demo</module>
     </modules>
 
     <dependencies>
