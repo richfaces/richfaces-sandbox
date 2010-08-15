@@ -112,8 +112,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<property>
 			<property-name>inputPosition</property-name>
-			<property-class>org.richfaces.renderkit.html.PositionType</property-class>
-			<default-value>PositionType.right</default-value>
+			<property-class>org.richfaces.component.PositionType</property-class>
+			<default-value>PositionType.DEFAULT</default-value>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>
 			</property-extension>

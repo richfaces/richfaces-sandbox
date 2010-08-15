@@ -28,7 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	xmlns:xi="http://www.w3.org/2001/XInclude">
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.InputNumberSliderRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.InputRendererBase</cdk:superclass>
+		<cdk:superclass>org.richfaces.renderkit.InputNumberSliderRendererBase</cdk:superclass>
 		<cdk:component-family>javax.faces.Input</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>
 		<cdk:resource-dependency name="inputNumberSlider.ecss" />
@@ -41,10 +41,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-ins #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
-			<c:if test="#{PositionType.valueOf('left') == component.attributes['inputPosition']
-				|| PositionType.valueOf('top') == component.attributes['inputPosition']}">
+            <c:if test="#{'left' == getInputPositionName(component)
+				|| 'top' == getInputPositionName(component)}">
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
-				<c:if test="#{PositionType.valueOf('top') == component.attributes['inputPosition'] and component.attributes['showInput']}">
+				<c:if test="#{'top' == getInputPositionName(component) and component.attributes['showInput']}">
 					<br />
 				</c:if>
 			</c:if>
@@ -63,9 +63,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<c:if test="#{component.attributes['showArrows']}">
 				<span class="rf-ins-ib#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['increaseClass']}" />
 			</c:if>
-			<c:if test="#{PositionType.valueOf('right') == component.attributes['inputPosition']
-				|| PositionType.valueOf('bottom') == component.attributes['inputPosition']}">
-				<c:if test="#{PositionType.valueOf('bottom') == component.attributes['inputPosition'] and component.attributes['showInput']}">
+			<c:if test="#{'right' == getInputPositionName(component)
+				|| 'bottom' == getInputPositionName(component)}">
+				<c:if test="#{'bottom' == getInputPositionName(component) and component.attributes['showInput']}">
 					<br />
 				</c:if>
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
