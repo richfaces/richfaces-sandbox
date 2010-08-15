@@ -51,7 +51,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.reflections.util.ClasspathHelper;
 import org.richfaces.cdk.concurrent.CountingExecutorCompletionService;
 import org.richfaces.cdk.faces.FacesImpl;
 import org.richfaces.cdk.naming.FileNameMapperImpl;
@@ -111,11 +110,11 @@ public class ProcessMojo extends AbstractMojo {
             } catch (MalformedURLException e) {
                 getLog().error("Bad URL in classpath", e);
             }
-            
+
             return null;
         };
     };
-    
+
     /**
      * @parameter
      * @required
@@ -160,16 +159,16 @@ public class ProcessMojo extends AbstractMojo {
      * @parameter expression="${basedir}/src/main/webapp"
      */
     private String webRoot;
-    
+
     //TODO handle resource locales
     private Locale resourceLocales;
-    
+
     private Collection<ResourceKey> foundResources = Sets.newHashSet();
-    
+
     private Collection<ResourceProcessor> resourceProcessors = Arrays.<ResourceProcessor>asList(
         new JavaScriptResourceProcessor(getLog()), 
         new CSSResourceProcessor());
-    
+
     // TODO executor parameters
     private static ExecutorService createExecutorService() {
         return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -189,16 +188,16 @@ public class ProcessMojo extends AbstractMojo {
         if (!result.exists()) {
             return null;
         }
-        
+
         return result.toURI().toURL();
     }
-    
+
     private void scanDynamicResources(Collection<VFSRoot> cpFiles) throws Exception {
         ResourcesScanner scanner = new DynamicResourcesScanner(cpFiles);
         scanner.scan();
         foundResources.addAll(scanner.getResources());
     }
-    
+
     private void scanStaticResources(Collection<VirtualFile> resourceRoots) throws Exception {
         ResourcesScanner scanner = new StaticResourcesScanner(resourceRoots);
         scanner.scan();
@@ -207,12 +206,12 @@ public class ProcessMojo extends AbstractMojo {
 
     private Collection<VFSRoot> fromUrls(Iterable<URL> urls) throws URISyntaxException, IOException {
         Collection<VFSRoot> result = Lists.newArrayList();
-        
+
         for (URL url : urls) {
             if (url == null) {
                 continue;
             }
-            
+
             VFSRoot vfsRoot = VFS.getRoot(url);
             vfsRoot.initialize();
             result.add(vfsRoot);
@@ -220,16 +219,16 @@ public class ProcessMojo extends AbstractMojo {
 
         return result;
     }
-    
-    private Collection<VFSRoot> getClasspathVfs() throws URISyntaxException, IOException {
-        return fromUrls(ClasspathHelper.getUrlsForCurrentClasspath());
+
+    private Collection<VFSRoot> getClasspathVfs(URL[] urls) throws URISyntaxException, IOException {
+        return fromUrls(Arrays.asList(urls));
     }
-    
+
     private Collection<VFSRoot> getWebrootVfs() throws URISyntaxException, IOException {
         return fromUrls(Collections.singletonList(resolveWebRoot()));
     }
-    
-    protected URL[] getProjectClasspath() {
+
+    protected URL[] getProjectClassPath() {
         try {
             List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(), MoreConstraints.cast(String.class));
             classpath.addAll((List<String>) project.getCompileClasspathElements());
@@ -244,41 +243,47 @@ public class ProcessMojo extends AbstractMojo {
         return new URL[0];
     }
 
+    protected ClassLoader createProjectClassLoader(URL[] cp) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        classLoader = new URLClassLoader(cp, classLoader);
+        return classLoader;
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         Faces faces = null;
         ExecutorService executorService = null;
-        
+
         Collection<VFSRoot> webResources = null;
         Collection<VFSRoot> cpResources = null;
-        
+
         try {
-            URL[] projectCP = getProjectClasspath();
-            ClassLoader projectCL = new URLClassLoader(projectCP, contextCL);
+            URL[] projectCP = getProjectClassPath();
+            ClassLoader projectCL = createProjectClassLoader(projectCP);
             Thread.currentThread().setContextClassLoader(projectCL);
 
             webResources = getWebrootVfs();
-            cpResources = getClasspathVfs();
+            cpResources = getClasspathVfs(projectCP);
 
             Collection<VirtualFile> resourceRoots = ResourceUtil.getResourceRoots(cpResources, webResources);
-            
+
             scanDynamicResources(cpResources);
             scanStaticResources(resourceRoots);
-            
+
             File resourceOutputDir = new File(outputDir);
             if (!resourceOutputDir.exists()) {
                 resourceOutputDir = new File(project.getBuild().getDirectory(), outputDir);
             }
 
             File resourceMappingDir = new File(project.getBuild().getOutputDirectory());
-            
+
             ResourceHandler resourceHandler = new DynamicResourceHandler(new StaticResourceHandler(resourceRoots));
-            
+
             // TODO set webroot
             faces = new FacesImpl(null, new FileNameMapperImpl(Maps.fromProperties(fileNameMappings)), resourceHandler);
             faces.start();
-            
+
             ResourceWriterImpl resourceWriter = new ResourceWriterImpl(resourceOutputDir, resourceMappingDir, resourceProcessors);
             ResourceTaskFactoryImpl taskFactory = new ResourceTaskFactoryImpl(faces);
             taskFactory.setResourceWriter(resourceWriter);
@@ -305,12 +310,12 @@ public class ProcessMojo extends AbstractMojo {
                     break;
                 }
             }
-            
+
             resourceWriter.writeProcessedResourceMappings();
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } finally {
-            
+
             if (cpResources != null) {
                 for (VFSRoot vfsRoot : cpResources) {
                     try {
@@ -321,7 +326,7 @@ public class ProcessMojo extends AbstractMojo {
                     }
                 }
             }
-            
+
             if (webResources != null) {
                 for (VFSRoot vfsRoot : webResources) {
                     try {
@@ -332,7 +337,7 @@ public class ProcessMojo extends AbstractMojo {
                     }
                 }
             }
-            
+
             // TODO review finally block
             if (executorService != null) {
                 executorService.shutdown();
