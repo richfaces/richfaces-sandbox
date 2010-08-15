@@ -29,7 +29,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<component>
 		<component-type>org.richfaces.InputNumberSlider</component-type>
-		<component-class>org.richfaces.component.HTMLInputNumberSlider</component-class>
+		<component-class>org.richfaces.component.HtmlInputNumberSlider</component-class>
 		<property>
 			<property-name>accesskey</property-name>
 			<property-class>java.lang.String</property-class>
@@ -112,8 +112,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<property>
 			<property-name>inputPosition</property-name>
-			<property-class>org.richfaces.component.PositionType</property-class>
-			<default-value>PositionType.DEFAULT</default-value>
+			<property-class>org.richfaces.component.InputNumberSliderInputPosition</property-class>
+			<default-value>InputNumberSliderInputPosition.DEFAULT</default-value>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>
 			</property-extension>

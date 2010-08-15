@@ -23,7 +23,7 @@ package org.richfaces.renderkit;
 
 import javax.faces.component.UIComponent;
 
-import org.richfaces.component.PositionType;
+import org.richfaces.component.InputNumberSliderInputPosition;
 
 /**
  * @author Nick Belaevski
@@ -32,12 +32,12 @@ import org.richfaces.component.PositionType;
 public abstract class InputNumberSliderRendererBase extends InputRendererBase {
 
     protected boolean isInputPosition(UIComponent component, String name) {
-        PositionType type = (PositionType) component.getAttributes().get("inputPosition");
+        InputNumberSliderInputPosition type = (InputNumberSliderInputPosition) component.getAttributes().get("inputPosition");
         if (type == null) {
-            type = PositionType.DEFAULT;
+            type = InputNumberSliderInputPosition.DEFAULT;
         }
         
-        return type == PositionType.valueOf(name);
+        return type == InputNumberSliderInputPosition.valueOf(name);
     }
     
 }
