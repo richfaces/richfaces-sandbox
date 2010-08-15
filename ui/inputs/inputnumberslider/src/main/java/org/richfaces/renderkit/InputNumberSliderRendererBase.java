@@ -31,12 +31,13 @@ import org.richfaces.component.PositionType;
  */
 public abstract class InputNumberSliderRendererBase extends InputRendererBase {
 
-    protected String getInputPositionName(UIComponent component) {
+    protected boolean isInputPosition(UIComponent component, String name) {
         PositionType type = (PositionType) component.getAttributes().get("inputPosition");
         if (type == null) {
             type = PositionType.DEFAULT;
         }
         
-        return type.name();
+        return type == PositionType.valueOf(name);
     }
+    
 }

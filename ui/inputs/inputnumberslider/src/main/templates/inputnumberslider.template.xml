@@ -41,10 +41,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-ins #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
-            <c:if test="#{'left' == getInputPositionName(component)
-				|| 'top' == getInputPositionName(component)}">
+            <c:if test="#{isInputPosition(component, 'left') || isInputPosition(component, 'top')}">
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
-				<c:if test="#{'top' == getInputPositionName(component) and component.attributes['showInput']}">
+				<c:if test="#{isInputPosition(component, 'top') and component.attributes['showInput']}">
 					<br />
 				</c:if>
 			</c:if>
@@ -63,9 +62,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<c:if test="#{component.attributes['showArrows']}">
 				<span class="rf-ins-ib#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['increaseClass']}" />
 			</c:if>
-			<c:if test="#{'right' == getInputPositionName(component)
-				|| 'bottom' == getInputPositionName(component)}">
-				<c:if test="#{'bottom' == getInputPositionName(component) and component.attributes['showInput']}">
+			<c:if test="#{isInputPosition(component, 'right') || isInputPosition(component, 'bottom')}">
+				<c:if test="#{isInputPosition(component, 'bottom') and component.attributes['showInput']}">
 					<br />
 				</c:if>
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
