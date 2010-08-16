@@ -16,7 +16,6 @@
     <name>Richfaces Examples Sandbox: Component Demos Aggregator</name>
 
     <modules>
-	    <module>combobox-demo</module>
     </modules>
 
     <dependencies>
