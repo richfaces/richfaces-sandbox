@@ -26,7 +26,7 @@ public class Main {
 	private OutputStream outChannel;
 
 	private Color[] colors = new Color[] {
-		Color.BLUE, Color.GREEN, Color.BLACK
+	    new Color(255, 240, 230), new Color(255, 240, 230), new Color(0, 210, 48)
 	};
 
 	private boolean isIndexed = false;
@@ -357,8 +357,7 @@ public class Main {
 					break;
 					
 				default:
-					System.out.println(bs[0]);
-					throw new IllegalArgumentException();
+					throw new IllegalArgumentException(Integer.toHexString(bs[0]));
 				}
 
 				filters[i].bs = bs;
