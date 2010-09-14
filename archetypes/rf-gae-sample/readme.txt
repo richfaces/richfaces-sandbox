@@ -10,8 +10,8 @@ This archetype creates a simple RichFaces 4 application with all the settings an
 
 1) To generate a project from the archetype, run
 
-    mvn archetype:generate -DarchetypeGroupId=org.richfaces.archetypes -DarchetypeArtifactId=richfaces-archetype-gae-sample 
-    -DarchetypeVersion=<version> -DgroupId=<yourGroupId> -DartifactId=<yourArtifactId> -Dversion=1.0-SNAPSHOT
+    mvn archetype:generate -DarchetypeGroupId=org.richfaces.archetypes -DarchetypeArtifactId=richfaces-archetype-gae -DarchetypeVersion=<version> 
+	-DgroupId=<yourGroupId> -DartifactId=<yourArtifactId> -Dversion=1.0-SNAPSHOT
 
 2) To build the project for deploy to GAE cloud, run
     mvn clean install -Pgae

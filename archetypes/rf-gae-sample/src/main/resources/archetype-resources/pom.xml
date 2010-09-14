@@ -5,7 +5,7 @@
 
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
-    <name>RichFaces 4 Application</name>
+    <name>${artifactId}</name>
     <version>${version}</version>
     <packaging>war</packaging>
 
@@ -30,8 +30,27 @@
     </properties>
 
     <build>
-        <finalName>rf-gae-sample</finalName>
+        <finalName>${artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java-gae-jsf-ri</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -44,12 +63,68 @@
                 <configuration>
                     <webResources>
                         <resource>
+                            <directory>src/main/webapp-gae</directory>
+                        </resource>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                        </resource>
+                        <resource>
+                            <directory>${project.build.directory}/generated-resources</directory>
+                            <targetPath>static-resources</targetPath>
+                        </resource>
+                        <resource>
                             <directory>${basedir}/src/main/java</directory>
                             <targetPath>/WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <configuration></configuration>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDir>generated-resources</outputDir>
+                            <skins>
+                                <skin>blueSky</skin>
+                                <skin>classic</skin>
+                                <skin>deepMarine</skin>
+                                <skin>emeraldTown</skin>
+                                <skin>japanCherry</skin>
+                                <skin>ruby</skin>
+                                <skin>wine</skin>
+                            </skins>
+                            <includedContentTypes>
+                                <include>application/javascript</include>
+                                <include>text/css</include>
+                                <include>image/.+</include>
+                            </includedContentTypes>
+                            <fileNameMappings>
+                                <property>
+                                    <name>^\Qorg.richfaces.renderkit.html\E</name>
+                                    <value>org.richfaces/images</value>
+                                </property>
+                                <property>
+                                    <name>^\Qorg.richfaces.renderkit.html.images\E</name>
+                                    <value>org.richfaces/images</value>
+                                </property>
+                                <property>
+                                    <name>^css/</name>
+                                    <value>org.richfaces/css/</value>
+                                </property>
+                            </fileNameMappings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -118,138 +193,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>gae</id>
-            <dependencies>
-                <dependency>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.web</groupId>
-                    <artifactId>el-impl</artifactId>
-                    <version>2.2</version>
-                </dependency>
-                <dependency>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                    <version>2.2</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jta_1.1_spec</artifactId>
-                    <version>1.1.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jpa_3.0_spec</artifactId>
-                    <version>1.1.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>xalan</groupId>
-                    <artifactId>xalan</artifactId>
-                    <version>2.7.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                    <version>2.9.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/main/java-gae-jsf-ri</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <directory>src/main/webapp-gae</directory>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/webapp</directory>
-                                </resource>
-                                <resource>
-                                    <directory>${project.build.directory}/generated-resources</directory>
-                                    <targetPath>static-resources</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.richfaces.cdk</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${org.richfaces.bom.version}</version>
-                        <configuration></configuration>
-                        <executions>
-                            <execution>
-                                <id>process</id>
-                                <goals>
-                                    <goal>process</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDir>generated-resources</outputDir>
-                                    <skins>
-                                        <skin>blueSky</skin>
-                                        <skin>classic</skin>
-                                        <skin>deepMarine</skin>
-                                        <skin>emeraldTown</skin>
-                                        <skin>japanCherry</skin>
-                                        <skin>ruby</skin>
-                                        <skin>wine</skin>
-                                    </skins>
-                                    <includedContentTypes>
-                                        <include>application/javascript</include>
-                                        <include>text/css</include>
-                                        <include>image/.+</include>
-                                    </includedContentTypes>
-                                    <fileNameMappings>
-                                        <property>
-                                            <name>^\Qorg.richfaces.renderkit.html\E</name>
-                                            <value>org.richfaces/images</value>
-                                        </property>
-                                        <property>
-                                            <name>^\Qorg.richfaces.renderkit.html.images\E</name>
-                                            <value>org.richfaces/images</value>
-                                        </property>
-                                        <property>
-                                            <name>^css/</name>
-                                            <value>org.richfaces/css/</value>
-                                        </property>
-                                    </fileNameMappings>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>        
     </profiles>
 
@@ -287,11 +230,6 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -333,5 +271,42 @@
             <classifier>jdk15</classifier>
             <scope>test</scope>
         </dependency>
+	<!-- GAE PROFILE DEPENDENCIES -->
+
+         <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 </project>

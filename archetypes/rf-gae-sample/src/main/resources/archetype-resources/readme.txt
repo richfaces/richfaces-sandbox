@@ -1,12 +1,12 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
-Project generated with richfaces-archetype-simpleapp
+Project generated with richfaces-archetype-gae
 
-To build this project for Tomcat 6 run
+1.1) To build this project for GAE deploy
 
-    mvn clean package
+    mvn clean install
+1.2) to deploy application to GAE use appcfg from GAE SDK. follow instructions from appspot.com
 
-If you wan to create a binaries for both Tomcat 6 and JBoss 6 run
+
+2) If you wan to create a binaries for Tomcat 6 and JBoss 6 run
 
     mvn clean package -P release
+
