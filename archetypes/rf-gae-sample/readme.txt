@@ -14,13 +14,16 @@ This archetype creates a simple RichFaces 4 application with all the settings an
 	-DgroupId=<yourGroupId> -DartifactId=<yourArtifactId> -Dversion=1.0-SNAPSHOT
 
 2) To build the project for deploy to GAE cloud, run
-    mvn clean install -Pgae
+    mvn clean install 
 
 *BEFORE NEXT STEP - you should setup your GAE account at http://appspot.com and register new application there. 
 (read more at http://code.google.com/intl/ru/appengine/docs/python/gettingstarted/uploading.html)
 
 3) Then just execute appcfg from GAE SDK(link) to publish to your account:
 	appcfg update <PATH: "generated-application-target-folder/output application folder">  
+
+NOTE:Do not forget to register your own application name and make sure that the demo uses the same name accordingly. 
+
 
 4) now visit your application using http://<application-name>.appspot.com
 4.1) check all the information about deployed application at https://appengine.google.com/dashboard?&app_id=<your-application-id>
