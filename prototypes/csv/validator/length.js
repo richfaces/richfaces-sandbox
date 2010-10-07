@@ -11,22 +11,20 @@
 	$.extend(rf.csv, {
 		// Messages API
 		addMessage: function (messagesObject) {
-			for (var id in messagesObject) {
-				_messages[id] = messagesObject[id].replace(RE_MESSAGE_PATTERN,"\n$1\n").split("\n");
-			}
+			$.extend(_messages, messagesObject);
 		},
-		getMessage: function(id, values) {
-			var msgObject = _messages[id];
-			var result="";
-			if (msgObject) {
+		getMessage: function(customMessages, id, values) {
+			var message = (customMessages && customMessages[id]) || _messages[id] || "";
+			if (message) {
+				var msgObject = message.replace(RE_MESSAGE_PATTERN,"\n$1\n").split("\n");
 				var value;
 				for (var i=1; i<msgObject.length; i+=2) {
 					value = values[msgObject[i]];
 					msgObject[i] = typeof value == "undefined" ? "" : value;
 				}
-				result = msgObject.join('');
+				message = msgObject.join('');
 			}
-			return result;
+			return message;
 		},
 		// Validators API
 		addValidator: function (validatorFunctions) {
@@ -56,7 +54,7 @@
 					break;
 				}
 			}
-			!messageComponentsUpdated && alert("");//updateMessageComponents(messageElementIds, "");
+			!messageComponentsUpdated && alert("no message from validators");//updateMessageComponents(messageElementIds, "");
 		},
 		addFormValidators: function (formId, callValidatorFunctions) {
 			
@@ -70,9 +68,9 @@ RichFaces.csv.addValidator({"length":
 	return function (value, params) {
 		var result = "";
 		if (value.length<params.min) {
-			result = rf.csv.getMessage('LengthValidator.MINIMUM', [params.min,value]);	
+			result = rf.csv.getMessage(params.customMessages, 'LengthValidator.MINIMUM', [params.min,value]);	
 		} else if (value.length>params.max){
-			result = rf.csv.getMessage('LengthValidator.MAXIMUM', [params.max,value]);	
+			result = rf.csv.getMessage(params.customMessages, 'LengthValidator.MAXIMUM', [params.max,value]);	
 		}
 		return result;
 	}

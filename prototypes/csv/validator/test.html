@@ -15,11 +15,12 @@
 <form id="myForm">
 <input id="myInput" type="text" value="aaa"/>
 <input type="button" onclick="v();" value="validate length"/>
+<input type="button" onclick="v({'LengthValidator.MINIMUM':'CustomMessage: length of the {1} is smaller then {0} chars', 'LengthValidator.MAXIMUM':'CustomMessage: length of the {1} is bigger then {0} chars'});" value="validate length (custom message)"/>
 </form>
 <script>
 RichFaces.csv.addMessage({'LengthValidator.MINIMUM':'Hello, length of the "{1}" is smaller then {0} chars', 'LengthValidator.MAXIMUM':'Hello, length of the "{1}" is bigger then {0} chars'});
-var v = function () {
-	RichFaces.csv.validate(null, 'myInput', {'length':{min:1, max:5}}, null, null);
+var v = function (customMessages) {
+	RichFaces.csv.validate(null, 'myInput', {'length':{min:1, max:5, customMessages:customMessages}}, null, null);
 };
 </script>
 </body>
