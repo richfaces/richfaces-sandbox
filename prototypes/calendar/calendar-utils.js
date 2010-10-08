@@ -58,6 +58,7 @@
 			}
 		});*/
 		
+		// TODO: move joinArray to richfaces utils
 		joinArray: function(array, begin, end, separator)
 		{
 			var value = '';

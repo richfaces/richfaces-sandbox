@@ -19,7 +19,7 @@
 			
 			if (!calendar.selectedDate || calendar.params.showApplyButton) return "";
 			
-			var text = Richfaces.Calendar.formatDate(calendar.selectedDate,(calendar.timeType ? calendar.datePattern : calendar.params.datePattern), calendar.params.monthLabels, calendar.params.monthLabelsShort);
+			var text = rf.calendarUtils.formatDate(calendar.selectedDate,(calendar.timeType ? calendar.datePattern : calendar.params.datePattern), calendar.params.monthLabels, calendar.params.monthLabelsShort);
 			var onclick = "RichFaces.$$('Calendar',this).showSelectedDate(); return true;"
 			var markup = ( calendar.params.disabled ? 
 							new E('div', {'class': 'rich-calendar-tool-btn-disabled'}, [new ET(text)]) : 
@@ -32,7 +32,7 @@
 			
 			if (!calendar.selectedDate || !calendar.timeType) return "";
 			
-			var text = Richfaces.Calendar.formatDate(calendar.selectedDate, calendar.timePattern, calendar.params.monthLabels, calendar.params.monthLabelsShort);
+			var text = rf.calendarUtils.formatDate(calendar.selectedDate, calendar.timePattern, calendar.params.monthLabels, calendar.params.monthLabelsShort);
 	
 			var onmouseover = "jQuery(this).removeClass('rich-calendar-tool-btn-press');";
 			var onmouseout = "jQuery(this).addClass('rich-calendar-tool-btn-press');";
@@ -60,7 +60,7 @@
 			return (!context.calendar.params.disabled ? CalendarView.getControl("<", CalendarView.toolButtonAttributes, "prevMonth") : "");
 		},
 		currentMonthControl: function (context) {
-			var text = Richfaces.Calendar.formatDate(context.calendar.getCurrentDate(), "MMMM, yyyy", context.monthLabels, context.monthLabelsShort);
+			var text = rf.calendarUtils.formatDate(context.calendar.getCurrentDate(), "MMMM, yyyy", context.monthLabels, context.monthLabelsShort);
 			var markup = context.calendar.params.disabled ?
 						 new E('div',{className: "rich-calendar-tool-btn-disabled"},[new T(text)]) :
 						 CalendarView.getControl(text, CalendarView.toolButtonAttributes, "showDateEditor");
@@ -323,11 +323,10 @@
 		$super.constructor.call(this, componentId);
 
 		this.namespace = "."+rf.Event.createNamespace(this.name, componentId);
-		this.attachToDom(componentId);
 		
 		//create parameters
 		//this.options = $.extend(this.options, defaultOptions, options);
-		this.params = $.extend(this.options, defaultOptions, Richfaces.Calendar[locale], options, markups);
+		this.params = $.extend({}, defaultOptions, locales[locale], options, markups);
 		
 		// labels
 		var value = options.labels || {};
@@ -370,7 +369,6 @@
 		this.POPUP_ID = this.id+'Popup';
 		this.POPUP_BUTTON_ID = this.id+'PopupButton';
 		this.INPUT_DATE_ID = this.id+'InputDate';
-		this.IFRAME_ID = this.id+'IFrame';
 		this.EDITOR_ID = this.id+'Editor';
 		this.EDITOR_SHADOW_ID = this.id+'EditorShadow';
 
@@ -410,7 +408,6 @@
 		var htmlControlsHeader = (this.params.showHeader ? '<tr><td class="rich-calendar-header" colspan="'+colspan+'" id="'+this.id+'Header"></td></tr>' : '');
 		var htmlControlsFooter = (this.params.showFooter ? '<tr><td class="rich-calendar-footer" colspan="'+colspan+'" id="'+this.id+'Footer"></td></tr>' : '');
 		var htmlTextFooter = '</tbody></table>'
-		var htmlTextIFrame = '<iframe src="javascript:\'\'" frameborder="0" scrolling="no" id="' + this.IFRAME_ID + '" style="display:none; position: absolute; width: 1px; height: 1px; background-color:white;">'+'</iframe>';
 
 		// days bar creation
 		var styleClass;
@@ -473,38 +470,12 @@
 			htmlTextWeek.push('</tr>');
 		}
 			
-		var obj = rf.getDomElement(this.POPUP_ID).nextSibling;
-		if (this.params.popup && Richfaces.browser.isIE6)
-		{
-			do {	
-				if (obj.id == this.IFRAME_ID)
-				{
-					var iframe = obj;
-					obj = obj.nextSibling;
-					Element.replace(iframe, htmlTextIFrame);
-					break;
-				}
-			} while (obj = obj.nextSibling);
-		}
+		var div = rf.getDomElement(this.id);
+		$(div).replaceWith(htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
+		this.attachToDom(div);
 		
-		do {
-			if (obj.id == id)
-			{
-				var div = obj;
-				obj = obj.previousSibling;
-				Element.replace(div, htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
-				break;
-			}
-		} while (obj = obj.nextSibling);
-			
-		// set content
-		obj=obj.nextSibling;
-		obj.component = this;
-		obj.richfacesComponent="richfaces:calendar";
-		this["rich:destructor"] = "destructor";
-		
-		// memory leaks fix
-		obj = null;
+		// memory leaks fix // from old 3.3.x code, may be not needed now
+		div = null;
 		
 		if(this.params.submitFunction)	this.submitFunction = this.params.submitFunction.bind(this);
 		this.prepareEvents(); //TODO: function
@@ -530,7 +501,7 @@
 	rf.BaseComponent.extend(rf.ui.Calendar);
 
 	// define super class link
-	var $super = rf.BaseComponent.$super;
+	var $super = rf.ui.Calendar.$super;
 	
 	// static methods definition
 	var locales = {};
@@ -539,7 +510,7 @@
 		if (!locales[locale]) {
 			locales[locale] = symbols;
 		}
-	},
+	};
 	
 	/*
 	 * Prototype definition
@@ -892,10 +863,6 @@
 				Richfaces.removeScrollEventHandlers(this.scrollElements, this.eventOnScroll);
 				Event.stopObserving(window.document, "click", this.eventOnCollapse, false);
 				
-				var iframe=null;
-				if (Richfaces.browser.isIE6) iframe = $(this.IFRAME_ID);
-				if (iframe) Element.hide(iframe);
-				
 				Element.hide(element);
 				this.isVisible = false;
 
@@ -919,9 +886,6 @@
 
 			if (this.invokeEvent("expand", element, e))
 			{
-				var iframe=null;
-				if (Richfaces.browser.isIE6) iframe = $(this.IFRAME_ID);
-
 				var base = $(this.POPUP_ID)
 				var baseInput = base.firstChild;
 				var baseButton = baseInput.nextSibling;
@@ -955,15 +919,6 @@
 						 
 				Richfaces.Calendar.setElementPosition(element, o, this.params.jointPoint, this.params.direction, this.popupOffset);
 		
-				if (iframe)
-				{
-					iframe.style.left = element.style.left;
-					iframe.style.top = element.style.top;
-					var edim = Richfaces.Calendar.getOffsetDimensions(element);
-					iframe.style.width = edim.width+'px';
-					iframe.style.height = edim.height+'px';
-					Element.show(iframe);
-				}
 				Element.show(element);
 				
 				this.isVisible = true;
@@ -1466,16 +1421,6 @@
 			
 			//alert(new Date().getTime()-_d.getTime());
 			
-			// hack for IE 6.0 //fix 1072 // TODO check this bug again 
-			/*if (Richfaces.browser.isIE6)
-			{
-				var element = $(this.id);
-				if (element)
-				{
-					element.style.width = "0px";
-					element.style.height = "0px";
-				}
-			}*/
 		},
 
 		renderHF: function()
@@ -1504,13 +1449,22 @@
 			var e = $(elementId);
 			if (!e) return; 
 		
-			e.innerHTML = markup.invoke('getContent', context).join('');
+			e.innerHTML = evaluateMarkup(markup, context);
 		},
 		
 		evaluateMarkup: function(markup, context)
 		{
 			if (!markup) return "";
-			return markup.invoke('getContent', context).join('');
+			
+			var result = [];
+			var m;
+			for (var i=0; i<markup.length; i++) {
+				m = markup[i]['getContent'];
+				if (m) {
+					result.push(m(context));
+				}
+			}
+			return result.join('');
 		},
 		
 		onUpdate: function()
