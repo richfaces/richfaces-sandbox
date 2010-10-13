@@ -169,7 +169,7 @@
 						[
 							new E('td',{'class': 'rich-calendar-time-layout-ok'},
 							[
-								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_OK}, 'class': 'rich-calendar-time-btn', 'style': 'float:right;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "$('"+context.calendar.id+"').component.hideTimeEditor(true)";}},
+								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_OK}, 'class': 'rich-calendar-time-btn', 'style': 'float:right;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(true)";}},
 								[
 									new E('span',{},
 									[
@@ -180,7 +180,7 @@
 							,
 							new E('td',{'class': 'rich-calendar-time-layout-cancel'},
 							[
-								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_CANCEL}, 'class': 'rich-calendar-time-btn', 'style': 'float:left;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "$('"+context.calendar.id+"').component.hideTimeEditor(false)";}},
+								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_CANCEL}, 'class': 'rich-calendar-time-btn', 'style': 'float:left;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(false)";}},
 								[
 									new E('span',{},
 									[
@@ -471,23 +471,20 @@
 		}
 			
 		var div = rf.getDomElement(this.id);
-		$(div).replaceWith(htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
-		this.attachToDom(div);
+		div = $(div).replaceWith(htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
+		this.attachToDom(this.id); // TODO: optimize double $
 		
 		// memory leaks fix // from old 3.3.x code, may be not needed now
 		div = null;
 		
-		if(this.params.submitFunction)	this.submitFunction = this.params.submitFunction.bind(this);
-		this.prepareEvents(); //TODO: function
-		
 		// add onclick event handlers to input field and popup button
 		if (this.params.popup && !this.params.disabled)
 		{
-			var handler = new Function ('event', "RichFaces.$('"+this.id+"').doSwitch();").bindAsEventListener(); 
-			Event.observe(this.POPUP_BUTTON_ID, "click", handler, false);
+			var handler = new Function ('event', "RichFaces.$('"+this.id+"').doSwitch();");
+			rf.Event.bindById(this.POPUP_BUTTON_ID, "click"+this.namespace, handler);
 			if (!this.params.enableManualInput) 
 			{
-				Event.observe(this.INPUT_DATE_ID, "click", handler, false);				
+				rf.Event.bindById(this.INPUT_DATE_ID, "click"+this.namespace, handler);				
 			}
 		}
 		
@@ -521,8 +518,8 @@
 		{
 			if (this.params.popup && this.isVisible)
 			{
-				Richfaces.removeScrollEventHandlers(this.scrollElements, this.eventOnScroll);
-				Event.stopObserving(window.document, "click", this.eventOnCollapse, false);
+				rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
+				rf.Event.unbind(window.document, "click"+this.namespace);
 			}
 		},
 		
@@ -547,7 +544,7 @@
 		
 		scrollEditorYear: function(value)
 		{
-			var element = $(this.DATE_EDITOR_LAYOUT_ID+'TR');
+			var element = rf.getDomElement(this.DATE_EDITOR_LAYOUT_ID+'TR');
 
 			if (this.dateEditorYearID)
 			{
@@ -602,9 +599,9 @@
 
 		updateTimeEditor: function()
 		{
-			var th=$(this.id+'TimeHours');
-			var ts=$(this.id+'TimeSign');
-			var tm=$(this.id+'TimeMinutes');
+			var th=rf.getDomElement(this.id+'TimeHours');
+			var ts=rf.getDomElement(this.id+'TimeSign');
+			var tm=rf.getDomElement(this.id+'TimeMinutes');
 					
 			var h = this.selectedDate.getHours();
 			var m = this.selectedDate.getMinutes();
@@ -621,31 +618,26 @@
 
 		createEditor: function()
 		{
-			var element = $(this.id);
-			var htmlBegin = '<div id="'+this.EDITOR_SHADOW_ID+'" class="rich-calendar-editor-shadow" style="position:absolute; display:none;"></div><table border="0" cellpadding="0" cellspacing="0" id="'+this.EDITOR_ID+'" style="position:absolute; display:none;" onclick="$(\''+this.id+'\').component.skipEventOnCollapse=true;"><tbody><tr><td class="rich-calendar-editor-container" align="center"><div style="position:relative; width:100%">';
+			var element = $(rf.getDomElement(this.id));
+			var zindex = parseInt(element.css('z-index'), 10);
+			var htmlBegin = '<div id="'+this.EDITOR_SHADOW_ID+'" class="rich-calendar-editor-shadow" style="position:absolute; display:none;z-index:'+zindex+'"></div><table border="0" cellpadding="0" cellspacing="0" id="'+this.EDITOR_ID+'" style="position:absolute; display:none;z-index:'+(zindex+1)+'" onclick="RichFaces.$(\''+this.id+'\').skipEventOnCollapse=true;"><tbody><tr><td class="rich-calendar-editor-container" align="center"><div style="position:relative; width:100%">';
 			var htmlContent = '<div id="'+this.EDITOR_LAYOUT_SHADOW_ID+'" class="rich-calendar-editor-layout-shadow"></div>';
 			
 			var htmlEnd = '</div></td></tr></tbody></table>';
-			new Insertion.After(element, htmlBegin+htmlContent+htmlEnd);
-			//+this.evaluateMarkup(CalendarView.timeEditor, this.calendarContext)+
-			var editor_shadow = $(this.EDITOR_SHADOW_ID);
-			var editor = $(this.EDITOR_ID);
-			var zindex = element.getStyle('z-index');
-			editor_shadow.style.zIndex = zindex;
-			editor.style.zIndex = parseInt(zindex,10)+1;
+			element.after(htmlBegin+htmlContent+htmlEnd);
 
 			this.isEditorCreated = true;
 
-			return editor;
+			return rf.getDomElement(this.EDITOR_ID);
 		},
 
 		createTimeEditorLayout: function(editor)
 		{
 			Element.insert(this.EDITOR_LAYOUT_SHADOW_ID, {after:this.evaluateMarkup(CalendarView.timeEditorLayout, this.calendarContext)});
 
-			var th=$(this.id+'TimeHours');
+			var th=rf.getDomElement(this.id+'TimeHours');
 			var ts;
-			var tm=$(this.id+'TimeMinutes');
+			var tm=rf.getDomElement(this.id+'TimeMinutes');
 			if (this.timeType==1)
 			{
 				sbjQuery(th).SpinButton({digits:this.timeHoursDigits,min:0,max:23});
@@ -653,7 +645,7 @@
 			else
 			{
 				sbjQuery(th).SpinButton({digits:this.timeHoursDigits,min:1,max:12});
-				ts=$(this.id+'TimeSign');				
+				ts=rf.getDomElement(this.id+'TimeSign');				
 				sbjQuery(ts).SpinButton({});
 			}
 			sbjQuery(tm).SpinButton({digits:2,min:0,max:59});
@@ -665,8 +657,8 @@
 		
 		correctEditorButtons: function(editor, buttonID1, buttonID2)
 		{
-			var button1 = $(buttonID1);
-			var button2 = $(buttonID2);
+			var button1 = rf.getDomElement(buttonID1);
+			var button2 = rf.getDomElement(buttonID2);
 			editor.style.visibility = "hidden";
 			editor.style.display = "";
 			var width1 = Richfaces.Calendar.getOffsetDimensions(button1.firstChild).width; 
@@ -687,12 +679,12 @@
 			if (buttonType==0)
 			{
 				return '<div id="'+id+'" class="rich-calendar-editor-btn'+(className ? ' '+className : '')+
-				                      '" onmouseover="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onmouseout="this.className=\'rich-calendar-editor-btn\';" onmousedown="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-press\';" onmouseup="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onclick="$(\''+this.id+'\').component.scrollEditorYear('+param+');">'+value+'</div>';
+				                      '" onmouseover="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onmouseout="this.className=\'rich-calendar-editor-btn\';" onmousedown="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-press\';" onmouseup="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onclick="RichFaces.$(\''+this.id+'\').scrollEditorYear('+param+');">'+value+'</div>';
 			}
 			else 
 			{
-				var onclick = (buttonType==1 ? '$(\''+this.id+'\').component.dateEditorSelectMonth('+param+');':
-						   				    '$(\''+this.id+'\').component.dateEditorSelectYear('+param+');' );
+				var onclick = (buttonType==1 ? 'RichFaces.$(\''+this.id+'\').dateEditorSelectMonth('+param+');':
+						   				    'RichFaces.$(\''+this.id+'\').dateEditorSelectYear('+param+');' );
 				return '<div id="'+id+'" class="rich-calendar-editor-btn'+(className ? ' '+className : '')+
 									  '" onmouseover="Element.addClassName(this, \'rich-calendar-editor-btn-over\');" onmouseout="Element.removeClassName(this,\'rich-calendar-editor-btn-over\');" onclick="'+onclick+'">'+value+'</div>';
 			}
@@ -725,9 +717,9 @@
 			this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID+'M'+this.dateEditorMonth;
 			
 			htmlContent+='</tr><tr><td colspan="2" class="rich-calendar-date-layout-ok">'+
-						 '<div id="'+this.DATE_EDITOR_BUTTON_OK+'" class="rich-calendar-time-btn" style="float:right;" onmousedown="Element.addClassName(this, \'rich-calendar-time-btn-press\');" onmouseout="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onmouseup="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onclick="$(\''+this.id+'\').component.hideDateEditor(true);"><span>'+this.params.labels.ok+'</span></div>'+
+						 '<div id="'+this.DATE_EDITOR_BUTTON_OK+'" class="rich-calendar-time-btn" style="float:right;" onmousedown="Element.addClassName(this, \'rich-calendar-time-btn-press\');" onmouseout="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onmouseup="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(true);"><span>'+this.params.labels.ok+'</span></div>'+
 						 '</td><td colspan="2" class="rich-calendar-date-layout-cancel">'+
-						 '<div id="'+this.DATE_EDITOR_BUTTON_CANCEL+'" class="rich-calendar-time-btn" style="float:left;" onmousedown="Element.addClassName(this, \'rich-calendar-time-btn-press\');" onmouseout="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onmouseup="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onclick="$(\''+this.id+'\').component.hideDateEditor(false);"><span>'+this.params.labels.cancel+'</span></div>'+
+						 '<div id="'+this.DATE_EDITOR_BUTTON_CANCEL+'" class="rich-calendar-time-btn" style="float:left;" onmousedown="Element.addClassName(this, \'rich-calendar-time-btn-press\');" onmouseout="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onmouseup="Element.removeClassName(this, \'rich-calendar-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(false);"><span>'+this.params.labels.cancel+'</span></div>'+
 						 '</td>';
 
 
@@ -855,13 +847,13 @@
 			
 			if (!this.params.popup || !this.isVisible) return;
 			
-			var element = $(this.id);
+			var element = rf.getDomElement(this.id);
 			
 			if (this.invokeEvent("collapse", element))
 			{
 				if (this.isEditorVisible) this.hideEditor();
-				Richfaces.removeScrollEventHandlers(this.scrollElements, this.eventOnScroll);
-				Event.stopObserving(window.document, "click", this.eventOnCollapse, false);
+				rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
+				rf.Event.unbind(window.document, "click"+this.namespace);
 				
 				Element.hide(element);
 				this.isVisible = false;
@@ -882,11 +874,11 @@
 			if (e && e.type=='click') this.skipEventOnCollapse = true;
 			if (!this.params.popup || this.isVisible) return;
 			
-			var element = $(this.id);
+			var element = rf.getDomElement(this.id);
 
 			if (this.invokeEvent("expand", element, e))
 			{
-				var base = $(this.POPUP_ID)
+				var base = rf.getDomElement(this.POPUP_ID)
 				var baseInput = base.firstChild;
 				var baseButton = baseInput.nextSibling;
 				
@@ -923,11 +915,11 @@
 				
 				this.isVisible = true;
 
-				Event.observe(window.document, "click", this.eventOnCollapse, false);
+				rf.Event.bind(window.document, "click"+this.namespace, this.eventOnCollapse);
 				
-				Richfaces.removeScrollEventHandlers(this.scrollElements, this.eventOnScroll);
+				rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
 				if (this.params.hidePopupOnScroll) {
-					this.scrollElements = Richfaces.setupScrollEventHandlers(element, this.eventOnScroll);
+					this.scrollElements = rf.Event.bindScrollEventHandlers(element, this.eventOnScroll, this);
 				}
 			}
 		},
@@ -955,7 +947,7 @@
 			
 			//Position.prepare();
 			// TODO: remove line below and check functionality 
-			if (Position.within($(this.id), Event.pointerX(e), Event.pointerY(e))) return true;
+			if (Position.within(rf.getDomElement(this.id), Event.pointerX(e), Event.pointerY(e))) return true;
 			this.doCollapse();
 			
 			return true;
@@ -963,7 +955,7 @@
 		
 		setInputField: function(dateStr, event)
 		{
-			var field = $(this.INPUT_DATE_ID);
+			var field = rf.getDomElement(this.INPUT_DATE_ID);
 			if (field.value!=dateStr)
 			{
 				field.value=dateStr;
@@ -1020,49 +1012,6 @@
 		
 		isWeekend: function(weekday) {
 			return (weekday == this.firstWeekendDayNumber || weekday == this.secondWeekendDayNumber);
-		},
-		
-		prepareEvents: function() {
-			this.eventOnCollapse = this.eventOnCollapse.bindAsEventListener(this);
-			this.eventOnScroll = this.eventOnScroll.bindAsEventListener(this);
-		},
-		
-		invokeEvent: function(eventName, element, event, date) {
-			var eventFunction = this.params['on'+eventName];
-			var result;
-
-			if (eventFunction)
-			{
-				var eventObj;
-
-				if (event)
-				{
-					eventObj = event;
-				}
-				else if( document.createEventObject ) 
-				{
-					eventObj = document.createEventObject();
-				}
-				else if( document.createEvent )
-				{
-					eventObj = document.createEvent('Events');
-					eventObj.initEvent( eventName, true, false );
-				}
-				
-				eventObj.rich = {component:this};
-				eventObj.rich.date = date;
-
-				try
-				{
-					result = eventFunction.call(element, eventObj);
-				}
-				catch (e) { LOG.warn("Exception: "+e.Message + "\n[on"+eventName + "]"); }
-
-			}
-			
-			if (result!=false) result = true;
-			
-			return result;
 		},
 		
 		setupTimeForDate: function (date) {
@@ -1144,7 +1093,6 @@
 			//			styleClass
 			//	}
 			
-			//if (!$(this.id).component) return;
 			
 			if (daysData) {
 				this.daysData = this.indexData(daysData, isAjaxMode);
@@ -1188,26 +1136,8 @@
 		},
 		
 		getCellBackgroundColor: function(element)
-		{
-			var result;
-			if (Richfaces.browser.isSafari && this.params.popup && !this.isVisible)
-			{
-				// Safari 2.0 fix 
-				// if [display:none] Element.getStyle() function returns null;
-				var els = $(this.id).style;
-				var originalVisibility = els.visibility;
-				var originalDisplay = els.display;
-				els.visibility = 'hidden';
-				els.display = '';
-				result = Element.getStyle(element, 'background-color').parseColor();
-				els.display = originalDisplay;
-				els.visibility = originalVisibility;
-			} else 
-			{					
-				result = Element.getStyle(element, 'background-color').parseColor();
-			}
-			
-			return result;
+		{	
+			return $(element).css('background-color');
 		},
 		
 		clearEffect: function (element_id, effect, className, className1)
@@ -1219,10 +1149,10 @@
 			}
 			if (element_id)
 			{
-				var e = $(element_id);
-				e.style['backgroundColor'] = '';
-				if (className) Element.removeClassName(e, className);
-				if (className1) Element.addClassName(e, className1);
+				var e = $(rf.getElementById(element_id));
+				e.css('backgroundColor') = '';
+				if (className) e.removeClass(className);
+				if (className1) Element.addClass(className1);
 			}
 			return null;
 		},
@@ -1241,9 +1171,9 @@
 			var selectedflag = this.selectedDate && (currentYear == this.selectedDate.getFullYear() && currentMonth == this.selectedDate.getMonth())
 			var selecteddate = this.selectedDate && this.selectedDate.getDate();
 
-			var wd = getDay(this.currentDate, this.params.firstWeekDay);
-			var currentMonthDays = daysInMonthByDate(this.currentDate);
-			var previousMonthDays = daysInMonth(currentYear, currentMonth-1);
+			var wd = rf.calendarUtils.getDay(this.currentDate, this.params.firstWeekDay);
+			var currentMonthDays = rf.calendarUtils.daysInMonthByDate(this.currentDate);
+			var previousMonthDays = rf.calendarUtils.daysInMonth(currentYear, currentMonth-1);
 			
 			var p=0;
 			var month=-1;
@@ -1309,7 +1239,7 @@
 			var element;
 			var dataobj;
 			var wn;
-			if (this.params.showWeeksBar) wn = weekNumber(currentYear, currentMonth, this.params.minDaysInFirstWeek, this.params.firstWeekDay); /// fix it
+			if (this.params.showWeeksBar) wn = rf.calendarUtils.weekNumber(currentYear, currentMonth, this.params.minDaysInFirstWeek, this.params.firstWeekDay); /// fix it
 			this.selectedDayElement=null;
 			var weekflag=true;
 
@@ -1321,7 +1251,7 @@
 			this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, this.highlightEffect2);
 			
 			//var _d=new Date();
-			var obj = $(this.WEEKNUMBER_BAR_ID+"1");
+			var obj = rf.getDomElement(this.WEEKNUMBER_BAR_ID+"1");
 			for (var k=1;k<7;k++)
 			{
 				//
@@ -1446,10 +1376,10 @@
 		{
 			if (!markup) return;
 
-			var e = $(elementId);
+			var e = rf.getDomElement(elementId);
 			if (!e) return; 
 		
-			e.innerHTML = evaluateMarkup(markup, context);
+			e.innerHTML = this.evaluateMarkup(markup, context);
 		},
 		
 		evaluateMarkup: function(markup, context)
@@ -1460,8 +1390,8 @@
 			var m;
 			for (var i=0; i<markup.length; i++) {
 				m = markup[i]['getContent'];
-				if (m) {
-					result.push(m(context));
+				if (m['getContent']) {
+					result.push(m.getContent(context));
 				}
 			}
 			return result.join('');
@@ -1470,10 +1400,10 @@
 		onUpdate: function()
 		{
 			var formattedDate = Richfaces.Calendar.formatDate(this.getCurrentDate(),"MM/yyyy");
-			$(this.id+'InputCurrentDate').value=formattedDate;
+			rf.getDomElement(this.id+'InputCurrentDate').value=formattedDate;
 			
 			if (this.submitFunction)
-				this.submitFunction(formattedDate);
+				this.submitFunction.call(this, formattedDate);
 			else
 				this.render();
 		},
@@ -1498,7 +1428,7 @@
 			if (this.getCurrentMonth()!=month || this.getCurrentYear()!=year)
 			{
 				var date = new Date(year, month,1);
-				if (this.invokeEvent("currentdateselect", $(this.id), null, date))
+				if (this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date))
 				{
 					// fix for RF-2450.
 					// Additional event is fired: after the hidden input with current date
@@ -1506,7 +1436,7 @@
 					// the "currentdateselected" Event is fired.
 					this.currentDate = date;
 					if (noUpdate) this.render(); else this.onUpdate();
-					this.invokeEvent("currentdateselected", $(this.id), null, date);
+					this.invokeEvent("currentdateselected", rf.getDomElement(this.id), null, date);
 					return true;
 				}
 			}
@@ -1516,7 +1446,7 @@
 		changeCurrentDateOffset: function(yearOffset, monthOffset) {
 			var date = new Date(this.currentDate.getFullYear()+yearOffset, this.currentDate.getMonth()+monthOffset,1);
 				
-			if (this.invokeEvent("currentdateselect", $(this.id), null, date))
+			if (this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date))
 			{
 				// fix for RF-2450.
 				// Additional event is fired: after the hidden input with current date
@@ -1524,7 +1454,7 @@
 				// the "currentdateselected" Event is fired.
 				this.currentDate = date;
 				this.onUpdate();
-				this.invokeEvent("currentdateselected", $(this.id), null, date);
+				this.invokeEvent("currentdateselected", rf.getDomElement(this.id), null, date);
 			}
 		},
 
@@ -1563,8 +1493,9 @@
 						this.clearEffect(this.todayCellId, this.highlightEffect);
 						if (this.todayCellColor!="transparent")
 						{
-							this.highlightEffect = new Effect.Highlight($(this.todayCellId), {startcolor: this.todayCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
-							afterFinish: this.onHighlightFinish});
+							// TODO: add jquery effects
+							/*this.highlightEffect = new Effect.Highlight($(this.todayCellId), {startcolor: this.todayCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
+							afterFinish: this.onHighlightFinish});*/
 						}
 					}
 				}
@@ -1583,7 +1514,7 @@
 		{
 			if (this.todayCellId)
 			{
-				var daydata = this.days[parseInt($(this.todayCellId).id.substr(this.DATE_ELEMENT_ID.length),10)];
+				var daydata = this.days[parseInt(this.todayCellId.substr(this.DATE_ELEMENT_ID.length),10)];
 				var today = new Date();
 				var date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 				if (this.timeType)
@@ -1643,15 +1574,15 @@
 						if (!oldSelectedDate || (oldSelectedDate - this.selectedDate))
 						{
 							// find cell and change style class
-							var e = $(this.DATE_ELEMENT_ID+(this.firstDateIndex + this.selectedDate.getDate()-1));
+							var e = $(rf.getDomElement(this.DATE_ELEMENT_ID+(this.firstDateIndex + this.selectedDate.getDate()-1)));
 							
 							this.clearEffect(this.selectedDateCellId, this.highlightEffect2, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
-							this.selectedDateCellId = e.id;
+							this.selectedDateCellId = e.attr('id');
 							this.selectedDateCellColor = this.getCellBackgroundColor(e);
 		
-							Element.removeClassName(e, "rich-calendar-btn");
-							Element.removeClassName(e, "rich-calendar-hover");
-							Element.addClassName(e, "rich-calendar-select");
+							e.removeClass("rich-calendar-btn");
+							e.removeClass("rich-calendar-hover");
+							e.addClass("rich-calendar-select");
 		
 							this.renderHF();
 						}
@@ -1746,8 +1677,9 @@
 					this.clearEffect(this.selectedDateCellId, this.highlightEffect2);
 					if (this.selectedDateCellColor!="transparent")
 					{
-						this.highlightEffect2 = new Effect.Highlight($(this.selectedDateCellId), {startcolor: this.selectedDateCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
-						afterFinish: this.onHighlightFinish});
+						// TODO: add jquery effects
+						/*this.highlightEffect2 = new Effect.Highlight($(this.selectedDateCellId), {startcolor: this.selectedDateCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
+						afterFinish: this.onHighlightFinish});*/
 					}
 				}			
 			}
@@ -1778,20 +1710,20 @@
 			var editor;
 			if (this.timeType==0) return;
 			if (!this.isEditorCreated) editor = this.createEditor();
-			else editor = $(this.EDITOR_ID);
+			else editor = rf.getDomElement(this.EDITOR_ID);
 			if (!this.isTimeEditorLayoutCreated) this.createTimeEditorLayout(editor);
 			
-			$(this.TIME_EDITOR_LAYOUT_ID).show();
+			$(rf.getDomElement(this.TIME_EDITOR_LAYOUT_ID)).show();
 			
-			var editor_shadow = $(this.EDITOR_SHADOW_ID);
+			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 			
-			this.setEditorPosition($(this.id), editor, editor_shadow);
+			this.setEditorPosition(rf.getDomElement(this.id), editor, editor_shadow);
 			
 			this.updateTimeEditor();
 			
-			editor_shadow.show();
+			$(editor_shadow).show();
 			
-			editor.show();
+			$(editor).show();
 			
 			Element.clonePosition(this.EDITOR_LAYOUT_SHADOW_ID, this.TIME_EDITOR_LAYOUT_ID, {offsetLeft: 3, offsetTop: 3});
 			this.isEditorVisible = true;		
@@ -1799,10 +1731,10 @@
 
 		hideEditor: function()
 		{
-			if (this.isTimeEditorLayoutCreated) $(this.TIME_EDITOR_LAYOUT_ID).hide();
-			if (this.isDateEditorLayoutCreated) $(this.DATE_EDITOR_LAYOUT_ID).hide();
-			$(this.EDITOR_ID).hide();
-			$(this.EDITOR_SHADOW_ID).hide();
+			if (this.isTimeEditorLayoutCreated) $(rf.getDomElement(this.TIME_EDITOR_LAYOUT_ID)).hide();
+			if (this.isDateEditorLayoutCreated) $(rf.getDomElement(this.DATE_EDITOR_LAYOUT_ID)).hide();
+			$(rf.getDomElement(this.EDITOR_ID)).hide();
+			$(rf.getDomElement(this.EDITOR_SHADOW_ID)).hide();
 			this.isEditorVisible = false;		
 		},
 		
@@ -1811,11 +1743,11 @@
 			this.hideEditor();
 			if (updateTime && this.selectedDate)
 			{
-				var m = parseInt($(this.id+'TimeMinutes').value,10);
-				var h=parseInt($(this.id+'TimeHours').value,10);
+				var m = parseInt(rf.getDomElement(this.id+'TimeMinutes').value,10);
+				var h=parseInt(rf.getDomElement(this.id+'TimeHours').value,10);
 				if (this.timeType==2)
 				{
-					if ($(this.id+'TimeSign').value.toLowerCase()=="am")
+					if (rf.getDomElement(this.id+'TimeSign').value.toLowerCase()=="am")
 					{
 						if (h==12) h = 0;					
 					}
@@ -1840,18 +1772,18 @@
 		{
 			var editor;
 			if (!this.isEditorCreated) editor = this.createEditor();
-			else editor = $(this.EDITOR_ID);
+			else editor = rf.getDomElement(this.EDITOR_ID);
 			if (!this.isDateEditorLayoutCreated) this.createDateEditorLayout(editor);
 			else this.updateDateEditor();
 		
-			$(this.DATE_EDITOR_LAYOUT_ID).show();
+			$(rf.getDomElement(this.DATE_EDITOR_LAYOUT_ID)).show();
 				
-			var editor_shadow = $(this.EDITOR_SHADOW_ID);
+			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 				
-			this.setEditorPosition($(this.id), editor, editor_shadow);
+			this.setEditorPosition(rf.getDomElement(this.id), editor, editor_shadow);
 				
-			editor_shadow.show();
-			editor.show();
+			$(editor_shadow).show();
+			$(editor).show();
 				
 			Element.clonePosition(this.EDITOR_LAYOUT_SHADOW_ID, this.DATE_EDITOR_LAYOUT_ID, {offsetLeft: 3, offsetTop: 3});
 				

@@ -40,7 +40,7 @@ if (!window.RichFaces) {
 		var element = richfaces.getDomElement(source);
 
 		if (element) {
-			return (element["richfaces"] || {})["component"];
+			return (element[richfaces.RICH_CONTAINER] || {})["component"];
 		}
 	}
 	

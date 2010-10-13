@@ -226,7 +226,7 @@
 
 		getFirstWeek: function(year, mdifw, fdow) {
 			var date = new Date(year,0,1);
-			var firstday = getDay(date, fdow);
+			var firstday = this.getDay(date, fdow);
 			
 			var weeknumber = (7-firstday<mdifw) ? 0 : 1;
 			
@@ -236,7 +236,7 @@
 		getLastWeekOfPrevYear: function(o) {
 			var year = o.date.getFullYear()-1;
 			var days = (isLeapYear(year) ? 366 : 365);
-			var obj = getFirstWeek(year, o.mdifw, o.fdow);
+			var obj = this.getFirstWeek(year, o.mdifw, o.fdow);
 			days = (days - 7 + o.firstDay);
 			var weeks = Math.floor(days/7)+1;
 			  
@@ -245,7 +245,7 @@
 
 		weekNumber: function(year, month, mdifw, fdow) {
 			
-			var o = getFirstWeek(year, mdifw, fdow);
+			var o = this.getFirstWeek(year, mdifw, fdow);
 			
 			if (month==0) 
 			{
@@ -254,7 +254,7 @@
 			}
 			var	oneweek =  604800000;
 			var d = new Date(year, month,1);
-				d.setDate( 1+o.firstDay + (getDay(d,fdow)==0?1:0));
+				d.setDate( 1+o.firstDay + (this.getDay(d,fdow)==0?1:0));
 				
 			weeknumber = o.weekNumber + Math.floor((d.getTime() - o.date.getTime()) / oneweek);
 			
