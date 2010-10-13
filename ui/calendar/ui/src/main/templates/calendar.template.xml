@@ -35,8 +35,137 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency name="jquery.position.js" />
 	</cc:interface>
 	<cc:implementation>
-		<span id="#{clientId}" class="rf-" >
-			<script type="text/javascript">console.log("calendar")</script>
+		<span id="#{clientId}" class="rf-ca #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+			<span id="#{clientId}Popup" style="#{component.attributes['popup'] ? '' : 'display: none'}">
+				<c:choose>
+					<c:when test="#{!component.attributes['popup']}" >
+						<input id="#{clientId}InputDate" autocomplete="off" style="display:none" name="#{clientId}InputDate" 
+							value="#{this:getInputValue(facesContext,component)}" type="hidden" />
+					</c:when>
+					<c:otherwise>				
+						<input id="#{clientId}InputDate"
+							name="#{clientId}InputDate"
+							value="#{this:getInputValue(facesContext,component)}" type="#{component.attributes['showInput'] ? 'text' : 'hidden'}"
+							disabled="#{component.attributes['disabled']}"
+							accesskey="#{component.attributes['accesskey']}"
+							maxlength="#{component.attributes['maxlength']}"
+							onchange="#{component.attributes['oninputchange']}"
+							onselect="#{component.attributes['oninputselect']}"
+							onfocus="#{component.attributes['oninputfocus']}"
+							onblur="#{component.attributes['oninputblur']}"
+							onclick="#{component.attributes['oninputclick']}"
+							onkeypress="#{component.attributes['oninputkeypress']}"
+							onkeydown="#{component.attributes['oninputkeydown']}"
+							onkeyup="#{component.attributes['oninputkeyup']}"
+							onmouseover="#{component.attributes['oninputmouseover']}"
+							onmouseout="#{component.attributes['oninputmouseout']}"
+							size="#{component.attributes['inputSize']}"
+							style="vertical-align: middle; #{component.attributes['inputStyle']}"
+							class="rich-calendar-input #{component.attributes['inputClass']}"
+							tabindex="#{component.attributes['tabindex']}"
+							readonly="#{!component.attributes['enableManualInput'] || component.attributes['readonly']}" />
+						
+						<!--jsp:scriptlet>
+						 <![CDATA[
+				            String buttonIconAttr = (String) component.getAttributes().get("buttonIcon");
+							String buttonIcon = buttonIconAttr == null || buttonIconAttr.length() < 1 ? null :
+				                    org.richfaces.component.util.ViewUtil.getResourceURL(buttonIconAttr, facesContext);
+				            String buttonIconDisabledAttr =(String) component.getAttributes().get("buttonIconDisabled");
+							String buttonIconDisabled = buttonIconDisabledAttr == null || buttonIconDisabledAttr.length() < 1 ? null :
+				                    org.richfaces.component.util.ViewUtil.getResourceURL(buttonIconDisabledAttr, facesContext);
+							String buttonLabel = (String) component.getAttributes().get("buttonLabel");
+							variables.setVariable("buttonLabel",buttonLabel);
+							variables.setVariable("buttonIconDisabled",buttonIconDisabled);
+							variables.setVariable("buttonIcon",buttonIcon);
+							if(buttonLabel==null || buttonLabel.length()==0){	
+						]]>
+						 </jsp:scriptlet><img id="#{clientId}PopupButton" alt=""
+						class="rich-calendar-button #{component.attributes['buttonClass']}"
+						accesskey="#{component.attributes['accesskey']}"
+						style="vertical-align: middle"
+						tabindex="#{component.attributes['tabindex']}">
+					<jsp:scriptlet>
+							<![CDATA[
+							    if(!disabled){
+							    	if(buttonIcon==null){
+										getUtils().writeAttribute(writer, "src", variables.getVariable("icon"));
+									}
+									else{
+										getUtils().writeAttribute(writer, "src", buttonIcon);
+									}
+							    }
+							    else{
+							    	
+							    		//getUtils().writeAttribute(writer, "onclick", null);
+							    		if(buttonIconDisabled==null){
+											getUtils().writeAttribute(writer, "src", variables.getVariable("disabledIcon"));
+										}
+										else{
+											getUtils().writeAttribute(writer, "src", buttonIconDisabled);
+											}	
+							    	}			    
+							]]>
+						</jsp:scriptlet> </img> <jsp:scriptlet>
+						<![CDATA[
+								}
+							else{		
+						]]>
+						</jsp:scriptlet-->
+						<button type="button" id="#{clientId}PopupButton" name="#{clientId}PopupButton"
+							style="vertical-align: middle"
+							class="rich-calendar-button #{component.attributes['buttonClass']}"
+							tabindex="#{component.attributes['tabindex']}" disabled="#{component.attributes['disabled']}">
+						#{component.attributes['buttonLabel']}</button>
+					</c:otherwise>
+				</c:choose>
+				<input id="#{clientId}InputCurrentDate"
+					style="display:none"	
+					autocomplete="off"
+					name="#{clientId}InputCurrentDate"
+					value="#{component.attributes['currentDate']}" type="hidden" />
+			</span>
+			<div style="display: none;" id="#{clientId}">
+			</div>
+			<!--cdk:scriptObject var="options" >
+				<cdk:scriptOption attributes="enableManualInput, disabled, readonly, resetTimeOnDateSelect, showApplyButton, styleClass, minDaysInFirstWeek" />
+				<cdk:scriptOption attributes="popup" defaultValue="true" />
+				<cdk:scriptOption attributes="showInput" defaultValue="true" />
+				<cdk:scriptOption attributes="ajaxSingle" defaultValue="true" />
+				<cdk:scriptOption attributes="showHeader" defaultValue="true" />
+				<cdk:scriptOption attributes="showFooter" defaultValue="true" />
+				<cdk:scriptOption attributes="showWeeksBar" defaultValue="true" />
+				<cdk:scriptOption attributes="showWeekDaysBar" defaultValue="true" />
+				<cdk:scriptOption attributes="todayControlMode" defaultValue="select" />
+				<cdk:scriptOption attributes="datePattern" defaultValue="MMM d, yyyy" />
+				<cdk:scriptOption attributes="jointPoint" defaultValue="bottom-left" />
+				<cdk:scriptOption attributes="direction" defaultValue="bottom-right" />
+				<cdk:scriptOption attributes="boundaryDatesMode" defaultValue="inactive" />
+				<cdk:scriptOption attributes="horizontalOffset" defaultValue="0" />
+				<cdk:scriptOption attributes="verticalOffset" defaultValue="0" />
+				<cdk:scriptOption attributes="hidePopupOnScroll" defaultValue="true" />
+				
+				<cdk:scriptOption name="currentDate"  value="#{this:getCurrentDate(facesContext, component, currentDate)}" />
+				<cdk:scriptOption name="selectedDate"  value="#{this:getSelectedDate(facesContext, component)}" />
+				<cdk:scriptOption name="style"  value="z-index: #{component.attributes['zindex']}; #{component.attributes['style']}" defaultValue="z-index: 3; "/>
+				<cdk:scriptOption name="submitFunction"  value="#{this:getSubmitFunction(facesContext, component)}" />
+				<cdk:scriptOption name="dayCellClass"  value="#{this:getDayCellClass(facesContext, component)}" />
+				<cdk:scriptOption name="dayStyleClass"  value="#{this:getDayStyleClass(facesContext, component)}" />
+				<cdk:scriptOption name="isDayEnabled"  value="#{this:getIsDayEnabled(facesContext, component)}" />
+				
+				<cdk:scriptOption attributes="ondateselected, ondateselect, ontimeselect, ontimeselected, onchanged, ondatemouseover, ondatemouseout, onexpand, oncollapse, oncurrentdateselect, oncurrentdateselected" wrapper="eventHandler" />
+				<cdk:scriptOption name="labels" value="#{this:getLabels(facesContext, component)}" />
+				<cdk:scriptOption name="defaultTime" value="#{this:getPreparedDefaultTime(component)}" />
+			</cdk:scriptObject>
+			<script type="text/javascript">
+				new Calendar('#{clientId}',
+					<c:if test="#{not empty options}">
+						"#{options}"
+					</c:if>
+					<c:if test="#{empty options}">
+						{}
+					</c:if>
+				).load();
+			</script-->
 		</span>
 	</cc:implementation>
 </cdk:root>
