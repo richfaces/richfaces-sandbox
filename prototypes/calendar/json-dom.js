@@ -39,11 +39,11 @@ JSNode.prototype = {
 	// Escape XML symbols - < > & ' ...
 	xmlEscape : function(value) {
 		var text = value ? value.toString() : "";
-		/*for(var i in this._symbols ) {
+		for(var i in this._symbols ) {
 			text = text.replace(i,this._symbols[i]);
 		
-		*/
-		return text.escapeHTML();
+		}
+		return text;
 	}
 };
 

@@ -135,7 +135,21 @@
 	function getElementRect (element) {
 		var jqe = $(element);
 		var offset = jqe.offset();
-		return {width: jqe.width(), height: jqe.height(), left: Math.floor(offset.left), top: Math.floor(offset.top)};
+		var rect = {width: jqe.width(), height: jqe.height(), left: Math.floor(offset.left), top: Math.floor(offset.top)};
+		/*if (jge.length>1) {
+			var width, height, offset;
+			var e;
+			for (var i=1;i<jqe.length;i++) {
+				e = jqe.eq(i);
+				offset = e.offset();
+				if (offset.left < rect.left) rect.left = offset.left;
+				if (offset.top < rect.top) rect.top = offset.top;
+				width = e.width(); height = e.height();
+				if (rect.left + width > rect)
+			}
+		}*/
+		
+		return rect;
 		/*
 			var jqe = $(element);
 			var offset = jqe.offset();

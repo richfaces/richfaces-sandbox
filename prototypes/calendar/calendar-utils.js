@@ -146,7 +146,7 @@
 			{
 				var yy = parseInt(match[y],10); if (isNaN(yy)) return null; else if (yy<70) yy+=2000; else if (yy<100) yy+=1900;
 				var mm = parseInt(match[m],10); if (isNaN(mm)) mm = Richfaces.Calendar.getMonthByLabel(match[m], shortLabel ? monthNamesShort : monthNames); else if (--mm<0 || mm>11) return null;
-				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>daysInMonth(yy, mm)) return null;
+				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>this.daysInMonth(yy, mm)) return null;
 
 				// time parsing
 				if (min!=undefined && h!=undefined)
@@ -262,5 +262,58 @@
 		}
 		
 	});
+	
+	rf.calendarTemplates = rf.calendarTemplates || {};
+	
+	$.extend(rf.calendarTemplates, (function (){
+
+		var VARIABLE_NAME_PATTERN = /^\s*[_,A-Z,a-z][\w,_\.]*\s*$/;
+		
+		var getObjectValue = function (str, object) {
+			var a=str.split(".");
+			var value=object[a[0]];
+			var c=1;
+			while (value && c<a.length) value = value[a[c++]];
+			return (value ? value : "");
+		};
+		
+		return  {
+			evalMacro: function(template, object)
+			{
+				var _value_="";
+				// variable evaluation
+				if (VARIABLE_NAME_PATTERN.test(template))
+				{
+					if (template.indexOf('.')==-1) {
+						_value_ = object[template];
+						if (!_value_)	_value_=window[template];
+					}
+					// object's variable evaluation
+					else {
+						_value_ = getObjectValue(template, object);
+						if (!_value_) _value_=getObjectValue(template, window);
+					}
+					if (_value_ && typeof _value_=='function') _value_ = _value_(object);
+					if (!_value_) _value_=""; 		
+				}
+				//js string evaluation
+				else {
+					try {
+						if (object.eval) {
+							_value_ = object.eval(template);
+						}
+						else with (object) {
+								_value_ = eval(template) ;
+						}
+						
+						if (typeof _value_ == 'function') {
+							_value_ = _value_(object);
+						}
+					} catch (e) { LOG.warn("Exception: "+e.Message + "\n[" + template + "]"); }
+				}
+				return _value_;
+			}
+		};
+	})());
 
 })(jQuery, RichFaces);
