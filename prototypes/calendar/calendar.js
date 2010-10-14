@@ -1133,8 +1133,7 @@
 		{
 			if (element_id)
 			{
-				var e = $(rf.getDomElement(element_id)).stop(true, true);;
-				e.css('backgroundColor', '');
+				var e = $(rf.getDomElement(element_id)).stop(true, true);
 				if (className) e.removeClass(className);
 				if (className1) e.addClass(className1);
 			}
