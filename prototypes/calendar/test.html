@@ -6,6 +6,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Test Page</title>
 	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery.effects.core.js"></script>
+	<script type="text/javascript" src="jquery.effects.highlight.js"></script>
 	<script type="text/javascript" src="jquery.position.js"></script>
 	<script type="text/javascript" src="json-dom.js"></script>
 	<script type="text/javascript" src="richfaces.js"></script>
@@ -30,7 +32,7 @@
 //<![CDATA[
 RichFaces.ui.Calendar.addLocale('en_US', {'weekDayLabels':['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'] ,'weekDayLabelsShort':['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] ,'monthLabels':['January','February','March','April','May','June','July','August','September','October','November','December'] ,'monthLabelsShort':['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'] ,'minDaysInFirstWeek':1,'firstWeekDay':0} );
 new RichFaces.ui.Calendar('j_id354:j_id355', 
-			"en_US",{'showApplyButton':true,'style':'z\x2Dindex: 3; width:200px','currentDate':new Date(2010,9,8),'datePattern':'d/M/yy HH:mm','dayCellClass':'j_id354_j_id355DayCell'} ,{} ).load();
+			"en_US",{'todayControlMode':'scroll','showApplyButton':false,'style':'z\x2Dindex: 3; width:200px','currentDate':new Date(2010,9,8),'datePattern':'d/M/yy HH:mm','dayCellClass':'j_id354_j_id355DayCell'} ,{} ).load();
 //]]>
 </script></div></div>
 </form>

@@ -347,12 +347,12 @@
 		this.params.todayControlMode = this.params.todayControlMode.toLowerCase();
 			
 		// time
-		this.setTimeProperties(); // TODO: function
+		this.setTimeProperties();
 			
 		this.customDayListMarkup = (this.params.dayListMarkup!=CalendarView.dayList);
 			
 		this.currentDate = this.params.currentDate ? this.params.currentDate : (this.params.selectedDate ? this.params.selectedDate : new Date());
-		this.currentDate.setDate(1); // TODO: function
+		this.currentDate.setDate(1);
 		this.selectedDate = this.params.selectedDate;
 					
 		this.todayDate = new Date();
@@ -1129,16 +1129,11 @@
 			return $(element).css('background-color');
 		},
 		
-		clearEffect: function (element_id, effect, className, className1)
+		clearEffect: function (element_id, className, className1)
 		{
-			if (effect) 
-			{
-				effect.cancel();
-				effect=null;
-			}
 			if (element_id)
 			{
-				var e = $(rf.getDomElement(element_id));
+				var e = $(rf.getDomElement(element_id)).stop(true, true);;
 				e.css('backgroundColor', '');
 				if (className) e.removeClass(className);
 				if (className1) e.addClass(className1);
@@ -1236,8 +1231,8 @@
 			
 			var boundaryDatesModeFlag = (this.params.boundaryDatesMode == "scroll" || this.params.boundaryDatesMode == "select");
 			
-			this.todayCellId = this.clearEffect(this.todayCellId, this.highlightEffect);
-			this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, this.highlightEffect2);
+			this.todayCellId = this.clearEffect(this.todayCellId);
+			this.selectedDateCellId = this.clearEffect(this.selectedDateCellId);
 			
 			//var _d=new Date();
 			var obj = rf.getDomElement(this.WEEKNUMBER_BAR_ID+"1");
@@ -1479,12 +1474,10 @@
 					
 					if (this.isVisible && this.todayCellId && !noHighlight)
 					{
-						this.clearEffect(this.todayCellId, this.highlightEffect);
+						this.clearEffect(this.todayCellId);
 						if (this.todayCellColor!="transparent")
 						{
-							// TODO: add jquery effects
-							/*this.highlightEffect = new Effect.Highlight($(this.todayCellId), {startcolor: this.todayCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
-							afterFinish: this.onHighlightFinish});*/
+							$(rf.getDomElement(this.todayCellId)).effect("highlight", {easing:'easeInOutSine', color: this.todayCellColor}, 300);
 						}
 					}
 				}
@@ -1515,11 +1508,6 @@
 					this.doCollapse();
 				}
 			}		
-		},
-		
-		onHighlightFinish: function (object)
-		{
-			object.element.style['backgroundColor'] = '';
 		},
 		
 		selectDate: function(date, noUpdate, eventData) {
@@ -1565,7 +1553,7 @@
 							// find cell and change style class
 							var e = $(rf.getDomElement(this.DATE_ELEMENT_ID+(this.firstDateIndex + this.selectedDate.getDate()-1)));
 							
-							this.clearEffect(this.selectedDateCellId, this.highlightEffect2, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+							this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
 							this.selectedDateCellId = e.attr('id');
 							this.selectedDateCellColor = this.getCellBackgroundColor(e);
 		
@@ -1596,7 +1584,7 @@
 				{
 					this.selectedDate = null;
 
-					this.clearEffect(this.selectedDateCellId, this.highlightEffect2, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+					this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
 					
 					if (this.selectedDateCellId)
 					{
@@ -1638,7 +1626,7 @@
 				this.selectedDate = null;
 				this.invokeEvent("dateselected", null, null, null);
 				
-				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, this.highlightEffect2, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
 				 
 				this.renderHF();
 				if (!this.params.showApplyButton)
@@ -1663,12 +1651,11 @@
 				// highlight Selected Date
 				if (this.isVisible && this.selectedDateCellId)
 				{
-					this.clearEffect(this.selectedDateCellId, this.highlightEffect2);
+					this.clearEffect(this.selectedDateCellId);
 					if (this.selectedDateCellColor!="transparent")
 					{
-						// TODO: add jquery effects
-						/*this.highlightEffect2 = new Effect.Highlight($(this.selectedDateCellId), {startcolor: this.selectedDateCellColor, duration:0.3, transition: Effect.Transitions.sinoidal,
-						afterFinish: this.onHighlightFinish});*/
+						$(rf.getDomElement(this.selectedDateCellId)).effect("highlight", {easing:'easeInOutSine', color: this.selectedDateCellColor}, 300);
+
 					}
 				}			
 			}
