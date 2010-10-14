@@ -1689,7 +1689,8 @@
 			if (!elements.length) elements = [elements];
 			offset = offset || {left:0,top:0};
 			var width = jqe.outerWidth()+"px", height = jqe.outerHeight()+"px";
-			var left = jqe.css("left")+offset.left+"px", top = jqe.css("top")+offset.top+"px";
+			var pos = jqe.position();
+			var left = Math.round(pos.left)+offset.left+"px", top = Math.round(pos.top)+offset.top+"px";
 			var element;
 			for (var i = 0; i<elements.length;i++) {
 				element = elements[i];
