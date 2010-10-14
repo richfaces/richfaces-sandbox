@@ -2,6 +2,8 @@
 	window.LOG = {warn:function(){}};
 }*/
 
+// TODO: try to change RichFaces.$ to $$ if possible
+
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
@@ -36,7 +38,7 @@
 	
 			var onmouseover = "jQuery(this).removeClass('rich-calendar-tool-btn-press');";
 			var onmouseout = "jQuery(this).addClass('rich-calendar-tool-btn-press');";
-			var onclick = "RichFaces.$$('calendar',this).showTimeEditor();return true;";
+			var onclick = "RichFaces.$$('Calendar',this).showTimeEditor();return true;";
 			var markup = calendar.params.disabled || calendar.params.readonly ? 
 						new E('div', {'class': 'rich-calendar-tool-btn-disabled'}, [new ET(text)]) : 
 						new E('div', {'class': 'rich-calendar-tool-btn rich-calendar-tool-btn-hover rich-calendar-tool-btn-press', 'onclick': onclick,
@@ -242,8 +244,8 @@
 			dayStyleClass: function (context) {return "";},
 			showHeader: true,
 			showFooter: true,
-			direction: "bottom-right",
-			jointPoint: "bottom-left",
+			direction: "AA",
+			jointPoint: "AA",
 			popup: true,
 			boundaryDatesMode: "inactive",
 			todayControlMode: "select",
@@ -634,7 +636,7 @@
 
 		createTimeEditorLayout: function(editor)
 		{
-			Element.insert(this.EDITOR_LAYOUT_SHADOW_ID, {after:this.evaluateMarkup(CalendarView.timeEditorLayout, this.calendarContext)});
+			$(rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID)).after(this.evaluateMarkup(CalendarView.timeEditorLayout, this.calendarContext));
 
 			var th=rf.getDomElement(this.id+'TimeHours');
 			var ts;
@@ -662,14 +664,12 @@
 			var button2 = rf.getDomElement(buttonID2);
 			editor.style.visibility = "hidden";
 			editor.style.display = "";
-			var width1 = Richfaces.Calendar.getOffsetDimensions(button1.firstChild).width; 
-			var width2 = Richfaces.Calendar.getOffsetDimensions(button2.firstChild).width;
+			var width1 = $(button1.firstChild).width(); 
+			var width2 = $(button2.firstChild).width();
 			editor.style.display = "none";
 			editor.style.visibility = "";
-
-			var styleWidth = Richfaces.getComputedStyleSize(button1,'width')
 					
-			if (width1>styleWidth || width2>styleWidth)
+			if (width1!=width2)
 			{
 				button1.style.width = button2.style.width = (width1>width2 ? width1 : width2)+"px";
 			}
@@ -724,7 +724,7 @@
 						 '</td>';
 
 
-			Element.insert(this.EDITOR_LAYOUT_SHADOW_ID, {after:htmlBegin+htmlContent+htmlEnd});
+			$(rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID)).after(htmlBegin+htmlContent+htmlEnd);
 			
 			$(rf.getDomElement(this.dateEditorMonthID)).addClass('rich-calendar-editor-btn-selected');
 			
@@ -893,12 +893,12 @@
 				
 				if (this.params.showInput)
 				{
-					base = baseInput;
+					base = base.children;
 				} else {
 					base = baseButton;
 				};
 						 
-				$(element).setPosition(base, {type:"TOOLTIP", from: this.params.jointPoint, to:this.params.direction, offset: this.popupOffset}).show();
+				$(element).setPosition(base, {type:"DROPDOWN", from: this.params.jointPoint, to:this.params.direction, offset: this.popupOffset}).show();
 				
 				this.isVisible = true;
 
@@ -1683,15 +1683,21 @@
 			this.doCollapse();
 		},
 		
-		setEditorPosition: function (element, editor, shadow)
+		clonePosition: function (source, elements, offset)
 		{
-			element;
-			
-			var dim = Richfaces.Calendar.getOffsetDimensions(element);
-			editor.style.width = shadow.style.width = dim.width + 'px';
-			editor.style.height = shadow.style.height = dim.height + 'px';
-			
-			Richfaces.Calendar.clonePosition([editor,shadow], element);
+			var jqe = $(source);
+			if (!elements.length) elements = [elements];
+			offset = offset || {left:0,top:0};
+			var width = jqe.outerWidth()+"px", height = jqe.outerHeight()+"px";
+			var left = jqe.css("left")+offset.left+"px", top = jqe.css("top")+offset.top+"px";
+			var element;
+			for (var i = 0; i<elements.length;i++) {
+				element = elements[i];
+				element.style.width = width;
+				element.style.height = height;
+				element.style.left = left;
+				element.style.top = top;
+			}
 		},
 		
 		showTimeEditor: function()
@@ -1706,7 +1712,7 @@
 			
 			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 			
-			this.setEditorPosition(rf.getDomElement(this.id), editor, editor_shadow);
+			this.clonePosition(rf.getDomElement(this.id), [editor, editor_shadow]);
 			
 			this.updateTimeEditor();
 			
@@ -1714,7 +1720,7 @@
 			
 			$(editor).show();
 			
-			Element.clonePosition(this.EDITOR_LAYOUT_SHADOW_ID, this.TIME_EDITOR_LAYOUT_ID, {offsetLeft: 3, offsetTop: 3});
+			this.clonePosition(rf.getDomElement(this.TIME_EDITOR_LAYOUT_ID), rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID), {left: 3, top: 3});
 			this.isEditorVisible = true;		
 		},
 
@@ -1769,12 +1775,12 @@
 				
 			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 				
-			this.setEditorPosition(rf.getDomElement(this.id), editor, editor_shadow);
+			this.clonePosition(rf.getDomElement(this.id), [editor, editor_shadow]);
 				
 			$(editor_shadow).show();
 			$(editor).show();
 				
-			Element.clonePosition(this.EDITOR_LAYOUT_SHADOW_ID, this.DATE_EDITOR_LAYOUT_ID, {offsetLeft: 3, offsetTop: 3});
+			this.clonePosition(rf.getDomElement(this.DATE_EDITOR_LAYOUT_ID), rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID), {left: 3, top: 3});
 				
 			this.isEditorVisible = true;
 		},

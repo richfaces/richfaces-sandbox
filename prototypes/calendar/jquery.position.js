@@ -67,7 +67,7 @@
 		var stype = typeof source;
 		if (stype == "object" || stype == "string") {
 			var rect = {};
-			if (stype == "string" || source.nodeType || source instanceof jQuery) {
+			if (stype == "string" || source.nodeType || source instanceof jQuery || typeof source.length!="undefined") {
 					rect = getElementRect(source);
 			} else if (source.type) {
 				rect = getPointerRect(source);
@@ -135,19 +135,32 @@
 	function getElementRect (element) {
 		var jqe = $(element);
 		var offset = jqe.offset();
-		var rect = {width: jqe.width(), height: jqe.height(), left: Math.floor(offset.left), top: Math.floor(offset.top)};
-		/*if (jge.length>1) {
+		var rect = {width: jqe.outerWidth(), height: jqe.outerHeight(), left: Math.floor(offset.left), top: Math.floor(offset.top)};
+		if (jqe.length>1) {
 			var width, height, offset;
 			var e;
 			for (var i=1;i<jqe.length;i++) {
 				e = jqe.eq(i);
+				if (e.css('display')=="none") continue;
+				width = e.outerWidth();
+				height = e.outerHeight();
 				offset = e.offset();
+				var d = rect.left - offset.left;
+				if (d<0) {
+					rect.width = (width > rect.width) ? width : rect.width - d;
+				} else {
+					if (d + width > rect.width) rect.width = d + width;
+				}
+				var d = rect.top - offset.top;
+				if (d<0) {
+					rect.height = (height > rect.height) ? height : rect.height - d;
+				} else {
+					if (d + height > rect.height) rect.height = d + height;
+				}
 				if (offset.left < rect.left) rect.left = offset.left;
 				if (offset.top < rect.top) rect.top = offset.top;
-				width = e.width(); height = e.height();
-				if (rect.left + width > rect)
 			}
-		}*/
+		}
 		
 		return rect;
 		/*
