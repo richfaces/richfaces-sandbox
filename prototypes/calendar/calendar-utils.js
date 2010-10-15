@@ -144,9 +144,26 @@
 			var match = dateString.match(re);
 			if (match!=null)
 			{
-				var yy = parseInt(match[y],10); if (isNaN(yy)) return null; else if (yy<70) yy+=2000; else if (yy<100) yy+=1900;
+				// set default century start
+				var correctYear = false;
+				var defaultCenturyStart = new Date();
+				defaultCenturyStart.setFullYear(defaultCenturyStart.getFullYear()-80);
+				
+				var yy = parseInt(match[y],10);
+				if (isNaN(yy)) return null;
+				else if (yy<100){
+					// calculate full year if year has only two digits
+					var defaultCenturyStartYear = defaultCenturyStart.getFullYear();
+					var ambiguousTwoDigitYear = defaultCenturyStartYear % 100;
+					correctYear = yy == ambiguousTwoDigitYear;
+					yy += Math.floor(defaultCenturyStartYear/100)*100 + (yy < ambiguousTwoDigitYear ? 100 : 0);
+				}
+				
 				var mm = parseInt(match[m],10); if (isNaN(mm)) mm = Richfaces.Calendar.getMonthByLabel(match[m], shortLabel ? monthNamesShort : monthNames); else if (--mm<0 || mm>11) return null;
-				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>this.daysInMonth(yy, mm)) return null;
+				var addDay = correctYear ? 1 : 0;
+				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>this.daysInMonth(yy, mm) + addDay) return null;
+				
+				var date = new Date(yy, mm, dd);
 
 				// time parsing
 				if (min!=undefined && h!=undefined)
@@ -166,11 +183,18 @@
 						} else if (hh==12) hh = 0;
 					}
 					else if (hh<0 || hh>23) return null;
-
-					return new Date(yy, mm, dd, hh, mmin, 0);
+					
+					date.setHours(hh); date.setMinutes(mmin);
 				}
 				
-				return new Date(yy, mm, dd);
+				if (correctYear) {
+					if (date.getTime() < defaultCenturyStart.getTime()) {
+							date.setFullYear(yy + 100);
+					}
+					if (date.getMonth() != mm) return null;
+				}
+				
+				return date;
 			}
 			return null;
 		},
