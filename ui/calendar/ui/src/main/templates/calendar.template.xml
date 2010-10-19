@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-JBoss, Home of Professional Open Source
-Copyright ${year}, Red Hat, Inc. and individual contributors
-by the @authors tag. See the copyright.txt in the distribution for a
-full listing of individual contributors.
-
-
-This is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as
-published by the Free Software Foundation; either version 2.1 of
-the License, or (at your option) any later version.
-
-
-This software is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-
-You should have received a copy of the GNU Lesser General Public
-License along with this software; if not, write to the Free
-Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-02110-1301 USA, or see the FSF site: http://www.fsf.org.
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 -->
 <cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
 	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite" xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
 	xmlns:xi="http://www.w3.org/2001/XInclude">
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.CalendarRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.InputRendererBase</cdk:superclass>
-		<cdk:component-family>javax.faces.Input</cdk:component-family>
+		<cdk:superclass>org.richfaces.renderkit.CalendarRendererBase</cdk:superclass>
 		<cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
 		<cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
-		<cdk:resource-dependency name="jquery.position.js" />
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-ca #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
@@ -45,77 +42,37 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<c:otherwise>				
 						<input id="#{clientId}InputDate"
 							name="#{clientId}InputDate"
-							value="#{this:getInputValue(facesContext,component)}" type="#{component.attributes['showInput'] ? 'text' : 'hidden'}"
+							value="#{this:getInputValue(facesContext,component)}" 
+							type="#{component.attributes['showInput'] ? 'text' : 'hidden'}"
 							disabled="#{component.attributes['disabled']}"
 							accesskey="#{component.attributes['accesskey']}"
 							maxlength="#{component.attributes['maxlength']}"
-							onchange="#{component.attributes['oninputchange']}"
-							onselect="#{component.attributes['oninputselect']}"
-							onfocus="#{component.attributes['oninputfocus']}"
-							onblur="#{component.attributes['oninputblur']}"
-							onclick="#{component.attributes['oninputclick']}"
-							onkeypress="#{component.attributes['oninputkeypress']}"
-							onkeydown="#{component.attributes['oninputkeydown']}"
-							onkeyup="#{component.attributes['oninputkeyup']}"
-							onmouseover="#{component.attributes['oninputmouseover']}"
-							onmouseout="#{component.attributes['oninputmouseout']}"
 							size="#{component.attributes['inputSize']}"
 							style="vertical-align: middle; #{component.attributes['inputStyle']}"
 							class="rich-calendar-input #{component.attributes['inputClass']}"
 							tabindex="#{component.attributes['tabindex']}"
-							readonly="#{!component.attributes['enableManualInput'] || component.attributes['readonly']}" />
-						
-						<!--jsp:scriptlet>
-						 <![CDATA[
-				            String buttonIconAttr = (String) component.getAttributes().get("buttonIcon");
-							String buttonIcon = buttonIconAttr == null || buttonIconAttr.length() < 1 ? null :
-				                    org.richfaces.component.util.ViewUtil.getResourceURL(buttonIconAttr, facesContext);
-				            String buttonIconDisabledAttr =(String) component.getAttributes().get("buttonIconDisabled");
-							String buttonIconDisabled = buttonIconDisabledAttr == null || buttonIconDisabledAttr.length() < 1 ? null :
-				                    org.richfaces.component.util.ViewUtil.getResourceURL(buttonIconDisabledAttr, facesContext);
-							String buttonLabel = (String) component.getAttributes().get("buttonLabel");
-							variables.setVariable("buttonLabel",buttonLabel);
-							variables.setVariable("buttonIconDisabled",buttonIconDisabled);
-							variables.setVariable("buttonIcon",buttonIcon);
-							if(buttonLabel==null || buttonLabel.length()==0){	
-						]]>
-						 </jsp:scriptlet><img id="#{clientId}PopupButton" alt=""
-						class="rich-calendar-button #{component.attributes['buttonClass']}"
-						accesskey="#{component.attributes['accesskey']}"
-						style="vertical-align: middle"
-						tabindex="#{component.attributes['tabindex']}">
-					<jsp:scriptlet>
-							<![CDATA[
-							    if(!disabled){
-							    	if(buttonIcon==null){
-										getUtils().writeAttribute(writer, "src", variables.getVariable("icon"));
-									}
-									else{
-										getUtils().writeAttribute(writer, "src", buttonIcon);
-									}
-							    }
-							    else{
-							    	
-							    		//getUtils().writeAttribute(writer, "onclick", null);
-							    		if(buttonIconDisabled==null){
-											getUtils().writeAttribute(writer, "src", variables.getVariable("disabledIcon"));
-										}
-										else{
-											getUtils().writeAttribute(writer, "src", buttonIconDisabled);
-											}	
-							    	}			    
-							]]>
-						</jsp:scriptlet> </img> <jsp:scriptlet>
-						<![CDATA[
-								}
-							else{		
-						]]>
-						</jsp:scriptlet-->
-						<button type="button" id="#{clientId}PopupButton" name="#{clientId}PopupButton"
-							style="vertical-align: middle"
-							class="rich-calendar-button #{component.attributes['buttonClass']}"
-							tabindex="#{component.attributes['tabindex']}" disabled="#{component.attributes['disabled']}">
-						#{component.attributes['buttonLabel']}</button>
+							readonly="#{(!component.attributes['enableManualInput'] || component.attributes['readonly']) ? 'readonly' : ''}">
+							<cdk:call expression="renderInputHandlers(facesContext, component);"/>
+						</input>
+						<c:choose>
+							<c:when test="#{isUseIcons(facesContext, component)}">
+								<img id="#{clientId}PopupButton" alt=""
+								class="rich-calendar-button #{component.attributes['buttonClass']}"
+								accesskey="#{component.attributes['accesskey']}"
+								style="vertical-align: middle"
+								tabindex="#{component.attributes['tabindex']}" src="#{getButtonIcon(facesContext, component)}"/>	
+							</c:when>
+							<c:otherwise>
+								<button type="button" 
+										id="#{clientId}PopupButton" 
+										name="#{clientId}PopupButton"
+										style="vertical-align: middle"
+										class="rich-calendar-button #{component.attributes['buttonClass']}"
+										tabindex="#{component.attributes['tabindex']}" disabled="#{component.attributes['disabled']}">
+								#{component.attributes['buttonLabel']}
+								</button>
+							</c:otherwise>	
+						</c:choose>						
 					</c:otherwise>
 				</c:choose>
 				<input id="#{clientId}InputCurrentDate"
@@ -126,6 +83,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</span>
 			<div style="display: none;" id="#{clientId}">
 			</div>
+			
 			<!--cdk:scriptObject var="options" >
 				<cdk:scriptOption attributes="enableManualInput, disabled, readonly, resetTimeOnDateSelect, showApplyButton, styleClass, minDaysInFirstWeek" />
 				<cdk:scriptOption attributes="popup" defaultValue="true" />
