@@ -35,6 +35,7 @@
     <name>Richfaces UI Components: FileUpload Aggregator</name>
 
     <modules>
+        <module>api</module>
         <module>ui</module>
     </modules>
 </project>

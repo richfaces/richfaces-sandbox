@@ -30,8 +30,8 @@
     </parent>
 
     <groupId>org.richfaces.ui.fileupload</groupId>
-    <artifactId>richfaces-ui-fileupload-ui</artifactId>
-    <name>Richfaces UI Components: FileUpload UI</name>
+    <artifactId>richfaces-ui-fileupload-api</artifactId>
+    <name>Richfaces UI Components: FileUpload API</name>
     <packaging>jar</packaging>
     <build>
         <plugins>
@@ -53,12 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
-            <artifactId>richfaces-ui-common-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.fileupload</groupId>
-            <artifactId>richfaces-ui-fileupload-api</artifactId>
-            <version>${project.version}</version>
+            <artifactId>richfaces-ui-common-api</artifactId>
         </dependency>
     </dependencies>
 </project>
