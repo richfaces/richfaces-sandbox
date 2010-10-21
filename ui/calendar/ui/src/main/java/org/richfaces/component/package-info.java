@@ -20,5 +20,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 //TODO: rename to input after move to trunk
-@org.richfaces.cdk.annotations.TagLibrary(uri="http://richfaces.org/input", shortName="input")
+@org.richfaces.cdk.annotations.TagLibrary(uri="http://richfaces.org/calendar", shortName="calendar")
 package org.richfaces.component;

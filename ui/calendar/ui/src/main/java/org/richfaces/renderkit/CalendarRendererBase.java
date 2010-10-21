@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -50,7 +51,10 @@ import org.richfaces.component.util.ViewUtil;
  */
 
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(name = "jquery.js"),
         @ResourceDependency(name = "jquery.position.js"),
+        @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "json-dom.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.core.js"),
@@ -60,7 +64,7 @@ import org.richfaces.component.util.ViewUtil;
         @ResourceDependency(library = "org.richfaces", name = "calendar.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
 public class CalendarRendererBase extends InputRendererBase {
-    
+
     public static final String OPTION_ENABLE_MANUAL_INPUT = "enableManualInput";
     
     public static final String OPTION_DISABLED = "disabled";
@@ -110,8 +114,7 @@ public class CalendarRendererBase extends InputRendererBase {
     public static final String OPTION_LABELS = "labels";
     
     public static final String OPTION_DEFAULT_TIME = "defaultTime";
-
-
+    
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
                     .setEventNames("inputclick")
@@ -156,7 +159,11 @@ public class CalendarRendererBase extends InputRendererBase {
                     .setEventNames("inputselect")
                     .setComponentAttributeName("oninputselect")));
 
+    private static final String HOURS_VALUE = "hours";
+    
+    private static final String MINUTES_VALUE = "minutes";
 
+    
     public void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, CALENDAR_INPUT_HANDLER_ATTRIBUTES);
     }
@@ -227,7 +234,6 @@ public class CalendarRendererBase extends InputRendererBase {
         return result;
     }
 
-
     public Object getCurrentDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
         Date date = calendar.getCurrentDateOrDefault();
         return formatDate(date);
@@ -260,30 +266,12 @@ public class CalendarRendererBase extends InputRendererBase {
     }
     
     public JSReference getIsDayEnabled(FacesContext facesContext, AbstractCalendar calendar) {
-        /*UICalendar calendar = (UICalendar) component;
-        String isDayEnabled = (String) calendar.getAttributes().get(
-                "isDayEnabled");
-        if (isDayEnabled != null && isDayEnabled.length() != 0) {
-            return new JSReference(isDayEnabled); //new JSFunction(isDayEnabled);
-        }*/
-        
-        return null;
+        return calendar.isDayEnabled() ? JSReference.TRUE : JSReference.FALSE;
     }
-
-    
     
     public JSReference getDayStyleClass(FacesContext context, AbstractCalendar calendar) {
-//        TODO: refactor this
-        
-        /*
-        UICalendar calendar = (UICalendar) component;
-        String dayStyleClass = (String) calendar.getAttributes().get(
-                "dayStyleClass");
-        if (dayStyleClass != null && dayStyleClass.length() != 0) {
-            return new JSReference(dayStyleClass);
-        }*/
-        
-        return null;
+        String dayStyleClass = calendar.getDayStyleClass();
+        return ((dayStyleClass != null && dayStyleClass.trim().length() != 0)) ? new JSReference(dayStyleClass) : null; 
     }
 
     public Map<String, Object> getLabels(FacesContext facesContext, AbstractCalendar calendar) {
@@ -375,12 +363,11 @@ public class CalendarRendererBase extends InputRendererBase {
         return null;
     }
     
-    public Map<String, Object> getPreparedDefaultTime(AbstractCalendar calendar) {
-        /*
-        Date date = component.getFormattedDefaultTime();
+    public Map<String, Object> getPreparedDefaultTime(AbstractCalendar abstractCalendar) {
+        Date date = abstractCalendar.getFormattedDefaultTime();
         Map<String, Object> result = new HashMap<String, Object>();
         if (date != null) {
-            Calendar calendar = component.getCalendar();
+            Calendar calendar = abstractCalendar.getCalendar();
             calendar.setTime(date);
             int hours = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE);
@@ -390,8 +377,7 @@ public class CalendarRendererBase extends InputRendererBase {
                 result.put(MINUTES_VALUE, minutes);
             }
         }
-        return result;   */
-        return null;
+        return result;   
     } 
 
     public ScriptOptions createCalendarScriptOption(FacesContext facesContext, UIComponent component) throws IOException {
@@ -439,7 +425,8 @@ public class CalendarRendererBase extends InputRendererBase {
         AbstractCalendar calendar = (AbstractCalendar)component;
 
         ScriptOptions scriptOptions = createCalendarScriptOption(facesContext, calendar);
-        JSFunction function = new JSFunction("new rf.ui.Calendar", calendar.getClientId(facesContext), scriptOptions);
+        //new RichFaces.ui.Calendar(id, locale, options, markups);
+        JSFunction function = new JSFunction("new RichFaces.ui.Calendar", calendar.getClientId(facesContext), "", scriptOptions, "");
         StringBuffer scriptBuffer = new StringBuffer(); 
         scriptBuffer.append(function.toScript()).append(".load()");
         writer.write(scriptBuffer.toString());

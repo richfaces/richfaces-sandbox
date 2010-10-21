@@ -23,11 +23,22 @@
 
 package org.richfaces.component;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.faces.FacesException;
+import javax.faces.application.Application;
 import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -78,6 +89,12 @@ public abstract class AbstractCalendar extends UIInput{
     public abstract boolean isEnableManualInput();
     
     @Attribute
+    public abstract boolean isDayEnabled();
+    
+    @Attribute
+    public abstract String getDayStyleClass();
+            
+    @Attribute
     public abstract String getTabindex();
     
     @Attribute
@@ -103,6 +120,9 @@ public abstract class AbstractCalendar extends UIInput{
     
     @Attribute
     public abstract String getButtonIconDisabled();
+    
+    @Attribute
+    public abstract Object getDefaultTime();
             
     @Attribute(events=@EventName("inputclick"))
     public abstract String getOninputclick();
@@ -146,94 +166,151 @@ public abstract class AbstractCalendar extends UIInput{
     @Attribute(events=@EventName("inputblur"))
     public abstract String getOninputblur();
     
+    public Calendar getCalendar() {
+        return Calendar.getInstance(getTimeZone(), getAsLocale(getLocale()));
+    }
+    
     public Date getCurrentDateOrDefault() {
-        /*
         Date date = getAsDate(getCurrentDate());
-
-        if (date != null) {
-            return date;
-        } else {
-            Date value = getAsDate(this.getValue());
-            if (value != null) {
-                return value;
-            } else {
-                return java.util.Calendar.getInstance(getTimeZone()).getTime();
+        if (date == null) {
+            date = getAsDate(this.getValue());
+            
+            if (date == null) {
+                TimeZone timeZone = getTimeZone();
+                Calendar calendar =  timeZone != null ? Calendar.getInstance(timeZone) : Calendar.getInstance();
+                date = calendar.getTime();
             }
-
+            
         }
-        */
-        return null;
+        return date;
     }
 
     public Date getAsDate(Object date) {
-        /*
-
-        if (date == null) {
+        if(date == null) {
             return null;
-        } else {
-            
-                if (date instanceof Date) {
-                return (Date) date;
-            } else {
-                    if (date instanceof String) {
-                    DateTimeConverter converter = new DateTimeConverter();
-                    converter.setPattern(this.getDatePattern());
-                    converter.setLocale(getAsLocale(this.getLocale()));
-                    converter.setTimeZone(this.getTimeZone());
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    return (Date) converter.getAsObject(context, this,
-                            (String) date);
-                } else {
-                    if (date instanceof Calendar) {
-                        return ((Calendar) date).getTime();
-                    } else {
-                            
-                            FacesContext context = FacesContext.getCurrentInstance();
-                            Converter converter = getConverter();
-                            
-                            if(converter != null) {
-                                return getAsDate(converter.getAsString(context, this, date));
-                            }
-                            
-                        Application application = context.getApplication();
-                        converter = application.createConverter(date.getClass());
-                        if (null != converter) {
-                            return getAsDate(converter.getAsString(context, this, date));
-                        } else {
-                            throw new FacesException("Wrong attibute type or there is no converter for custom attibute type");
-                        }
-
-                    }
-                }
-            }
         }
-        */
-        return null;
+
+        Date value = null;
+        FacesContext facesContext = getFacesContext();
+        if(date instanceof Date) {
+            value = (Date)date;
+            
+        } else if(date instanceof String) {
+            DateTimeConverter converter = new DateTimeConverter();
+            converter.setPattern(this.getDatePattern());
+            converter.setLocale(getAsLocale(this.getLocale()));
+            converter.setTimeZone(this.getTimeZone());
+            value = (Date)converter.getAsObject(facesContext, this,(String) date);
+            
+        } else if(date instanceof Calendar) {
+            value = ((Calendar) date).getTime();
+
+        } else {
+            Converter converter = getConverter();
+            if(converter != null) {
+                return getAsDate(converter.getAsString(facesContext, this, date));
+            }
+            
+            Application application = facesContext.getApplication();
+            converter = application.createConverter(date.getClass());
+            if (null != converter) {
+                value = getAsDate(converter.getAsString(facesContext, this, date));
+            } else {
+                throw new FacesException("Wrong attibute type or there is no converter for custom attibute type");
+            }
+            
+        }
+        
+        return value;
     }
     
     
     public Locale getAsLocale(Object locale) {
-        /*
+        Locale localeValue = null; 
         if (locale instanceof Locale) {
-            return (Locale) locale;
+            localeValue = (Locale)locale;
 
         } else if (locale instanceof String) {
-
-            return parseLocale((String) locale);
+            localeValue = parseLocale((String) locale);
 
         } else {
-
             FacesContext context = FacesContext.getCurrentInstance();
             Application application = context.getApplication();
             Converter converter = application .createConverter(locale.getClass());
+            
             if (null != converter) {
-                return parseLocale(converter.getAsString(context, this, locale));
+                localeValue = parseLocale(converter.getAsString(context, this, locale));
             } else {
-                throw new FacesException(
-                        "Wrong locale attibute type or there is no converter for custom attibute type");
+                throw new FacesException("Wrong locale attibute type or there is no converter for custom attibute type");
             }
-        }*/
-        return null;
+        }
+        return localeValue;
     }
+    
+    public Locale parseLocale(String localeStr){
+        if(null==localeStr || localeStr.trim().length() < 2) {
+            return Locale.getDefault();
+        }
+        
+        //Lookup index of first '_' in string locale representation.
+        int index1 = localeStr.indexOf("_");
+        //Get first charters (if exist) from string
+        String language = null; 
+        if(index1!=-1){
+            language = localeStr.substring(0, index1);
+        }else{
+            return new Locale(localeStr);
+        }
+        
+        //Lookup index of second '_' in string locale representation.
+        int index2 = localeStr.indexOf("_", index1+1);
+        String country = null;
+        if(index2!=-1){
+            country = localeStr.substring(index1+1, index2);
+            String variant = localeStr.substring(index2+1);
+            return new Locale(language, country, variant);
+        }else{
+            country = localeStr.substring(index1+1);
+            return new Locale(language, country);
+        }       
+    }
+    
+    public Date getFormattedDefaultTime() {
+        Object defaultTime = getDefaultTime();
 
+        if(defaultTime == null) {
+            return null;
+        }
+        
+        Date result = null;
+        if (defaultTime instanceof Calendar) {
+            result = ((Calendar) defaultTime).getTime();
+            
+        } else if (defaultTime instanceof Date) {
+            result = (Date) defaultTime;
+            
+        } else {
+            String defaultTimeString = defaultTime.toString();
+            String datePattern = getDatePattern();
+            
+            String timePattern = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+\\s*";
+            Pattern pattern = Pattern.compile(timePattern);
+            Matcher matcher = pattern.matcher(datePattern);
+            
+            String subTimePattern = DEFAULT_TIME_PATTERN;
+            if(matcher.find()) {
+                subTimePattern = matcher.group().trim();
+            }
+            
+            DateFormat format = new SimpleDateFormat(subTimePattern);
+            try {
+                result = format.parse(defaultTimeString);
+            } catch (ParseException parseException) {
+                // log??
+                result = null;
+            }
+        }
+        
+        return result;
+    }
 }

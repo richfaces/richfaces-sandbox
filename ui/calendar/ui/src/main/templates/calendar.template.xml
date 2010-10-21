@@ -29,7 +29,6 @@
 		<cdk:class>org.richfaces.renderkit.html.CalendarRenderer</cdk:class>
 		<cdk:superclass>org.richfaces.renderkit.CalendarRendererBase</cdk:superclass>
 		<cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
-		<cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-ca #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
