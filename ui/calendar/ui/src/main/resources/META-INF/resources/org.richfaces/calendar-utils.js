@@ -112,11 +112,11 @@
 			
 			var counter=1;
 			var y,m,d;
-			var a,h,min;
+			var a,h,min,s;
 			var shortLabel=false;
 			
 			pattern = pattern.replace(/([.*+?^<>=!:${}()|[\]\/\\])/g, '\\$1');
-			pattern = pattern.replace(/(y+|M+|d+|a|H{1,2}|h{1,2}|m{2})/g,
+			pattern = pattern.replace(/(y+|M+|d+|a|H{1,2}|h{1,2}|m{2}|s{2})/g,
 				function($1) {
 					switch ($1) {
 			            case 'y'  :
@@ -131,6 +131,8 @@
 			            case 'H'  :
 			            case 'h'  : h=counter; counter++; return '(\\d{1,2})?';
 			            case 'mm' : min=counter; counter++; return '(\\d{2})?';
+			            case 'ss' : s=counter; counter++; return '(\\d{2})?';
+
 					}
 			        // y+,M+,d+
 					var ch = $1.charAt(0);
@@ -185,6 +187,11 @@
 					else if (hh<0 || hh>23) return null;
 					
 					date.setHours(hh); date.setMinutes(mmin);
+					if (s!=undefined)
+					{
+						sec = parseInt(match[s], 10); if (isNaN(sec) || sec<0 || sec>59) return null;
+						date.setSeconds(sec);
+					}
 				}
 				
 				if (correctYear) {
@@ -202,8 +209,8 @@
 		formatDate: function(date, pattern, monthNames, monthNamesShort) {
 			if (!monthNames) monthNames = getDefaultMonthNames();
 			if (!monthNamesShort) monthNamesShort = getDefaultMonthNames(true);
-			var mm; var dd; var hh; var min;
-		    var result = pattern.replace(/(\\\\|\\[yMdaHhm])|(y+|M+|d+|a|H{1,2}|h{1,2}|m{2})/g,
+			var mm,dd,hh,min,sec;
+		    var result = pattern.replace(/(\\\\|\\[yMdaHhms])|(y+|M+|d+|a|H{1,2}|h{1,2}|m{2}|s{2})/g,
 		        function($1,$2,$3) {
 		        	if ($2) return $2.charAt(1);
 					switch ($3) {
@@ -219,6 +226,7 @@
 			            case 'hh' : return ((hh = date.getHours())==0 ? '12' : (hh<10 ? '0'+hh : (hh>21 ? hh-12 : (hh>12) ? '0'+(hh-12) : hh)));
 			            case 'h'  : return ((hh = date.getHours())==0 ? '12' : (hh>12 ? hh-12 : hh));
 			            case 'mm' : return ((min = date.getMinutes())<10 ? '0'+min : min);
+						case 'ss' : return ((sec = date.getSeconds())<10 ? '0'+sec : sec);
 					}
 			        // y+,M+,d+
 					var ch = $3.charAt(0);
