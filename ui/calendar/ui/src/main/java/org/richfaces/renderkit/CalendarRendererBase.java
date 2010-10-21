@@ -23,18 +23,23 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.component.util.ViewUtil;
@@ -56,6 +61,57 @@ import org.richfaces.component.util.ViewUtil;
         @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
 public class CalendarRendererBase extends InputRendererBase {
     
+    public static final String OPTION_ENABLE_MANUAL_INPUT = "enableManualInput";
+    
+    public static final String OPTION_DISABLED = "disabled";
+    
+    public static final String OPTION_READONLY = "readonly";
+    
+    public static final String OPTION_RESET_TIME_ON_DATE_SELECT = "resetTimeOnDateSelect";
+    
+    public static final String OPTION_SHOW_APPLY_BUTTON = "showApplyButton";
+    
+    public static final String OPTION_MIN_DAYS_IN_FIRST_WEEK = "minDaysInFirstWeek";
+    
+    public static final String OPTION_POPUP = "popup";
+    
+    public static final String OPTION_SHOW_INPUT = "showInput";
+    
+    public static final String OPTION_SHOW_HEADER = "showHeader";
+    
+    public static final String OPTION_SHOW_FOOTER = "showFooter";
+    
+    public static final String OPTION_SHOW_WEEKS_BAR = "showWeeksBar";
+    
+    public static final String OPTION_TODAY_CONTROL_MODE = "todayControlMode";
+    
+    public static final String OPTION_DATE_PATTERN = "datePattern";
+    
+    public static final String OPTION_JOINT_POINT = "jointPoint";
+    
+    public static final String OPTION_DIRECTION = "direction";
+    
+    public static final String OPTION_BOUNDARY_DATES_MODE = "boundaryDatesMode";
+    
+    public static final String OPTION_HORIZONTAL_OFFSET = "horizontalOffset";
+
+    public static final String OPTION_VERTICAL_OFFSET = "verticalOffset";
+
+    public static final String OPTION_CURRENT_DATE = "currentDate";
+
+    public static final String OPTION_SELECTED_DATE = "selectedDate";
+
+    public static final String OPTION_SUBMIT_FUNCTION = "submitFunction";
+
+    public static final String OPTION_DAY_CELL_CLASS = "dayCellClass";
+
+    public static final String OPTION_DAY_STYLE_CLASS = "dayStyleClass";
+    
+    public static final String OPTION_LABELS = "labels";
+    
+    public static final String OPTION_DEFAULT_TIME = "defaultTime";
+
+
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
                     .setEventNames("inputclick")
@@ -142,6 +198,253 @@ public class CalendarRendererBase extends InputRendererBase {
         return (buttonIcon != null && !"".equals(buttonIcon)) ? getResourcePath(facesContext, buttonIcon) : "";
     }
     
+    public Object getSelectedDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
+        Object returnValue = null;
+        if(calendar.isValid()) {
+            Date date;
+            Object value = calendar.getValue();
+            date = calendar.getAsDate(value);
+            if(date != null) {
+                returnValue = formatSelectedDate(calendar.getTimeZone(), date);  
+            }
+        }
+        return returnValue;    
+    }
+    
+    public static Object formatSelectedDate(TimeZone timeZone, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(timeZone);
+        calendar.setTime(date);
+      
+        JSFunction result = new JSFunction("new Date");
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.YEAR)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.MONTH)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.DATE)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.MINUTE)));
+        result.addParameter(new Integer(0));
+        
+        return result;
+    }
+
+
+    public Object getCurrentDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
+        Date date = calendar.getCurrentDateOrDefault();
+        return formatDate(date);
+    }
+    
+    public static Object formatDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        JSFunction result = new JSFunction("new Date");
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.YEAR)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.MONTH)));
+        result.addParameter(Integer.valueOf(calendar.get(Calendar.DATE)));
+
+        return result;
+    }
+    
+    public String getDayCellClass(FacesContext facesContext, AbstractCalendar calendar) {
+        //TODO: refactor this
+        /*
+        String cellwidth = (String) component.getAttributes().get("cellWidth");
+        String cellheight = (String) component.getAttributes().get("cellHeight");
+        if (cellwidth != null && cellwidth.length() != 0 || cellheight != null
+                && cellheight.length() != 0) {
+            String clientId = component.getClientId(context);
+            String value = clientId.replace(':', '_') + "DayCell";
+            return value;
+        }
+        */
+        return null;
+    }
+    
+    public JSReference getIsDayEnabled(FacesContext facesContext, AbstractCalendar calendar) {
+        /*UICalendar calendar = (UICalendar) component;
+        String isDayEnabled = (String) calendar.getAttributes().get(
+                "isDayEnabled");
+        if (isDayEnabled != null && isDayEnabled.length() != 0) {
+            return new JSReference(isDayEnabled); //new JSFunction(isDayEnabled);
+        }*/
+        
+        return null;
+    }
+
+    
+    
+    public JSReference getDayStyleClass(FacesContext context, AbstractCalendar calendar) {
+//        TODO: refactor this
+        
+        /*
+        UICalendar calendar = (UICalendar) component;
+        String dayStyleClass = (String) calendar.getAttributes().get(
+                "dayStyleClass");
+        if (dayStyleClass != null && dayStyleClass.length() != 0) {
+            return new JSReference(dayStyleClass);
+        }*/
+        
+        return null;
+    }
+
+    public Map<String, Object> getLabels(FacesContext facesContext, AbstractCalendar calendar) {
+        /*
+        ResourceBundle bundle1 = null;
+        ResourceBundle bundle2 = null;
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        String messageBundle = context.getApplication().getMessageBundle();
+        Object locale = calendar.getLocale();
+        if (null != messageBundle) {
+            bundle1 = ResourceBundle.getBundle(messageBundle, calendar.getAsLocale(locale), loader);
+        } 
+        try {
+            bundle2 = ResourceBundle.getBundle(CALENDAR_BUNDLE, calendar.getAsLocale(locale), loader);
+
+        } catch (MissingResourceException e) {
+                //No external bundle was found, ignore this exception.              
+        }
+        
+        Map<String, Object> labels = new HashMap<String, Object>();
+        
+        if (null != bundle1 || null != bundle2) {
+            // TODO: make one function call
+            String[] names = {"apply", "today", "clean", "cancel", "ok", "close"};
+            RendererUtils utils= getUtils();
+            
+            for (String name : names) {
+                String label = null;
+                String bundleKey = "RICH_CALENDAR_" + name.toUpperCase() + "_LABEL";
+                
+                if (bundle1 != null) {
+                    try {
+                        label = bundle1.getString(bundleKey);
+                    } catch (MissingResourceException mre) {
+                    // Current key was not found, ignore this exception;
+                    }
+                }
+                
+                // Current key wasn't found in application bundle, use CALENDAR_BUNDLE,
+                // if it is not null
+                if((label == null) && (bundle2 != null)) {
+                    try {
+                        label = bundle2.getString(bundleKey);
+                    } catch (MissingResourceException mre) {
+                    // Current key was not found, ignore this exception;
+                    }
+                }
+                utils.addToScriptHash(labels, name, label);             
+            }
+        } 
+        return labels; */
+        return null;
+    }
+
+    public Object getSubmitFunction(FacesContext context, AbstractCalendar calendar) throws IOException {
+        /*
+        if (!UICalendar.AJAX_MODE.equals(calendar.getAttributes().get("mode")))
+            return null;
+
+        JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(calendar, context,
+                AjaxRendererUtils.AJAX_FUNCTION_NAME);
+        ajaxFunction.addParameter(JSReference.NULL);
+
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put(calendar.getClientId(context) + CURRENT_DATE_PRELOAD, Boolean.TRUE);
+
+        Map<String, Object> options = AjaxRendererUtils.buildEventOptions(context, calendar, params, true);
+        options.put("calendar", JSReference.THIS);
+
+        String oncomplete = AjaxRendererUtils.getAjaxOncomplete(calendar);
+        JSFunctionDefinition oncompleteDefinition = new JSFunctionDefinition();
+        oncompleteDefinition.addParameter("request");
+        oncompleteDefinition.addParameter("event");
+        oncompleteDefinition.addParameter("data");
+        oncompleteDefinition.addToBody("this.calendar.load(data, true);");
+        if (oncomplete != null) {
+            oncompleteDefinition.addToBody(oncomplete);
+        }
+
+        options.put("oncomplete", oncompleteDefinition);
+        JSReference requestValue = new JSReference("requestValue");
+        ajaxFunction.addParameter(options);
+        JSFunctionDefinition definition = new JSFunctionDefinition();
+        definition.addParameter(requestValue);
+        definition.addToBody(ajaxFunction);
+        return definition;
+        */
+        
+        return null;
+    }
+    
+    public Map<String, Object> getPreparedDefaultTime(AbstractCalendar calendar) {
+        /*
+        Date date = component.getFormattedDefaultTime();
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (date != null) {
+            Calendar calendar = component.getCalendar();
+            calendar.setTime(date);
+            int hours = calendar.get(Calendar.HOUR_OF_DAY);
+            int minutes = calendar.get(Calendar.MINUTE);
+            
+            if (hours != 12 || minutes != 0) {
+                result.put(HOURS_VALUE, hours);
+                result.put(MINUTES_VALUE, minutes);
+            }
+        }
+        return result;   */
+        return null;
+    } 
+
+    public ScriptOptions createCalendarScriptOption(FacesContext facesContext, UIComponent component) throws IOException {
+        AbstractCalendar calendar = (AbstractCalendar)component;
+        
+        ScriptOptions scriptOptions = new ScriptOptions(component);
+        scriptOptions.addOption(OPTION_ENABLE_MANUAL_INPUT);
+        scriptOptions.addOption("disabled");
+        scriptOptions.addOption("readonly");
+        scriptOptions.addOption("resetTimeOnDateSelect"); //component
+        scriptOptions.addOption("showApplyButton"); //component
+        scriptOptions.addOption("styleClass"); //component
+        scriptOptions.addOption("minDaysInFirstWeek"); //component
+        scriptOptions.addOption("popup", true); 
+        scriptOptions.addOption("showInput", true);
+        scriptOptions.addOption("showHeader", true);
+        scriptOptions.addOption("showFooter", true);
+        scriptOptions.addOption("showWeeksBar", true);
+        scriptOptions.addOption("showWeekDaysBar", true);
+        scriptOptions.addOption("todayControlMode", "select");
+        scriptOptions.addOption("datePattern", "MMM d, YYYY");
+        scriptOptions.addOption("jointPoint", "bottom-left");
+        scriptOptions.addOption("direction", "bottom-right");
+        scriptOptions.addOption("boundaryDatesMode", "inactive");
+        scriptOptions.addOption("horizontalOffset", 0);
+        scriptOptions.addOption("verticalOffset", 0);
+        scriptOptions.addOption("currentDate", getCurrentDate(facesContext, calendar));
+        scriptOptions.addOption("selectedDate", getSelectedDate(facesContext, calendar));
+        /*<cdk:scriptOption name="style"  value="z-index: #{component.attributes['zindex']}; #{component.attributes['style']}" defaultValue="z-index: 3; "/>*/
+        scriptOptions.addOption("style", 0);
+        scriptOptions.addOption("submitFunction", getSubmitFunction(facesContext, calendar));
+        scriptOptions.addOption("dayCellClass", getDayCellClass(facesContext, calendar));
+        scriptOptions.addOption("dayStyleClass", getDayStyleClass(facesContext, calendar));
+        /*
+         *add to script option 
+         *<cdk:scriptOption attributes="ondateselected, ondateselect, ontimeselect, ontimeselected, onchanged, ondatemouseover, ondatemouseout, onexpand, oncollapse, oncurrentdateselect, oncurrentdateselected" wrapper="eventHandler" />
+         * */
+        scriptOptions.addOption("labels", getLabels(facesContext, calendar));
+        scriptOptions.addOption("defaultTime", getPreparedDefaultTime(calendar));
+       
+        return scriptOptions;
+    }
+    
+    public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
+        AbstractCalendar calendar = (AbstractCalendar)component;
+
+        ScriptOptions scriptOptions = createCalendarScriptOption(facesContext, calendar);
+        JSFunction function = new JSFunction("new rf.ui.Calendar", calendar.getClientId(facesContext), scriptOptions);
+        StringBuffer scriptBuffer = new StringBuffer(); 
+        scriptBuffer.append(function.toScript()).append(".load()");
+        writer.write(scriptBuffer.toString());
+    }
+    
     protected String getResourcePath(FacesContext facesContext, String source) {
         return (source != null && !"".equals(source)) ? ViewUtil.getResourceURL(source, facesContext) :"" ;         
     }
@@ -170,4 +473,5 @@ public class CalendarRendererBase extends InputRendererBase {
         
         return converter;
     }
+    
 }

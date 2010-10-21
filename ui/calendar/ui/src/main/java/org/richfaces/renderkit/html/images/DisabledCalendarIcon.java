@@ -30,17 +30,17 @@ import java.awt.image.WritableRaster;
 
 /**
  * @author Maksim Kaszynski
- *
+ * 
  */
 public class DisabledCalendarIcon extends CalendarIcon {
 
-	@Override
-	protected BufferedImage createImage(int width, int height) {
-		ColorSpace gsColorSpace = ColorSpace.getInstance(ColorSpace.CS_GRAY);
-		ComponentColorModel ccm = new ComponentColorModel(gsColorSpace, true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
-		WritableRaster raster = ccm.createCompatibleWritableRaster(width, height);
+    @Override
+    protected BufferedImage createImage(int width, int height) {
+        ColorSpace gsColorSpace = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+        ComponentColorModel ccm = new ComponentColorModel(gsColorSpace, true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
+        WritableRaster raster = ccm.createCompatibleWritableRaster(width, height);
 
-		return new BufferedImage(ccm, raster, ccm.isAlphaPremultiplied(), null);
-	}
+        return new BufferedImage(ccm, raster, ccm.isAlphaPremultiplied(), null);
+    }
 
 }

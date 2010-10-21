@@ -81,49 +81,12 @@
 					name="#{clientId}InputCurrentDate"
 					value="#{component.attributes['currentDate']}" type="hidden" />
 			</span>
-			<div style="display: none;" id="#{clientId}">
-			</div>
-			
-			<!--cdk:scriptObject var="options" >
-				<cdk:scriptOption attributes="enableManualInput, disabled, readonly, resetTimeOnDateSelect, showApplyButton, styleClass, minDaysInFirstWeek" />
-				<cdk:scriptOption attributes="popup" defaultValue="true" />
-				<cdk:scriptOption attributes="showInput" defaultValue="true" />
-				<cdk:scriptOption attributes="ajaxSingle" defaultValue="true" />
-				<cdk:scriptOption attributes="showHeader" defaultValue="true" />
-				<cdk:scriptOption attributes="showFooter" defaultValue="true" />
-				<cdk:scriptOption attributes="showWeeksBar" defaultValue="true" />
-				<cdk:scriptOption attributes="showWeekDaysBar" defaultValue="true" />
-				<cdk:scriptOption attributes="todayControlMode" defaultValue="select" />
-				<cdk:scriptOption attributes="datePattern" defaultValue="MMM d, yyyy" />
-				<cdk:scriptOption attributes="jointPoint" defaultValue="bottom-left" />
-				<cdk:scriptOption attributes="direction" defaultValue="bottom-right" />
-				<cdk:scriptOption attributes="boundaryDatesMode" defaultValue="inactive" />
-				<cdk:scriptOption attributes="horizontalOffset" defaultValue="0" />
-				<cdk:scriptOption attributes="verticalOffset" defaultValue="0" />
-				<cdk:scriptOption attributes="hidePopupOnScroll" defaultValue="true" />
-				
-				<cdk:scriptOption name="currentDate"  value="#{this:getCurrentDate(facesContext, component, currentDate)}" />
-				<cdk:scriptOption name="selectedDate"  value="#{this:getSelectedDate(facesContext, component)}" />
-				<cdk:scriptOption name="style"  value="z-index: #{component.attributes['zindex']}; #{component.attributes['style']}" defaultValue="z-index: 3; "/>
-				<cdk:scriptOption name="submitFunction"  value="#{this:getSubmitFunction(facesContext, component)}" />
-				<cdk:scriptOption name="dayCellClass"  value="#{this:getDayCellClass(facesContext, component)}" />
-				<cdk:scriptOption name="dayStyleClass"  value="#{this:getDayStyleClass(facesContext, component)}" />
-				<cdk:scriptOption name="isDayEnabled"  value="#{this:getIsDayEnabled(facesContext, component)}" />
-				
-				<cdk:scriptOption attributes="ondateselected, ondateselect, ontimeselect, ontimeselected, onchanged, ondatemouseover, ondatemouseout, onexpand, oncollapse, oncurrentdateselect, oncurrentdateselected" wrapper="eventHandler" />
-				<cdk:scriptOption name="labels" value="#{this:getLabels(facesContext, component)}" />
-				<cdk:scriptOption name="defaultTime" value="#{this:getPreparedDefaultTime(component)}" />
-			</cdk:scriptObject>
+			<div style="display: none;" id="#{clientId}"></div>
+
 			<script type="text/javascript">
-				new Calendar('#{clientId}',
-					<c:if test="#{not empty options}">
-						"#{options}"
-					</c:if>
-					<c:if test="#{empty options}">
-						{}
-					</c:if>
-				).load();
-			</script-->
+				<cdk:call expression="buildScript(responseWriter, facesContext, component);" />
+			</script>
+			
 		</span>
 	</cc:implementation>
 </cdk:root>

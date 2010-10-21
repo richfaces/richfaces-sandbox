@@ -23,6 +23,7 @@
 
 package org.richfaces.component;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -144,6 +145,72 @@ public abstract class AbstractCalendar extends UIInput{
   
     @Attribute(events=@EventName("inputblur"))
     public abstract String getOninputblur();
+    
+    public Date getCurrentDateOrDefault() {
+        /*
+        Date date = getAsDate(getCurrentDate());
+
+        if (date != null) {
+            return date;
+        } else {
+            Date value = getAsDate(this.getValue());
+            if (value != null) {
+                return value;
+            } else {
+                return java.util.Calendar.getInstance(getTimeZone()).getTime();
+            }
+
+        }
+        */
+        return null;
+    }
+
+    public Date getAsDate(Object date) {
+        /*
+
+        if (date == null) {
+            return null;
+        } else {
+            
+                if (date instanceof Date) {
+                return (Date) date;
+            } else {
+                    if (date instanceof String) {
+                    DateTimeConverter converter = new DateTimeConverter();
+                    converter.setPattern(this.getDatePattern());
+                    converter.setLocale(getAsLocale(this.getLocale()));
+                    converter.setTimeZone(this.getTimeZone());
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    return (Date) converter.getAsObject(context, this,
+                            (String) date);
+                } else {
+                    if (date instanceof Calendar) {
+                        return ((Calendar) date).getTime();
+                    } else {
+                            
+                            FacesContext context = FacesContext.getCurrentInstance();
+                            Converter converter = getConverter();
+                            
+                            if(converter != null) {
+                                return getAsDate(converter.getAsString(context, this, date));
+                            }
+                            
+                        Application application = context.getApplication();
+                        converter = application.createConverter(date.getClass());
+                        if (null != converter) {
+                            return getAsDate(converter.getAsString(context, this, date));
+                        } else {
+                            throw new FacesException("Wrong attibute type or there is no converter for custom attibute type");
+                        }
+
+                    }
+                }
+            }
+        }
+        */
+        return null;
+    }
+    
     
     public Locale getAsLocale(Object locale) {
         /*

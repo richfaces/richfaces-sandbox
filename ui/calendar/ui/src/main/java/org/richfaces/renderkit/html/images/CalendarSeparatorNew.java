@@ -25,7 +25,7 @@ import org.richfaces.skin.SkinFactory;
  */
 public class CalendarSeparatorNew implements Java2DUserResource, StateHolderResource {
 
-    private final static Dimension DIMENSION = new Dimension(1, 15);
+    private static final Dimension DIMENSION = new Dimension(1, 15);
     
     private Integer headerTextColor;
     

@@ -33,7 +33,7 @@ import org.richfaces.skin.SkinFactory;
 @DynamicResource
 public class CalendarIcon implements Java2DUserResource, StateHolderResource{
 
-    private static Dimension DIMENSION = new Dimension(20, 20);
+    private static final Dimension DIMENSION = new Dimension(20, 20);
     
     private Integer headerTextColor;
     
