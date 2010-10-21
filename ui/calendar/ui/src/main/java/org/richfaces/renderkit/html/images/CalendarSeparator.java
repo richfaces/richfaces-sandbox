@@ -23,7 +23,7 @@ import org.richfaces.skin.SkinFactory;
  * @author amarkhel
  *
  */
-public class CalendarSeparatorNew implements Java2DUserResource, StateHolderResource {
+public class CalendarSeparator implements Java2DUserResource, StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(1, 15);
     
