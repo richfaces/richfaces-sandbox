@@ -260,7 +260,7 @@
 			showApplyButton: false,
 			selectedDate: null,
 			currentDate: null,
-			defaultTime: {hours:12,minutes:0},
+			defaultTime: {hours:12,minutes:0, seconds:0},
 			hidePopupOnScroll: true
 	};
 	
@@ -616,6 +616,12 @@
 			}
 			th.value = (this.timeHoursDigits==2 && h<10 ? '0'+h : h);
 			tm.value = (m<10 ? '0'+m : m);
+			
+			if (this.showSeconds) {
+				var tsec=rf.getDomElement(this.id+'TimeSeconds');
+				var s = this.selectedDate.getSeconds();
+				tsec.value = (s<10 ? '0'+s : s);
+			}
 		},
 
 
@@ -652,6 +658,10 @@
 				sbjQuery(ts).SpinButton({});
 			}
 			sbjQuery(tm).SpinButton({digits:2,min:0,max:59});
+			if (this.showSeconds) {
+				var tsec=rf.getDomElement(this.id+'TimeSeconds');
+				sbjQuery(tsec).SpinButton({digits:2,min:0,max:59});
+			}
 			
 			this.correctEditorButtons(editor, this.TIME_EDITOR_BUTTON_OK, this.TIME_EDITOR_BUTTON_CANCEL);
 			
@@ -762,7 +772,7 @@
 
 			var dateTimePattern = this.params.datePattern;
 			var pattern = [];
-			var re = /(\\\\|\\[yMdaHhm])|(y+|M+|d+|a|H{1,2}|h{1,2}|m{2})/g;
+			var re = /(\\\\|\\[yMdaHhms])|(y+|M+|d+|a|H{1,2}|h{1,2}|m{2}|s{2})/g;
 			var r;
 			while (r = re.exec(dateTimePattern))
 				if (!r[1])
@@ -771,7 +781,7 @@
 	  		var datePattern = "";
 	  		var timePattern = "";
 	  		
-			var digits,h,hh,m,a;
+			var digits,h,hh,m,s,a;
 			var id = this.id;
 			
 			var getString = function (p) {
@@ -805,6 +815,11 @@
 	  				m=true;
 	  				timePattern+=getString(timePattern);
 	  			}
+				else if (ch=='s')
+	  			{
+	  				this.showSeconds=true;
+	  				timePattern+=getString(timePattern);
+	  			}
 	  			
 	  			
 	  		}
@@ -813,7 +828,7 @@
 
 	  		var calendar = this;
 	  		
-			this.timePatternHtml = timePattern.replace(/(\\\\|\\[yMdaHhm])|(H{1,2}|h{1,2}|m{2}|a)/g,
+			this.timePatternHtml = timePattern.replace(/(\\\\|\\[yMdaHhms])|(H{1,2}|h{1,2}|m{2}|s{2}|a)/g,
 				function($1,$2,$3) {
 					if ($2) return $2.charAt(1);
 					switch ($3) {
@@ -823,6 +838,7 @@
 			            case 'h'  :
 			            case 'hh' : return '</td><td>'+calendar.createSpinnerTable(id+'TimeHours')+'</td><td>';
 			            case 'mm' : return '</td><td>'+calendar.createSpinnerTable(id+'TimeMinutes')+'</td><td>';
+						case 'ss' : return '</td><td>'+calendar.createSpinnerTable(id+'TimeSeconds')+'</td><td>';
 					}
 				}
 			);
@@ -1007,10 +1023,12 @@
 			{
 				date.setHours(this.selectedDate.getHours());
 				date.setMinutes(this.selectedDate.getMinutes());
+				date.setSeconds(this.selectedDate.getSeconds());
 			} else
 			{
 				date.setHours(this.params.defaultTime.hours);
 				date.setMinutes(this.params.defaultTime.minutes);
+				date.setSeconds(this.params.defaultTime.seconds);
 			}
 		},
 		
@@ -1725,8 +1743,9 @@
 			this.hideEditor();
 			if (updateTime && this.selectedDate)
 			{
+				var s = this.showSeconds ? parseInt(rf.getDomElement(this.id+'TimeSeconds').value,10) : this.params.defaultTime.seconds;
 				var m = parseInt(rf.getDomElement(this.id+'TimeMinutes').value,10);
-				var h=parseInt(rf.getDomElement(this.id+'TimeHours').value,10);
+				var h = parseInt(rf.getDomElement(this.id+'TimeHours').value,10);
 				if (this.timeType==2)
 				{
 					if (rf.getDomElement(this.id+'TimeSign').value.toLowerCase()=="am")
@@ -1738,7 +1757,7 @@
 						if (h!=12) h+=12;
 					}
 				}
-				var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, 0);
+				var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
 				if (date-this.selectedDate && this.invokeEvent("timeselect",null, null, date))
 				{
 					this.selectedDate = date;
