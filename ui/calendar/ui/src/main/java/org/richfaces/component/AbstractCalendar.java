@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -59,38 +60,105 @@ import org.richfaces.cdk.annotations.Tag;
         tag = @Tag(name="calendar")
 )
 public abstract class AbstractCalendar extends UIInput{
-
+    
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
     
-    private static final String DEFAULT_TIME_PATTERN = "HH:mm";
-
+    public static final String SUB_TIME_PATTERN = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+\\s*";
     
-    @Attribute(defaultValue=DEFAULT_TIME_PATTERN)
+    public static final String TIME_PATTERN = "HH:mm";
+    
+    public static final String DEFAULT_DATE_PATTERN = "MMM d, YYYY";
+    
+
+    @Attribute(defaultValue="DEFAULT_DATE_PATTERN")
     public abstract String getDatePattern();
 
-    @Attribute
+    @Attribute(defaultValue="getDefaultLocale()")
     public abstract Object getLocale();
     
-    @Attribute
+    @Attribute(defaultValue="TimeZone.getDefault()")
     public abstract TimeZone getTimeZone();
     
-    @Attribute
-    public abstract boolean isDisabled();
+    @Attribute(defaultValue="Integer.MIN_VALUE")
+    public abstract int getFirstWeekDay();
     
-    @Attribute
+    @Attribute(defaultValue="Integer.MIN_VALUE")
+    public abstract int getMinDaysInFirstWeek();
+    
+    @Attribute(defaultValue="select")
+    public abstract String getTodayControlMode();
+        
+    @Attribute(defaultValue="true")
+    public abstract boolean isShowWeekDaysBar();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isShowWeeksBar();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isShowFooter();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isShowHeader();
+    
+    @Attribute(defaultValue="true")
     public abstract boolean isShowInput();
     
-    @Attribute
+    @Attribute(defaultValue="true")
     public abstract boolean isPopup();
     
-    @Attribute
+    @Attribute(defaultValue="true")
+    public abstract String getHidePopupOnScroll();
+    
+    @Attribute(defaultValue="false")
+    public abstract boolean isDisable();
+        
+    @Attribute(defaultValue="false")
     public abstract boolean isEnableManualInput();
     
-    @Attribute
+    @Attribute(defaultValue="false")
     public abstract boolean isDayEnabled();
     
+    @Attribute(defaultValue="false") 
+    public abstract boolean isShowApplyButton();
+    
+    @Attribute(defaultValue="false") 
+    public abstract boolean isResetTimeOnDateSelect();
+    
+    @Attribute(defaultValue="bottom-left")
+    public abstract String getJointPoint();
+    
+    @Attribute(defaultValue="bottom-right")
+    public abstract String getDirection();
+    
+    @Attribute(defaultValue="inactive")
+    public abstract String getBoundaryDatesMode();
+    
+    @Attribute(defaultValue="0")
+    public abstract String getHorizontalOffset();
+    
+    @Attribute(defaultValue="0")
+    public abstract String getVerticalOffsetOffset();
+    
+    @Attribute(defaultValue="3")
+    public abstract int getZindex();
+    
+    @Attribute
+    public abstract String getStyle();
+    
+    @Attribute
+    public abstract Object getMonthLabels();
+    
+    @Attribute
+    public abstract Object getMonthLabelsShort();
+    
+    @Attribute
+    public abstract Object getWeekDayLabelsShort();
+    
+    @Attribute
+    public abstract Object getWeekDayLabels();
+
     @Attribute
     public abstract String getDayStyleClass();
             
@@ -123,7 +191,7 @@ public abstract class AbstractCalendar extends UIInput{
     
     @Attribute
     public abstract Object getDefaultTime();
-            
+    
     @Attribute(events=@EventName("inputclick"))
     public abstract String getOninputclick();
 
@@ -167,7 +235,7 @@ public abstract class AbstractCalendar extends UIInput{
     public abstract String getOninputblur();
     
     public Calendar getCalendar() {
-        return Calendar.getInstance(getTimeZone(), getAsLocale(getLocale()));
+        return Calendar.getInstance(getTimeZone(), getAsLocale());
     }
     
     public Date getCurrentDateOrDefault() {
@@ -198,7 +266,7 @@ public abstract class AbstractCalendar extends UIInput{
         } else if(date instanceof String) {
             DateTimeConverter converter = new DateTimeConverter();
             converter.setPattern(this.getDatePattern());
-            converter.setLocale(getAsLocale(this.getLocale()));
+            converter.setLocale(getAsLocale());
             converter.setTimeZone(this.getTimeZone());
             value = (Date)converter.getAsObject(facesContext, this,(String) date);
             
@@ -224,8 +292,31 @@ public abstract class AbstractCalendar extends UIInput{
         return value;
     }
     
+    public Locale getAsLocale() {
+        Object locale = getLocale();
+        return getAsLocale(locale);
+    }
     
+    protected Locale getDefaultLocale() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null) {
+            UIViewRoot viewRoot = facesContext.getViewRoot();
+            if (viewRoot != null) {
+                Locale locale = viewRoot.getLocale();
+                if (locale != null) {
+                    return locale;
+                }
+            }
+        }
+        return Locale.US;
+    }
+
     public Locale getAsLocale(Object locale) {
+        
+        if(locale == null) {
+            return null;
+        }
+        
         Locale localeValue = null; 
         if (locale instanceof Locale) {
             localeValue = (Locale)locale;
@@ -293,11 +384,11 @@ public abstract class AbstractCalendar extends UIInput{
             String defaultTimeString = defaultTime.toString();
             String datePattern = getDatePattern();
             
-            String timePattern = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+\\s*";
+            String timePattern = TIME_PATTERN;
             Pattern pattern = Pattern.compile(timePattern);
             Matcher matcher = pattern.matcher(datePattern);
             
-            String subTimePattern = DEFAULT_TIME_PATTERN;
+            String subTimePattern = SUB_TIME_PATTERN;
             if(matcher.find()) {
                 subTimePattern = matcher.group().trim();
             }

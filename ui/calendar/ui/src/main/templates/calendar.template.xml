@@ -83,9 +83,9 @@
 			<div style="display: none;" id="#{clientId}"></div>
 
 			<script type="text/javascript">
+				<cdk:call expression="buildLocaleScript(responseWriter, facesContext, component);" />
 				<cdk:call expression="buildScript(responseWriter, facesContext, component);" />
 			</script>
-			
 		</span>
 	</cc:implementation>
 </cdk:root>
