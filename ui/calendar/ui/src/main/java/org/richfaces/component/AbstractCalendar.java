@@ -72,7 +72,7 @@ public abstract class AbstractCalendar extends UIInput{
     public static final String DEFAULT_DATE_PATTERN = "MMM d, YYYY";
     
 
-    @Attribute(defaultValue="DEFAULT_DATE_PATTERN")
+    @Attribute(defaultValue="MMM d, YYYY")
     public abstract String getDatePattern();
 
     @Attribute(defaultValue="getDefaultLocale()")
