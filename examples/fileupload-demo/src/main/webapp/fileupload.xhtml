@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:fu="http://richfaces.org/fileupload">
+	xmlns:fu="http://richfaces.org/fileUpload">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -33,13 +33,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<title>Richfaces FileUpload Demo</title>
 	</h:head>
 	<h:body>
-		<h:form id="form">
-			<h:outputText value="Skin: "/>
+		<h:form id="form" enctype="multipart/form-data">
+			<script type="text/javascript">
+				<!--
+				var myForm = document.getElementById("form");
+				myForm.action = myForm.action + "?_richfaces_upload_uid=1";
+				//-->
+			</script>
+			<!--h:outputText value="Skin: "/>
 			<h:selectOneMenu value="#{skinBean.skin}" onchange="submit();">
 				<f:selectItems value="#{skinBean.skins}"/>
 			</h:selectOneMenu>
-			<br />
-			<fu:fileupload />
+			<br /-->
+			<fu:fileUpload fileUploadListener="#{fileUploadBean.listener}"/>
+			<h:outputText value="File name:" />
+			<h:outputText value="#{fileUploadBean.item.fileName}" />
+			<input type="submit" />
 		</h:form>
 	</h:body>
 </html>
