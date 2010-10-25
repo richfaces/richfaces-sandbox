@@ -103,7 +103,7 @@ public class FileUploadPhaselistener implements PhaseListener {
         Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
         String uid = queryParamMap.get(MultipartRequest.UPLOAD_FILES_ID);
         if (uid != null && isMultipartRequest(request)) {
-            if (maxRequestSize != 0 && request.getContentLength() > maxRequestSize) {
+            if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
                 boolean sendError = Boolean.parseBoolean(queryParamMap.get(MultipartRequest.SEND_HTTP_ERROR));
                 if (sendError) {
                     printResponse(facesContext, HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE, null);
@@ -111,7 +111,7 @@ public class FileUploadPhaselistener implements PhaseListener {
                     printResponse(facesContext, HttpServletResponse.SC_OK,
                         "<html id=\"_richfaces_file_upload_size_restricted\"></html>");
                 }
-            } else if (!checkFileCount(request, queryParamMap.get("id"))) {
+            } else if (!checkFileCount(externalContext, queryParamMap.get("id"))) {
                 printResponse(facesContext, HttpServletResponse.SC_OK,
                     "<html id=\"_richfaces_file_upload_forbidden\"></html>");
             } else {
@@ -122,6 +122,9 @@ public class FileUploadPhaselistener implements PhaseListener {
                     if (!multipartRequest.isDone()) {
                         printResponse(facesContext, HttpServletResponse.SC_OK,
                             "<html id=\"_richfaces_file_upload_stopped\"></html>");
+                    } else {
+                        externalContext.getRequestMap().put(MultipartRequest.UPLOAD_FILES_ID, multipartRequest);
+                        externalContext.setRequest(multipartRequest);
                     }
                 } catch (FileUploadException e) {
                     printResponse(facesContext, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
@@ -133,9 +136,9 @@ public class FileUploadPhaselistener implements PhaseListener {
         }
     }
 
-    private boolean checkFileCount(HttpServletRequest request, String idParameter) {
+    private boolean checkFileCount(ExternalContext externalContext, String idParameter) {
         //TODO implement this method
-//        HttpSession session = request.getSession(false);
+//        HttpSession session = externalContext.getSession(false);
 //        
 //        if (session != null) {
 //            Map<String, Integer> map = (Map<String, Integer>) session
