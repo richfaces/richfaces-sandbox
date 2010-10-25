@@ -39,11 +39,11 @@ public class UploadEvent extends FacesEvent {
     }
 
     public boolean isAppropriateListener(FacesListener listener) {
-        return false;
+        return listener instanceof FileUploadListener;
     }
 
     public void processListener(FacesListener listener) {
-
+        ((FileUploadListener) listener).processUpload(this);
     }
 
     /**
