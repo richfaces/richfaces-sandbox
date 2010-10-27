@@ -354,9 +354,9 @@ rich-calendar-date-layout-ok {
 
 .rich-calendar-editor-layout-shadow {
 	background-color: '#{richSkin.shadowBackgroundColor}';
+	position: absolute;
 	opacity: 0.3;
 	filter: alpha(opacity=30);
-	position: absolute;
 }
 
 .rich-calendar-editor-btn {

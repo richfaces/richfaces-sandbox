@@ -281,7 +281,7 @@
 		// optionalHeaderMarkup - user defined header (optional)
 		// optionalFooterMarkup - user defined footer (optional)
 		
-		// currentDate - date to show month (day not used) (mm/yyyy) 
+		// currentDate - date to show month (day not used) (MM/yyyy) 
 		// selectedDate - selected date (mm/dd/yyyy)
 		// weekDayLabels - collection of week day labels keyed by week day numbers
 		// weekDayLabelsShort - collection of week day short labels keyed by week day numbers

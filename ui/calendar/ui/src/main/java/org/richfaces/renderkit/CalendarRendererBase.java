@@ -24,6 +24,8 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -123,6 +125,10 @@ public class CalendarRendererBase extends InputRendererBase {
     
     public static final String OPTION_DEFAULT_TIME = "defaultTime";
     
+    public static final String OPTION_HIDE_POPUP_ON_SCROLL = "hidePopupOnScroll";
+    
+    public static final String OPTION_SHOW_WEEK_DAYS_BAR = "showWeekDaysBar";
+    
     public static final String MONTH_LABELS_SHORT = "monthLabelsShort";
 
     public static final String MONTH_LABELS = "monthLabels";
@@ -134,6 +140,8 @@ public class CalendarRendererBase extends InputRendererBase {
     public static final String FIRST_DAY_WEEK = "firstWeekDay";
     
     public static final String MIN_DAYS_IN_FIRST_WEEK = "minDaysInFirstWeek";
+    
+    
 
     
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
@@ -258,6 +266,13 @@ public class CalendarRendererBase extends InputRendererBase {
     public Object getCurrentDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
         Date date = calendar.getCurrentDateOrDefault();
         return formatDate(date);
+    }
+    
+    public String getCurrentDateAsString(FacesContext context, AbstractCalendar calendar) throws IOException {
+        Format formatter = new SimpleDateFormat("MM/yyyy");
+        
+        Date currentDate = calendar.getCurrentDateOrDefault();
+        return formatter.format(currentDate);
     }
     
     public static Object formatDate(Date date) {
@@ -481,38 +496,38 @@ public class CalendarRendererBase extends InputRendererBase {
         ScriptOptions scriptOptions = new ScriptOptions(component);
         
         scriptOptions.addOption(OPTION_ENABLE_MANUAL_INPUT);
-        scriptOptions.addOption("disabled");
-        scriptOptions.addOption("readonly");
-        scriptOptions.addOption("resetTimeOnDateSelect");
-        scriptOptions.addOption("showApplyButton");
-        scriptOptions.addOption("styleClass");
-        scriptOptions.addOption("popup"); 
-        scriptOptions.addOption("showInput");
-        scriptOptions.addOption("showHeader");
-        scriptOptions.addOption("showFooter");
-        scriptOptions.addOption("showWeeksBar");
-        scriptOptions.addOption("showWeekDaysBar");
-        scriptOptions.addOption("todayControlMode");
-        scriptOptions.addOption("datePattern");
-        scriptOptions.addOption("jointPoint");
-        scriptOptions.addOption("direction");
-        scriptOptions.addOption("boundaryDatesMode");
-        scriptOptions.addOption("horizontalOffset");
-        scriptOptions.addOption("verticalOffset");
-        scriptOptions.addOption("hidePopupOnScroll");
-        
-        scriptOptions.addOption("currentDate", getCurrentDate(facesContext, calendar));
-        scriptOptions.addOption("selectedDate", getSelectedDate(facesContext, calendar));
-        scriptOptions.addOption("style", HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle()));
-        scriptOptions.addOption("submitFunction", getSubmitFunction(facesContext, calendar));
-        scriptOptions.addOption("dayCellClass", getDayCellClass(facesContext, calendar));
-        scriptOptions.addOption("dayStyleClass", getDayStyleClass(facesContext, calendar));
+        scriptOptions.addOption(OPTION_DISABLED);
+        scriptOptions.addOption(OPTION_READONLY);
+        scriptOptions.addOption(OPTION_RESET_TIME_ON_DATE_SELECT);
+        scriptOptions.addOption(OPTION_SHOW_APPLY_BUTTON);
+        scriptOptions.addOption(OPTION_POPUP); 
+        scriptOptions.addOption(OPTION_SHOW_INPUT);
+        scriptOptions.addOption(OPTION_SHOW_HEADER);
+        scriptOptions.addOption(OPTION_SHOW_FOOTER);
+        scriptOptions.addOption(OPTION_SHOW_WEEKS_BAR);
+        scriptOptions.addOption(OPTION_TODAY_CONTROL_MODE);
+        scriptOptions.addOption(OPTION_DATE_PATTERN);
+        scriptOptions.addOption(OPTION_JOINT_POINT);
+        scriptOptions.addOption(OPTION_DIRECTION);
+        scriptOptions.addOption(OPTION_BOUNDARY_DATES_MODE);
+        scriptOptions.addOption(OPTION_HORIZONTAL_OFFSET);
+        scriptOptions.addOption(OPTION_VERTICAL_OFFSET);
+        scriptOptions.addOption(OPTION_CURRENT_DATE, getCurrentDate(facesContext, calendar));
+        scriptOptions.addOption(OPTION_SELECTED_DATE, getSelectedDate(facesContext, calendar));
+        scriptOptions.addOption(OPTION_SUBMIT_FUNCTION, getSubmitFunction(facesContext, calendar));
+        scriptOptions.addOption(OPTION_DAY_CELL_CLASS, getDayCellClass(facesContext, calendar));
+        scriptOptions.addOption(OPTION_DAY_STYLE_CLASS, getDayStyleClass(facesContext, calendar));
         /*
          *add to script option 
          *<cdk:scriptOption attributes="ondateselected, ondateselect, ontimeselect, ontimeselected, onchanged, ondatemouseover, ondatemouseout, onexpand, oncollapse, oncurrentdateselect, oncurrentdateselected" wrapper="eventHandler" />
          * */
-        scriptOptions.addOption("labels", getLabels(facesContext, calendar));
-        scriptOptions.addOption("defaultTime", getPreparedDefaultTime(calendar));
+        scriptOptions.addOption(OPTION_LABELS, getLabels(facesContext, calendar));
+        scriptOptions.addOption(OPTION_DEFAULT_TIME, getPreparedDefaultTime(calendar));
+        scriptOptions.addOption(OPTION_HIDE_POPUP_ON_SCROLL);
+        scriptOptions.addOption("showWeekDaysBar");
+
+        scriptOptions.addOption("styleClass");
+        scriptOptions.addOption("style", HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle()));
        
         return scriptOptions;
     }

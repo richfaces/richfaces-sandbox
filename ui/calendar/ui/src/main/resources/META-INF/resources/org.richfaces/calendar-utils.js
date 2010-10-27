@@ -161,7 +161,7 @@
 					yy += Math.floor(defaultCenturyStartYear/100)*100 + (yy < ambiguousTwoDigitYear ? 100 : 0);
 				}
 				
-				var mm = parseInt(match[m],10); if (isNaN(mm)) mm = Richfaces.Calendar.getMonthByLabel(match[m], shortLabel ? monthNamesShort : monthNames); else if (--mm<0 || mm>11) return null;
+				var mm = parseInt(match[m],10); if (isNaN(mm)) mm = this.getMonthByLabel(match[m], shortLabel ? monthNamesShort : monthNames); else if (--mm<0 || mm>11) return null;
 				var addDay = correctYear ? 1 : 0;
 				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>this.daysInMonth(yy, mm) + addDay) return null;
 				
