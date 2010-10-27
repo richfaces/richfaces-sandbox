@@ -58,7 +58,7 @@ public class CalendarSeparator implements Java2DUserResource, StateHolderResourc
     }
 
     public ImageType getImageType() {
-        return ImageType.GIF;
+        return ImageType.PNG;
     }
 
     public Dimension getDimension() {

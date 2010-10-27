@@ -46,7 +46,6 @@ import javax.faces.convert.DateTimeConverter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
-import org.richfaces.component.util.ComponentUtil;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
@@ -338,7 +337,7 @@ public class CalendarRendererBase extends InputRendererBase {
                         break;
                     }
                 }
-                getUtils().addToScriptHash(labels, name, label);             
+                RenderKitUtils.addToScriptHash(labels, name, label);             
             }
         }
         return labels;
@@ -423,34 +422,34 @@ public class CalendarRendererBase extends InputRendererBase {
         int monthMax = calendar.getActualMaximum(Calendar.MONTH);
         int monthMin = calendar.getActualMinimum(Calendar.MONTH);
 
-        String [] weekDayLabels = ComponentUtil.asArray(calendarComponent.getWeekDayLabels());
+        String [] weekDayLabels = RenderKitUtils.asArray(calendarComponent.getWeekDayLabels());
         if(weekDayLabels == null) {
             weekDayLabels = dateFormat.getWeekdays();
             weekDayLabels = shiftDates(minimum, maximum, weekDayLabels);
         }
-        getUtils().addToScriptHash(map, WEEK_DAY_LABELS, weekDayLabels);
+        RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS, weekDayLabels);
 
-        String [] weekDayLabelsShort = ComponentUtil.asArray(calendarComponent.getWeekDayLabelsShort());
+        String [] weekDayLabelsShort = RenderKitUtils.asArray(calendarComponent.getWeekDayLabelsShort());
         if(weekDayLabelsShort == null) {
             weekDayLabelsShort = dateFormat.getShortWeekdays();
             weekDayLabelsShort = shiftDates(minimum, maximum, weekDayLabelsShort);
         }
-        getUtils().addToScriptHash(map, WEEK_DAY_LABELS_SHORT, weekDayLabelsShort);
+        RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS_SHORT, weekDayLabelsShort);
 
-        String [] monthLabels = ComponentUtil.asArray(calendarComponent.getMonthLabels());
+        String [] monthLabels = RenderKitUtils.asArray(calendarComponent.getMonthLabels());
         if(monthLabels == null) {
             monthLabels = dateFormat.getMonths();
             monthLabels = shiftDates(monthMin, monthMax, monthLabels);
         }
-        getUtils().addToScriptHash(map, MONTH_LABELS, monthLabels);
+        RenderKitUtils.addToScriptHash(map, MONTH_LABELS, monthLabels);
 
         
-        String [] monthLabelsShort = ComponentUtil.asArray(calendarComponent.getMonthLabelsShort());
+        String [] monthLabelsShort = RenderKitUtils.asArray(calendarComponent.getMonthLabelsShort());
         if(monthLabelsShort == null) {
             monthLabelsShort = dateFormat.getShortMonths();
             monthLabelsShort = shiftDates(monthMin, monthMax, monthLabelsShort);
         }
-        getUtils().addToScriptHash(map, MONTH_LABELS_SHORT, monthLabelsShort);
+        RenderKitUtils.addToScriptHash(map, MONTH_LABELS_SHORT, monthLabelsShort);
         
         int minDaysInFirstWeek = calendarComponent.getMinDaysInFirstWeek();
         if(minDaysInFirstWeek == Integer.MIN_VALUE) {
@@ -458,7 +457,7 @@ public class CalendarRendererBase extends InputRendererBase {
         }
 
         if (0 <= minDaysInFirstWeek && minDaysInFirstWeek <= 7) {
-            getUtils().addToScriptHash(map, MIN_DAYS_IN_FIRST_WEEK, minDaysInFirstWeek);
+            RenderKitUtils.addToScriptHash(map, MIN_DAYS_IN_FIRST_WEEK, minDaysInFirstWeek);
         }
         
         int day = calendarComponent.getFirstWeekDay();
@@ -468,7 +467,7 @@ public class CalendarRendererBase extends InputRendererBase {
         }
         
         if (0 <= day && day <= 6) {
-            getUtils().addToScriptHash(map, FIRST_DAY_WEEK, day);
+            RenderKitUtils.addToScriptHash(map, FIRST_DAY_WEEK, day);
         } else if (day != Integer.MIN_VALUE) {
             facesContext.getExternalContext().log(day + " value of firstWeekDay attribute is not a legal one for component: " + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
         }

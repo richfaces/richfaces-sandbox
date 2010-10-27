@@ -126,10 +126,10 @@ public abstract class AbstractCalendar extends UIInput{
     @Attribute(defaultValue="false") 
     public abstract boolean isResetTimeOnDateSelect();
     
-    @Attribute(defaultValue="bottom-left")
+    @Attribute(defaultValue="AA")
     public abstract String getJointPoint();
     
-    @Attribute(defaultValue="bottom-right")
+    @Attribute(defaultValue="AA")
     public abstract String getDirection();
     
     @Attribute(defaultValue="inactive")
