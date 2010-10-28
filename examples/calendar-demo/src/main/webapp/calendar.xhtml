@@ -34,12 +34,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</h:head>
 	<h:body>
 		<h:form id="form">
-			<h:outputText value="Skin: "/>
-			<h:selectOneMenu value="#{skinBean.skin}" onchange="submit();">
-				<f:selectItems value="#{skinBean.skins}"/>
-			</h:selectOneMenu>
-			<br />
-			<calendar:calendar />
+			<calendar:calendar popup="true"/>
+			<h:commandButton value="submit"></h:commandButton>				
 		</h:form>
 	</h:body>
 </html>
