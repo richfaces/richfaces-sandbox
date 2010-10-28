@@ -59,7 +59,7 @@
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
-			<input type="hidden" id="#{clientId}InputCurrentDate" style="display:none" autocomplete="off" name="#{clientId}InputCurrentDate" value="getCurrentDateAsString(facesContext, component)" />
+			<input type="hidden" id="#{clientId}InputCurrentDate" style="display:none" autocomplete="off" name="#{clientId}InputCurrentDate" value="#{getCurrentDateAsString(facesContext, component)}" />
 		</span>
 
 		<div style="display: none;" id="#{clientId}"></div>

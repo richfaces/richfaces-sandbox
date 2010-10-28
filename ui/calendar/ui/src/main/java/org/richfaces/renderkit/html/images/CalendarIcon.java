@@ -45,8 +45,8 @@ public class CalendarIcon implements Java2DUserResource, StateHolderResource{
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         
-        this.headerTextColor = skin.getColorParameter(context, Skin.HEAD_TEXT_COLOR);
-        this.headerBackgroundColor = skin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
+        this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
+        this.headerBackgroundColor = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
     }
 
     

@@ -141,6 +141,10 @@ public class CalendarRendererBase extends InputRendererBase {
     
     public static final String MIN_DAYS_IN_FIRST_WEEK = "minDaysInFirstWeek";
     
+    public static final String CALENDAR_ICON_RESOURCE_NAME = "calendarIcon.png";
+    
+    public static final String CALENDAR_DISABLE_ICON_RESOURCE_NAME = "disabledCalendarIcon.png";
+    
     
 
     
@@ -229,13 +233,21 @@ public class CalendarRendererBase extends InputRendererBase {
         String buttonIcon = (String)component.getAttributes().get("buttonIcon");
         if(disable) {
             buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
-        } 
-        //TODO:  add default icon 
-        return (buttonIcon != null && !"".equals(buttonIcon)) ? getResourcePath(facesContext, buttonIcon) : "";
+        }
+        
+        if(buttonIcon != null && buttonIcon.trim().length() != 0) {
+            buttonIcon =  ViewUtil.getResourceURL(buttonIcon, facesContext);
+        } else {
+            buttonIcon = disable ? CALENDAR_ICON_RESOURCE_NAME: CALENDAR_ICON_RESOURCE_NAME;
+            buttonIcon = RenderKitUtils.getResourcePath(facesContext, "org.richfaces.images",buttonIcon);
+        }
+
+        return buttonIcon;
     }
     
-    public Object getSelectedDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
+    public Object getSelectedDate(FacesContext facesContext, UIComponent component) throws IOException {
         Object returnValue = null;
+        AbstractCalendar calendar = (AbstractCalendar)component;
         if(calendar.isValid()) {
             Date date;
             Object value = calendar.getValue();
@@ -268,7 +280,8 @@ public class CalendarRendererBase extends InputRendererBase {
         return formatDate(date);
     }
     
-    public String getCurrentDateAsString(FacesContext context, AbstractCalendar calendar) throws IOException {
+    public String getCurrentDateAsString(FacesContext context, UIComponent component) throws IOException {
+        AbstractCalendar calendar = (AbstractCalendar)component;
         Format formatter = new SimpleDateFormat("MM/yyyy");
         
         Date currentDate = calendar.getCurrentDateOrDefault();
@@ -547,10 +560,6 @@ public class CalendarRendererBase extends InputRendererBase {
         StringBuffer scriptBuffer = new StringBuffer(); 
         scriptBuffer.append(function.toScript()).append(".load();");
         writer.write(scriptBuffer.toString());
-    }
-    
-    protected String getResourcePath(FacesContext facesContext, String source) {
-        return (source != null && !"".equals(source)) ? ViewUtil.getResourceURL(source, facesContext) :"" ;         
     }
     
     public boolean isUseIcons(FacesContext facesContext, UIComponent component) {
