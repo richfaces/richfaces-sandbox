@@ -59,15 +59,17 @@
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
-			<input type="hidden" id="#{clientId}InputCurrentDate" style="display:none" autocomplete="off" name="#{clientId}InputCurrentDate" value="#{getCurrentDateAsString(facesContext, component)}" />
+			<input type="hidden" id="#{clientId}InputCurrentDate" style="display:none"
+				autocomplete="off" name="#{clientId}InputCurrentDate"
+				value="#{getCurrentDateAsString(facesContext, component)}" />
 		</span>
-
 		<div style="display: none;" id="#{clientId}"></div>
 		<div style="display: none;" id="#{clientId}Script">
 			<script type="text/javascript">
 				<cdk:call
-					expression="buildLocaleScript(responseWriter, facesContext, component);" />
-				<cdk:call expression="buildScript(responseWriter, facesContext, component);" />
+					expression="buildAddLocaleScript(responseWriter, facesContext, component);" />
+				<cdk:call
+					expression="buildCalendarScript(responseWriter, facesContext, component);" />
 			</script>
 		</div>
 	</cc:implementation>
