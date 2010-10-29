@@ -11,10 +11,9 @@ import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractCalendar;
 
-public class CalendarHandler extends ComponentHandler{
-    
-    private static final CalendarHandlerMetaRule METARULE = new CalendarHandlerMetaRule();
+public class CalendarHandler extends ComponentHandler {
 
+    private static final CalendarHandlerMetaRule METARULE = new CalendarHandlerMetaRule();
 
     public CalendarHandler(ComponentConfig config) {
         super(config);
@@ -39,7 +38,7 @@ public class CalendarHandler extends ComponentHandler{
 
     static class CalendarMapper extends Metadata {
 
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.events.CurrentDateChangeListener.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeListener.class };
 
         private final TagAttribute attribute;
 
@@ -48,7 +47,8 @@ public class CalendarHandler extends ComponentHandler{
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractCalendar) instance).addCurrentDateChangeListener((new MethodExpressionCurrentDateChangeListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+            ((AbstractCalendar) instance).addCurrentDateChangeListener((new MethodExpressionCurrentDateChangeListener(
+                    this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

@@ -25,8 +25,8 @@ package org.richfaces.taglib;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.events.CurrentDateChangeEvent;
-import org.richfaces.events.CurrentDateChangeListener;
+import org.richfaces.event.CurrentDateChangeEvent;
+import org.richfaces.event.CurrentDateChangeListener;
 
 public class MethodExpressionCurrentDateChangeListener implements CurrentDateChangeListener {
 

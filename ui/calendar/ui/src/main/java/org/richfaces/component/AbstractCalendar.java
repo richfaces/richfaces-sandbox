@@ -43,11 +43,13 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.events.CurrentDateChangeEvent;
-import org.richfaces.events.CurrentDateChangeListener;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.utils.CalendarHelper;
+
+import org.richfaces.event.CurrentDateChangeEvent;
+import org.richfaces.event.CurrentDateChangeListener;
+
 
 /**
  * @author amarkhel

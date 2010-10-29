@@ -52,7 +52,7 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.component.util.ViewUtil;
-import org.richfaces.events.CurrentDateChangeEvent;
+import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.utils.CalendarHelper;
 
 /**
