@@ -28,6 +28,10 @@ import javax.faces.context.FacesContext;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.event.CurrentDateChangeListener;
 
+/**
+ * @author amarkhel
+ *
+ */
 public class MethodExpressionCurrentDateChangeListener implements CurrentDateChangeListener {
 
     private MethodExpression methodExpression;
