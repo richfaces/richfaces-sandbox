@@ -109,6 +109,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.richfaces.ui.calendar</groupId>
+            <artifactId>richfaces-ui-calendar-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
