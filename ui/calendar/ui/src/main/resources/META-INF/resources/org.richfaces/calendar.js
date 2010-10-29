@@ -381,6 +381,7 @@
 		this.TIME_EDITOR_BUTTON_CANCEL = this.id+'TimeEditorButtonCancel';
 		this.DATE_EDITOR_BUTTON_OK = this.id+'DateEditorButtonOk';
 		this.DATE_EDITOR_BUTTON_CANCEL = this.id+'DateEditorButtonCancel';
+		this.CALENDAR_CONTENT = this.id+"Content";
 			
 		this.firstDateIndex = 0;
 		
@@ -403,7 +404,7 @@
 
 		var tempStr = "RichFaces.$('"+this.id+"').";
 
-		var htmlTextHeader = '<table id="'+this.id+'" border="0" cellpadding="0" cellspacing="0" class="rich-calendar-exterior rich-calendar-popup '+this.params.styleClass+'" style="'+popupStyles+this.params.style+'" onclick="'+tempStr+'skipEventOnCollapse=true;"><tbody>';
+		var htmlTextHeader = '<table id="'+this.CALENDAR_CONTENT+'" border="0" cellpadding="0" cellspacing="0" class="rich-calendar-exterior rich-calendar-popup '+this.params.styleClass+'" style="'+popupStyles+this.params.style+'" onclick="'+tempStr+'skipEventOnCollapse=true;"><tbody>';
 		var colspan = (this.params.showWeeksBar ? "8" : "7");
 		var htmlHeaderOptional = (this.params.optionalHeaderMarkup) ? '<tr><td class="rich-calendar-header-optional" colspan="'+colspan+'" id="'+this.id+'HeaderOptional"></td></tr>' : '';
 		var htmlFooterOptional = (this.params.optionalFooterMarkup) ? '<tr><td class="rich-calendar-footer-optional" colspan="'+colspan+'" id="'+this.id+'FooterOptional"></td></tr>' : '';
@@ -472,7 +473,7 @@
 			htmlTextWeek.push('</tr>');
 		}
 			
-		var div = rf.getDomElement(this.id);
+		var div = rf.getDomElement(this.CALENDAR_CONTENT);
 		div = $(div).replaceWith(htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
 		this.attachToDom(this.id); // TODO: optimize double $
 		
@@ -627,7 +628,7 @@
 
 		createEditor: function()
 		{
-			var element = $(rf.getDomElement(this.id));
+			var element = $(rf.getDomElement(this.CALENDAR_CONTENT));
 			var zindex = parseInt(element.css('z-index'), 10);
 			var htmlBegin = '<div id="'+this.EDITOR_SHADOW_ID+'" class="rich-calendar-editor-shadow" style="position:absolute; display:none;z-index:'+zindex+'"></div><table border="0" cellpadding="0" cellspacing="0" id="'+this.EDITOR_ID+'" style="position:absolute; display:none;z-index:'+(zindex+1)+'" onclick="RichFaces.$(\''+this.id+'\').skipEventOnCollapse=true;"><tbody><tr><td class="rich-calendar-editor-container" align="center"><div style="position:relative; width:100%">';
 			var htmlContent = '<div id="'+this.EDITOR_LAYOUT_SHADOW_ID+'" class="rich-calendar-editor-layout-shadow"></div>';
@@ -864,16 +865,14 @@
 			
 			if (!this.params.popup || !this.isVisible) return;
 			
-			var element = rf.getDomElement(this.id);
-			
-			if (this.invokeEvent("collapse", element))
+			if (this.invokeEvent("collapse", rf.getDomElement(this.id)))
 			{
 				if (this.isEditorVisible) this.hideEditor();
 				this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
 				this.scrollElements = null;
 				rf.Event.unbind(window.document, "click"+this.namespace);
 				
-				$(element).hide();
+				$(rf.getDomElement(this.CALENDAR_CONTENT)).hide();
 				this.isVisible = false;
 
 			}
@@ -914,7 +913,7 @@
 					base = baseButton;
 				};
 						 
-				$(element).setPosition(base, {type:"DROPDOWN", from: this.params.jointPoint, to:this.params.direction, offset: this.popupOffset}).show();
+				$(rf.getDomElement(this.CALENDAR_CONTENT)).setPosition(base, {type:"DROPDOWN", from: this.params.jointPoint, to:this.params.direction, offset: this.popupOffset}).show();
 				
 				this.isVisible = true;
 
@@ -1717,7 +1716,7 @@
 			
 			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 			
-			this.clonePosition(rf.getDomElement(this.id), [editor, editor_shadow]);
+			this.clonePosition(rf.getDomElement(this.CALENDAR_CONTENT), [editor, editor_shadow]);
 			
 			this.updateTimeEditor();
 			
@@ -1781,7 +1780,7 @@
 				
 			var editor_shadow = rf.getDomElement(this.EDITOR_SHADOW_ID);
 				
-			this.clonePosition(rf.getDomElement(this.id), [editor, editor_shadow]);
+			this.clonePosition(rf.getDomElement(this.CALENDAR_CONTENT), [editor, editor_shadow]);
 				
 			$(editor_shadow).show();
 			$(editor).show();

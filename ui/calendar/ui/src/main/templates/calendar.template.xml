@@ -22,6 +22,7 @@
 		<cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
 	</cc:interface>
 	<cc:implementation>
+	<span id="#{clientId}">
 		<span id="#{clientId}Popup"
 			style="#{component.attributes['popup'] ? '' : 'display: none'}">
 			<c:choose>
@@ -63,14 +64,15 @@
 				autocomplete="off" name="#{clientId}InputCurrentDate"
 				value="#{getCurrentDateAsString(facesContext, component)}" />
 		</span>
-		<div style="display: none;" id="#{clientId}"></div>
-		<div style="display: none;" id="#{clientId}Script">
+		<span style="display: none;" id="#{clientId}Content"></span>
+		<span style="display: none;" id="#{clientId}Script">
 			<script type="text/javascript">
 				<cdk:call
 					expression="buildAddLocaleScript(responseWriter, facesContext, component);" />
 				<cdk:call
 					expression="buildCalendarScript(responseWriter, facesContext, component);" />
 			</script>
-		</div>
+		</span>
+		</span>
 	</cc:implementation>
 </cdk:root>
