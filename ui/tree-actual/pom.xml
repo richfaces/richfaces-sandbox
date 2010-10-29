@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
     JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
     Inc. and individual contributors by the @authors tag. See the
@@ -24,47 +23,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui-parent</artifactId>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.ui.iteration</groupId>
-    <artifactId>tree-ui</artifactId>
-    <name>Richfaces UI Components: Tree UI</name>
-    <packaging>jar</packaging>
+    <artifactId>richfaces-ui-tree-aggregator</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Richfaces UI Components: Tree Aggregator</name>
 
-    <dependencies>
-        <!-- runtime -->
-        <dependency>
-            <groupId>org.richfaces.ui.common</groupId>
-            <artifactId>richfaces-ui-common-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.iteration</groupId>
-            <artifactId>tree-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.iteration</groupId>
-            <artifactId>richfaces-ui-iteration-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.iteration</groupId>
-            <artifactId>richfaces-ui-iteration-ui</artifactId>
-        </dependency>
-    </dependencies>
-    
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>api</module>
+        <module>ui</module>
+    </modules>
 
 </project>

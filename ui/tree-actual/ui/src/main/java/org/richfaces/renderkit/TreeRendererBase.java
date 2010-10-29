@@ -26,18 +26,29 @@ import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.SwitchType;
+import org.richfaces.component.TreeDecoderHelper;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -53,14 +64,20 @@ public abstract class TreeRendererBase extends RendererBase {
 
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
     
-    private static final String NODE_ID = "nodeId";
+    private static final String TOGGLE_DATA = "toggleData";
 
-    private static final String NEW_STATE = "newState";
-
-    private static final String TOGGLE_ID_PARAM = "org.richfaces.Tree.TOGGLE_ID";
+    private static final String TREE_TOGGLE_ID_PARAM = "org.richfaces.Tree.TREE_TOGGLE_ID";
     
+    private static final String NODE_TOGGLE_ID_PARAM = "org.richfaces.Tree.NODE_TOGGLE_ID";
+
     private static final String NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
+
+    private static final JSReference JS_TREE_ID = new JSReference(TOGGLE_DATA + ".treeId");
     
+    private static final JSReference JS_NODE_ID = new JSReference(TOGGLE_DATA + ".nodeId");
+
+    private static final JSReference JS_NEW_STATE = new JSReference(TOGGLE_DATA + ".treeId");
+
     private static final class QueuedData {
         
         private Object rowKey;
@@ -206,13 +223,50 @@ public abstract class TreeRendererBase extends RendererBase {
         JSFunction ajaxFunction = buildAjaxFunction(context, component, AJAX_FUNCTION_NAME);
         AjaxEventOptions eventOptions = buildEventOptions(context, component);
 
-        eventOptions.setParameter(TOGGLE_ID_PARAM, new JSReference(NODE_ID));
-        eventOptions.setParameter(NEW_STATE_PARAM, new JSReference(NEW_STATE));
+        eventOptions.setParameter(TREE_TOGGLE_ID_PARAM, JS_TREE_ID);
+        eventOptions.setParameter(NODE_TOGGLE_ID_PARAM, JS_NODE_ID);
+        eventOptions.setParameter(NEW_STATE_PARAM, JS_NEW_STATE);
         
         if (!eventOptions.isEmpty()) {
             ajaxFunction.addParameter(eventOptions);
         }
 
         return ajaxFunction.toScript();
+    }
+    
+    @Override
+    protected void doDecode(FacesContext context, UIComponent component) {
+        super.doDecode(context, component);
+        
+        final Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        String toggleId = map.get(TREE_TOGGLE_ID_PARAM);
+        if (component.getClientId(context).equals(toggleId)) {
+            
+            String nodeId = map.get(NODE_TOGGLE_ID_PARAM) + UINamingContainer.getSeparatorChar(context) 
+                + TreeDecoderHelper.HELPER_ID;
+            
+            VisitContext visitContext = createVisitContext(context, nodeId);
+            component.visitTree(visitContext, new VisitCallback() {
+                
+                public VisitResult visit(VisitContext context, UIComponent target) {
+                    AbstractTree tree = (AbstractTree) target.getParent();
+                    AbstractTreeNode treeNode = tree.getTreeNodeComponent();
+                    if (treeNode != null) {
+                        boolean expanded = Boolean.valueOf(map.get(NEW_STATE_PARAM));
+                        if (tree.isExpanded() ^ expanded) {
+                            new TreeToggleEvent(treeNode, expanded);
+                        }
+                    }
+
+                    return VisitResult.COMPLETE;
+                }
+            });
+            
+        }
+    }
+
+    private VisitContext createVisitContext(FacesContext context, String nodeId) {
+        return VisitContext.createVisitContext(context, Collections.singleton(nodeId), 
+            EnumSet.<VisitHint>of(VisitHint.SKIP_UNRENDERED));
     }
 }

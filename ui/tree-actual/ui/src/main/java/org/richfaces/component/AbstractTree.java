@@ -22,18 +22,34 @@
 package org.richfaces.component;
 
 import java.util.Iterator;
+import java.util.Map;
 
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UpdateModelException;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.util.MessageUtil;
 import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.model.TreeDataModelImpl;
 
 import com.google.common.base.Predicate;
@@ -52,7 +68,7 @@ import com.google.common.collect.Iterators;
 public abstract class AbstractTree extends UIDataAdaptor {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
-    
+
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
 
     private static final Predicate<UIComponent> RENDERED_UITREE_NODE = new Predicate<UIComponent>() {
@@ -60,15 +76,23 @@ public abstract class AbstractTree extends UIDataAdaptor {
             return (input instanceof AbstractTreeNode) && input.isRendered();
         };
     };
-    
+
     private static final Converter ROW_KEY_CONVERTER = new SequenceRowKeyConverter();
+
+    private enum PropertyKeys {
+        expanded
+    }
+
+    private transient UIComponent decoderHelper = null;
     
     public AbstractTree() {
         setRendererType("org.richfaces.TreeRenderer");
     }
 
     public abstract Object getValue();
-    
+
+    public abstract boolean isImmediate();
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -76,7 +100,37 @@ public abstract class AbstractTree extends UIDataAdaptor {
 
     @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getToggleMode();
-    
+
+    @SuppressWarnings("unchecked")
+    protected Boolean getLocalExpandedValue(FacesContext facesContext) {
+        Map<String, Object> stateMap = (Map<String, Object>) getStateHelper().get(PropertyKeys.expanded);
+        if (stateMap == null) {
+            return null;
+        }
+
+        String key = this.getClientId(facesContext);
+        return (Boolean) stateMap.get(key);
+    }
+
+    public boolean isExpanded() {
+        FacesContext context = getFacesContext();
+        Boolean localExpandedValue = getLocalExpandedValue(context);
+        if (localExpandedValue != null) {
+            return localExpandedValue.booleanValue();
+        }
+
+        ValueExpression ve = getValueExpression(PropertyKeys.expanded.toString());
+        if (ve != null) {
+            return Boolean.TRUE.equals(ve.getValue(context.getELContext()));
+        }
+
+        return false;
+    }
+
+    public void setExpanded(boolean newValue) {
+        getStateHelper().put(PropertyKeys.expanded, this.getClientId(getFacesContext()), newValue);
+    }
+
     /* (non-Javadoc)
      * @see org.richfaces.component.UIDataAdaptor#createExtendedDataModel()
      */
@@ -108,18 +162,96 @@ public abstract class AbstractTree extends UIDataAdaptor {
     public Iterator<Object> getChildrenIterator(FacesContext faces, Object rowKey) {
         return ((TreeDataModelImpl) getExtendedDataModel()).getChildrenIterator(faces, rowKey);
     }
-    
+
     public AbstractTreeNode getTreeNodeComponent() {
         if (getChildCount() == 0) {
             return null;
         }
-        
+
         Iterator<UIComponent> iterator = Iterators.filter(getChildren().iterator(), RENDERED_UITREE_NODE);
         if (iterator.hasNext()) {
             return (AbstractTreeNode) iterator.next();
         }
-        
+
         return null;
     }
+
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        super.broadcast(event);
+
+        if (event instanceof TreeToggleEvent) {
+            TreeToggleEvent toggleEvent = (TreeToggleEvent) event;
+            boolean newExpandedValue = toggleEvent.isExpanded();
+
+            FacesContext context = getFacesContext();
+            ValueExpression expression = getValueExpression(PropertyKeys.expanded.toString());
+            if (expression != null) {
+                ELContext elContext = context.getELContext();
+                Exception caught = null;
+                FacesMessage message = null;
+                try {
+                    expression.setValue(elContext, newExpandedValue);
+                } catch (ELException e) {
+                    caught = e;
+                    String messageStr = e.getMessage();
+                    Throwable result = e.getCause();
+                    while (null != result &&
+                        result.getClass().isAssignableFrom(ELException.class)) {
+                        messageStr = result.getMessage();
+                        result = result.getCause();
+                    }
+                    if (null == messageStr) {
+                        MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
+                        message =
+                            messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
+                                MessageUtil.getLabel(context, this));
+                    } else {
+                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            messageStr,
+                            messageStr);
+                    }
+                } catch (Exception e) {
+                    caught = e;
+                    MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
+                    message =
+                        messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
+                            MessageUtil.getLabel(context, this));
+                }
+                if (caught != null) {
+                    assert(message != null);
+                    UpdateModelException toQueue = new UpdateModelException(message, caught);
+                    ExceptionQueuedEventContext eventContext =
+                        new ExceptionQueuedEventContext(context,
+                            toQueue,
+                            this,
+                            PhaseId.UPDATE_MODEL_VALUES);
+                    context.getApplication().publishEvent(context,
+                        ExceptionQueuedEvent.class,
+                        eventContext);
+                }
+            } else {
+                setExpanded(newExpandedValue);
+            }
+        }
+    }
     
+    @Override
+    public void decode(FacesContext context) {
+        try {
+            decoderHelper = new TreeDecoderHelper(this);
+            super.decode(context);
+        } finally {
+            decoderHelper = null;
+        }
+    }
+    
+    @Override
+    protected Iterator<UIComponent> dataChildren() {
+        if (decoderHelper != null) {
+            return Iterators.concat(super.dataChildren(), Iterators.<UIComponent>singletonIterator(decoderHelper));
+        } else {
+            return super.dataChildren();
+        }
+    }
 }

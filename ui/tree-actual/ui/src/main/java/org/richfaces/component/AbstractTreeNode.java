@@ -21,11 +21,17 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.event.TreeToggleEvent;
 
 /**
  * @author Nick Belaevski
@@ -50,5 +56,39 @@ public abstract class AbstractTreeNode extends UIComponentBase {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+    
+    @Attribute(defaultValue = "findTreeComponent().isImmediate()")
+    public abstract boolean isImmediate();
+    
+    protected AbstractTree findTreeComponent() {
+        UIComponent c = this;
+        while (c != null && !(c instanceof AbstractTree)) {
+            c = c.getParent();
+        }
+        
+        return (AbstractTree) c;
+    }
+    
+    @Override
+    public void queueEvent(FacesEvent event) {
+        if (this.equals(event.getComponent())) {
+            if (event instanceof TreeToggleEvent) {
+                PhaseId targetPhase = isImmediate() ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
+                event.setPhaseId(targetPhase);
+            }
+        }
+        
+        super.queueEvent(event);
+    }
+    
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        super.broadcast(event);
+        
+        if (event instanceof TreeToggleEvent) {
+            TreeToggleEvent toggleEvent = (TreeToggleEvent) event;
+            new TreeToggleEvent(findTreeComponent(), toggleEvent.isExpanded()).queue();
+        }
     }
 }

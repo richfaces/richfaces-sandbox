@@ -28,6 +28,10 @@
 		});
 	}
 	
+	var TREE_HANDLE_CLASSES = ["tree_collapse", "tree_expand"];
+	
+	var TREE_CLASSES = ["tree_handle_collapsed", "tree_handle_expanded"];
+	
 	richfaces.ui = richfaces.ui || {};
     
 	richfaces.ui.TreeNode = richfaces.BaseComponent.extendClass({
@@ -113,18 +117,24 @@
 			}
 		},
 		
-		collapse: function() {
+		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
 				var tree = this.getTree();
 				
 				switch (tree.getToggleMode()) {
 					case 'client':
-						this.elt.addClass("tree_collapse");
-						this.handler.addClass("tree_handle_collapsed").removeClass("tree_handle_expanded");
+						this.elt.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+						this.handler.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
 					break;
 					
 					case 'ajax':
-						tree.toggleByAjax(null, richfaces.getDomElement(this.id).id, false);
+						var toggleData = {
+							nodeId: richfaces.getDomElement(this.id).id,
+							newState: newState
+						};
+						
+						//TODO - event?
+						tree.toggleByAjax(null, toggleData);
 					break;
 
 					case 'server':
@@ -134,26 +144,13 @@
 				
 			}
 		},
+		
+		collapse: function() {
+			this.__changeToggleState(false);
+		},
 
 		expand: function() {
-			if (!this.isLeaf()) {
-				var tree = this.getTree();
-
-				switch (tree.getToggleMode()) {
-					case 'client':
-						this.elt.removeClass("tree_collapse");
-						this.handler.removeClass("tree_handle_collapsed").addClass("tree_handle_expanded");
-					break;
-					
-					case 'ajax':
-						tree.toggleByAjax(null, richfaces.getDomElement(this.id).id, true);
-					break;
-
-					case 'server':
-						
-					break;
-				}
-			}
+			this.__changeToggleState(true);
 		},
 		
 		getTree: function() {
@@ -187,7 +184,7 @@
 			this.__selectionMode = options.selectionMode || 'ajax';
 			
 			if (options.ajaxToggler) {
-				this.__ajaxToggler = new Function("event", "nodeId", "newState", options.ajaxToggler);
+				this.__ajaxToggler = new Function("event", "toggleData", options.ajaxToggler);
 			}
 		},
 
@@ -197,8 +194,9 @@
 			this.__ajaxToggler = null;
 		},
 		
-		toggleByAjax: function(event, nodeId, newState) {
-			this.__ajaxToggler(event, nodeId, newState);
+		toggleByAjax: function(event, toggleData) {
+			toggleData.treeId = this.id;
+			this.__ajaxToggler(event, toggleData);
 		},
 		
 		getToggleMode: function() {

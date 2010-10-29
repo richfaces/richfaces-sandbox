@@ -166,13 +166,26 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
         return new SequenceRowKeyIterator<TreeNode>(sequenceKey, itr);
     }
 
+    protected void walk(FacesContext context, DataVisitor visitor, Range range, Object argument, Iterator<Object> keysIterator) {
+        while (keysIterator.hasNext()) {
+            Object object = (Object) keysIterator.next();
+            
+            visitor.process(context, object, argument);
+            
+            Iterator<Object> childrenIterator = getChildrenIterator(context, object);
+            walk(context, visitor, range, argument, childrenIterator);
+        }
+    }
+
     /* (non-Javadoc)
      * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)
      */
     @Override
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         // TODO Auto-generated method stub
-        
+
+        Iterator<Object> iterator = getChildrenIterator(context, null);
+        walk(context, visitor, range, argument, iterator);
     }
 
 }
