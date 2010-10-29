@@ -1,0 +1,71 @@
+.tree_item {
+	background: "url(#{resource['org.richfaces.images:last.gif']}) no-repeat center left";
+	cursor: default;
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	color: '#{richSkin.generalTextColor}';
+	padding: 1px 0px 1px 0px;
+	overflow: hidden;
+	width: 100%;
+	white-space: nowrap;
+}
+
+.tree_item_label {
+	padding: 0px 4px 0px 2px;
+	vertical-align: middle;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.tree_selarea {
+	display: inline-block;
+}
+
+.tree_selected {
+	background: '#{richSkin.additionalBackgroundColor}';
+}
+
+.tree_node {
+	background: "url(#{resource['org.richfaces.images:line.gif']}) repeat-y";
+}
+
+.tree_node_last {
+	background: none;
+}
+
+.tree_node .tree_node {
+	margin-left: 16px;
+}
+
+.tree_icon, .tree_handle {
+	vertical-align: middle;
+	margin: 0px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+
+.tree_handle_leaf {
+	cursor: default;
+}
+
+.tree_handle_collapsed {
+	background: "url(#{resource['org.richfaces.images:plus.gif']}) no-repeat center";
+}
+
+.tree_handle_expanded {
+	background: "url(#{resource['org.richfaces.images:minus.gif']}) no-repeat center";
+}
+
+.tree_icon_node {
+	background: "url(#{resource['org.richfaces.images:node_icon.gif']}) no-repeat center";
+}
+
+.tree_icon_leaf {
+	background: "url(#{resource['org.richfaces.images:leaf_icon.gif']}) no-repeat center";
+}
+
+.tree_node.tree_collapse .tree_node {
+	display: none;
+}

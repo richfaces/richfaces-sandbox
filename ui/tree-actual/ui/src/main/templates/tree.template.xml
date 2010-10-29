@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.TreeRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.TreeRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Tree</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.TreeRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+        
+        <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
+        <cdk:resource-dependency name="tree.js" library="org.richfaces" />
+        <cdk:resource-dependency name="tree.ecss" library="org.richfaces" />
+
+        <cdk:import package="org.richfaces.component" names="SwitchType" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="#{concatClasses('rf-tree', component.attributes['styleClass'])}"
+            cdk:passThroughWithExclusions="">
+            <cdk:body>
+                <cdk:call expression="encodeTree(facesContext, component)" />
+            </cdk:body>
+            
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="toggleMode selectionMode" defaultValue="SwitchType.DEFAULT" />
+                    <cdk:scriptOption name="ajaxToggler" value="#{getAjaxToggler(facesContext, component)}" />
+                </cdk:scriptObject>
+            
+                new RichFaces.ui.Tree(#{toScriptArgs(clientId, options)});
+            </script>
+        </div>
+    </cc:implementation>
+
+</cdk:root>
