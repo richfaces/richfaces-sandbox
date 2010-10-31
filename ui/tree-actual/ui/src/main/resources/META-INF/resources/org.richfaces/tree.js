@@ -28,11 +28,7 @@
 		});
 	}
 	
-    var TOGGLE_TREE_ID_PARAM = "org.richfaces.Tree.TREE_TOGGLE_ID";
-    
-    var TOGGLE_NODE_ID_PARAM = "org.richfaces.Tree.NODE_TOGGLE_ID";
-
-    var TOGGLE_NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
+	var NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE"
 	
 	var TREE_CLASSES = ["rf-tr-nd-colps", "rf-tr-nd-exp"];
 	
@@ -123,6 +119,16 @@
 			}
 		},
 		
+		__updateClientToggleStateInput: function(newState) {
+			if (!this.__clientStateInput) {
+				this.__clientStateInput = $("<input type='hidden' />").appendTo(this.elt)
+					.attr({name: this.elt.attr("id") + NEW_NODE_TOGGLE_STATE});
+			}
+			
+			this.__clientStateInput.val(newState.toString());
+
+		},
+		
 		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
 				var tree = this.getTree();
@@ -131,15 +137,13 @@
 					case 'client':
 						this.elt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
 						this.handler.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+						this.__updateClientToggleStateInput(newState);
 					break;
 					
 					case 'ajax':
-						//TODO - event?
-						tree.toggleByAjax(null, richfaces.getDomElement(this.id).id, newState);
-					break;
-
 					case 'server':
-						
+						//TODO - event?
+						tree.sendToggleRequest(null, richfaces.getDomElement(this.id).id, newState);
 					break;
 				}
 				
@@ -163,6 +167,8 @@
 		},
 		
 		destroy: function() {
+			this.__clientStateInput = null;
+			
 			if (this.parent) {
 				this.parent.removeChild(this);
 			}
@@ -189,6 +195,8 @@
 		parentNode.addChild(new richfaces.ui.TreeNode(node[0]), idx);
 	};
 	
+	var decoderHelperId;
+	
 	richfaces.ui.Tree = richfaces.ui.TreeNode.extendClass({
 
 		name: "Tree",
@@ -210,13 +218,16 @@
 			this.__ajaxToggler = null;
 		},
 		
-		toggleByAjax: function(event, toggleSource, newNodeState) {
+		sendToggleRequest: function(event, toggleSource, newNodeState) {
 			var clientParams = {};
-			clientParams[TOGGLE_NEW_STATE_PARAM] = newNodeState;
-			clientParams[TOGGLE_NODE_ID_PARAM] = toggleSource;
-			clientParams[TOGGLE_TREE_ID_PARAM] = this.id;
+			clientParams[toggleSource + NEW_NODE_TOGGLE_STATE] = newNodeState;
 			
-			this.__ajaxToggler(event, toggleSource + '@node', clientParams);
+			if (this.__toggleMode == 'server') {
+				var form = $(richfaces.getDomElement(this.id)).closest('form');
+				richfaces.submitForm(form, clientParams);
+			} else {
+				this.__ajaxToggler(event, toggleSource + decoderHelperId, clientParams);
+			}
 		},
 		
 		getToggleMode: function() {
@@ -228,4 +239,8 @@
 		}
 	});
 
+	richfaces.ui.Tree.setDecoderHelperId = function(id) {
+		decoderHelperId = id;
+	};
+	
 }(jQuery, RichFaces));

@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 
@@ -39,6 +40,7 @@ import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
+import org.richfaces.component.TreeDecoderHelper;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -56,11 +58,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
     private static final JSReference TOGGLE_SOURCE = new JSReference("toggleSource");
 
-    private static final String TREE_TOGGLE_ID_PARAM = "org.richfaces.Tree.TREE_TOGGLE_ID";
-    
-    private static final String NODE_TOGGLE_ID_PARAM = "org.richfaces.Tree.NODE_TOGGLE_ID";
-
-    private static final String NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
+    private static final String NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
 
     enum NodeState {
         expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-nd"), 
@@ -136,10 +134,15 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         new TreeEncoderFull(context, tree).encode();
     }
     
+    protected String getDecoderHelperId(FacesContext facesContext) {
+        return UINamingContainer.getSeparatorChar(facesContext) + TreeDecoderHelper.HELPER_ID;
+    }
+    
     protected String getAjaxToggler(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
         
-        if (!SwitchType.ajax.equals(tree.getToggleMode())) {
+        SwitchType toggleMode = tree.getToggleMode();
+        if (toggleMode != SwitchType.ajax) {
             return null;
         }
         
@@ -152,16 +155,9 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         if (!eventOptions.isEmpty()) {
             ajaxFunction.addParameter(eventOptions);
         }
-
         return ajaxFunction.toScript();
     }
-    
-    @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
-        super.doDecode(context, component);
-        
-    }
-    
+
     /* (non-Javadoc)
      * @see org.richfaces.renderkit.MetaComponentRenderer#encodeMetaComponent(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
      */
@@ -182,12 +178,12 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         if (NODE_META_COMPONENT_ID.equals(metaComponentId)) {
             final Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-            String toggleId = map.get(NODE_TOGGLE_ID_PARAM);
-            if (component.getClientId(context).equals(toggleId)) {
+            String newToggleState = map.get(component.getClientId(context) + NEW_NODE_TOGGLE_STATE);
+            if (newToggleState != null) {
                 
                 AbstractTree tree = (AbstractTree) component;
                 AbstractTreeNode treeNode = tree.getTreeNodeComponent();
-                boolean expanded = Boolean.valueOf(map.get(NEW_STATE_PARAM));
+                boolean expanded = Boolean.valueOf(newToggleState);
                 if (tree.isExpanded() ^ expanded) {
                     new TreeToggleEvent(treeNode, expanded).queue();
                 }

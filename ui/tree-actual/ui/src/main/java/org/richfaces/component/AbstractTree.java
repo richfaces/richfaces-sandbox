@@ -52,6 +52,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.model.TreeDataModelImpl;
@@ -70,7 +71,7 @@ import com.google.common.collect.Iterators;
     tag = @Tag(name = "tree"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer")
 )
-public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentProcessor, MetaComponentResolver, MetaComponentEncoder {
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
 
@@ -89,6 +90,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     private enum PropertyKeys {
         expanded
     }
+
+    private transient TreeDecoderHelper treeDecoderHelper = new TreeDecoderHelper(this);
 
     public AbstractTree() {
         setRendererType("org.richfaces.TreeRenderer");
@@ -245,18 +248,18 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext,
         VisitCallback callback) {
 
-        VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, NODE_META_COMPONENT_ID);
-        if (result != VisitResult.ACCEPT) {
-            return result;
+        if (ExtendedVisitContextMode.RENDER == extendedVisitContext.getVisitMode()) {
+            VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, NODE_META_COMPONENT_ID);
+            if (result != VisitResult.ACCEPT) {
+                return result;
+            }
         }
         
         return super.visitDataChildrenMetaComponents(extendedVisitContext, callback);
     }
     
-    public void processMetaComponent(FacesContext context, String metaComponentId) {
-        if (context.getCurrentPhaseId() == PhaseId.APPLY_REQUEST_VALUES) {
-            ((MetaComponentRenderer) getRenderer(context)).decodeMetaComponent(context, this, metaComponentId);
-        }
+    void decodeMetaComponent(FacesContext context, String metaComponentId) {
+        ((MetaComponentRenderer) getRenderer(context)).decodeMetaComponent(context, this, metaComponentId);
     }
 
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
@@ -269,5 +272,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         }
         
         return null;
+    }
+    
+    @Override
+    protected Iterator<UIComponent> dataChildren() {
+        return Iterators.<UIComponent>concat(super.dataChildren(), Iterators.singletonIterator(treeDecoderHelper));
     }
 }

@@ -26,6 +26,7 @@
             </cdk:body>
             
             <script type="text/javascript">
+                RichFaces.ui.Tree.setDecoderHelperId(#{toScriptArgs(getDecoderHelperId(facesContext))});
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="toggleMode selectionMode" defaultValue="SwitchType.DEFAULT" />
                     <cdk:scriptOption name="ajaxToggler" value="#{getAjaxToggler(facesContext, component)}" />
