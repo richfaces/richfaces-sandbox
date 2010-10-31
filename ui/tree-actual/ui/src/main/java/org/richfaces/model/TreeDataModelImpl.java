@@ -32,6 +32,7 @@ import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
+import org.richfaces.component.TreeRange;
 
 import com.google.common.collect.Iterators;
 
@@ -43,20 +44,11 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
 
     private static final SequenceRowKey<Integer> EMPTY_SEQUENCE_ROW_KEY = new SequenceRowKey<Integer>();
 
-    private SwingTreeNodeImpl rootNode;
+    private SwingTreeNodeImpl<?> rootNode;
 
     private TreeNode selectedNode;
     
     private SequenceRowKey<Integer> selectedRowKey;
-    
-    private TreeNode walkNode;
-    
-    private SequenceRowKey<Integer> walkRowKey;
-    
-    private void setWalkContextData(TreeNode node, SequenceRowKey<Integer> key) {
-        this.walkNode = node;
-        this.walkRowKey = key;
-    }
     
     private Iterator<TreeNode> findChildren(SequenceRowKey<Integer> compositeKey) {
         TreeNode treeNode = findNode(compositeKey);
@@ -92,12 +84,7 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
     @Override
     public void setRowKey(Object key) {
         this.selectedRowKey = (SequenceRowKey<Integer>) key;
-
-        if (walkRowKey != null && walkRowKey.equals(key)) {
-            this.selectedNode = walkNode;
-        } else {
-            this.selectedNode = findNode(selectedRowKey);
-        }
+        this.selectedNode = findNode(selectedRowKey);
     }
 
     @Override
@@ -173,8 +160,10 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
             
             DataVisitResult visitResult = visitor.process(context, object, argument);
             if (visitResult == DataVisitResult.CONTINUE) {
-                Iterator<Object> childrenIterator = getChildrenIterator(context, object);
-                walk(context, visitor, range, argument, childrenIterator);
+                if (((TreeRange) range).processNodeChildren(object)) {
+                    Iterator<Object> childrenIterator = getChildrenIterator(context, object);
+                    walk(context, visitor, range, argument, childrenIterator);
+                }
             }
         }
     }
@@ -186,8 +175,10 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         // TODO Auto-generated method stub
 
-        Iterator<Object> iterator = getChildrenIterator(context, null);
-        walk(context, visitor, range, argument, iterator);
+        if (((TreeRange) range).processNodeChildren(null)) {
+            Iterator<Object> iterator = getChildrenIterator(context, null);
+            walk(context, visitor, range, argument, iterator);
+        }
     }
 
 }

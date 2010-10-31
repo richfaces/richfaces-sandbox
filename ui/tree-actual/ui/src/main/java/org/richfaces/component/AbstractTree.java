@@ -43,6 +43,7 @@ import javax.faces.event.PhaseId;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
@@ -87,6 +88,16 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     private static final Converter ROW_KEY_CONVERTER = new SequenceRowKeyConverter();
 
+    /**
+     * @author Nick Belaevski
+     * 
+     */
+    private final class TreeComponentState implements DataComponentState {
+        public Range getRange() {
+            return new TreeRange(getFacesContext(), AbstractTree.this);
+        }
+    }
+
     private enum PropertyKeys {
         expanded
     }
@@ -121,6 +132,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     public boolean isExpanded() {
+        if (getRowKey() == null) {
+            return true;
+        }
+        
         FacesContext context = getFacesContext();
         Boolean localExpandedValue = getLocalExpandedValue(context);
         if (localExpandedValue != null) {
@@ -149,9 +164,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return model;
     }
 
-    /* (non-Javadoc)
-     * @see org.richfaces.component.UIDataAdaptor#createComponentState()
-     */
     @Override
     protected DataComponentState createComponentState() {
         // TODO Auto-generated method stub
@@ -278,4 +290,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     protected Iterator<UIComponent> dataChildren() {
         return Iterators.<UIComponent>concat(super.dataChildren(), Iterators.singletonIterator(treeDecoderHelper));
     }
+    
+    @Override
+    public DataComponentState getComponentState() {
+        return new TreeComponentState();
+    }
+    
 }
