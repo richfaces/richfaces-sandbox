@@ -19,46 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component;
+package org.richfaces.renderkit;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.component.AbstractTree;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public final class TreeDecoderHelper extends UIComponentBase {
+class TreeEncoderFull extends TreeEncoderBase {
 
-    public static final String HELPER_ID = "__treeDecoderHelper";
-    
-    private AbstractTree tree;
-    
-    public TreeDecoderHelper(AbstractTree tree) {
-        super();
-        this.tree = tree;
-        setId(HELPER_ID);
-        setTransient(true);
+    public TreeEncoderFull(FacesContext context, AbstractTree tree) {
+        super(context, tree);
     }
 
-    @Override
-    public boolean isInView() {
-        return tree.isInView();
+    public void encode() throws java.io.IOException {
+        Object initialRowKey = tree.getRowKey();
+        try {
+            encodeTree(tree.getChildrenIterator(context, null));
+        } finally {
+            try {
+                tree.setRowKey(context, initialRowKey);
+            } catch (Exception e) {
+                TreeRendererBase.LOGGER.error(e.getMessage(), e);
+            }
+        }
     }
-    
-    @Override
-    public boolean isRendered() {
-        return tree.isRendered();
-    }
-    
-    @Override
-    public String getFamily() {
-        return null;
-    }
-
-    @Override
-    public UIComponent getParent() {
-        return tree;
-    }
-
 }

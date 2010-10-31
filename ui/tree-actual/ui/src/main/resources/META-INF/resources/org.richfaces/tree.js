@@ -28,6 +28,12 @@
 		});
 	}
 	
+    var TOGGLE_TREE_ID_PARAM = "org.richfaces.Tree.TREE_TOGGLE_ID";
+    
+    var TOGGLE_NODE_ID_PARAM = "org.richfaces.Tree.NODE_TOGGLE_ID";
+
+    var TOGGLE_NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
+	
 	var TREE_HANDLE_CLASSES = ["tree_collapse", "tree_expand"];
 	
 	var TREE_CLASSES = ["tree_handle_collapsed", "tree_handle_expanded"];
@@ -98,7 +104,7 @@
 		},
 		
 		isCollapsed: function() {
-			return !this.isLeaf() && this.elt.hasClass("tree_collapse");
+			return !this.isLeaf() && this.handler.hasClass("tree_handle_collapsed");
 		},
 		
 		isLeaf: function() {
@@ -128,13 +134,8 @@
 					break;
 					
 					case 'ajax':
-						var toggleData = {
-							nodeId: richfaces.getDomElement(this.id).id,
-							newState: newState
-						};
-						
 						//TODO - event?
-						tree.toggleByAjax(null, toggleData);
+						tree.toggleByAjax(null, richfaces.getDomElement(this.id).id, newState);
 					break;
 
 					case 'server':
@@ -173,6 +174,21 @@
 		}
 	});
 
+	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId) {
+		var node = $(document.getElementById(nodeId));
+		
+		if (node.nextAll(".tree_node:first").length != 0) {
+			node.removeClass("tree_node_last");
+		}
+		
+		var parent = node.parent(".tree_node, .rf-tree");
+		
+		var idx = node.prevAll(".tree_node").length;
+		
+		var parentNode = richfaces.$(parent[0]);
+		parentNode.addChild(new richfaces.ui.TreeNode(node[0]), idx);
+	};
+	
 	richfaces.ui.Tree = richfaces.ui.TreeNode.extendClass({
 
 		name: "Tree",
@@ -184,7 +200,7 @@
 			this.__selectionMode = options.selectionMode || 'ajax';
 			
 			if (options.ajaxToggler) {
-				this.__ajaxToggler = new Function("event", "toggleData", options.ajaxToggler);
+				this.__ajaxToggler = new Function("event", "toggleSource", "toggleParams", options.ajaxToggler);
 			}
 		},
 
@@ -194,9 +210,13 @@
 			this.__ajaxToggler = null;
 		},
 		
-		toggleByAjax: function(event, toggleData) {
-			toggleData.treeId = this.id;
-			this.__ajaxToggler(event, toggleData);
+		toggleByAjax: function(event, toggleSource, newNodeState) {
+			var clientParams = {};
+			clientParams[TOGGLE_NEW_STATE_PARAM] = newNodeState;
+			clientParams[TOGGLE_NODE_ID_PARAM] = toggleSource;
+			clientParams[TOGGLE_TREE_ID_PARAM] = this.id;
+			
+			this.__ajaxToggler(event, toggleSource + '@node', clientParams);
 		},
 		
 		getToggleMode: function() {

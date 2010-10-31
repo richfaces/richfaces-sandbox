@@ -28,6 +28,7 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
+import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -170,10 +171,11 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
         while (keysIterator.hasNext()) {
             Object object = (Object) keysIterator.next();
             
-            visitor.process(context, object, argument);
-            
-            Iterator<Object> childrenIterator = getChildrenIterator(context, object);
-            walk(context, visitor, range, argument, childrenIterator);
+            DataVisitResult visitResult = visitor.process(context, object, argument);
+            if (visitResult == DataVisitResult.CONTINUE) {
+                Iterator<Object> childrenIterator = getChildrenIterator(context, object);
+                walk(context, visitor, range, argument, childrenIterator);
+            }
         }
     }
 

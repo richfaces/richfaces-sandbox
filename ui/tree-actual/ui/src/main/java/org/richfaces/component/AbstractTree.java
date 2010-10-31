@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -30,6 +31,8 @@ import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UpdateModelException;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
@@ -48,9 +51,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.util.MessageUtil;
+import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.model.TreeDataModelImpl;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
@@ -65,12 +70,14 @@ import com.google.common.collect.Iterators;
     tag = @Tag(name = "tree"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer")
 )
-public abstract class AbstractTree extends UIDataAdaptor {
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentProcessor, MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
 
+    public static final String NODE_META_COMPONENT_ID = "node";
+    
     private static final Predicate<UIComponent> RENDERED_UITREE_NODE = new Predicate<UIComponent>() {
         public boolean apply(UIComponent input) {
             return (input instanceof AbstractTreeNode) && input.isRendered();
@@ -83,8 +90,6 @@ public abstract class AbstractTree extends UIDataAdaptor {
         expanded
     }
 
-    private transient UIComponent decoderHelper = null;
-    
     public AbstractTree() {
         setRendererType("org.richfaces.TreeRenderer");
     }
@@ -237,21 +242,32 @@ public abstract class AbstractTree extends UIDataAdaptor {
     }
     
     @Override
-    public void decode(FacesContext context) {
-        try {
-            decoderHelper = new TreeDecoderHelper(this);
-            super.decode(context);
-        } finally {
-            decoderHelper = null;
+    protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext,
+        VisitCallback callback) {
+
+        VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, NODE_META_COMPONENT_ID);
+        if (result != VisitResult.ACCEPT) {
+            return result;
         }
+        
+        return super.visitDataChildrenMetaComponents(extendedVisitContext, callback);
     }
     
-    @Override
-    protected Iterator<UIComponent> dataChildren() {
-        if (decoderHelper != null) {
-            return Iterators.concat(super.dataChildren(), Iterators.<UIComponent>singletonIterator(decoderHelper));
-        } else {
-            return super.dataChildren();
+    public void processMetaComponent(FacesContext context, String metaComponentId) {
+        if (context.getCurrentPhaseId() == PhaseId.APPLY_REQUEST_VALUES) {
+            ((MetaComponentRenderer) getRenderer(context)).decodeMetaComponent(context, this, metaComponentId);
         }
+    }
+
+    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
+        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }
+    
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (NODE_META_COMPONENT_ID.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+        
+        return null;
     }
 }
