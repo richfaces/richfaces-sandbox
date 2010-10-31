@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
-import org.richfaces.component.SwitchType;
+import org.richfaces.component.TreeRange;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.TreeRendererBase.NodeState;
 import org.richfaces.renderkit.TreeRendererBase.QueuedData;
@@ -50,7 +50,7 @@ abstract class TreeEncoderBase {
     
     protected final AbstractTree tree;
 
-    private boolean traverseCollapsedNode;
+    private TreeRange treeRange;
     
     private LinkedList<QueuedData> queuedData = new LinkedList<QueuedData>();
     
@@ -60,7 +60,7 @@ abstract class TreeEncoderBase {
         this.responseWriter = context.getResponseWriter();
         this.tree = tree;
         
-        this.traverseCollapsedNode = SwitchType.client.equals(tree.getToggleMode());
+        this.treeRange = (TreeRange) tree.getComponentState().getRange();
     }
 
     protected void encodeTree(Iterator<Object> childrenIterator) throws IOException {
@@ -101,7 +101,7 @@ abstract class TreeEncoderBase {
         boolean expanded = tree.isExpanded();
         queuedData.add(new QueuedData(rowKey, isLastNode, expanded));
         
-        boolean iterateChildren = traverseCollapsedNode || expanded;
+        boolean iterateChildren = treeRange.shouldIterateChildren(rowKey);
         
         if (iterateChildren) {
             encodeTree(tree.getChildrenIterator(context, rowKey));

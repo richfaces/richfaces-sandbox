@@ -45,7 +45,7 @@ public class TreeRange implements Range {
         traverseAll = SwitchType.client == tree.getToggleMode();
     }
 
-    public boolean processNodeChildren(Object rowKey) {
+    public boolean shouldIterateChildren(Object rowKey) {
         if (traverseAll) {
             return true;
         }

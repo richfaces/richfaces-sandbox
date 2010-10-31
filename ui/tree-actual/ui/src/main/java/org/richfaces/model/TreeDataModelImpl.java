@@ -160,7 +160,7 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
             
             DataVisitResult visitResult = visitor.process(context, object, argument);
             if (visitResult == DataVisitResult.CONTINUE) {
-                if (((TreeRange) range).processNodeChildren(object)) {
+                if (((TreeRange) range).shouldIterateChildren(object)) {
                     Iterator<Object> childrenIterator = getChildrenIterator(context, object);
                     walk(context, visitor, range, argument, childrenIterator);
                 }
@@ -175,7 +175,7 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         // TODO Auto-generated method stub
 
-        if (((TreeRange) range).processNodeChildren(null)) {
+        if (((TreeRange) range).shouldIterateChildren(null)) {
             Iterator<Object> iterator = getChildrenIterator(context, null);
             walk(context, visitor, range, argument, iterator);
         }
