@@ -63,24 +63,34 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     private static final String NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
 
     enum NodeState {
-        expanded("tree_handle_expanded", "tree_icon_node"), 
-        collapsed("tree_handle_collapsed", "tree_icon_node"), 
-        leaf("tree_handle_leaf", "tree_icon_leaf");
+        expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-nd"), 
+        collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-ico-nd"), 
+        leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-ico-lf");
+        
+        private String nodeClass;
         
         private String handleClass;
         
         private String iconClass;
 
-        private NodeState(String handleClass, String iconClass) {
+        private NodeState(String nodeClass, String handleClass, String iconClass) {
+            this.nodeClass = nodeClass;
             this.handleClass = handleClass;
             this.iconClass = iconClass;
         }
+        
+        public String getNodeClass() {
+            return nodeClass;
+        }
+        
         public String getHandleClass() {
             return handleClass;
         }
+
         public String getIconClass() {
             return iconClass;
         }
+        
     }
     
     static final class QueuedData {
@@ -89,11 +99,14 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         private boolean lastNode;
 
+        private boolean expanded;
+        
         private boolean encoded;
         
-        public QueuedData(Object rowKey, boolean lastNode) {
+        public QueuedData(Object rowKey, boolean lastNode, boolean expanded) {
             this.rowKey = rowKey;
             this.lastNode = lastNode;
+            this.expanded = expanded;
         }
 
         public void setEncoded(boolean encoded) {
@@ -110,6 +123,10 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         public boolean isLastNode() {
             return lastNode;
+        }
+        
+        public boolean isExpanded() {
+            return expanded;
         }
     }
     

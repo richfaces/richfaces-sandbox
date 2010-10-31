@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
+import org.richfaces.component.SwitchType;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.TreeRendererBase.NodeState;
 import org.richfaces.renderkit.TreeRendererBase.QueuedData;
@@ -49,6 +50,8 @@ abstract class TreeEncoderBase {
     
     protected final AbstractTree tree;
 
+    private boolean traverseCollapsedNode;
+    
     private LinkedList<QueuedData> queuedData = new LinkedList<QueuedData>();
     
     public TreeEncoderBase(FacesContext context, AbstractTree tree) {
@@ -56,6 +59,8 @@ abstract class TreeEncoderBase {
         this.context = context;
         this.responseWriter = context.getResponseWriter();
         this.tree = tree;
+        
+        this.traverseCollapsedNode = SwitchType.client.equals(tree.getToggleMode());
     }
 
     protected void encodeTree(Iterator<Object> childrenIterator) throws IOException {
@@ -85,17 +90,18 @@ abstract class TreeEncoderBase {
             if (!data.isEncoded()) {
                 tree.setRowKey(context, data.getRowKey());
                 
-                writeTreeNodeStartElement(NodeState.expanded, data.isLastNode());
+                writeTreeNodeStartElement(data.isExpanded() ? NodeState.expanded : NodeState.collapsed, data.isLastNode());
                 
                 data.setEncoded(true);
             }
         }
-         
-        queuedData.add(new QueuedData(rowKey, isLastNode));
         
         tree.setRowKey(context, rowKey);
 
-        boolean iterateChildren = tree.isExpanded();
+        boolean expanded = tree.isExpanded();
+        queuedData.add(new QueuedData(rowKey, isLastNode, expanded));
+        
+        boolean iterateChildren = traverseCollapsedNode || expanded;
         
         if (iterateChildren) {
             encodeTree(tree.getChildrenIterator(context, rowKey));
@@ -116,7 +122,7 @@ abstract class TreeEncoderBase {
         
         responseWriter.startElement(HtmlConstants.DIV_ELEM, tree);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, 
-            HtmlUtil.concatClasses("tree_node", isLast ? "tree_node_last" : null), 
+            HtmlUtil.concatClasses("rf-tr-nd", isLast ? "rf-tr-nd-last" : null, nodeState.getNodeClass()), 
             null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, tree.getClientId(context), null);
         

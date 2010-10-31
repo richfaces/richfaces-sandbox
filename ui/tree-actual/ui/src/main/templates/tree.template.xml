@@ -19,7 +19,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="#{concatClasses('rf-tree', component.attributes['styleClass'])}"
+        <div id="#{clientId}" class="#{concatClasses('rf-tr', component.attributes['styleClass'])}"
             cdk:passThroughWithExclusions="">
             <cdk:body>
                 <cdk:call expression="encodeTree(facesContext, component)" />

@@ -23,7 +23,7 @@
 
 	var __initializeChildNodes = function(elt) {
 		var _this = this;
-		$(elt).children(".tree_node").each(function() {
+		$(elt).children(".rf-tr-nd").each(function() {
 			_this.addChild(new richfaces.ui.TreeNode(this));
 		});
 	}
@@ -34,9 +34,9 @@
 
     var TOGGLE_NEW_STATE_PARAM = "org.richfaces.Tree.NEW_STATE";
 	
-	var TREE_HANDLE_CLASSES = ["tree_collapse", "tree_expand"];
+	var TREE_CLASSES = ["rf-tr-nd-colps", "rf-tr-nd-exp"];
 	
-	var TREE_CLASSES = ["tree_handle_collapsed", "tree_handle_expanded"];
+	var TREE_HANDLE_CLASSES = ["rf-trn-hnd-colps", "rf-trn-hnd-exp"];
 	
 	richfaces.ui = richfaces.ui || {};
     
@@ -51,7 +51,7 @@
 			
 			this.elt = $(this.attachToDom());
 			
-			this.handler = this.elt.find(" > .tree_item:first > .tree_handle:first");
+			this.handler = this.elt.find(" > .rf-trn:first > .rf-trn-hnd:first");
 			this.handler.click($.proxy(this.toggle, this));
 			
 			__initializeChildNodes.call(this, this.elt[0]);
@@ -100,15 +100,15 @@
 		},
 		
 		isExpanded: function() {
-			return !this.isLeaf() && !this.isCollapsed();
+			return !this.isLeaf() && this.handler.hasClass("rf-trn-hnd-exp");
 		},
 		
 		isCollapsed: function() {
-			return !this.isLeaf() && this.handler.hasClass("tree_handle_collapsed");
+			return !this.isLeaf() && this.handler.hasClass("rf-trn-hnd-colps");
 		},
 		
 		isLeaf: function() {
-			return this.handler.hasClass("tree_handle_leaf");
+			return this.handler.hasClass("rf-trn-hnd-lf");
 		},
 		
 		toggle: function() {
@@ -129,8 +129,8 @@
 				
 				switch (tree.getToggleMode()) {
 					case 'client':
-						this.elt.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
-						this.handler.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
+						this.elt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
+						this.handler.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
 					break;
 					
 					case 'ajax':
@@ -177,13 +177,13 @@
 	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId) {
 		var node = $(document.getElementById(nodeId));
 		
-		if (node.nextAll(".tree_node:first").length != 0) {
-			node.removeClass("tree_node_last");
+		if (node.nextAll(".rf-tr-nd:first").length != 0) {
+			node.removeClass("rf-tr-nd-last");
 		}
 		
-		var parent = node.parent(".tree_node, .rf-tree");
+		var parent = node.parent(".rf-tr-nd, .rf-tr");
 		
-		var idx = node.prevAll(".tree_node").length;
+		var idx = node.prevAll(".rf-tr-nd").length;
 		
 		var parentNode = richfaces.$(parent[0]);
 		parentNode.addChild(new richfaces.ui.TreeNode(node[0]), idx);

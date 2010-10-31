@@ -16,11 +16,11 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="tree_item">
-            <div class="tree_handle #{facesContext.attributes['__treeNodeHandleClass']}"></div>
-            <div class="tree_selarea">
-                <div class="tree_icon #{facesContext.attributes['__treeNodeIconClass']}"></div>
-                <span class="tree_item_label">
+        <div class="rf-trn">
+            <div class="rf-trn-hnd #{facesContext.attributes['__treeNodeHandleClass']}"></div>
+            <div class="rf-trn-cnt">
+                <div class="rf-trn-ico #{facesContext.attributes['__treeNodeIconClass']}"></div>
+                <span class="rf-trn-lbl">
                     <cdk:body />
                 </span>
             </div>
