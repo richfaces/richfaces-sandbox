@@ -187,9 +187,9 @@
 		__setSelected: function(value) {
 			var content = this.__getContent();
 			if (value) {
-				content.addClass("rf-tr-nd-sel");
+				content.addClass("rf-trn-sel");
 			} else {
-				content.removeClass("rf-tr-nd-sel");
+				content.removeClass("rf-trn-sel");
 			}
 			
 			this.__selected = value;

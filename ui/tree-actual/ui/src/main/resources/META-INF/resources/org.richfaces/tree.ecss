@@ -21,7 +21,7 @@
 	display: inline-block;
 }
 
-.rf-tr-nd-sel {
+.rf-trn-sel {
 	background: '#{richSkin.additionalBackgroundColor}';
 }
 
