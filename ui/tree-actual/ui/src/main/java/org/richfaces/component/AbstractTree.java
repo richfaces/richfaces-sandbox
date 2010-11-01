@@ -32,6 +32,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UpdateModelException;
 import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -55,7 +56,10 @@ import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.event.TreeSelectionEvent;
+import org.richfaces.event.TreeSelectionListener;
 import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
 import org.richfaces.model.TreeDataModelImpl;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
@@ -80,6 +84,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public static final String NODE_META_COMPONENT_ID = "node";
     
+    public static final String SELECTION_META_COMPONENT_ID = "selection";
+    
     private static final Predicate<UIComponent> RENDERED_UITREE_NODE = new Predicate<UIComponent>() {
         public boolean apply(UIComponent input) {
             return (input instanceof AbstractTreeNode) && input.isRendered();
@@ -99,7 +105,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     private enum PropertyKeys {
-        expanded
+        expanded, selection
     }
 
     private transient TreeDecoderHelper treeDecoderHelper = new TreeDecoderHelper(this);
@@ -120,6 +126,29 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getToggleMode();
 
+    @Attribute(defaultValue = "SwitchType.client")
+    public abstract SwitchType getSelectionMode();
+    
+    public Selection getSelection() {
+        Selection selection = (Selection) getStateHelper().eval(PropertyKeys.selection);
+        if (selection == null) {
+            selection = new SelectionImpl();
+            
+            ValueExpression ve = getValueExpression(PropertyKeys.selection.toString());
+            if (ve != null) {
+                ve.setValue(getFacesContext().getELContext(), selection);
+            } else {
+                getStateHelper().put(PropertyKeys.selection, selection);
+            }
+        }
+        
+        return selection;
+    }
+    
+    public void setSelection(Selection selection) {
+        getStateHelper().put(PropertyKeys.selection, selection);
+    }
+    
     @SuppressWarnings("unchecked")
     protected Boolean getLocalExpandedValue(FacesContext facesContext) {
         Map<String, Object> stateMap = (Map<String, Object>) getStateHelper().get(PropertyKeys.expanded);
@@ -253,6 +282,18 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             } else {
                 setExpanded(newExpandedValue);
             }
+        } else if (event instanceof TreeSelectionEvent) {
+            TreeSelectionEvent selectionEvent = (TreeSelectionEvent) event;
+            
+            Selection selection = getSelection();
+            
+            for (Object addedKey: selectionEvent.getAddedKeys()) {
+                selection.addToSelection(addedKey);
+            }
+            
+            for (Object removedKey: selectionEvent.getRemovedKeys()) {
+                selection.removeFromSelection(removedKey);
+            }
         }
     }
     
@@ -270,6 +311,22 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return super.visitDataChildrenMetaComponents(extendedVisitContext, callback);
     }
     
+    @Override
+    protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
+        if (visitContext instanceof ExtendedVisitContext) {
+            ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) visitContext;
+            
+            if (ExtendedVisitContextMode.RENDER == extendedVisitContext.getVisitMode()) {
+                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, SELECTION_META_COMPONENT_ID);
+                if (result != VisitResult.ACCEPT) {
+                    return result == VisitResult.COMPLETE;
+                }
+            }
+        }
+
+        return super.visitFixedChildren(visitContext, callback);
+    }
+    
     void decodeMetaComponent(FacesContext context, String metaComponentId) {
         ((MetaComponentRenderer) getRenderer(context)).decodeMetaComponent(context, this, metaComponentId);
     }
@@ -279,7 +336,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
     
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-        if (NODE_META_COMPONENT_ID.equals(metaComponentId)) {
+        if (NODE_META_COMPONENT_ID.equals(metaComponentId) || SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
         
@@ -296,4 +353,27 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return new TreeComponentState();
     }
     
+    public void addToggleListener(TreeToggleListener listener) {
+        addFacesListener(listener);
+    }
+
+    public TreeToggleListener[] getTreeToggleListeners() {
+        return (TreeToggleListener[]) getFacesListeners(TreeToggleListener.class);
+    }
+    
+    public void removeToggleListener(TreeToggleListener listener) {
+        removeFacesListener(listener);
+    }
+    
+    public void addSelectionListener(TreeSelectionListener listener) {
+        addFacesListener(listener);
+    }
+
+    public TreeSelectionListener[] getSelectionListeners() {
+        return (TreeSelectionListener[]) getFacesListeners(TreeSelectionListener.class);
+    }
+    
+    public void removeSelectionListener(TreeSelectionListener listener) {
+        removeFacesListener(listener);
+    }
 }

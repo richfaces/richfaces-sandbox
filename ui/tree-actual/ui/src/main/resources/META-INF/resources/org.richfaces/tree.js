@@ -21,15 +21,12 @@
  */ 
 (function($, richfaces) {
 
-	var __initializeChildNodes = function(elt) {
-		var _this = this;
-		$(elt).children(".rf-tr-nd").each(function() {
-			_this.addChild(new richfaces.ui.TreeNode(this));
-		});
-	}
+	var DECODER_HELPER_ID = "__treeDecoderHelper";
+
+	var NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
 	
-	var NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE"
-	
+	var SELECTION_STATE = "__SELECTION_STATE";	
+		
 	var TREE_CLASSES = ["rf-tr-nd-colps", "rf-tr-nd-exp"];
 	
 	var TREE_HANDLE_CLASSES = ["rf-trn-hnd-colps", "rf-trn-hnd-exp"];
@@ -42,15 +39,43 @@
 
 		init: function (id) {
 			this.id = id;
+			this.elt = $(this.attachToDom());
 
 			this.__children = new Array();
 			
-			this.elt = $(this.attachToDom());
+			this.__initializeChildren();
+		},
+		
+		destroy: function() {
+			if (this.isSelected()) {
+				this.getTree().__resetSelection();
+			}
 			
-			this.handler = this.elt.find(" > .rf-trn:first > .rf-trn-hnd:first");
-			this.handler.click($.proxy(this.toggle, this));
+			if (this.parent) {
+				this.parent.removeChild(this);
+				this.parent = null;
+			}
 			
-			__initializeChildNodes.call(this, this.elt[0]);
+			this.__clientToggleStateInput = null;
+			
+			this.__clearChildren();
+			
+			this.elt = null;
+		},
+
+		__initializeChildren: function() {
+			var _this = this;
+			this.elt.children(".rf-tr-nd").each(function() {
+				_this.addChild(new richfaces.ui.TreeNode(this));
+			});
+		},
+		
+		__getHandle: function() {
+			return this.elt.find(" > .rf-trn:first > .rf-trn-hnd:first");
+		},
+		
+		__getContent: function() {
+			return this.elt.find(" > .rf-trn:first > .rf-trn-cnt:first");
 		},
 		
 		getParent: function() {
@@ -87,7 +112,7 @@
 			}
 		},
 		
-		clearChildren: function() {
+		__clearChildren: function() {
 			for (var i = 0; i < this.__children.length; i++) {
 				this.__children[i].setParent(undefined);
 			}
@@ -96,15 +121,15 @@
 		},
 		
 		isExpanded: function() {
-			return !this.isLeaf() && this.handler.hasClass("rf-trn-hnd-exp");
+			return !this.isLeaf() && this.__getHandle().hasClass("rf-trn-hnd-exp");
 		},
 		
 		isCollapsed: function() {
-			return !this.isLeaf() && this.handler.hasClass("rf-trn-hnd-colps");
+			return !this.isLeaf() && this.__getHandle().hasClass("rf-trn-hnd-colps");
 		},
 		
 		isLeaf: function() {
-			return this.handler.hasClass("rf-trn-hnd-lf");
+			return this.__getHandle().hasClass("rf-trn-hnd-lf");
 		},
 		
 		toggle: function() {
@@ -120,33 +145,34 @@
 		},
 		
 		__updateClientToggleStateInput: function(newState) {
-			if (!this.__clientStateInput) {
-				this.__clientStateInput = $("<input type='hidden' />").appendTo(this.elt)
+			if (!this.__clientToggleStateInput) {
+				this.__clientToggleStateInput = $("<input type='hidden' />").appendTo(this.elt)
 					.attr({name: this.elt.attr("id") + NEW_NODE_TOGGLE_STATE});
 			}
 			
-			this.__clientStateInput.val(newState.toString());
+			this.__clientToggleStateInput.val(newState.toString());
 
 		},
 		
 		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
-				var tree = this.getTree();
-				
-				switch (tree.getToggleMode()) {
-					case 'client':
-						this.elt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
-						this.handler.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
-						this.__updateClientToggleStateInput(newState);
-					break;
+				if (newState ^ this.isExpanded()) {
+					var tree = this.getTree();
 					
-					case 'ajax':
-					case 'server':
-						//TODO - event?
-						tree.sendToggleRequest(null, richfaces.getDomElement(this.id).id, newState);
-					break;
+					switch (tree.getToggleMode()) {
+						case 'client':
+							this.elt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
+							this.__getHandle().addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+							this.__updateClientToggleStateInput(newState);
+						break;
+						
+						case 'ajax':
+						case 'server':
+							//TODO - event?
+							tree.__sendToggleRequest(null, this.getId(), newState);
+						break;
+					}
 				}
-				
 			}
 		},
 		
@@ -158,26 +184,29 @@
 			this.__changeToggleState(true);
 		},
 		
-		getTree: function() {
-			var component = this;
-			while (component && component.name != "Tree") {
-				component = component.getParent();
+		__setSelected: function(value) {
+			var content = this.__getContent();
+			if (value) {
+				content.addClass("rf-tr-nd-sel");
+			} else {
+				content.removeClass("rf-tr-nd-sel");
 			}
-			return component;
+			
+			this.__selected = value;
 		},
 		
-		destroy: function() {
-			this.__clientStateInput = null;
-			
-			if (this.parent) {
-				this.parent.removeChild(this);
-			}
-			
-			this.clearChildren();
-			
-			this.elt = null;
-			this.handler = null;
+		isSelected: function() {
+			return this.__selected;
+		},
+		
+		getTree: function() {
+			return this.getParent().getTree();
+		},
+		
+		getId: function() {
+			return richfaces.getDomElement(this.id).id;
 		}
+		
 	});
 
 	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId) {
@@ -192,33 +221,84 @@
 		var idx = node.prevAll(".rf-tr-nd").length;
 		
 		var parentNode = richfaces.$(parent[0]);
-		parentNode.addChild(new richfaces.ui.TreeNode(node[0]), idx);
+		var newChild = new richfaces.ui.TreeNode(node[0]);
+		parentNode.addChild(newChild, idx);
+		parentNode.getTree().__updateSelection();
 	};
 	
-	var decoderHelperId;
+	var findTree = function(elt) {
+		return richfaces.$($(elt).closest(".rf-tr"));
+	};
+	
+	var findTreeNode = function(elt) {
+		return richfaces.$($(elt).closest(".rf-tr-nd"));
+	};
+
+	var isEventForAnotherTree = function(tree, elt) {
+		return tree != findTree(elt);
+	};
+	
+	var ncSepChar;
 	
 	richfaces.ui.Tree = richfaces.ui.TreeNode.extendClass({
 
 		name: "Tree",
 
 		init: function (id, options) {
-			this.$super.init.call(this, id, options);
+			this.$super.init.call(this, id);
 			
 			this.__toggleMode = options.toggleMode || 'ajax';
-			this.__selectionMode = options.selectionMode || 'ajax';
+			this.__selectionMode = options.selectionMode || 'client';
 			
 			if (options.ajaxToggler) {
 				this.__ajaxToggler = new Function("event", "toggleSource", "toggleParams", options.ajaxToggler);
 			}
+			
+			this.__selectionInput = $(" > .rf-tr-sel-inp", this.elt);
+			
+			this.elt.delegate(".rf-trn-hnd", "click", this, this.__itemHandleClicked);
+			this.elt.delegate(".rf-trn-cnt", "mousedown", this, this.__itemContentClicked);
+			
+			this.__updateSelection();
 		},
 
 		destroy: function() {
 			this.$super.destroy();
+
+			this.elt.undelegate(".rf-trn-hnd", "click", this.__itemHandleClicked);
+			this.elt.undelegate(".rf-trn-cnt", "mousedown", this.__itemContentClicked);
 			
+			this.__itemContentClickedHandler = null;
+			this.__selectionInput = null;
 			this.__ajaxToggler = null;
 		},
 		
-		sendToggleRequest: function(event, toggleSource, newNodeState) {
+		__itemHandleClicked: function(event) {
+			var theTree = event.data;
+			if (isEventForAnotherTree(theTree, this)) {
+				return;
+			}
+			
+			var treeNode = findTreeNode(this);
+			treeNode.toggle();
+		},
+		
+		__itemContentClicked: function(event) {
+			var theTree = event.data;
+			if (isEventForAnotherTree(theTree, this)) {
+				return;
+			}
+
+			var treeNode = findTreeNode(this);
+			
+			if (event.ctrlKey) {
+				theTree.__toggleSelection(treeNode);
+			} else {
+				theTree.__addToSelection(treeNode);
+			}
+		},
+		
+		__sendToggleRequest: function(event, toggleSource, newNodeState) {
 			var clientParams = {};
 			clientParams[toggleSource + NEW_NODE_TOGGLE_STATE] = newNodeState;
 			
@@ -226,7 +306,7 @@
 				var form = $(richfaces.getDomElement(this.id)).closest('form');
 				richfaces.submitForm(form, clientParams);
 			} else {
-				this.__ajaxToggler(event, toggleSource + decoderHelperId, clientParams);
+				this.__ajaxToggler(event, toggleSource + ncSepChar + DECODER_HELPER_ID, clientParams);
 			}
 		},
 		
@@ -236,11 +316,72 @@
 		
 		getSelectionMode: function() {
 			return this.__selectionMode;
+		},
+		
+		getTree: function() {
+			return this;
+		},
+		
+		__bindFocusHandler: function(elt) {
+			elt.mousedown(this.__itemContentClickedHandler);
+		},
+		
+		__isSelected: function(node) {
+			return this.__selectedNodeId == node.getId();
+		},
+		
+		__handleSelectionChange: function() {
+			if (this.__selectionMode == 'client') {
+				this.__updateSelection();
+			} else {
+				this.__ajaxToggler(null, this.id);
+			}
+		},
+		
+		__toggleSelection: function(node) {
+			if (this.__isSelected(node)) {
+				this.__selectionInput.val("");
+			} else {
+				this.__selectionInput.val(node.getId());
+			}
+
+			this.__handleSelectionChange();
+		},
+		
+		__addToSelection: function(node) {
+			this.__selectionInput.val(node.getId());
+
+			this.__handleSelectionChange();
+		},
+		
+		__resetSelection: function() {
+			this.__selectedNodeId = null;
+			this.__selectionInput.val("");
+		},
+		
+		__updateSelection: function() {
+			var oldSelection = this.__selectedNodeId;
+			if (oldSelection) {
+				var oldSelectionNode = richfaces.$(oldSelection);
+				if (oldSelectionNode) {
+					oldSelectionNode.__setSelected(false);
+				}
+			}
+			
+			var nodeId = this.__selectionInput.val();
+			
+			var newSelectionNode = richfaces.$(nodeId);
+			if (newSelectionNode) {
+				newSelectionNode.__setSelected(true);
+				this.__selectedNodeId = nodeId;
+			} else {
+				this.__resetSelection();
+			}
 		}
 	});
 
-	richfaces.ui.Tree.setDecoderHelperId = function(id) {
-		decoderHelperId = id;
+	richfaces.ui.Tree.setNamingContainerSeparatorChar = function(s) {
+		ncSepChar = s.charAt(0);
 	};
 	
 }(jQuery, RichFaces));

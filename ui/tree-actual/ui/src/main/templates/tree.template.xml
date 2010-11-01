@@ -24,11 +24,14 @@
             <cdk:body>
                 <cdk:call expression="encodeTree(facesContext, component)" />
             </cdk:body>
+
+            <cdk:call expression="encodeSelectionStateInput(facesContext, component)" />
             
             <script type="text/javascript">
-                RichFaces.ui.Tree.setDecoderHelperId(#{toScriptArgs(getDecoderHelperId(facesContext))});
+                RichFaces.ui.Tree.setNamingContainerSeparatorChar(#{toScriptArgs(getNamingContainerSeparatorChar(facesContext))});
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="toggleMode selectionMode" defaultValue="SwitchType.DEFAULT" />
+                    <cdk:scriptOption attributes="toggleMode" defaultValue="SwitchType.DEFAULT" />
+                    <cdk:scriptOption name="selectionMode" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
                     <cdk:scriptOption name="ajaxToggler" value="#{getAjaxToggler(facesContext, component)}" />
                 </cdk:scriptObject>
             
