@@ -42,7 +42,7 @@ public class TreeRange implements Range {
         this.facesContext = facesContext;
         this.tree = tree;
         
-        traverseAll = SwitchType.client == tree.getToggleMode();
+        traverseAll = (SwitchType.client == tree.getToggleType());
     }
 
     public boolean shouldIterateChildren(Object rowKey) {

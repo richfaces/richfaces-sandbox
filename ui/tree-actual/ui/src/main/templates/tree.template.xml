@@ -30,8 +30,8 @@
             <script type="text/javascript">
                 RichFaces.ui.Tree.setNamingContainerSeparatorChar(#{toScriptArgs(getNamingContainerSeparatorChar(facesContext))});
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="toggleMode" defaultValue="SwitchType.DEFAULT" />
-                    <cdk:scriptOption name="selectionMode" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
+                    <cdk:scriptOption attributes="toggleType" defaultValue="SwitchType.DEFAULT" />
+                    <cdk:scriptOption name="selectionType" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
                     <cdk:scriptOption name="ajaxSubmitFunction" value="#{getAjaxSubmitFunction(facesContext, component)}" />
                 </cdk:scriptObject>
             

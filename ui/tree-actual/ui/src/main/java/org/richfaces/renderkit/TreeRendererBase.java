@@ -28,6 +28,7 @@ import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -45,7 +46,6 @@ import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.Selection;
 import org.richfaces.component.SwitchType;
 import org.richfaces.component.TreeDecoderHelper;
 import org.richfaces.event.TreeSelectionEvent;
@@ -54,7 +54,6 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Iterators;
 
 
 /**
@@ -154,7 +153,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     protected String getAjaxSubmitFunction(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
-        if (tree.getToggleMode() != SwitchType.ajax && tree.getSelectionMode() != SwitchType.ajax) {
+        if (tree.getToggleType() != SwitchType.ajax && tree.getSelectionType() != SwitchType.ajax) {
             return null;
         }
 
@@ -182,7 +181,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         String selectedNodeId = "";
         AbstractTree tree = (AbstractTree) component;
 
-        Iterator<Object> selectedKeys = tree.getSelection().getSelectionIterator();
+        Iterator<Object> selectedKeys = tree.getSelection().iterator();
 
         if (selectedKeys.hasNext()) {
             Object selectionKey = selectedKeys.next();
@@ -218,13 +217,13 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     protected SwitchType getSelectionMode(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
-        SwitchType selectionMode = tree.getSelectionMode();
-        if (selectionMode != null && selectionMode != SwitchType.ajax && selectionMode != SwitchType.client) {
+        SwitchType selectionType = tree.getSelectionType();
+        if (selectionType != null && selectionType != SwitchType.ajax && selectionType != SwitchType.client) {
             //TODO - better message
-            throw new IllegalArgumentException(String.valueOf(selectionMode));
+            throw new IllegalArgumentException(String.valueOf(selectionType));
         }
 
-        return selectionMode;
+        return selectionType;
     }
 
     protected String getNamingContainerSeparatorChar(FacesContext context) {
@@ -298,16 +297,16 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             selectionRowKey = tree.getRowKeyConverter().getAsObject(context, component, selectionRowKeyString);
         }
 
-        Selection selection = tree.getSelection();
+        Collection<Object> selection = tree.getSelection();
 
         Set<Object> addedKeys = new HashSet<Object>(2);
         Set<Object> removedKeys = new HashSet<Object>(2);
 
         if (selectionRowKey == null) {
-            Iterators.addAll(removedKeys, selection.getSelectionIterator());
-        } else if (!selection.isSelected(selectionRowKey)) {
+            removedKeys.addAll(selection);
+        } else if (!selection.contains(selectionRowKey)) {
             addedKeys.add(selectionRowKey);
-            Iterators.addAll(removedKeys, selection.getSelectionIterator());
+            removedKeys.addAll(selection);
         }
 
         if (!removedKeys.isEmpty() || !addedKeys.isEmpty()) {

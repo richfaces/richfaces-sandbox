@@ -159,7 +159,7 @@
 				if (newState ^ this.isExpanded()) {
 					var tree = this.getTree();
 					
-					switch (tree.getToggleMode()) {
+					switch (tree.getToggleType()) {
 						case 'client':
 							this.elt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
 							this.__getHandle().addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
@@ -247,8 +247,8 @@
 		init: function (id, options) {
 			this.$super.init.call(this, id);
 			
-			this.__toggleMode = options.toggleMode || 'ajax';
-			this.__selectionMode = options.selectionMode || 'client';
+			this.__toggleType = options.toggleType || 'ajax';
+			this.__selectionType = options.selectionType || 'client';
 			
 			if (options.ajaxSubmitFunction) {
 				this.__ajaxSubmitFunction = new Function("event", "source", "params", options.ajaxSubmitFunction);
@@ -302,7 +302,7 @@
 			var clientParams = {};
 			clientParams[toggleSource + NEW_NODE_TOGGLE_STATE] = newNodeState;
 			
-			if (this.__toggleMode == 'server') {
+			if (this.getToggleType() == 'server') {
 				var form = $(richfaces.getDomElement(this.id)).closest('form');
 				richfaces.submitForm(form, clientParams);
 			} else {
@@ -310,12 +310,12 @@
 			}
 		},
 		
-		getToggleMode: function() {
-			return this.__toggleMode;
+		getToggleType: function() {
+			return this.__toggleType;
 		},
 		
-		getSelectionMode: function() {
-			return this.__selectionMode;
+		getSelectionType: function() {
+			return this.__selectionType;
 		},
 		
 		getTree: function() {
@@ -331,7 +331,7 @@
 		},
 		
 		__handleSelectionChange: function() {
-			if (this.__selectionMode == 'client') {
+			if (this.getSelectionType() == 'client') {
 				this.__updateSelection();
 			} else {
 				this.__ajaxSubmitFunction(null, this.id);

@@ -22,6 +22,8 @@
 package org.richfaces.component;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -124,15 +126,16 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     @Attribute(defaultValue = "SwitchType.DEFAULT")
-    public abstract SwitchType getToggleMode();
+    public abstract SwitchType getToggleType();
 
     @Attribute(defaultValue = "SwitchType.client")
-    public abstract SwitchType getSelectionMode();
+    public abstract SwitchType getSelectionType();
     
-    public Selection getSelection() {
-        Selection selection = (Selection) getStateHelper().eval(PropertyKeys.selection);
+    public Collection<Object> getSelection() {
+        @SuppressWarnings("unchecked")
+        Collection<Object> selection = (Collection<Object>) getStateHelper().eval(PropertyKeys.selection);
         if (selection == null) {
-            selection = new SelectionImpl();
+            selection = new HashSet<Object>();
             
             ValueExpression ve = getValueExpression(PropertyKeys.selection.toString());
             if (ve != null) {
@@ -145,7 +148,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return selection;
     }
     
-    public void setSelection(Selection selection) {
+    public void setSelection(Collection<Object> selection) {
         getStateHelper().put(PropertyKeys.selection, selection);
     }
     
@@ -285,14 +288,14 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         } else if (event instanceof TreeSelectionEvent) {
             TreeSelectionEvent selectionEvent = (TreeSelectionEvent) event;
             
-            Selection selection = getSelection();
+            Collection<Object> selection = getSelection();
             
             for (Object addedKey: selectionEvent.getAddedKeys()) {
-                selection.addToSelection(addedKey);
+                selection.add(addedKey);
             }
             
             for (Object removedKey: selectionEvent.getRemovedKeys()) {
-                selection.removeFromSelection(removedKey);
+                selection.remove(removedKey);
             }
         }
     }
