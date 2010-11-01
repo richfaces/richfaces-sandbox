@@ -268,6 +268,11 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
                 AbstractTree tree = (AbstractTree) component;
                 AbstractTreeNode treeNode = tree.getTreeNodeComponent();
+                
+                if (treeNode == null) {
+                    return;
+                }
+                
                 boolean expanded = Boolean.valueOf(newToggleState);
                 if (tree.isExpanded() ^ expanded) {
                     new TreeToggleEvent(treeNode, expanded).queue();

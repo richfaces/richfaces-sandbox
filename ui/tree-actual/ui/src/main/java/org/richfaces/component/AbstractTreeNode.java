@@ -61,6 +61,8 @@ public abstract class AbstractTreeNode extends UIComponentBase {
     @Attribute(defaultValue = "findTreeComponent().isImmediate()")
     public abstract boolean isImmediate();
     
+    public abstract String getType();
+    
     protected AbstractTree findTreeComponent() {
         UIComponent c = this;
         while (c != null && !(c instanceof AbstractTree)) {

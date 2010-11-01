@@ -88,12 +88,33 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     public static final String SELECTION_META_COMPONENT_ID = "selection";
     
-    private static final Predicate<UIComponent> RENDERED_UITREE_NODE = new Predicate<UIComponent>() {
-        public boolean apply(UIComponent input) {
-            return (input instanceof AbstractTreeNode) && input.isRendered();
-        };
-    };
+    private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
+        
+        private String type;
 
+        public MatchingTreeNodePredicate(String type) {
+            super();
+            this.type = type;
+        }
+
+        public boolean apply(UIComponent input) {
+            if (!(input instanceof AbstractTreeNode)) {
+                return false;
+            }
+            
+            if (!input.isRendered()) {
+                return false;
+            }
+            
+            String nodeType = ((AbstractTreeNode) input).getType();
+            if (type == null && nodeType == null) {
+                return true;
+            }
+            
+            return type != null && type.equals(nodeType);
+        }
+    };
+    
     private static final Converter ROW_KEY_CONVERTER = new SequenceRowKeyConverter();
 
     /**
@@ -130,6 +151,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     @Attribute(defaultValue = "SwitchType.client")
     public abstract SwitchType getSelectionType();
+    
+    public abstract String getNodeType();
     
     public Collection<Object> getSelection() {
         @SuppressWarnings("unchecked")
@@ -220,7 +243,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             return null;
         }
 
-        Iterator<UIComponent> iterator = Iterators.filter(getChildren().iterator(), RENDERED_UITREE_NODE);
+        Iterator<UIComponent> iterator = Iterators.filter(getChildren().iterator(), 
+            new MatchingTreeNodePredicate(getNodeType()));
+        
         if (iterator.hasNext()) {
             return (AbstractTreeNode) iterator.next();
         }
@@ -348,7 +373,13 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     @Override
     protected Iterator<UIComponent> dataChildren() {
-        return Iterators.<UIComponent>concat(super.dataChildren(), Iterators.singletonIterator(treeDecoderHelper));
+        AbstractTreeNode treeNodeComponent = getTreeNodeComponent();
+        if (treeNodeComponent != null) {
+            return Iterators.<UIComponent>concat(Iterators.<UIComponent>singletonIterator(treeNodeComponent), 
+                Iterators.singletonIterator(treeDecoderHelper));
+        } else {
+            return Iterators.<UIComponent>singletonIterator(treeDecoderHelper);
+        }
     }
     
     @Override
