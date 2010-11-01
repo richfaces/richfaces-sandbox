@@ -250,8 +250,8 @@
 			this.__toggleMode = options.toggleMode || 'ajax';
 			this.__selectionMode = options.selectionMode || 'client';
 			
-			if (options.ajaxToggler) {
-				this.__ajaxToggler = new Function("event", "toggleSource", "toggleParams", options.ajaxToggler);
+			if (options.ajaxSubmitFunction) {
+				this.__ajaxSubmitFunction = new Function("event", "source", "params", options.ajaxSubmitFunction);
 			}
 			
 			this.__selectionInput = $(" > .rf-tr-sel-inp", this.elt);
@@ -270,7 +270,7 @@
 			
 			this.__itemContentClickedHandler = null;
 			this.__selectionInput = null;
-			this.__ajaxToggler = null;
+			this.__ajaxSubmitFunction = null;
 		},
 		
 		__itemHandleClicked: function(event) {
@@ -306,7 +306,7 @@
 				var form = $(richfaces.getDomElement(this.id)).closest('form');
 				richfaces.submitForm(form, clientParams);
 			} else {
-				this.__ajaxToggler(event, toggleSource + ncSepChar + DECODER_HELPER_ID, clientParams);
+				this.__ajaxSubmitFunction(event, toggleSource + ncSepChar + DECODER_HELPER_ID, clientParams);
 			}
 		},
 		
@@ -334,7 +334,7 @@
 			if (this.__selectionMode == 'client') {
 				this.__updateSelection();
 			} else {
-				this.__ajaxToggler(null, this.id);
+				this.__ajaxSubmitFunction(null, this.id);
 			}
 		},
 		
@@ -373,10 +373,8 @@
 			var newSelectionNode = richfaces.$(nodeId);
 			if (newSelectionNode) {
 				newSelectionNode.__setSelected(true);
-				this.__selectedNodeId = nodeId;
-			} else {
-				this.__resetSelection();
 			}
+			this.__selectedNodeId = nodeId;
 		}
 	});
 

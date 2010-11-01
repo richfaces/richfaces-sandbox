@@ -32,7 +32,7 @@
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="toggleMode" defaultValue="SwitchType.DEFAULT" />
                     <cdk:scriptOption name="selectionMode" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
-                    <cdk:scriptOption name="ajaxToggler" value="#{getAjaxToggler(facesContext, component)}" />
+                    <cdk:scriptOption name="ajaxSubmitFunction" value="#{getAjaxSubmitFunction(facesContext, component)}" />
                 </cdk:scriptObject>
             
                 new RichFaces.ui.Tree(#{toScriptArgs(clientId, options)});

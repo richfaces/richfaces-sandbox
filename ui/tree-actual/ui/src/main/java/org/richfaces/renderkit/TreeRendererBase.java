@@ -65,9 +65,9 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
     static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
-    private static final JSReference TOGGLE_PARAMS = new JSReference("toggleParams");
+    private static final JSReference PARAMS_JS_REF = new JSReference("params");
 
-    private static final JSReference TOGGLE_SOURCE = new JSReference("toggleSource");
+    private static final JSReference SOURCE_JS_REF = new JSReference("source");
 
     private static final String NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
 
@@ -151,19 +151,18 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         return UINamingContainer.getSeparatorChar(facesContext) + TreeDecoderHelper.HELPER_ID;
     }
 
-    protected String getAjaxToggler(FacesContext context, UIComponent component) {
+    protected String getAjaxSubmitFunction(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
-        SwitchType toggleMode = tree.getToggleMode();
-        if (toggleMode != SwitchType.ajax) {
+        if (tree.getToggleMode() != SwitchType.ajax && tree.getSelectionMode() != SwitchType.ajax) {
             return null;
         }
 
         JSFunction ajaxFunction = buildAjaxFunction(context, component, AJAX_FUNCTION_NAME);
         AjaxEventOptions eventOptions = buildEventOptions(context, component);
 
-        eventOptions.setAjaxComponent(TOGGLE_SOURCE);
-        eventOptions.setClientParameters(TOGGLE_PARAMS);
+        eventOptions.setAjaxComponent(SOURCE_JS_REF);
+        eventOptions.setClientParameters(PARAMS_JS_REF);
 
         if (!eventOptions.isEmpty()) {
             ajaxFunction.addParameter(eventOptions);
