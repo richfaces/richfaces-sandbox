@@ -1,0 +1,10 @@
+SchemaTransformer -h <short names hash> -o <output directory> file1 ... fileN
+
+
+D:\development\richfaces-trunk\cdk\generator\src\main\resources\META-INF\schema\cdk-template.xsd
+D:\development\richfaces-trunk\cdk\generator\src\main\resources\META-INF\schema\cdk-composite.xsd
+D:\development\richfaces-trunk\cdk\generator\src\main\resources\META-INF\schema\cdk-jstl-core.xsd
+-h "{http://jboss.org/schema/richfaces/cdk/core=cdk,http://jboss.org/schema/richfaces/cdk/jstl/core=c,http://jboss.org/schema/richfaces/cdk/jsf/composite=composite}"
+-o D:\development\richfaces-work\cdkdocs-new 
+
+java -jar tlddoc.jar -xslt D:\development\richfaces-sandbox\trunk\cdk\xsd2javadoc\src\main\xslt\tlddoc -d cdkdocs c.tld cdk.tld composite.tld
