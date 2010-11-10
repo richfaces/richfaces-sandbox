@@ -1,26 +1,12 @@
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.richfaces.component.AbstractSchedule;
-import org.richfaces.component.AbstractScheduleAgendaDayView;
-import org.richfaces.component.AbstractScheduleAgendaWeekView;
-import org.richfaces.component.AbstractScheduleBasicDayView;
-import org.richfaces.component.AbstractScheduleBasicWeekView;
-import org.richfaces.component.AbstractScheduleMonthView;
-import org.richfaces.component.ScheduleCommonViewAttributes;
-import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
-import org.richfaces.component.event.ScheduleDateRangeSelectEvent;
-import org.richfaces.component.event.ScheduleDateSelectEvent;
-import org.richfaces.component.event.ScheduleItemMoveEvent;
-import org.richfaces.component.event.ScheduleItemResizeEvent;
-import org.richfaces.component.event.ScheduleItemSelectEvent;
-import org.richfaces.component.event.ScheduleViewChangeEvent;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -29,13 +15,28 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSObject;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.component.AbstractSchedule;
+import org.richfaces.component.AbstractScheduleAgendaDayView;
+import org.richfaces.component.AbstractScheduleAgendaWeekView;
+import org.richfaces.component.AbstractScheduleBasicDayView;
+import org.richfaces.component.AbstractScheduleBasicWeekView;
+import org.richfaces.component.AbstractScheduleMonthView;
+import org.richfaces.component.ScheduleCommonViewAttributes;
+import org.richfaces.component.SwitchType;
+import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
+import org.richfaces.component.event.ScheduleDateRangeSelectEvent;
+import org.richfaces.component.event.ScheduleDateSelectEvent;
+import org.richfaces.component.event.ScheduleItemMoveEvent;
+import org.richfaces.component.event.ScheduleItemResizeEvent;
+import org.richfaces.component.event.ScheduleItemSelectEvent;
+import org.richfaces.component.event.ScheduleViewChangeEvent;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 @ResourceDependencies({
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),
@@ -365,13 +366,13 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
     }
 
     protected boolean isAjaxMode(AbstractSchedule component) {
-        String mode = component.getSwitchType();
-        return AbstractSchedule.SWITCH_TYPE_AJAX.equals(mode) || "".equals(mode) || null == mode;
+        SwitchType mode = component.getSwitchType();
+        return SwitchType.ajax.equals(mode) || null == mode;
     }
 
     protected boolean isClientMode(AbstractSchedule component) {
-        String mode = component.getSwitchType();
-        return AbstractSchedule.SWITCH_TYPE_CLIENT.equals(mode);
+        SwitchType mode = component.getSwitchType();
+        return SwitchType.client.equals(mode);
     }
 
     private void addOptionHash(String attribute, UIComponent source, Map<String, Object> options) {

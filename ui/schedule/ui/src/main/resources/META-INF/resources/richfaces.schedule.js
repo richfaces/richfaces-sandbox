@@ -4,8 +4,7 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
 
     var _this = this;
     this.scheduleNode = document.getElementById(id);
-    this.scheduleNode.richfaces = {};
-    this.scheduleNode.richfaces.component = this;
+    this.scheduleNode[RichFaces.RICH_CONTAINER] = {component: this};
     if (!this.scheduleNode) {
         throw "No element with id '" + id + "' found.";
     }
@@ -24,6 +23,10 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
     /**
      * Utility functions.
      */
+    var getResponseData = function(event) {
+    	return event.componentData[id];
+    }
+    
     //    ---
     /**
      * Converts javascript date into integer that can be used as param
@@ -90,7 +93,8 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                     formatDateParam(startDate),
                     formatDateParam(endDate),
                     null, null, null,
-                    function(event, data) {
+                    function(event) {
+            			var data = getResponseData(event);
                         if (data != undefined) {
                             callback(data);
                         }
@@ -169,7 +173,9 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                     null,
                     null,
                     dayDelta, minuteDelta, allDay,
-                    function(event, decision) {
+                    function(event) {
+            			var decision = getResponseData(event);
+
                         var vetoed = false;
                         if (decision != undefined && decision !== true) {
                             revertFunc();
@@ -249,7 +255,8 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                     null,
                     null,
                     dayDelta, minuteDelta, null,
-                    function(event, decision) {
+                    function(event) {
+            			var decision = getResponseData(event);
                         var vetoed = false;
                         if (decision != undefined && decision !== true) {
                             revertFunc();
@@ -319,7 +326,9 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                     null,
                     itemSelectEventName,
                     item.id,
-                    null, null, null, null, null, function(event, data) {
+                    null, null, null, null, null, function(event) {
+    			var data = getResponseData(event);
+
                 if (options.onitemselect != null) {
                     RichFaces.Schedule.eval("(function(){" + options.onitemselect + "})()", {
                         'item':item,
@@ -354,7 +363,8 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
             submitEventFunction(event,
                     null,
                     dateSelectEventName,
-                    null, formatDateParam(date), null, null, null, allDay, function(event, data) {
+                    null, formatDateParam(date), null, null, null, allDay, function(event) {
+    			var data = getResponseData(event);
                 if (options.ondateselect != null) {
                     RichFaces.Schedule.eval("(function(){" + options.ondateselect + "})()", {
                         'date':date,
@@ -383,7 +393,8 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                 submitEventFunction({},
                         view.name,
                         viewChangeEventName,
-                        null, null, null, null, null, null, function(event, data) {
+                        null, null, null, null, null, null, function(event) {
+        			var data = getResponseData(event);
                     if (options.onviewchange != null) {
                         RichFaces.Schedule.eval("(function(){" + options.onviewchange + "})()", {
                             'view':view,
@@ -433,7 +444,8 @@ RichFaces.Schedule = function(id, locale, options, dateRangeChangeEventName, ite
                     null,
                     dateRangeSelectEventName,
                     null, formatDateParam(startDate), formatDateParam(endDate), null, null, allDay,
-                    function(event, data) {
+                    function(event) {
+            			var data = getResponseData(event);
                         _this.refetchItems();
                         if (options.ondaterangeselect != null) {
                             RichFaces.Schedule.eval("(function(){" + options.ondaterangeselect + "})()", {

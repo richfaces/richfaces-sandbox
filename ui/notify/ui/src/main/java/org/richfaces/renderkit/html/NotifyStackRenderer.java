@@ -22,21 +22,22 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractNotifyStack;
-import org.richfaces.renderkit.AjaxComponentRendererBase;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractNotifyStack;
+import org.richfaces.renderkit.AjaxComponentRendererBase;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.util.RendererUtils;
 
 @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE)
 @ResourceDependencies({
@@ -54,12 +55,12 @@ public class NotifyStackRenderer extends AjaxComponentRendererBase {
             return;
         }
         ResponseWriter writer = context.getResponseWriter();
-        writer.startElement(HTML.SCRIPT_ELEM, null);
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, null);
         writer.writeText(new JSFunction("RichFaces.NotifyStack.register",
             RendererUtils.getInstance().clientId(context, component),
             getOptions((AbstractNotifyStack) component)
         ), null);
-        writer.endElement(HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
     protected Map<String, Object> getOptions(AbstractNotifyStack stack) throws IOException {

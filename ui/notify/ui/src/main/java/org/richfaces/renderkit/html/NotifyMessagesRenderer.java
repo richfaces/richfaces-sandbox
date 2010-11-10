@@ -22,18 +22,19 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractNotify;
-import org.richfaces.component.AbstractNotifyMessages;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractNotify;
+import org.richfaces.component.AbstractNotifyMessages;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.util.RendererUtils;
 
 @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE)
 public class NotifyMessagesRenderer extends NotifyRenderer {
@@ -44,8 +45,8 @@ public class NotifyMessagesRenderer extends NotifyRenderer {
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         AbstractNotifyMessages messagesComponent = (AbstractNotifyMessages) component;
         ResponseWriter writer = context.getResponseWriter();
-        writer.startElement(HTML.DIV_ELEM, null);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, RendererUtils.getInstance().clientId(context, component), "type");
+        writer.startElement(HtmlConstants.DIV_ELEM, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, RendererUtils.getInstance().clientId(context, component), "type");
         Integer delay = messagesComponent.getDelay();
         if (delay == null) {
             delay = 0;
@@ -98,6 +99,6 @@ public class NotifyMessagesRenderer extends NotifyRenderer {
             delay += interval;
             msg.rendered();
         }
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 }

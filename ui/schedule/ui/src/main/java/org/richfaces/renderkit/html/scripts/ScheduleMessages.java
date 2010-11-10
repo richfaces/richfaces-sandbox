@@ -1,13 +1,5 @@
 package org.richfaces.renderkit.html.scripts;
 
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.richfaces.resource.AbstractCacheableResource;
-import org.richfaces.resource.DynamicResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +9,24 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.resource.AbstractCacheableResource;
+import org.richfaces.resource.DynamicResource;
+
 @DynamicResource
 public class ScheduleMessages extends AbstractCacheableResource {
 
     public static final String BUNDLE_NAME = "org.richfaces.component.UIScheduleMessages";
     private static final String MESSAGE_KEY_BASE = "org.richfaces.component.UISchedule.";
-    private static final Logger LOG = LoggerFactory.getLogger(ScheduleMessages.class);
+    private static final Logger LOG = LogFactory.getLogger(ScheduleMessages.class);
 
     public ScheduleMessages() {
-        setContentType(RendererUtils.HTML.JAVASCRIPT_TYPE);
+        setContentType(HtmlConstants.JAVASCRIPT_TYPE);
     }
 
     @Override

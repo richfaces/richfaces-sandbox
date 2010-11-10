@@ -21,22 +21,18 @@
  */
 package org.richfaces.component;
 
-import org.ajax4jsf.component.AjaxComponent;
-import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.event.AjaxEvent;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.event.*;
-import org.richfaces.component.model.DateRange;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.el.ELContext;
 import javax.el.MethodExpression;
@@ -53,18 +49,36 @@ import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.faces.model.ScalarDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+
+import org.ajax4jsf.component.AjaxComponent;
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Signature;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
+import org.richfaces.component.event.ScheduleDateRangeChangeListener;
+import org.richfaces.component.event.ScheduleDateRangeSelectEvent;
+import org.richfaces.component.event.ScheduleDateRangeSelectListener;
+import org.richfaces.component.event.ScheduleDateSelectEvent;
+import org.richfaces.component.event.ScheduleDateSelectListener;
+import org.richfaces.component.event.ScheduleItemMoveEvent;
+import org.richfaces.component.event.ScheduleItemMoveListener;
+import org.richfaces.component.event.ScheduleItemResizeEvent;
+import org.richfaces.component.event.ScheduleItemResizeListener;
+import org.richfaces.component.event.ScheduleItemSelectEvent;
+import org.richfaces.component.event.ScheduleItemSelectListener;
+import org.richfaces.component.event.ScheduleListenerEventsProducer;
+import org.richfaces.component.event.ScheduleViewChangeEvent;
+import org.richfaces.component.event.ScheduleViewChangeListener;
+import org.richfaces.component.model.DateRange;
 
 /**
  * Base class for generation of UISchedule component.
@@ -138,9 +152,9 @@ public abstract class AbstractSchedule extends UIComponentBase
 
     public abstract void setDate(Date date);
 
-    @Attribute(defaultValue = DEFAULT_SWITCH_TYPE,
+    @Attribute(defaultValue = "SwitchType." + DEFAULT_SWITCH_TYPE,
         suggestedValue = SWITCH_TYPE_AJAX + "," + SWITCH_TYPE_SERVER + "," + SWITCH_TYPE_CLIENT)
-    public abstract String getSwitchType();
+    public abstract SwitchType getSwitchType();
 
     @Attribute(defaultValue = DEFAULT_VIEW,
         suggestedValue = VIEW_MONTH
@@ -322,6 +336,13 @@ public abstract class AbstractSchedule extends UIComponentBase
     @Attribute
     public abstract String getWidgetVar();
 
+    private void setResponseData(Object data) {
+        FacesContext facesContext = getFacesContext();
+        AjaxContext ajaxContext = AjaxContext.getCurrentInstance(facesContext);
+        
+        ajaxContext.getResponseComponentDataMap().put(getClientId(facesContext), data);
+    }
+    
     /**
      * React on various events.
      * Vetoable events are first broadcasted to listeners bound via EL to
@@ -346,7 +367,6 @@ public abstract class AbstractSchedule extends UIComponentBase
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof ScheduleDateRangeChangeEvent) {
             super.broadcast(event);
-            new AjaxEvent(this).queue();
             ScheduleDateRangeChangeEvent calendarAjaxEvent = (ScheduleDateRangeChangeEvent) event;
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getDateRangeChangeListener();
@@ -354,7 +374,7 @@ public abstract class AbstractSchedule extends UIComponentBase
                 expression.invoke(facesContext.getELContext(), new Object[]{event});
             }
             try {
-                setData(getScheduleData(calendarAjaxEvent.getStartDate(), calendarAjaxEvent.getEndDate()));
+                setResponseData(getScheduleData(calendarAjaxEvent.getStartDate(), calendarAjaxEvent.getEndDate()));
             } catch (IOException ex) {
                 getFacesContext().getExternalContext().log("Cannot get schedule data", ex);
             }
@@ -366,9 +386,8 @@ public abstract class AbstractSchedule extends UIComponentBase
                 Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
                 allow = (Boolean) result;
             }
-            setData(allow);
+            setResponseData(allow);
             super.broadcast(event);
-            new AjaxEvent(this).queue();
         } else if (event instanceof ScheduleItemResizeEvent) {
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getItemResizeListener();
@@ -377,12 +396,10 @@ public abstract class AbstractSchedule extends UIComponentBase
                 Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
                 allow = ((Boolean) result);
             }
-            setData(allow);
+            setResponseData(allow);
             super.broadcast(event);
-            new AjaxEvent(this).queue();
         } else if (event instanceof ScheduleItemSelectEvent) {
             super.broadcast(event);
-            new AjaxEvent(this).queue();
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getItemSelectListener();
             if (expression != null) {
@@ -390,7 +407,6 @@ public abstract class AbstractSchedule extends UIComponentBase
             }
         } else if (event instanceof ScheduleViewChangeEvent) {
             super.broadcast(event);
-            new AjaxEvent(this).queue();
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getViewChangeListener();
             if (expression != null) {
@@ -398,7 +414,6 @@ public abstract class AbstractSchedule extends UIComponentBase
             }
         } else if (event instanceof ScheduleDateSelectEvent) {
             super.broadcast(event);
-            new AjaxEvent(this).queue();
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getDateSelectListener();
             if (expression != null) {
@@ -406,37 +421,36 @@ public abstract class AbstractSchedule extends UIComponentBase
             }
         } else if (event instanceof ScheduleDateRangeSelectEvent) {
             super.broadcast(event);
-            new AjaxEvent(this).queue();
             FacesContext facesContext = getFacesContext();
             MethodExpression expression = getDateRangeSelectListener();
             if (expression != null) {
                 expression.invoke(facesContext.getELContext(), new Object[]{event});
             }
-        } else if (event instanceof AjaxEvent) {
-            FacesContext context = getFacesContext();
-            // complete re-Render fields. AjaxEvent deliver before render
-            // response.
-            AjaxContext.getCurrentInstance(context).addRegionsFromComponent(this);
-            // Put data for send in response
-            Object data = getData();
-            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-            if (null != data) {
-                ajaxContext.setResponseData(data);
-            }
-            String focus = getFocus();
-            if (null != focus) {
-                // search for component in tree.
-                // XXX - use more pourful search, as in h:outputLabel
-                // component.
-//                UIComponent focusComponent = RendererUtils.getInstance().
-//                    findComponentFor(this, focus);
-//                if (null != focusComponent) {
-//                    focus = focusComponent.getClientId(context);
-//                }
-//                TODO put focus data here
-//                ajaxContext.getResponseDataMap().put(AjaxActionComponent.FOCUS_DATA_ID, focus);
-            }
-            ajaxContext.setOncomplete(getOncomplete());
+//        } else if (event instanceof AjaxEvent) {
+//            FacesContext context = getFacesContext();
+//            // complete re-Render fields. AjaxEvent deliver before render
+//            // response.
+//            AjaxContext.getCurrentInstance(context).addRegionsFromComponent(this);
+//            // Put data for send in response
+//            Object data = getData();
+//            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
+//            if (null != data) {
+//                ajaxContext.setResponseData(data);
+//            }
+//            String focus = getFocus();
+//            if (null != focus) {
+//                // search for component in tree.
+//                // XXX - use more pourful search, as in h:outputLabel
+//                // component.
+////                UIComponent focusComponent = RendererUtils.getInstance().
+////                    findComponentFor(this, focus);
+////                if (null != focusComponent) {
+////                    focus = focusComponent.getClientId(context);
+////                }
+////                TODO put focus data here
+////                ajaxContext.getResponseDataMap().put(AjaxActionComponent.FOCUS_DATA_ID, focus);
+//            }
+//            ajaxContext.setOncomplete(getOncomplete());
         } else {
             super.broadcast(event);
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el"
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:cdk="http://richfaces.org/cdk/core"
-          xmlns:c="http://richfaces.org/cdk/jstl/core"
-          xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
           xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
     <cc:interface>
@@ -17,7 +17,7 @@
 
     <cc:implementation>
         <cdk:call
-                expression="org.richfaces.component.util.FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, component);"/>
+                expression="org.richfaces.renderkit.util.FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, component);"/>
         <div id="#{clientId}" class="rich-schedule #{component.attributes['styleClass']}"/>
         <script type="text/javascript">
             <cdk:call expression="writeInitFunction(facesContext,component);"/>

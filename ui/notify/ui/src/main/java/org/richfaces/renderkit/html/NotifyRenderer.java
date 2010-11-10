@@ -22,23 +22,24 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.AjaxComponentRendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractNotify;
-import org.richfaces.component.AbstractNotifyStack;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractNotify;
+import org.richfaces.component.AbstractNotifyStack;
+import org.richfaces.renderkit.AjaxComponentRendererBase;
+import org.richfaces.renderkit.HtmlConstants;
 
 @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE)
 @ResourceDependencies({
@@ -77,14 +78,14 @@ public class NotifyRenderer extends AjaxComponentRendererBase {
             return;
         }
         ResponseWriter writer = context.getResponseWriter();
-        writer.startElement(HTML.DIV_ELEM, null);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, getUtils().clientId(context, component), "type");
-        writer.startElement(HTML.SCRIPT_ELEM, null);
-        writer.writeAttribute(HTML.TYPE_ATTR, "text/javascript", "type");
+        writer.startElement(HtmlConstants.DIV_ELEM, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getUtils().clientId(context, component), "type");
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
         writer.writeText(new JSFunction("RichFaces.Notify", getOptions(context, (AbstractNotify) component)), null);
         writer.writeText(";", null);
-        writer.endElement(HTML.SCRIPT_ELEM);
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     protected Map<String, Object> getOptions(FacesContext context, AbstractNotify notify) throws IOException {
