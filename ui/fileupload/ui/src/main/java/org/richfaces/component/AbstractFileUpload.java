@@ -21,8 +21,16 @@
  */
 package org.richfaces.component;
 
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -37,7 +45,8 @@ import org.richfaces.request.MultipartRequest;
  */
 @JsfComponent(tag = @Tag(handler = "org.richfaces.view.facelets.FileUploadHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
-public abstract class AbstractFileUpload extends UIComponentBase {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractFileUpload extends UIComponentBase implements ComponentSystemEventListener {
     
     @Override
     public void decode(FacesContext context) {
@@ -49,6 +58,20 @@ public abstract class AbstractFileUpload extends UIComponentBase {
         }
     }
     
+    public boolean isListenerForSource(Object source) {
+        return true;
+    }
+    
+    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        Map<String, UIComponent> facets = getFacets();
+        UIComponent component = facets.get("progress");
+        if (component == null) {
+            FacesContext context = getFacesContext();
+            UIComponent pb = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE, "org.richfaces.ProgressBarRenderer");
+            pb.setId(getId() + "_pb");
+            facets.put("progress", pb);
+        }
+    }
     /**
      * <p>Add a new {@link FileUploadListener} to the set of listeners
      * interested in being notified when {@link UploadEvent}s occur.</p>

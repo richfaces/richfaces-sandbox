@@ -1,0 +1,75 @@
+.rf-fu {
+	background: '#{richSkin.tableBackgroundColor}';
+	border-color: '#{richSkin.tableBorderColor}';
+	border-style: solid;
+	border-width: 1px;
+	width: 400px; /*TODO Remove it*/
+}
+
+.rf-fu-hdr {
+	background-color: '#{richSkin.additionalBackgroundColor}';
+	border-bottom-color: '#{richSkin.tableBorderColor}';
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: '#{richSkin.tableBackgroundColor}';
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-top-color: '#{richSkin.tableBackgroundColor}';
+	border-top-style: solid;
+	border-top-width: 1px;
+	white-space: nowrap;
+}
+
+.rf-fu-lst {
+	height: 210px; /*TODO Remove it*/
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.rf-fu-btns-lft, .rf-fu-btns-rgh {
+	display: inline-block;
+	overflow: hidden;
+}
+
+.rf-fu-btns-lft {
+	width: 66%;
+}
+
+.rf-fu-btns-rgh {
+	text-align: right;
+	width: 34%;
+}
+
+.rf-fu-btn {
+	background-color: '#{richSkin.trimColor}';
+	background-image: url("#{resource['org.richfaces.images:fuBtnGrad.png']}");
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-color: '#{richSkin.tableBorderColor}';
+	border-style: solid;
+	border-width: 1px;
+	margin: 4px;
+	padding: 0px;
+}
+
+.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr {
+	background-repeat: no-repeat; 
+	color: '#{richSkin.generalTextColor}';
+	display: inline-block;
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
+	padding: 2px 2px 2px 19px;
+}
+
+.rf-fu-btn-add {
+	background-image: url("#{resource['org.richfaces:fu-add.gif']}");
+}
+
+.rf-fu-btn-uld {
+	background-image: url("#{resource['org.richfaces:fu-uld.gif']}");
+	font-weight: bold;
+}
+
+.rf-fu-btn-clr {
+	background-image: url("#{resource['org.richfaces:fu-clr.gif']}");
+}
