@@ -35,20 +35,23 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
 	</cc:interface>
 	<cc:implementation>
-		<div class="rf-fu">
+		<div id="#{clientId}" class="rf-fu">
 			<div class="rf-fu-hdr">
 				<span class="rf-fu-btns-lft">
-					<button class="rf-fu-btn">
-						<span class="rf-fu-btn-add">Add...</span>
-					</button>
-					<button class="rf-fu-btn">
-						<span class="rf-fu-btn-uld">Upload</span>
-					</button>
+					<span class="rf-fu-btn-add">
+						<span class="rf-fu-inp-cntr"> <!-- This span is needed for IE7 only. -->
+							<input type="file" class="rf-fu-inp" />
+						</span>
+						<span class="rf-fu-btn-cnt-add">Add...</span>
+					</span>
+					<span class="rf-fu-btn">
+						<span class="rf-fu-btn-cnt-uld">Upload</span>
+					</span>
 				</span>
 				<span class="rf-fu-btns-rgh">
-					<button class="rf-fu-btn">
-						<span class="rf-fu-btn-clr">Clear All</span>
-					</button>
+					<span class="rf-fu-btn">
+						<span class="rf-fu-btn-cnt-clr">Clear All</span>
+					</span>
 				</span>
 			</div>
 			<div class="rf-fu-lst" />
