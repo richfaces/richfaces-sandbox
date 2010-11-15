@@ -37,7 +37,7 @@
 	width: 34%;
 }
 
-.rf-fu-btn-add, .rf-fu-btn {
+.rf-fu-btn {
 	background-color: '#{richSkin.trimColor}';
 	background-image: url("#{resource['org.richfaces.images:fuBtnGrad.png']}");
 	background-position:left top;
@@ -45,38 +45,36 @@
 	border-color: '#{richSkin.panelBorderColor}';
 	border-style: solid;
 	border-width: 1px;
+	cursor: default;
 	display: inline-block;
 	margin: 4px;
-	padding: 1px 3px 1px 3px;
 	vertical-align: top;
 }
 
 /*TODO Add disabled state for buttons*/
 
-.rf-fu-btn-add {
-	position: relative;
-	overflow: hidden;
-}
-
-.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-uld, .rf-fu-btn-cnt-clr {
+.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr {
+	background-position: 2px 2px;
 	background-repeat: no-repeat; 
 	color: '#{richSkin.generalTextColor}';
 	display: inline-block;
 	font-family: '#{richSkin.generalFamilyFont}';
 	font-size: '#{richSkin.generalSizeFont}';
-	padding: 2px 2px 2px 19px;
+	padding: 3px 5px 3px 21px;
 }
 
-.rf-fu-btn-cnt-add {
+.rf-fu-btn-add {
 	background-image: url("#{resource['org.richfaces:fu-add.gif']}");
+	overflow: hidden;
+	position: relative;
 }
 
-.rf-fu-btn-cnt-uld {
+.rf-fu-btn-uld {
 	background-image: url("#{resource['org.richfaces:fu-uld.gif']}");
 	font-weight: bold;
 }
 
-.rf-fu-btn-cnt-clr {
+.rf-fu-btn-clr {
 	background-image: url("#{resource['org.richfaces:fu-clr.gif']}");
 }
 
@@ -91,6 +89,7 @@
 .rf-fu-inp {
 	filter: "alpha(opacity=0)";
 	font-size: 10em;
+	margin: 0;
 	opacity: 0;
 	position: absolute;
 	right: 0;
