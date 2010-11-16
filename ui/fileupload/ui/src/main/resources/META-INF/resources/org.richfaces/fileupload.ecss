@@ -23,7 +23,7 @@
 	overflow-y: auto;
 }
 
-.rf-fu-btns-lft, .rf-fu-btns-rgh {
+.rf-fu-btns-lft, .rf-fu-btns-rgh, .rf-fu-itm-lft, .rf-fu-itm-rgh {
 	display: inline-block;
 	overflow: hidden;
 }
@@ -53,13 +53,19 @@
 
 /*TODO Add disabled state for buttons*/
 
+.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr, .rf-fu-itm-lbl, .rf-fu-itm-lnk {
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
+}
+
+.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr, .rf-fu-itm-lbl  {
+	color: '#{richSkin.generalTextColor}';
+}
+
 .rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr {
 	background-position: 2px 2px;
 	background-repeat: no-repeat; 
-	color: '#{richSkin.generalTextColor}';
 	display: inline-block;
-	font-family: '#{richSkin.generalFamilyFont}';
-	font-size: '#{richSkin.generalSizeFont}';
 	padding: 3px 5px 3px 21px;
 }
 
@@ -96,3 +102,26 @@
 	top: 0;
 }
 
+.rf-fu-itm {
+	border-bottom-color: '#{richSkin.panelBorderColor}';
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	padding: 12px;
+	white-space: nowrap;
+}
+
+.rf-fu-itm-lft, .rf-fu-itm-rgh {
+	vertical-align: middle;
+}
+
+.rf-fu-itm-lft {
+	width: 85%;
+}
+
+.rf-fu-itm-rgh {
+	width: 14%;
+}
+
+.rf-fu-itm-lnk {
+	color: '#{richSkin.generalLinkColor}';
+}
