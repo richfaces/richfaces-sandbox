@@ -46,27 +46,28 @@
 	    	this.input.hide();
 	        this.input.unbind("change", this.addProxy);
 	    	var item = new Item(this.input);
-	    	this.list.append(item.html());
+	    	this.list.append(item.getJQuery());
 	    	this.input = this.cleanInput.clone();
 	    	this.inputContainer.append(this.input);
 	        this.input.change(this.addProxy);
 	    }
 	});
 	
+	var ITEM_HTML = '<div class="rf-fu-itm"><span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/></span>'
+		+ '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
+	
 	var Item = function(input) {
 		this.input = input;
 	};
 	
 	jQuery.extend(Item.prototype, {
-		html: function() { //TODO Optimize concatenation of strings.
-			return '<div class="rf-fu-itm">'
-			+	'<span class="rf-fu-itm-lft">'
-			+		'<span class="rf-fu-itm-lbl">' + this.input.val() + '</span>'
-			+	'</span>'
-			+	'<span class="rf-fu-itm-rgh">'
-			+		'<a href="#" class="rf-fu-itm-lnk">Delete</a>'
-			+	'</span>'
-			+ '</div>';
+		getJQuery: function() {
+			this.element = jQuery(ITEM_HTML);
+			this.label = this.element.children(".rf-fu-itm-lft:first").children(".rf-fu-itm-lbl:first");
+			this.link = this.element.children(".rf-fu-itm-rgh:first").children("a");
+			this.label.append(this.input.val());
+			this.link.append("Delete");
+			return this.element;
 		}
 	});
 }(window.RichFaces, jQuery));
