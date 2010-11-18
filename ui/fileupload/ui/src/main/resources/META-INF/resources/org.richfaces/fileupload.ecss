@@ -37,7 +37,7 @@
 	width: 34%;
 }
 
-.rf-fu-btn {
+.rf-fu-btn-add, .rf-fu-btn-upl, .rf-fu-btn-clr {
 	background-color: '#{richSkin.trimColor}';
 	background-image: url("#{resource['org.richfaces.images:fuBtnGrad.png']}");
 	background-position:left top;
@@ -51,36 +51,38 @@
 	vertical-align: top;
 }
 
-/*TODO Add disabled state for buttons*/
+.rf-fu-btn-upl, .rf-fu-btn-clr {
+	display: none;
+}
 
-.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr, .rf-fu-itm-lbl, .rf-fu-itm-lnk {
+.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl, .rf-fu-itm-lnk {
 	font-family: '#{richSkin.generalFamilyFont}';
 	font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr, .rf-fu-itm-lbl  {
+.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl  {
 	color: '#{richSkin.generalTextColor}';
 }
 
-.rf-fu-btn-add, .rf-fu-btn-uld, .rf-fu-btn-clr {
+.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr {
 	background-position: 2px 2px;
 	background-repeat: no-repeat; 
 	display: inline-block;
 	padding: 3px 5px 3px 21px;
 }
 
-.rf-fu-btn-add {
+.rf-fu-btn-cnt-add {
 	background-image: url("#{resource['org.richfaces:fu-add.gif']}");
 	overflow: hidden;
 	position: relative;
 }
 
-.rf-fu-btn-uld {
-	background-image: url("#{resource['org.richfaces:fu-uld.gif']}");
+.rf-fu-btn-cnt-upl {
+	background-image: url("#{resource['org.richfaces:fu-upl.gif']}");
 	font-weight: bold;
 }
 
-.rf-fu-btn-clr {
+.rf-fu-btn-cnt-clr {
 	background-image: url("#{resource['org.richfaces:fu-clr.gif']}");
 }
 
