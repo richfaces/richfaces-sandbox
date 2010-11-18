@@ -25,15 +25,17 @@ import javax.faces.event.FacesListener;
 
 /**
  * Listener for process Drop events
+ * 
  * @author shura
- *
+ * 
  */
 public interface DropListener extends FacesListener {
-	
-	/**
-	 * Process event on Drop for this component.
-	 * @param event
-	 */
-	public void processDrop(DropEvent event);
+
+    /**
+     * Process event on Drop for this component.
+     * 
+     * @param event
+     */
+    public void processDrop(DropEvent event);
 
 }

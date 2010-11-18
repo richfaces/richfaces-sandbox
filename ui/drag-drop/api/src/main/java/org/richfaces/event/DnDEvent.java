@@ -26,21 +26,23 @@ import javax.faces.event.FacesEvent;
 
 /**
  * 
- * <br /><br />
+ * <br />
+ * <br />
  * 
  * Created 12.11.2007
+ * 
  * @author Nick Belaevski
  * @since 3.2
  */
 
 public abstract class DnDEvent extends FacesEvent {
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -2455016405742082110L;
+    private static final long serialVersionUID = -2455016405742082110L;
 
-	public DnDEvent(UIComponent component) {
-		super(component);
-	}
+    public DnDEvent(UIComponent component) {
+        super(component);
+    }
 
 }

@@ -24,11 +24,10 @@ package org.richfaces.event;
 import javax.faces.event.FacesListener;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- * created 27.12.2006
+ * @author Nick Belaevski - nbelaevski@exadel.com created 27.12.2006
  * 
  */
 public interface DragListener extends FacesListener {
-	public void processDrag(DragEvent event);
+    public void processDrag(DragEvent event);
 
 }

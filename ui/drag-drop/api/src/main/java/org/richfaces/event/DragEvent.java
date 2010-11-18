@@ -28,75 +28,81 @@ import org.richfaces.component.Draggable;
 import org.richfaces.component.Dropzone;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- * created 27.12.2006
+ * @author Nick Belaevski - nbelaevski@exadel.com created 27.12.2006
  * 
  */
 public class DragEvent extends DnDEvent {
 
-	private Dropzone dropTarget;
-	private Object acceptedTypes;
-	private Object dropValue;
-	/**
+    private static final long serialVersionUID = 6179268394391836905L;
+
+    private Dropzone dropTarget;
+    private Object acceptedTypes;
+    private Object dropValue;
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 6179268394391836905L;
 
-	public DragEvent(UIComponent uiComponent) {
-		super(uiComponent);
-	}
+    public DragEvent(UIComponent uiComponent) {
+        super(uiComponent);
+    }
 
-	/* (non-Javadoc)
-	 * @see javax.faces.event.FacesEvent#isAppropriateListener(javax.faces.event.FacesListener)
-	 */
-	public boolean isAppropriateListener(FacesListener faceslistener) {
-		return faceslistener instanceof DragListener;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * javax.faces.event.FacesEvent#isAppropriateListener(javax.faces.event.
+     * FacesListener)
+     */
+    public boolean isAppropriateListener(FacesListener faceslistener) {
+        return faceslistener instanceof DragListener;
+    }
 
-	/* (non-Javadoc)
-	 * @see javax.faces.event.FacesEvent#processListener(javax.faces.event.FacesListener)
-	 */
-	public void processListener(FacesListener faceslistener) {
-		((DragListener) faceslistener).processDrag(this);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * javax.faces.event.FacesEvent#processListener(javax.faces.event.FacesListener
+     * )
+     */
+    public void processListener(FacesListener faceslistener) {
+        ((DragListener) faceslistener).processDrag(this);
+    }
 
-	public Object getDragValue() {
-		return ((Draggable) this.getSource()).getDragValue();
-	}
+    public Object getDragValue() {
+        return ((Draggable) this.getSource()).getDragValue();
+    }
 
-	public Dropzone getDropTarget() {
-		return dropTarget;
-	}
-	
-	/**
-	 * @see java.util.EventObject#toString()
-	 */
-/*	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
-		append("component", getComponent()).append("source", getSource()).append("phaseId", getPhaseId()).
-		append("dragValue", getDragValue()).
-		append("dropTarget", getDropTarget()).
-		append("dropValue", getDropValue()).
-		toString();
-	}
-*/
-	public void setDropTarget(Dropzone dropTarget) {
-		this.dropTarget = dropTarget;
-	}
+    public Dropzone getDropTarget() {
+        return dropTarget;
+    }
 
-	public Object getAcceptedTypes() {
-		return acceptedTypes;
-	}
+    /**
+     * @see java.util.EventObject#toString()
+     */
+    /*
+     * public String toString() { return new ToStringBuilder(this,
+     * ToStringStyle.MULTI_LINE_STYLE). append("component",
+     * getComponent()).append("source", getSource()).append("phaseId",
+     * getPhaseId()). append("dragValue", getDragValue()). append("dropTarget",
+     * getDropTarget()). append("dropValue", getDropValue()). toString(); }
+     */
+    public void setDropTarget(Dropzone dropTarget) {
+        this.dropTarget = dropTarget;
+    }
 
-	public void setAcceptedTypes(Object acceptedTypes) {
-		this.acceptedTypes = acceptedTypes;
-	}
+    public Object getAcceptedTypes() {
+        return acceptedTypes;
+    }
 
-	public Object getDropValue() {
-		return dropValue;
-	}
+    public void setAcceptedTypes(Object acceptedTypes) {
+        this.acceptedTypes = acceptedTypes;
+    }
 
-	public void setDropValue(Object dropValue) {
-		this.dropValue = dropValue;
-	}
+    public Object getDropValue() {
+        return dropValue;
+    }
+
+    public void setDropValue(Object dropValue) {
+        this.dropValue = dropValue;
+    }
 }

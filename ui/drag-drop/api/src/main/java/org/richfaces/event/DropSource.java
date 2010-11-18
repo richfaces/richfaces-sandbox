@@ -25,30 +25,35 @@ import javax.faces.el.MethodBinding;
 
 /**
  * Interface for component applicable to process drag/drop events.
+ * 
  * @author shura
- *
+ * 
  */
 public interface DropSource {
-	
-	/**
-	 * Append drop listener to component listeners collection
-	 * @param listener
-	 */
-	public void addDropListener(DropListener listener);
-	
-	/**
-	 * Get array of all Drop Listeners
-	 * @return
-	 */
-	public DropListener[] getDropListeners();
-	
-	/**
-	 * Remove drop listener from component listeners array.
-	 * @param listener
-	 */
-	public void removeDropListener(DropListener listener);
-	
-	public void setDropListener(MethodBinding binding);
-	public MethodBinding getDropListener();
+
+    /**
+     * Append drop listener to component listeners collection
+     * 
+     * @param listener
+     */
+    public void addDropListener(DropListener listener);
+
+    /**
+     * Get array of all Drop Listeners
+     * 
+     * @return
+     */
+    public DropListener[] getDropListeners();
+
+    /**
+     * Remove drop listener from component listeners array.
+     * 
+     * @param listener
+     */
+    public void removeDropListener(DropListener listener);
+
+    public void setDropListener(MethodBinding binding);
+
+    public MethodBinding getDropListener();
 
 }
