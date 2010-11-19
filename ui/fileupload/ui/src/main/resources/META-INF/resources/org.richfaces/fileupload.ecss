@@ -23,6 +23,10 @@
 	overflow-y: auto;
 }
 
+.rf-fu-frm {
+	display: none;
+}
+
 .rf-fu-btns-lft, .rf-fu-btns-rgh, .rf-fu-itm-lft, .rf-fu-itm-rgh {
 	display: inline-block;
 	overflow: hidden;
@@ -55,12 +59,12 @@
 	display: none;
 }
 
-.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl, .rf-fu-itm-lnk {
+.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl, .rf-fu-itm-st, .rf-fu-itm-lnk {
 	font-family: '#{richSkin.generalFamilyFont}';
 	font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl  {
+.rf-fu-btn-cnt-add, .rf-fu-btn-cnt-upl, .rf-fu-btn-cnt-clr, .rf-fu-itm-lbl, .rf-fu-itm-st  {
 	color: '#{richSkin.generalTextColor}';
 }
 
@@ -77,9 +81,12 @@
 	position: relative;
 }
 
+.rf-fu-btn-cnt-upl, .rf-fu-itm-st {
+	font-weight: bold;
+}
+
 .rf-fu-btn-cnt-upl {
 	background-image: url("#{resource['org.richfaces:fu-upl.gif']}");
-	font-weight: bold;
 }
 
 .rf-fu-btn-cnt-clr {
@@ -126,4 +133,9 @@
 
 .rf-fu-itm-lnk {
 	color: '#{richSkin.generalLinkColor}';
+}
+
+.rf-fu-itm-st {
+	display: none;
+	margin-top: 5px;
 }

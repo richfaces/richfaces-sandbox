@@ -20,13 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */ 
 (function(richfaces, jQuery) {
-	var ITEM_STATE = {
-		NEW: {},
-		IN_PROGRESS: {},
-		DONE: {}
-	};
-	
-	var ITEM_HTML = '<div class="rf-fu-itm"><span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/></span>'
+
+    var UID = "rf_fu_uid";
+    
+    var ITEM_HTML = '<div class="rf-fu-itm">'
+    	+ '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
 		+ '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
 	
     richfaces.ui = richfaces.ui || {};
@@ -40,6 +38,8 @@
 	    init: function(id) {
 	        this.id = id;
 	        this.element = jQuery(this.attachToDom());
+	        this.form = this.element.parents("form:first");
+	        this.iframe = this.element.children("iframe:first");
 	        var header = this.element.children(".rf-fu-hdr:first");
 	        var leftButtons = header.children(".rf-fu-btns-lft:first");
 	        this.addButton = leftButtons.children(".rf-fu-btn-add:first");
@@ -51,6 +51,7 @@
 	        this.cleanInput = this.input.clone();
 	        this.addProxy =  jQuery.proxy(this.__addItem, this);
 	        this.input.change(this.addProxy);
+	        this.uploadButton.click(jQuery.proxy(this.__startUpload, this));
 	        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this));
 	    },
 	    
@@ -67,8 +68,6 @@
 	    },
 	    
 	    __removeItem: function(item) {
-	    	item.input.remove();
-	    	item.element.remove();
 	    	this.items.splice(this.items.indexOf(item), 1);
 	    	this.__updateButtons();
 	    },
@@ -81,16 +80,11 @@
 	    },
 	    
 	    __updateButtons: function() {
-	    	if (this.items.length) {
-	    		var hide = true;
-	    		for ( var i = 0; i < this.items.length && hide; i++) {
-					if (this.items[i].state == ITEM_STATE.NEW) {
-			    		this.uploadButton.css("display", "inline-block");
-			    		hide = false;
-					}
-				}
-	    		if (hide) {
-		    		this.uploadButton.hide();
+	    	if (!this.loadableItem && this.list.children(".rf-fu-itm").size()) {
+				if (this.items.length) {
+		    		this.uploadButton.css("display", "inline-block");
+				} else {
+					this.uploadButton.hide();
 	    		}
 	    		this.clearButton.css("display", "inline-block");
 	    	} else {
@@ -99,14 +93,38 @@
 	    	}
 	    },
 	    
-	    __getLinkText: function(state) {
-	    	var text = "";
-	    	if (state == ITEM_STATE.NEW) {
-	    		text = "Delete";
-	    	} else if (state == ITEM_STATE.DONE) {
-	    		text = "Clear";
+	    __startUpload: function() {
+	    	this.loadableItem = this.items.shift();
+	    	this.loadableItem.startUploading();
+	    	this.__updateButtons();
+	    	this.__submit();
+	    },
+	    
+	    __submit: function() {
+	    	var originalAction = this.form.attr("action");
+	    	var originalEnctype = this.form.attr("enctype");
+	    	try {
+	    		this.loadableItem.input.attr("name", this.id);
+	    		this.form.attr("action", originalAction + "?" + UID + "=1");
+	    		this.form.attr("enctype", "multipart/form-data");
+	    		this.iframe.load(jQuery.proxy(this.__load, this));
+	    		richfaces.submitForm(this.form, null, this.id);
+	    	} finally {
+	    		this.form.attr("action", originalAction);
+	    		this.form.attr("enctype", originalEnctype);
+	    		this.loadableItem.input.removeAttr("name");
+			}
+	    },
+	    
+	    __load: function(event) {
+	    	var result = event.target.contentDocument.documentElement.id.split(":");
+	    	if (this.loadableItem && UID + 1 == result[0]) {
+	    		if ("done" == result[1]) {
+	    			this.loadableItem.finishUploading();
+	    			this.loadableItem = null;
+	    	    	this.__updateButtons();
+	    		}
 	    	}
-	    	return text;
 	    }
 	});
 	
@@ -116,20 +134,34 @@
 	
 	jQuery.extend(Item.prototype, {
 		getJQuery: function() {
-			this.state = ITEM_STATE.NEW;
 			this.input = this.fileUpload.input;
 			this.element = jQuery(ITEM_HTML);
-			this.label = this.element.children(".rf-fu-itm-lft:first").children(".rf-fu-itm-lbl:first");
+	        var leftArea = this.element.children(".rf-fu-itm-lft:first");
+			this.label = leftArea.children(".rf-fu-itm-lbl:first");
+			this.state = leftArea.children(".rf-fu-itm-st:first");
 			this.link = this.element.children(".rf-fu-itm-rgh:first").children("a");
 			this.label.html(this.input.val());
-			this.link.html(this.fileUpload.__getLinkText(this.state));
+			this.link.html("Delete");
 			
-			this.link.click(jQuery.proxy(this.remove, this));
+			this.link.click(jQuery.proxy(this.removeOrStop, this));
 			return this.element;
 		},
 	    
-	    remove: function() {
+	    removeOrStop: function() {
+	    	this.input.remove();
+	    	this.element.remove();
 	    	this.fileUpload.__removeItem(this);
+	    },
+	    
+	    startUploading: function() {
+	    	this.state.css("display", "block");;
+			this.link.html("");
+	    },
+	    
+	    finishUploading: function() {
+	    	this.input.remove();
+	    	this.state.html("Done");
+			this.link.html("Clear");
 	    }
 	});
 }(window.RichFaces, jQuery));
