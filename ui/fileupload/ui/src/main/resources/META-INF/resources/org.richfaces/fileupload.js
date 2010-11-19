@@ -102,15 +102,18 @@
 	    
 	    __submit: function() {
 	    	var originalAction = this.form.attr("action");
+	    	var originalEncoding = this.form.attr("encoding");
 	    	var originalEnctype = this.form.attr("enctype");
 	    	try {
 	    		this.loadableItem.input.attr("name", this.id);
 	    		this.form.attr("action", originalAction + "?" + UID + "=1");
+	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
 	    		this.iframe.load(jQuery.proxy(this.__load, this));
 	    		richfaces.submitForm(this.form, null, this.id);
 	    	} finally {
 	    		this.form.attr("action", originalAction);
+	    		this.form.attr("encoding", originalEncoding);
 	    		this.form.attr("enctype", originalEnctype);
 	    		this.loadableItem.input.removeAttr("name");
 			}
