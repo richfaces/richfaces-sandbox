@@ -34,10 +34,8 @@ import org.richfaces.cdk.annotations.TagType;
  */
 
 @JsfBehavior(
-    id = DragBehavior.BEHAVIOR_ID, 
-    tag = @Tag(name = "dragBehavior", 
-    handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", 
-    type = TagType.Facelets))
+    id = DragBehavior.BEHAVIOR_ID, tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
+)
 public class DragBehavior extends ClientBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DragBehavior";
