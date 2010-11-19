@@ -51,11 +51,6 @@ import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
 public class MultipartRequest extends HttpServletRequestWrapper {
 
-    /**
-     * Request parameter that allow to send HTTP error instead of html message
-     */
-    public static final String SEND_HTTP_ERROR = "_richfaces_send_http_error";
-
     public static final String TEXT_HTML = "text/html";
 
     private static final BytesHandler NOOP_HANDLER = new BytesHandler() {
@@ -70,9 +65,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
     /** Session bean name where progress bar's percent map will be stored */
     private static final String PERCENT_BEAN_NAME = "_richfaces_upload_percents";
 
-    /** Session bean name where stop keys will be stored */
-    private static final String REQUEST_KEYS_BEAN_NAME = "_richfaces_request_keys";
-
     private static final String PARAM_NAME = "name";
     private static final String PARAM_FILENAME = "filename";
     private static final String PARAM_CONTENT_TYPE = "Content-Type";
@@ -85,8 +77,8 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private static final byte CR = 0x0d;
     private static final byte LF = 0x0a;
-    private static final byte[] CR_LF = {CR, LF};
-    private static final byte[] HYPHENS = {0x2d, 0x2d}; // '--'
+    private static final byte[] CR_LF = { CR, LF };
+    private static final byte[] HYPHENS = { 0x2d, 0x2d }; // '--'
 
     private static final Pattern PARAM_VALUE_PATTERN = Pattern.compile("^\\s*([^\\s=]+)\\s*[=:]\\s*(.+)\\s*$");
 
@@ -112,12 +104,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
     private Map<String, Object> percentMap = null;
 
     private Map<String, Integer> requestSizeMap = null;
-
-    private Map<String, String> requestKeysMap = null;
-
-    private String requestKey = null;
-
-    private MultipartRequestRegistry requestRegistry;
 
     private List<String> keys = new ArrayList<String>();
 
@@ -188,25 +174,20 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private String decodeFileName(String name) {
         String fileName = null;
-
         try {
-            if (getRequest().getParameter(SEND_HTTP_ERROR) != null) {
-                fileName = new String(name.getBytes(encoding), "UTF-8");
-            } else {
-                StringBuffer buffer = new StringBuffer();
-                String[] codes = name.split(";");
-                if (codes != null) {
-                    for (String code : codes) {
-                        if (code.startsWith("&")) {
-                            String sCode = code.replaceAll("[&#]*", "");
-                            Integer iCode = Integer.parseInt(sCode);
-                            buffer.append(Character.toChars(iCode));
-                        } else {
-                            buffer.append(code);
-                        }
+            StringBuffer buffer = new StringBuffer();
+            String[] codes = name.split(";");
+            if (codes != null) {
+                for (String code : codes) {
+                    if (code.startsWith("&")) {
+                        String sCode = code.replaceAll("[&#]*", "");
+                        Integer iCode = Integer.parseInt(sCode);
+                        buffer.append(Character.toChars(iCode));
+                    } else {
+                        buffer.append(code);
                     }
-                    fileName = buffer.toString();
                 }
+                fileName = buffer.toString();
             }
         } catch (Exception e) {
             fileName = name;
@@ -407,29 +388,9 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         }
     }
 
-    public static MultipartRequest lookupRequest(FacesContext context, String uploadId) {
-        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        @SuppressWarnings("unchecked")
-        Map<String, String> requestKeys = (Map<String, String>) sessionMap.get(REQUEST_KEYS_BEAN_NAME);
-        if (requestKeys != null) {
-            String requestKey = requestKeys.get(uploadId);
-            if (requestKey != null) {
-                MultipartRequestRegistry requestRegistry = MultipartRequestRegistry.getInstance(context);
-                if (requestRegistry != null) {
-                    MultipartRequest request = requestRegistry.getRequest(requestKey);
-                    if (request != null) {
-                        return request;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
     @SuppressWarnings("unchecked")
     private void setupProgressData() {
-        if (percentMap == null || requestSizeMap == null || requestKeysMap == null) {
+        if (percentMap == null || requestSizeMap == null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             if (facesContext != null) {
                 ExternalContext externalContext = facesContext.getExternalContext();
@@ -454,25 +415,11 @@ public class MultipartRequest extends HttpServletRequestWrapper {
                                     sessionMap.put(REQUEST_SIZE_BEAN_NAME, requestSizeMap);
                                 }
                             }
-
-                            if (requestKeysMap == null) {
-                                requestKeysMap = (Map<String, String>) sessionMap.get(REQUEST_KEYS_BEAN_NAME);
-                                if (requestKeysMap == null) {
-                                    requestKeysMap = new ConcurrentHashMap<String, String>();
-                                    sessionMap.put(REQUEST_KEYS_BEAN_NAME, requestKeysMap);
-                                }
-
-                            }
                         }
 
                         percentMap.put(uploadId, Double.valueOf(0));
 
                         requestSizeMap.put(uploadId, getSize());
-
-                        requestRegistry = MultipartRequestRegistry.getInstance(facesContext);
-                        requestKey = requestRegistry.registerRequest(this);
-                        requestKeysMap.put(uploadId, requestKey);
-
                     }
                 }
             }
@@ -645,7 +592,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
                 vals.toArray(values);
                 return values;
             } else {
-                return new String[] {(String) vp.getValue() };
+                return new String[] { (String) vp.getValue() };
             }
         } else {
             return super.getParameterValues(name);
@@ -730,14 +677,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
         if (requestSizeMap != null) {
             requestSizeMap.remove(uploadId);
-        }
-
-        if (requestKeysMap != null) {
-            requestKeysMap.remove(uploadId);
-        }
-
-        if (requestRegistry != null) {
-            requestRegistry.removeRequest(requestKey);
         }
     }
 }

@@ -52,16 +52,16 @@ public class FileUploadPhaselistener implements PhaseListener {
     private static final long serialVersionUID = 138000954953175986L;
 
     private static final Pattern AMPERSAND = Pattern.compile("&+");
-    
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
-    private static final String UID = "rf_fu_uid";
+
+    private static final String UID_KEY = "rf_fu_uid";
 
     /** Flag indicating whether a temporary file should be used to cache the uploaded file */
     private boolean createTempFiles = false;
 
     private String tempFilesDirectory;
-    
+
     /** The maximum size of a file upload request. 0 means no limit. */
     private int maxRequestSize = 0;
 
@@ -73,9 +73,9 @@ public class FileUploadPhaselistener implements PhaseListener {
         } else {
             this.createTempFiles = true;
         }
-        
+
         this.tempFilesDirectory = context.getInitParameter("tempFilesDirectory");
-        
+
         param = context.getInitParameter("maxRequestSize");
         if (param != null) {
             this.maxRequestSize = Integer.parseInt(param);
@@ -87,16 +87,16 @@ public class FileUploadPhaselistener implements PhaseListener {
      * 
      * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
      */
-	public void afterPhase(PhaseEvent event) {
-		if (PhaseId.APPLY_REQUEST_VALUES.equals(event.getPhaseId())) {
-			FacesContext facesContext = event.getFacesContext();
-			Object request = facesContext.getExternalContext().getRequest();
-			if (request instanceof MultipartRequest) {
-				printResponse(facesContext, HttpServletResponse.SC_OK,
-						"<html id=\"" + UID + ((MultipartRequest)request).getUploadId() + ":done\"/>");
-			}
-		}
-	}
+    public void afterPhase(PhaseEvent event) {
+        if (PhaseId.APPLY_REQUEST_VALUES.equals(event.getPhaseId())) {
+            FacesContext facesContext = event.getFacesContext();
+            Object request = facesContext.getExternalContext().getRequest();
+            if (request instanceof MultipartRequest) {
+                printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY
+                    + ((MultipartRequest) request).getUploadId() + ":done\"/>");
+            }
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -105,75 +105,58 @@ public class FileUploadPhaselistener implements PhaseListener {
      */
     public void beforePhase(PhaseEvent event) {
         if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
-			FacesContext facesContext = event.getFacesContext();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			HttpServletRequest request = (HttpServletRequest) externalContext
-					.getRequest();
-			Map<String, String> queryParamMap = parseQueryString(request
-					.getQueryString());
-			String uid = queryParamMap.get(UID);
-			if (uid != null) {
-				if (maxRequestSize != 0
-						&& externalContext.getRequestContentLength() > maxRequestSize) {
-					boolean sendError = Boolean.parseBoolean(queryParamMap
-							.get(MultipartRequest.SEND_HTTP_ERROR));
-					if (sendError) {
-						printResponse(
-								facesContext,
-								HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE,
-								null);
-					} else {
-						printResponse(facesContext, HttpServletResponse.SC_OK,
-								"<html id=\"" + UID + uid + ":size_restricted\"/>");
-					}
-				} else if (!checkFileCount(externalContext,
-						queryParamMap.get("id"))) {
-					printResponse(facesContext, HttpServletResponse.SC_OK,
-							"<html id=\"" + UID + uid + ":forbidden\"/>");
-				} else {
-					MultipartRequest multipartRequest = new MultipartRequest(
-							request, createTempFiles, tempFilesDirectory,
-							maxRequestSize, uid);
-					try {
-						multipartRequest.parseRequest();
-						if (!multipartRequest.isDone()) {
-							printResponse(facesContext,
-									HttpServletResponse.SC_OK,
-									"<html id=\"" + UID + uid + ":stopped\"/>");
-						} else {
-							externalContext.setRequest(multipartRequest);
-						}
-					} catch (FileUploadException e) {
-						printResponse(facesContext,
-								HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-								null);
-						throw e; //TODO remove it
-					} finally {
-						multipartRequest.clearRequestData();
-					}
-				}
-			}
-		}
+            FacesContext facesContext = event.getFacesContext();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+            Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
+            String uid = queryParamMap.get(UID_KEY);
+            if (uid != null) {
+                if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
+                    printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
+                        + ":size_restricted\"/>");
+                } else if (!checkFileCount(externalContext, queryParamMap.get("id"))) {
+                    printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
+                        + ":forbidden\"/>");
+                } else {
+                    MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
+                        tempFilesDirectory, maxRequestSize, uid);
+                    try {
+                        multipartRequest.parseRequest();
+                        if (!multipartRequest.isDone()) {
+                            printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
+                                + ":stopped\"/>");
+                        } else {
+                            externalContext.setRequest(multipartRequest);
+                        }
+                    } catch (FileUploadException e) {
+                        printResponse(facesContext, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+                        throw e; // TODO remove it
+                    } finally {
+                        multipartRequest.clearRequestData();
+                    }
+                }
+            }
+        }
     }
 
     private boolean checkFileCount(ExternalContext externalContext, String idParameter) {
-        //TODO implement this method
-//        HttpSession session = externalContext.getSession(false);
-//        
-//        if (session != null) {
-//            Map<String, Integer> map = (Map<String, Integer>) session
-//        .getAttribute(FileUploadConstants.UPLOADED_COUNTER);
-//
-//            if (map != null) {
-//                String id = idParameter;
-//                if (id != null) {
-//                    Integer i = map.get(id);
-//                    if (i != null && i == 0) {
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
+        // TODO implement this method
+        // HttpSession session = externalContext.getSession(false);
+        //
+        // if (session != null) {
+        // Map<String, Integer> map = (Map<String, Integer>) session
+        // .getAttribute(FileUploadConstants.UPLOADED_COUNTER);
+        //
+        // if (map != null) {
+        // String id = idParameter;
+        // if (id != null) {
+        // Integer i = map.get(id);
+        // if (i != null && i == 0) {
+        // return false;
+        // }
+        // }
+        // }
+        // }
         return true;
     }
 
@@ -196,7 +179,7 @@ public class FileUploadPhaselistener implements PhaseListener {
                             parameters.put(name, value);
                         }
                     } catch (UnsupportedEncodingException e) {
-                        //log warning and skip this parameter
+                        // log warning and skip this parameter
                         LOGGER.warn(e.getLocalizedMessage(), e);
                     }
                 }
