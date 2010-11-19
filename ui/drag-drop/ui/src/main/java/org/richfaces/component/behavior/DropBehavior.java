@@ -23,8 +23,10 @@
 
 package org.richfaces.component.behavior;
 
+import javax.faces.render.RenderKitFactory;
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
@@ -34,13 +36,18 @@ import org.richfaces.cdk.annotations.TagType;
  */
 
 @JsfBehavior(
-    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets))
+    id = DropBehavior.BEHAVIOR_ID, renderer = @JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID),  tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets))
 public class DropBehavior extends ClientBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DropBehavior";
 
+    
     @Override
     public void setLiteralAttribute(String name, Object value) {
     }
 
+    @Override
+    public String getRendererType() {
+        return BEHAVIOR_ID;
+    }
 }

@@ -24,6 +24,8 @@ package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
 
 /**
@@ -39,4 +41,11 @@ import javax.faces.render.ClientBehaviorRenderer;
     @ResourceDependency(name = "richfaces-dnd.js")
 })
 public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
+    
+    @Override
+    public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
+        return "DropBehavior encoded";
+    }
+    
+   
 }

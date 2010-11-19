@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<faces-config version="2.0" metadata-complete="false"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<behavior>
+		<description> @author abelevich
+
+</description>
+		<behavior-id>org.richfaces.component.behavior.DropBehavior</behavior-id>
+		<behavior-class>org.richfaces.component.behavior.DropBehavior</behavior-class>
+		<behavior-extension>
+			<cdk:base-class>org.richfaces.component.behavior.DropBehavior
+			</cdk:base-class>
+			<cdk:generate>false</cdk:generate>
+		</behavior-extension>
+	</behavior>
+	<behavior>
+		<description> @author abelevich
+
+</description>
+		<behavior-id>org.richfaces.component.behavior.DragBehavior</behavior-id>
+		<behavior-class>org.richfaces.component.behavior.DragBehavior</behavior-class>
+		<behavior-extension>
+			<cdk:base-class>org.richfaces.component.behavior.DragBehavior
+			</cdk:base-class>
+			<cdk:generate>false</cdk:generate>
+		</behavior-extension>
+	</behavior>
+
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<client-behavior-renderer>
+			<client-behavior-renderer-type>org.richfaces.component.behavior.DropBehavior</client-behavior-renderer-type>
+			<client-behavior-renderer-class>org.richfaces.renderkit.DropBehaviorRendererBase</client-behavior-renderer-class>
+		</client-behavior-renderer>
+		<client-behavior-renderer>
+			<client-behavior-renderer-type>org.richfaces.component.behavior.DragBehavior</client-behavior-renderer-type>
+			<client-behavior-renderer-class>org.richfaces.renderkit.DragBehaviorRendererBase</client-behavior-renderer-class>
+		</client-behavior-renderer>
+	</render-kit>
+
+	<faces-config-extension>
+		<cdk:prefix>org.richfaces.component</cdk:prefix>
+		<cdk:taglib>
+			<cdk:shortName>dnd</cdk:shortName>
+			<cdk:uri>http://richfaces.org/dnd</cdk:uri>
+		</cdk:taglib>
+	</faces-config-extension>
+
+</faces-config>

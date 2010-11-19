@@ -24,12 +24,20 @@ package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
+import javax.faces.render.RenderKitFactory;
+
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
+import org.richfaces.component.behavior.DropBehavior;
 
 /**
  * @author abelevich
  *
  */
+
+@JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID)
 
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
@@ -39,5 +47,8 @@ import javax.faces.render.ClientBehaviorRenderer;
     @ResourceDependency(name = "richfaces-dnd.js")
 })
 public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
-    
+    @Override
+    public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
+        return "DragBehavior encoded";
+    }
 }

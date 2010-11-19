@@ -23,8 +23,11 @@
 
 package org.richfaces.component.behavior;
 
+import javax.faces.render.RenderKitFactory;
+
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
@@ -34,7 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  */
 
 @JsfBehavior(
-    id = DragBehavior.BEHAVIOR_ID, tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
+    id = DragBehavior.BEHAVIOR_ID, renderer = @JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID), tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
 )
 public class DragBehavior extends ClientBehavior {
     
@@ -44,4 +47,14 @@ public class DragBehavior extends ClientBehavior {
     public void setLiteralAttribute(String name, Object value) {
        
     }
+    
+    public String getEvent() {
+        return "mousedown";
+    }
+    
+    @Override
+    public String getRendererType() {
+        return BEHAVIOR_ID;
+    }
+
 }
