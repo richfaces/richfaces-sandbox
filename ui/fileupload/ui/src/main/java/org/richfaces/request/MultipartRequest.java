@@ -56,9 +56,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
      */
     public static final String SEND_HTTP_ERROR = "_richfaces_send_http_error";
 
-    /** Request parameter that indicates if multipart request forced by rich file upload component */
-    public static final String UPLOAD_FILES_ID = "_richfaces_upload_uid";
-
     public static final String TEXT_HTML = "text/html";
 
     private static final BytesHandler NOOP_HANDLER = new BytesHandler() {
@@ -720,7 +717,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         return "application/x-www-form-urlencoded";
     }
 
-    protected String getUploadId() {
+    public String getUploadId() {
         return uid;
     }
 

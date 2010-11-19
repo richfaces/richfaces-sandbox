@@ -51,10 +51,9 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
     @Override
     public void decode(FacesContext context) {
         super.decode(context);
-        MultipartRequest request = (MultipartRequest) context.getExternalContext().getRequestMap()
-            .get(MultipartRequest.UPLOAD_FILES_ID);
-        if (request != null) {
-            queueEvent(new UploadEvent(this, request.getUploadItems()));
+        Object request = context.getExternalContext().getRequest();
+        if (request instanceof MultipartRequest) {
+            queueEvent(new UploadEvent(this, ((MultipartRequest)request).getUploadItems()));
         }
     }
     
