@@ -24,6 +24,7 @@ package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.render.ClientBehaviorRenderer;
 
 /**
  * @author abelevich
@@ -37,6 +38,6 @@ import javax.faces.application.ResourceDependency;
     @ResourceDependency(name = "richfaces.js"), 
     @ResourceDependency(name = "richfaces-dnd.js")
 })
-public class DragBehaviorRendererBase extends AjaxComponentRendererBase {
+public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
     
 }

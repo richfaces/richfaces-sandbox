@@ -21,31 +21,29 @@
  */
 
 
-package org.richfaces.component;
+package org.richfaces.component.behavior;
 
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
+import org.ajax4jsf.component.behavior.ClientBehavior;
+import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
-
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author abelevich
  *
  */
 
-@JsfComponent(
-    generate = "org.richfaces.component.UIDragSupport",
-    renderer = @JsfRenderer(type = "org.richfaces.DragSupportRenderer"),
-    tag = @Tag(name="dragSupport"),
-    type = AbstractDragSupport.COMPONENT_TYPE,
-    family = AbstractDragSupport.COMPONENT_FAMILY
-)
-public abstract class AbstractDragSupport extends AbstractActionComponent {
+@JsfBehavior(
+    id = DropBehavior.BEHAVIOR_ID, 
+    tag = @Tag(name = "dropBehavior", 
+    handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", 
+    type = TagType.Facelets))
+public class DropBehavior extends ClientBehavior {
     
-    public static final String COMPONENT_TYPE = "org.richfaces.DragSupport";
-    
-    public static final String COMPONENT_FAMILY = "org.richfaces.DragSupport";
+    public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DropBehavior";
+
+    @Override
+    public void setLiteralAttribute(String name, Object value) {
+    }
 
 }
-
- 

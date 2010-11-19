@@ -20,27 +20,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
+package org.richfaces.component.behavior;
+
+import org.ajax4jsf.component.behavior.ClientBehavior;
+import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author abelevich
  *
  */
-@JsfComponent(
-        generate = "org.richfaces.component.UIDropSupport",
-        renderer = @JsfRenderer(type = "org.richfaces.DropSupportRenderer"),
-        tag = @Tag(name="dropSupport"),
-        type = AbstractDropSupport.COMPONENT_TYPE,
-        family = AbstractDropSupport.COMPONENT_FAMILY
-    )
-public abstract class AbstractDropSupport extends AbstractActionComponent {
-    
-    public static final String COMPONENT_TYPE = "org.richfaces.DropSupport";
-    
-    public static final String COMPONENT_FAMILY = "org.richfaces.DropSupport";
 
+@JsfBehavior(
+    id = DragBehavior.BEHAVIOR_ID, 
+    tag = @Tag(name = "dragBehavior", 
+    handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", 
+    type = TagType.Facelets))
+public class DragBehavior extends ClientBehavior {
+    
+    public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DragBehavior";
+
+    @Override
+    public void setLiteralAttribute(String name, Object value) {
+       
+    }
 }
