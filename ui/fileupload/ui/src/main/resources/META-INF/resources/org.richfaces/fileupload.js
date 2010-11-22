@@ -110,7 +110,7 @@
 	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
 	    		this.iframe.load(jQuery.proxy(this.__load, this));
-	    		richfaces.submitForm(this.form, null, this.id);
+	    		richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
 	    	} finally {
 	    		this.form.attr("action", originalAction);
 	    		this.form.attr("encoding", originalEncoding);
@@ -120,14 +120,23 @@
 	    },
 	    
 	    __load: function(event) {
-	    	var result = event.target.contentDocument.documentElement.id.split(":");
-	    	if (this.loadableItem && UID + 1 == result[0]) {
-	    		if ("done" == result[1]) {
-	    			this.loadableItem.finishUploading();
-	    			this.loadableItem = null;
-	    	    	this.__updateButtons();
-	    		}
-	    	}
+	    	if (this.loadableItem) {
+				var contentDocument = event.target.contentWindow.document;
+				contentDocument = contentDocument.XMLDocument || contentDocument;
+				var documentElement = contentDocument.documentElement;
+				if (documentElement.tagName.toUpperCase() != "HTML") {
+					jsf.ajax.response({responseXML: contentDocument}, {}); 
+					this.loadableItem.finishUploading();
+					this.loadableItem = null;
+					this.__updateButtons();
+				} else {
+					var result = documentElement.id.split(":");
+					if (UID + 1 == result[0]) {
+						if ("done" == result[1]) {
+						}
+					}
+				}
+			}
 	    }
 	});
 	
