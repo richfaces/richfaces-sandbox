@@ -62,14 +62,14 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
     }
     
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-        Map<String, UIComponent> facets = getFacets();
-        UIComponent component = facets.get("progress");
-        if (component == null) {
-            FacesContext context = getFacesContext();
-            UIComponent pb = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE, "org.richfaces.ProgressBarRenderer");
-            pb.setId(getId() + "_pb");
-            facets.put("progress", pb);
-        }
+//        Map<String, UIComponent> facets = getFacets();
+//        UIComponent component = facets.get("progress");
+//        if (component == null) {
+//            FacesContext context = getFacesContext();
+//            UIComponent pb = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE, "org.richfaces.ProgressBarRenderer");
+//            pb.setId(getId() + "_pb");
+//            facets.put("progress", pb);
+//        }
     }
     /**
      * <p>Add a new {@link FileUploadListener} to the set of listeners

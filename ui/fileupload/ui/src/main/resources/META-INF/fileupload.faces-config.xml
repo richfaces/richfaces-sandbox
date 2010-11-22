@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<lifecycle>
-		<phase-listener>org.richfaces.application.FileUploadPhaselistener</phase-listener>
-	</lifecycle>
+	<factory>
+		<partial-view-context-factory>org.richfaces.context.FileUploadPartialViewContextFactory</partial-view-context-factory>
+	</factory>
 </faces-config>

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.context;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -32,9 +32,8 @@ import java.util.regex.Pattern;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.PartialViewContextFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -47,15 +46,15 @@ import org.richfaces.request.MultipartRequest;
  * @author Konstantin Mishin
  * 
  */
-public class FileUploadPhaselistener implements PhaseListener {
-
-    private static final long serialVersionUID = 138000954953175986L;
-
-    private static final Pattern AMPERSAND = Pattern.compile("&+");
+public class FileUploadPartialViewContextFactory extends PartialViewContextFactory {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
+    private static final Pattern AMPERSAND = Pattern.compile("&+");
+
     private static final String UID_KEY = "rf_fu_uid";
+
+    private PartialViewContextFactory parentFactory;
 
     /** Flag indicating whether a temporary file should be used to cache the uploaded file */
     private boolean createTempFiles = false;
@@ -65,7 +64,8 @@ public class FileUploadPhaselistener implements PhaseListener {
     /** The maximum size of a file upload request. 0 means no limit. */
     private int maxRequestSize = 0;
 
-    public FileUploadPhaselistener() {
+    public FileUploadPartialViewContextFactory(PartialViewContextFactory parentFactory) {
+        this.parentFactory = parentFactory;
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         String param = context.getInitParameter("createTempFiles");
         if (param != null) {
@@ -82,61 +82,36 @@ public class FileUploadPhaselistener implements PhaseListener {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
-     */
-    public void afterPhase(PhaseEvent event) {
-        if (PhaseId.APPLY_REQUEST_VALUES.equals(event.getPhaseId())) {
-            FacesContext facesContext = event.getFacesContext();
-            Object request = facesContext.getExternalContext().getRequest();
-            if (request instanceof MultipartRequest) {
-                printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY
-                    + ((MultipartRequest) request).getUploadId() + ":done\"/>");
-            }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
-     */
-    public void beforePhase(PhaseEvent event) {
-        if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
-            FacesContext facesContext = event.getFacesContext();
-            ExternalContext externalContext = facesContext.getExternalContext();
-            HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-            Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
-            String uid = queryParamMap.get(UID_KEY);
-            if (uid != null) {
-                if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
-                    printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
-                        + ":size_restricted\"/>");
-                } else if (!checkFileCount(externalContext, queryParamMap.get("id"))) {
-                    printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
-                        + ":forbidden\"/>");
-                } else {
-                    MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
-                        tempFilesDirectory, maxRequestSize, uid);
-                    try {
-                        multipartRequest.parseRequest();
-                        if (!multipartRequest.isDone()) {
-                            printResponse(facesContext, HttpServletResponse.SC_OK, "<html id=\"" + UID_KEY + uid
-                                + ":stopped\"/>");
-                        } else {
-                            externalContext.setRequest(multipartRequest);
-                        }
-                    } catch (FileUploadException e) {
-                        printResponse(facesContext, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
-                        throw e; // TODO remove it
-                    } finally {
-                        multipartRequest.clearRequestData();
+    @Override
+    public PartialViewContext getPartialViewContext(FacesContext facesContext) {
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
+        String uid = queryParamMap.get(UID_KEY);
+        if (uid != null) {
+            if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
+                printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":size_restricted\"/>");
+            } else if (!checkFileCount(externalContext, queryParamMap.get("id"))) {
+                printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":forbidden\"/>");
+            } else {
+                MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
+                    tempFilesDirectory, maxRequestSize, uid);
+                try {
+                    multipartRequest.parseRequest();
+                    if (!multipartRequest.isDone()) {
+                        printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":stopped\"/>");
+                    } else {
+                        externalContext.setRequest(multipartRequest);
                     }
+                } catch (FileUploadException e) {
+                    printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":server_error\"/>");
+                    throw e; // TODO remove it
+                } finally {
+                    multipartRequest.clearRequestData();
                 }
             }
         }
+        return parentFactory.getPartialViewContext(facesContext);
     }
 
     private boolean checkFileCount(ExternalContext externalContext, String idParameter) {
@@ -190,29 +165,17 @@ public class FileUploadPhaselistener implements PhaseListener {
         }
     }
 
-    private void printResponse(FacesContext facesContext, int statusCode, String message) {
+    private void printResponse(FacesContext facesContext, String message) {
         facesContext.responseComplete();
         ExternalContext externalContext = facesContext.getExternalContext();
-        externalContext.setResponseStatus(statusCode);
-        if (statusCode == HttpServletResponse.SC_OK) {
-            externalContext.setResponseContentType(MultipartRequest.TEXT_HTML);
-            try {
-                Writer writer = externalContext.getResponseOutputWriter();
-                writer.write(message);
-                writer.close();
-            } catch (IOException e) {
-                LOGGER.error(e);
-            }
+        externalContext.setResponseStatus(HttpServletResponse.SC_OK);
+        externalContext.setResponseContentType(MultipartRequest.TEXT_HTML);
+        try {
+            Writer writer = externalContext.getResponseOutputWriter();
+            writer.write(message);
+            writer.close();
+        } catch (IOException e) {
+            LOGGER.error(e);
         }
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.faces.event.PhaseListener#getPhaseId()
-     */
-    public PhaseId getPhaseId() {
-        return PhaseId.ANY_PHASE;
-    }
-
 }

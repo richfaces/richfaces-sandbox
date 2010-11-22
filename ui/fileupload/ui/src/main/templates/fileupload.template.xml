@@ -32,6 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:component-family>org.richfaces.FileUpload</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.FileUploadRenderer</cdk:renderer-type>
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.ecss" />
+		<cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
 		<cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.js" />
 	</cc:interface>

@@ -637,10 +637,12 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     @Override
     public String getHeader(String name) {
-        if (!"Accept".equals(name)) {
-            return super.getHeader(name);
-        } else {
+        if ("Accept".equals(name)) {
             return TEXT_HTML;
+        } else if ("Faces-Request".equals(name)) {
+            return "partial/ajax";
+        } else {
+            return super.getHeader(name);
         }
     }
 
