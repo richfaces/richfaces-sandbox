@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:fu="http://richfaces.org/fileUpload">
 <!--
 JBoss, Home of Professional Open Source
@@ -41,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<br />
 			<fu:fileUpload fileUploadListener="#{fileUploadBean.listener}"/>
 			<h:outputText value="File name:" />
-			<h:outputText value="#{fileUploadBean.item.fileName}" />
+			<a4j:outputPanel ajaxRendered="true">#{fileUploadBean.item.fileName}</a4j:outputPanel>
 			<input type="submit" />
 		</h:form>
 	</h:body>
