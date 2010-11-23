@@ -39,20 +39,22 @@
 	        this.id = id;
 	        this.element = jQuery(this.attachToDom());
 	        this.form = this.element.parents("form:first");
-	        this.iframe = this.element.children("iframe:first");
 	        var header = this.element.children(".rf-fu-hdr:first");
 	        var leftButtons = header.children(".rf-fu-btns-lft:first");
 	        this.addButton = leftButtons.children(".rf-fu-btn-add:first");
-	        this.uploadButton = leftButtons.children(".rf-fu-btn-upl:first");
-	        this.clearButton = header.children(".rf-fu-btns-rgh:first").children(".rf-fu-btn-clr:first");
+	        this.uploadButton = this.addButton.next();
+	        this.clearButton = leftButtons.next().children(".rf-fu-btn-clr:first");
 	        this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
 	        this.input = this.inputContainer.children("input");
-	        this.list = this.element.children(".rf-fu-lst:first");
+	        this.list = header.next();
+	        this.progressBar = this.list.next();
+	        this.iframe = this.progressBar.next();
 	        this.cleanInput = this.input.clone();
 	        this.addProxy =  jQuery.proxy(this.__addItem, this);
 	        this.input.change(this.addProxy);
 	        this.uploadButton.click(jQuery.proxy(this.__startUpload, this));
 	        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this));
+    		this.iframe.load(jQuery.proxy(this.__load, this));
 	    },
 	    
 	    __addItem: function() {
@@ -95,7 +97,6 @@
 	    
 	    __startUpload: function() {
 	    	this.loadableItem = this.items.shift();
-	    	this.loadableItem.startUploading();
 	    	this.__updateButtons();
 	    	this.__submit();
 	    },
@@ -109,7 +110,6 @@
 	    		this.form.attr("action", originalAction + "?" + UID + "=1");
 	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
-	    		this.iframe.load(jQuery.proxy(this.__load, this));
 	    		richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
 	    	} finally {
 	    		this.form.attr("action", originalAction);
@@ -117,6 +117,7 @@
 	    		this.form.attr("enctype", originalEnctype);
 	    		this.loadableItem.input.removeAttr("name");
 			}
+	    	this.loadableItem.startUploading();
 	    },
 	    
 	    __load: function(event) {
@@ -150,8 +151,8 @@
 			this.element = jQuery(ITEM_HTML);
 	        var leftArea = this.element.children(".rf-fu-itm-lft:first");
 			this.label = leftArea.children(".rf-fu-itm-lbl:first");
-			this.state = leftArea.children(".rf-fu-itm-st:first");
-			this.link = this.element.children(".rf-fu-itm-rgh:first").children("a");
+			this.state = this.label.nextAll(".rf-fu-itm-st:first");
+			this.link = leftArea.next().children("a");
 			this.label.html(this.input.val());
 			this.link.html("Delete");
 			
@@ -166,7 +167,10 @@
 	    },
 	    
 	    startUploading: function() {
-	    	this.state.css("display", "block");;
+    		this.input.attr("name", this.fileUpload.id);
+//    		this.state.html(this.fileUpload.progressBar.detach());
+//    		richfaces.$(this.fileUpload.progressBar).poll();
+	    	this.state.css("display", "block");
 			this.link.html("");
 	    },
 	    
