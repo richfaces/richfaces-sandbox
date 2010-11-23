@@ -48,7 +48,7 @@ import org.richfaces.request.MultipartRequest;
  */
 public class FileUploadPartialViewContextFactory extends PartialViewContextFactory {
 
-    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
 
     private static final Pattern AMPERSAND = Pattern.compile("&+");
 

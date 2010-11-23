@@ -59,6 +59,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</span>
 			</div>
 			<div class="rf-fu-lst"/>
+			<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
+			<c:if test="#{progressBar.isRendered()}">
+				<cdk:call expression="progressBar.encodeAll(facesContext)" />
+			</c:if>
 			<iframe name="#{clientId}" class="rf-fu-frm"/>
 			<script type="text/javascript">new RichFaces.ui.FileUpload('#{clientId}');</script>
 		</div>
