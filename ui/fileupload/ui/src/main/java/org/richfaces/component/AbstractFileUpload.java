@@ -32,6 +32,7 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -48,6 +49,9 @@ import org.richfaces.request.MultipartRequest;
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase implements ComponentSystemEventListener {
     
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEnabled();
+
     @Override
     public void decode(FacesContext context) {
         super.decode(context);

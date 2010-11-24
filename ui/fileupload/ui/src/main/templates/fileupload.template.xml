@@ -37,34 +37,43 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.js" />
 	</cc:interface>
 	<cc:implementation>
+		<cdk:object name="enabled" value="#{component.attributes['enabled']}"/>
 		<div id="#{clientId}" class="rf-fu">
 			<div class="rf-fu-hdr">
 				<span class="rf-fu-btns-lft">
-					<span class="rf-fu-btn-add">
-						<span class="rf-fu-btn-cnt-add">
-							<span class="rf-fu-inp-cntr"> <!-- This span is needed for IE7 only. -->
-								<input type="file" class="rf-fu-inp"/>
-							</span>
+					<span class="rf-fu-btn-add#{enabled ? '' : '-dis'}">
+						<span class="rf-fu-btn-cnt-add#{enabled ? '' : '-dis'}">
+							<c:if test="#{enabled}">
+								<span class="rf-fu-inp-cntr"> <!-- This span is needed for IE7 only. -->
+									<input type="file" class="rf-fu-inp"/>
+								</span>
+							</c:if>
 							Add...
 						</span>
 					</span>
-					<span class="rf-fu-btn-upl">
-						<span class="rf-fu-btn-cnt-upl">Upload</span>
-					</span>
+					<c:if test="#{enabled}">
+						<span class="rf-fu-btn-upl">
+							<span class="rf-fu-btn-cnt-upl">Upload</span>
+						</span>
+					</c:if>
 				</span>
-				<span class="rf-fu-btns-rgh">
-					<span class="rf-fu-btn-clr">
-						<span class="rf-fu-btn-cnt-clr">Clear All</span>
+				<c:if test="#{enabled}">
+					<span class="rf-fu-btns-rgh">
+						<span class="rf-fu-btn-clr">
+							<span class="rf-fu-btn-cnt-clr">Clear All</span>
+						</span>
 					</span>
-				</span>
+				</c:if>
 			</div>
 			<div class="rf-fu-lst"/>
-			<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
-			<c:if test="#{progressBar.isRendered()}">
-				<cdk:call expression="progressBar.encodeAll(facesContext)" />
+			<c:if test="#{enabled}">
+				<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
+				<c:if test="#{progressBar.isRendered()}">
+					<cdk:call expression="progressBar.encodeAll(facesContext)" />
+				</c:if>
+				<iframe name="#{clientId}" class="rf-fu-frm"/>
+				<script type="text/javascript">new RichFaces.ui.FileUpload('#{clientId}');</script>
 			</c:if>
-			<iframe name="#{clientId}" class="rf-fu-frm"/>
-			<script type="text/javascript">new RichFaces.ui.FileUpload('#{clientId}');</script>
 		</div>
 	</cc:implementation>
 </cdk:root>
