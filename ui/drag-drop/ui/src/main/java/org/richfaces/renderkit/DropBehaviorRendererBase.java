@@ -22,30 +22,58 @@
 
 package org.richfaces.renderkit;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
+import javax.faces.render.FacesBehaviorRenderer;
+import javax.faces.render.RenderKitFactory;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.component.behavior.DropBehavior;
 
 /**
  * @author abelevich
  *
  */
 
+
+@FacesBehaviorRenderer(rendererType = DropBehavior.BEHAVIOR_ID, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
+
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "jquery-ui-core.js"),
-    @ResourceDependency(name = "jquery-dnd.js"),
-    @ResourceDependency(name = "richfaces.js"), 
-    @ResourceDependency(name = "richfaces-dnd.js")
+    @ResourceDependency(name = "richfaces.js"),
+    @ResourceDependency(name = "richfaces.js"),
+    @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
+    @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
+    @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js"),
+    @ResourceDependency(library = "org.richfaces", name = "dnd-manager.js")
 })
 public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
     
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
-        return "DropBehavior encoded";
+        UIComponent parent = behaviorContext.getComponent();
+        JSFunction function = new JSFunction("RichFaces.ui.DnDManager.droppable");
+        function.addParameter(parent.getClientId(behaviorContext.getFacesContext()));
+        function.addParameter(getOptions(behaviorContext, behavior));
+        return function.toString();
     }
     
+    public Map<String, Object> getOptions(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
+        Map<String, Object> options = new HashMap<String, Object>();
+        
+        if(behavior instanceof DropBehavior) {
+            DropBehavior dropBehavior = (DropBehavior)behavior;
+            options.put("acceptType", dropBehavior.getAcceptType());
+        }
+        
+        return options;
+    }
    
 }

@@ -1,0 +1,30 @@
+.rf-ind{
+	height:50px;
+	width:50px;
+	border:1px dotted red;
+	background-color:blue
+}
+
+.rf-ind-acpt{
+	height:50px;
+	width:50px;
+	border:1px dotted red;
+	background-color:green;
+}
+
+.rf-ind-rejt{
+	height:50px;
+	width:50px;
+	border:1px dotted green;
+	background-color:red;
+}
+
+.rf-drp-hvr{
+}
+
+.rf-drp-hvr{
+}
+
+.rf-drp-hlight{
+}
+

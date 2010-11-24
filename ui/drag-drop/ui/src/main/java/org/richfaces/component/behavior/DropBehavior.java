@@ -23,12 +23,13 @@
 
 package org.richfaces.component.behavior;
 
-import javax.faces.render.RenderKitFactory;
+import java.util.Set;
+
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * @author abelevich
@@ -36,14 +37,29 @@ import org.richfaces.cdk.annotations.TagType;
  */
 
 @JsfBehavior(
-    id = DropBehavior.BEHAVIOR_ID, renderer = @JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID),  tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets))
+    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
+)
 public class DropBehavior extends ClientBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DropBehavior";
 
+    enum PropertyKeys {
+        acceptType
+    }
+    
+    public void setAcceptType(Set<String> acceptType) {
+        getStateHelper().put(PropertyKeys.acceptType, acceptType);
+    }
+    
+    public Set<String> getAcceptType() {
+        return (Set<String>)getStateHelper().eval(PropertyKeys.acceptType);
+    }
     
     @Override
     public void setLiteralAttribute(String name, Object value) {
+        if(compare(PropertyKeys.acceptType, name)) {
+            setAcceptType(CoreAjaxRendererUtils.asSimpleSet(value));
+        }    
     }
 
     @Override

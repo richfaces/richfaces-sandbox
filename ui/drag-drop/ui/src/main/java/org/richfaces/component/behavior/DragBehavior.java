@@ -23,11 +23,8 @@
 
 package org.richfaces.component.behavior;
 
-import javax.faces.render.RenderKitFactory;
-
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
@@ -37,15 +34,40 @@ import org.richfaces.cdk.annotations.TagType;
  */
 
 @JsfBehavior(
-    id = DragBehavior.BEHAVIOR_ID, renderer = @JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID), tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
+    id = DragBehavior.BEHAVIOR_ID, tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
 )
 public class DragBehavior extends ClientBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DragBehavior";
-
+    
+    enum PropertyKeys {
+        type, indicator;
+    }
+    
+    
+    public void setIndicator(String indicator) {
+        getStateHelper().put(PropertyKeys.indicator, indicator);
+    }
+    
+    public String getIndicator() {
+        return (String)getStateHelper().get(PropertyKeys.indicator);
+    }
+    
+    public void setType(String type) {
+        getStateHelper().put(PropertyKeys.type, type);
+    }
+    
+    public String getType() {
+        return (String)getStateHelper().eval(PropertyKeys.type);
+    }
+    
     @Override
     public void setLiteralAttribute(String name, Object value) {
-       
+        if(compare(PropertyKeys.type, name)) {
+            setType((String)value);
+        } else if(compare(PropertyKeys.indicator, name)){
+            setIndicator((String)value);
+        }
     }
     
     public String getEvent() {

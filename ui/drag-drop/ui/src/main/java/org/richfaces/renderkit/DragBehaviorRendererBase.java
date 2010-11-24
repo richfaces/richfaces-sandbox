@@ -22,33 +22,83 @@
 
 package org.richfaces.renderkit;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
+import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
-import org.richfaces.component.behavior.DropBehavior;
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.component.behavior.DragBehavior;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author abelevich
  *
  */
 
-@JsfBehaviorRenderer(renderKitId=RenderKitFactory.HTML_BASIC_RENDER_KIT, type=DropBehavior.BEHAVIOR_ID)
 
+@FacesBehaviorRenderer(rendererType = DragBehavior.BEHAVIOR_ID, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
+        
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "jquery-ui-core.js"),
-    @ResourceDependency(name = "jquery-dnd.js"),
-    @ResourceDependency(name = "richfaces.js"), 
-    @ResourceDependency(name = "richfaces-dnd.js")
+    @ResourceDependency(name = "richfaces.js"),
+    @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
+    @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
+    @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js"),
+    @ResourceDependency(library = "org.richfaces", name = "dnd-manager.js")
 })
 public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
+    
+    private static final RendererUtils UTILS = RendererUtils.getInstance();
+    
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
-        return "DragBehavior encoded";
+        UIComponent parent = behaviorContext.getComponent();
+        JSFunction function = new JSFunction("RichFaces.ui.DnDManager.draggable");
+        function.addParameter(parent.getClientId(behaviorContext.getFacesContext()));
+        function.addParameter(getOptions(behaviorContext, behavior));
+        return function.toString();
     }
+    
+    public Map<String, Object> getOptions(ClientBehaviorContext clientBehaviorContext, ClientBehavior behavior) {
+        Map<String, Object> options = new HashMap<String, Object>();
+        
+        if(behavior instanceof DragBehavior) {
+            DragBehavior dragBehavior = (DragBehavior)behavior;
+            options.put("indicator", getDragIndicatorClientId(clientBehaviorContext, dragBehavior));
+            options.put("type", dragBehavior.getType());
+        }
+        
+        return options;
+    }
+    
+    public String getDragIndicatorClientId(ClientBehaviorContext clientBehaviorContext, DragBehavior dragBehavior) {
+        String indicatorId = dragBehavior.getIndicator();
+        
+        if(indicatorId != null) {
+            FacesContext facesContext = clientBehaviorContext.getFacesContext();
+            UIComponent clientBehaviorHolder = clientBehaviorContext.getComponent();
+            UIComponent indicator = getUtils().findComponentFor(facesContext, clientBehaviorHolder, indicatorId);
+            
+            if(indicator != null) {
+                indicatorId = indicator.getClientId(facesContext);
+            }
+            
+        }
+        
+        return indicatorId;
+    }
+    
+    public RendererUtils getUtils() {
+        return UTILS;
+    }
+
 }
