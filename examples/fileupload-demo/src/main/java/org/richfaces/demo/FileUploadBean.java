@@ -35,6 +35,7 @@ import org.richfaces.model.UploadItem;
 @SessionScoped
 public class FileUploadBean {
     
+    private boolean enabled = true;
     private UploadItem item;
     
     public UploadItem getItem() {
@@ -47,6 +48,14 @@ public class FileUploadBean {
     
     public void listener(UploadEvent event) throws Exception {
         item = event.getUploadItem();
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }  
 
 }
