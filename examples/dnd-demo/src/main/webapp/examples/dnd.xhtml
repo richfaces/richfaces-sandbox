@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dnd="http://richfaces.org/dnd"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+	<title>Drag-n-Drop sample</title>
+	<style type="text/css">
+.droppable {
+	border: 1px solid blue;
+	margin: 4px;
+	height: 200px;
+	width: 200px;
+	background-color: yellow;
+}
+
+.draggable {
+	border: 1px solid #000000;
+	background-color: grey;
+	opacity: 0.3;
+	margin: 2px;
+	height: 50px;
+	width: 100px;
+}
+
+.rf-ind {
+	height: 50px;
+	width: 50px;
+	border: 1px dotted red;
+	background-color: blue
+}
+
+.rf-ind-acp {
+	height: 50px;
+	width: 50px;
+	border: 1px dotted red;
+	background-color: green;
+}
+
+.rf-ind-rej {
+	height: 50px;
+	width: 50px;
+	border: 1px dotted green;
+	background-color: red;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+	
+		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej"/>
+				<dnd:dragIndicator id="ind2" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej"/>
+		
+		<table>
+			<tr>
+				<td>
+					<a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
+						<dnd:dragBehavior event="mouseover" type="drg1" indicator="ind"/>
+					</a4j:outputPanel>
+				</td> 
+				<td>
+					<a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
+						<dnd:dragBehavior event="mouseover" type="drg2" indicator="ind2"/>
+					</a4j:outputPanel>
+				</td> 
+				<td>
+					<a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
+						<dnd:dragBehavior event="mouseover" type="drg3" indicator="ind"/>
+					</a4j:outputPanel>
+				</td>
+			</tr>
+		</table> 
+		
+		<a4j:outputPanel id="drp" layout="block" styleClass="droppable">
+			<dnd:dropBehavior event="mouseover" acceptType="drg1, drg2" />
+		</a4j:outputPanel>
+	</h:form>
+</h:body>
+</html>
