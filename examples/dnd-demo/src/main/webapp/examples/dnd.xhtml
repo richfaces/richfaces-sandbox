@@ -50,33 +50,30 @@
 </h:head>
 <h:body>
 	<h:form>
-	
-		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej"/>
-				<dnd:dragIndicator id="ind2" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej"/>
-		
+		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej" />
 		<table>
 			<tr>
-				<td>
-					<a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
-						<dnd:dragBehavior event="mouseover" type="drg1" indicator="ind"/>
-					</a4j:outputPanel>
-				</td> 
-				<td>
-					<a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
-						<dnd:dragBehavior event="mouseover" type="drg2" indicator="ind2"/>
-					</a4j:outputPanel>
-				</td> 
-				<td>
-					<a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
-						<dnd:dragBehavior event="mouseover" type="drg3" indicator="ind"/>
-					</a4j:outputPanel>
-				</td>
+				<td><a4j:outputPanel id="drg1" layout="block"
+					styleClass="draggable">
+					<dnd:dragBehavior event="mouseover" type="drg1" indicator="ind" />
+				</a4j:outputPanel></td>
+				<td><a4j:outputPanel id="drg2" layout="block"
+					styleClass="draggable">
+					<dnd:dragBehavior event="mouseover" type="drg2" indicator="ind" />
+				</a4j:outputPanel></td>
+				<td><a4j:outputPanel id="drg3" layout="block"
+					styleClass="draggable">
+					<dnd:dragBehavior event="mouseover" type="drg3" indicator="ind" />
+				</a4j:outputPanel></td>
 			</tr>
-		</table> 
-		
+		</table>
 		<a4j:outputPanel id="drp" layout="block" styleClass="droppable">
 			<dnd:dropBehavior event="mouseover" acceptType="drg1, drg2" />
 		</a4j:outputPanel>
+		
+		<h:inputText>
+			<a4j:ajax/>
+		</h:inputText>
 	</h:form>
 </h:body>
 </html>
