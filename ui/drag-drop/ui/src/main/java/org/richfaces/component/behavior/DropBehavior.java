@@ -39,12 +39,20 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 @JsfBehavior(
     id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
 )
-public class DropBehavior extends ClientBehavior {
+public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DropBehavior";
 
     enum PropertyKeys {
-        acceptType
+        acceptType, dropValue
+    }
+    
+    public void setDropValue(Object dropValue) {
+        getStateHelper().put(PropertyKeys.dropValue, dropValue);
+    }
+    
+    public Object getDropValue() {
+        return getStateHelper().get(PropertyKeys.dropValue);
     }
     
     public void setAcceptType(Set<String> acceptType) {
@@ -59,7 +67,9 @@ public class DropBehavior extends ClientBehavior {
     public void setLiteralAttribute(String name, Object value) {
         if(compare(PropertyKeys.acceptType, name)) {
             setAcceptType(CoreAjaxRendererUtils.asSimpleSet(value));
-        }    
+        } else if(compare(PropertyKeys.dropValue, name)) {
+            setDropValue(value);
+        }
     }
 
     @Override

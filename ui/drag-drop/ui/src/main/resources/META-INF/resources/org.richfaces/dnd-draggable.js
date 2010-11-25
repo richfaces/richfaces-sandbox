@@ -15,9 +15,8 @@
 		}
 		
 		this.options = options;
-			
+		
 		this.dragElement.data('type', this.options.type);
-		this.dragElement.data('indicator', this.indicator);
 		this.dragElement.data("init", true);
 			
 		this.dragElement.bind('dragstart', $.proxy(this.dragStart, this));
@@ -49,7 +48,7 @@
 					}
 					
 					if(ui.helper[0] != this.dragElement[0]) { 
-						//ugly fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
+						//fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
 						ui.helper[0] = this.dragElement[0];
 					}
 				}

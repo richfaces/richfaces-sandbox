@@ -36,14 +36,21 @@ import org.richfaces.cdk.annotations.TagType;
 @JsfBehavior(
     id = DragBehavior.BEHAVIOR_ID, tag = @Tag(name = "dragBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
 )
-public class DragBehavior extends ClientBehavior {
+public class DragBehavior extends ClientBehavior implements ClientDragBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DragBehavior";
     
     enum PropertyKeys {
-        type, indicator;
+        type, indicator, dragValue;
     }
     
+    public void setDragValue(Object dragValue) {
+        getStateHelper().put(PropertyKeys.dragValue, dragValue);
+    }
+    
+    public Object getDragValue() {
+        return getStateHelper().get(PropertyKeys.dragValue);
+    }
     
     public void setIndicator(String indicator) {
         getStateHelper().put(PropertyKeys.indicator, indicator);
@@ -67,6 +74,8 @@ public class DragBehavior extends ClientBehavior {
             setType((String)value);
         } else if(compare(PropertyKeys.indicator, name)){
             setIndicator((String)value);
+        } else if(compare(PropertyKeys.dragValue, name)) {
+            setDragValue(value);
         }
     }
     
@@ -78,5 +87,4 @@ public class DragBehavior extends ClientBehavior {
     public String getRendererType() {
         return BEHAVIOR_ID;
     }
-
 }

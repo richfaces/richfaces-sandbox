@@ -18,13 +18,13 @@
 	$.extend(rf.ui.Droppable.prototype, ( function () {
     		return {
 				drop: function(e, ui) {
-					var dragElement = ui.draggable;
 					var helper = ui.helper;
 					var indicator = rf.$(helper.attr("id"));
 					if(indicator) {
 						helper.removeClass(indicator.acceptClass());
 						helper.removeClass(indicator.rejectClass());
 					}
+					this.__callAjax(e, ui);
 				}, 
 				
 				dropover: function(event, ui) {
@@ -60,8 +60,16 @@
 							accept = (acceptType == this); 	return !(accept);
 						});
 					}	
-
 					return accept;
+				}, 
+				
+				__callAjax: function(e, ui){
+					var options = {};
+					if(ui.draggable) {
+						options['dragSource'] = ui.draggable.attr("id");
+						options['dropSource'] = this.dropElement.attr("id");
+					}
+					rf.ajax(this.dropElement[0], e, {parameters: options});
 				}
 			}
     	})());

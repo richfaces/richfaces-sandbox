@@ -23,19 +23,29 @@
 package org.richfaces.renderkit;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.component.behavior.ClientDragBehavior;
+import org.richfaces.component.behavior.ClientDropBehavior;
 import org.richfaces.component.behavior.DropBehavior;
+import org.richfaces.event.DropBehaviorEvent;
+
 
 /**
  * @author abelevich
@@ -57,6 +67,20 @@ import org.richfaces.component.behavior.DropBehavior;
 public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
     
     @Override
+    public void decode(FacesContext facesContext, UIComponent component, ClientBehavior behavior) {
+        if (null == facesContext || null == component || behavior == null) {
+            throw new NullPointerException();
+        }
+        
+        String clientId = component.getClientId(facesContext);
+        Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
+        if(clientId.equals(requestParamMap.containsKey("dropSource"))) {
+            String dragSource = (String) requestParamMap.get("dragSource");
+            facesContext.getViewRoot().invokeOnComponent(facesContext, dragSource, new DropBehaviorContextCallBack(component, (ClientDropBehavior)behavior));
+        }
+    }
+    
+    @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         UIComponent parent = behaviorContext.getComponent();
         JSFunction function = new JSFunction("RichFaces.ui.DnDManager.droppable");
@@ -68,12 +92,59 @@ public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
     public Map<String, Object> getOptions(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         Map<String, Object> options = new HashMap<String, Object>();
         
-        if(behavior instanceof DropBehavior) {
-            DropBehavior dropBehavior = (DropBehavior)behavior;
+        if(behavior instanceof ClientDropBehavior) {
+            ClientDropBehavior dropBehavior = (ClientDropBehavior)behavior;
             options.put("acceptType", dropBehavior.getAcceptType());
         }
         
         return options;
     }
-   
+    
+    private final class DropBehaviorContextCallBack implements ContextCallback {
+        
+        private ClientDropBehavior dropBehavior;
+        
+        private UIComponent dropSource;
+        
+        public DropBehaviorContextCallBack(UIComponent dropSource, ClientDropBehavior dropBehavior) {
+            this.dropSource = dropSource;
+            this.dropBehavior = dropBehavior;
+        }
+        
+        public void invokeContextCallback(FacesContext context, UIComponent target) {
+            ClientDragBehavior dragBehavior = getDragBehavior(target, "mouseover");
+            
+            if(dragBehavior != null) {
+                DropBehaviorEvent dropEvent = new DropBehaviorEvent(dropSource, dropBehavior);
+                dropEvent.setDragSource(target);
+                dropEvent.setDragValue(dragBehavior.getDragValue());
+                dropEvent.setDropValue(dropBehavior.getDropValue());
+                dropEvent.queue();
+            } else {
+                //TODO: log
+            }
+        }
+        
+        private ClientDragBehavior getDragBehavior(UIComponent parent, String event) {
+            if(parent instanceof ClientBehaviorHolder) {
+                Map<String, List<ClientBehavior>> behaviorsMap = ((ClientBehaviorHolder)parent).getClientBehaviors();
+                Set<Map.Entry<String, List<ClientBehavior>>> entries = behaviorsMap.entrySet();
+                
+                for(Entry<String, List<ClientBehavior>> entry: entries) {
+                    if(event.equals(entry.getKey())){
+                        List<ClientBehavior> behaviors = entry.getValue();
+                        for(ClientBehavior behavior: behaviors) {
+                            if(behavior instanceof ClientDragBehavior) {
+                                return (ClientDragBehavior)behavior;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            return null;
+        }
+        
+    }
+
 }

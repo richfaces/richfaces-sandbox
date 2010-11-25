@@ -37,6 +37,7 @@ import javax.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.behavior.DragBehavior;
+import org.richfaces.component.behavior.ClientDragBehavior;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
@@ -70,19 +71,16 @@ public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
     
     public Map<String, Object> getOptions(ClientBehaviorContext clientBehaviorContext, ClientBehavior behavior) {
         Map<String, Object> options = new HashMap<String, Object>();
-        
-        if(behavior instanceof DragBehavior) {
-            DragBehavior dragBehavior = (DragBehavior)behavior;
+        if(behavior instanceof ClientDragBehavior) {
+            ClientDragBehavior dragBehavior = (ClientDragBehavior)behavior;
             options.put("indicator", getDragIndicatorClientId(clientBehaviorContext, dragBehavior));
             options.put("type", dragBehavior.getType());
         }
-        
         return options;
     }
     
-    public String getDragIndicatorClientId(ClientBehaviorContext clientBehaviorContext, DragBehavior dragBehavior) {
+    public String getDragIndicatorClientId(ClientBehaviorContext clientBehaviorContext, ClientDragBehavior dragBehavior) {
         String indicatorId = dragBehavior.getIndicator();
-        
         if(indicatorId != null) {
             FacesContext facesContext = clientBehaviorContext.getFacesContext();
             UIComponent clientBehaviorHolder = clientBehaviorContext.getComponent();
@@ -91,9 +89,7 @@ public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
             if(indicator != null) {
                 indicatorId = indicator.getClientId(facesContext);
             }
-            
         }
-        
         return indicatorId;
     }
     
