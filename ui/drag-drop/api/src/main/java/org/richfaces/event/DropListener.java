@@ -21,21 +21,11 @@
 
 package org.richfaces.event;
 
-import javax.faces.event.FacesListener;
+import javax.faces.event.BehaviorListener;
 
-/**
- * Listener for process Drop events
- * 
- * @author shura
- * 
- */
-public interface DropListener extends FacesListener {
 
-    /**
-     * Process event on Drop for this component.
-     * 
-     * @param event
-     */
-    public void processDrop(DropEvent event);
+public interface DropListener extends BehaviorListener {
+    
+    public void processDrop(DropBehaviorEvent event);
 
 }

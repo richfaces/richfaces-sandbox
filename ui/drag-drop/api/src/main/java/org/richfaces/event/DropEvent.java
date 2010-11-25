@@ -65,7 +65,7 @@ public class DropEvent extends DnDEvent {
      * )
      */
     public void processListener(FacesListener listener) {
-        ((DropListener) listener).processDrop(this);
+        //((DropListener) listener).processDrop(this);
     }
 
     /**
