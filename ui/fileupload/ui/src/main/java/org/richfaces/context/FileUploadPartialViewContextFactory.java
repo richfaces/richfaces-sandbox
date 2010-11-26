@@ -48,6 +48,10 @@ import org.richfaces.request.MultipartRequest;
  */
 public class FileUploadPartialViewContextFactory extends PartialViewContextFactory {
 
+    private static enum ResponseState {
+        size_exceeded, stopped, server_error
+    };
+    
     private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
 
     private static final Pattern AMPERSAND = Pattern.compile("&+");
@@ -90,49 +94,25 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         String uid = queryParamMap.get(UID_KEY);
         if (uid != null) {
             if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
-                printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":size_restricted\"/>");
-            } else if (!checkFileCount(externalContext, queryParamMap.get("id"))) {
-                printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":forbidden\"/>");
+                printResponse(facesContext, uid, ResponseState.size_exceeded);
             } else {
                 MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
                     tempFilesDirectory, maxRequestSize, uid);
                 try {
                     multipartRequest.parseRequest();
                     if (!multipartRequest.isDone()) {
-                        printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":stopped\"/>");
+                        printResponse(facesContext, uid, ResponseState.stopped);
                     } else {
                         externalContext.setRequest(multipartRequest);
                     }
                 } catch (FileUploadException e) {
-                    printResponse(facesContext, "<html id=\"" + UID_KEY + uid + ":server_error\"/>");
-                    throw e; // TODO remove it
+                    printResponse(facesContext, uid, ResponseState.server_error);
                 } finally {
                     multipartRequest.clearRequestData();
                 }
             }
         }
         return parentFactory.getPartialViewContext(facesContext);
-    }
-
-    private boolean checkFileCount(ExternalContext externalContext, String idParameter) {
-        // TODO implement this method
-        // HttpSession session = externalContext.getSession(false);
-        //
-        // if (session != null) {
-        // Map<String, Integer> map = (Map<String, Integer>) session
-        // .getAttribute(FileUploadConstants.UPLOADED_COUNTER);
-        //
-        // if (map != null) {
-        // String id = idParameter;
-        // if (id != null) {
-        // Integer i = map.get(id);
-        // if (i != null && i == 0) {
-        // return false;
-        // }
-        // }
-        // }
-        // }
-        return true;
     }
 
     private Map<String, String> parseQueryString(String queryString) {
@@ -165,14 +145,14 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         }
     }
 
-    private void printResponse(FacesContext facesContext, String message) {
+    private void printResponse(FacesContext facesContext, String uid, ResponseState state) {
         facesContext.responseComplete();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.setResponseStatus(HttpServletResponse.SC_OK);
         externalContext.setResponseContentType(MultipartRequest.TEXT_HTML);
         try {
             Writer writer = externalContext.getResponseOutputWriter();
-            writer.write(message);
+            writer.write("<html id=\"" + UID_KEY + uid + ":" + state + "\"/>");
             writer.close();
         } catch (IOException e) {
             LOGGER.error(e);

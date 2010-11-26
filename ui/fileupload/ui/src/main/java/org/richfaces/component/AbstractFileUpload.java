@@ -33,6 +33,7 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -51,6 +52,12 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
     
     @Attribute(defaultValue = "true")
     public abstract boolean isEnabled();
+
+    @Attribute(events = @EventName("filesubmit"))
+    public abstract String getOnfilesubmit();
+
+    @Attribute(events = @EventName("uploadcomplete"))
+    public abstract String getOnuploadcomplete();
 
     @Override
     public void decode(FacesContext context) {

@@ -34,6 +34,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.ecss" />
 		<cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
 		<cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
+		<cdk:resource-dependency name="richfaces-event.js" />
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.js" />
 	</cc:interface>
 	<cc:implementation>
@@ -72,7 +73,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<cdk:call expression="progressBar.encodeAll(facesContext)" />
 				</c:if>
 				<iframe name="#{clientId}" class="rf-fu-frm"/>
-				<script type="text/javascript">new RichFaces.ui.FileUpload('#{clientId}');</script>
+				<cdk:scriptObject name="options">
+					<cdk:scriptOption attributes="onfilesubmit onuploadcomplete"/>
+				</cdk:scriptObject>
+				<script type="text/javascript">new RichFaces.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
 			</c:if>
 		</div>
 	</cc:implementation>
