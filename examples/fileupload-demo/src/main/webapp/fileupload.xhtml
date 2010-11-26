@@ -40,7 +40,25 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<f:selectItems value="#{skinBean.skins}"/>
 			</h:selectOneMenu>
 			<br />
-			<fu:fileUpload id="fu" enabled="#{fileUploadBean.enabled}" fileUploadListener="#{fileUploadBean.listener}"/>
+			<script type="text/javascript">
+			<!--
+			var onfilesubmit = function (event) {
+				var data = event.rf.data;
+				RichFaces.log.info(jQuery("<span><b>onfilesubmit: </b>" + data.name + " " + data.state + "</span>"));
+			};
+			
+			var onuploadcomplete = function (event) {
+				var data = event.rf.data;
+				var str = "";
+				RichFaces.log.info(jQuery("<b>onuploadcomplete:</b>"));
+				for (var i in data) {
+					var item = data[i];
+					RichFaces.log.info("    " + item.name + " " + item.state);
+				}
+			};
+			//-->
+			</script>
+			<fu:fileUpload id="fu" enabled="#{fileUploadBean.enabled}" fileUploadListener="#{fileUploadBean.listener}" onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)"/>
 			<h:outputText value="File name:" />
 			<a4j:outputPanel ajaxRendered="true">#{fileUploadBean.item.fileName}</a4j:outputPanel>
             <br />
@@ -50,6 +68,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </h:selectBooleanCheckbox>
             <br />
 			<input type="submit" />
+			<a4j:log />
 		</h:form>
 	</h:body>
 </html>
