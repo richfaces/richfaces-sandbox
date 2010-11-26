@@ -29,6 +29,7 @@ import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.DropListener;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
@@ -37,7 +38,7 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  */
 
 @JsfBehavior(
-    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets)
+    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.DropBehaviorHandler", type = TagType.Facelets)
 )
 public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     
@@ -63,6 +64,14 @@ public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
         return (Set<String>)getStateHelper().eval(PropertyKeys.acceptType);
     }
     
+    public void addDropListener(DropListener listener) {
+        addBehaviorListener(listener);
+    }
+
+    public void removeDropListener(DropListener listener) {
+        removeBehaviorListener(listener);
+    }
+
     @Override
     public void setLiteralAttribute(String name, Object value) {
         if(compare(PropertyKeys.acceptType, name)) {
@@ -76,4 +85,5 @@ public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     public String getRendererType() {
         return BEHAVIOR_ID;
     }
+
 }

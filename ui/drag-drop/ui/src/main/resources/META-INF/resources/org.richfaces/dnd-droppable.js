@@ -5,10 +5,8 @@
 	rf.ui.Droppable =  function(id, options) {
 		this.options = options;
 		this.dropElement = $(document.getElementById(id));
-
+		
 		this.dropElement.droppable({addClasses: false});
-		this.dropElement.droppable("option", "hoverClass", 'rf-drop-hover');
-		this.dropElement.droppable("option", "activeClass", 'rf-drop-highlight');
 		this.dropElement.data("init", true);
 		this.dropElement.bind('drop', $.proxy(this.drop, this));
 		this.dropElement.bind('dropover', $.proxy(this.dropover, this));
@@ -18,13 +16,15 @@
 	$.extend(rf.ui.Droppable.prototype, ( function () {
     		return {
 				drop: function(e, ui) {
-					var helper = ui.helper;
-					var indicator = rf.$(helper.attr("id"));
-					if(indicator) {
-						helper.removeClass(indicator.acceptClass());
-						helper.removeClass(indicator.rejectClass());
+					if(this.accept(ui.draggable)) {
+						var helper = ui.helper;
+						var indicator = rf.$(helper.attr("id"));
+						if(indicator) {
+							helper.removeClass(indicator.acceptClass());
+							helper.removeClass(indicator.rejectClass());
+						}
+						this.__callAjax(e, ui);
 					}
-					this.__callAjax(e, ui);
 				}, 
 				
 				dropover: function(event, ui) {
@@ -65,11 +65,12 @@
 				
 				__callAjax: function(e, ui){
 					var options = {};
+					var originalEvent =  this.options['event'];
 					if(ui.draggable) {
 						options['dragSource'] = ui.draggable.attr("id");
-						options['dropSource'] = this.dropElement.attr("id");
+						options['javax.faces.behavior.event'] = originalEvent.type; 
 					}
-					rf.ajax(this.dropElement[0], e, {parameters: options});
+					rf.ajax(this.dropElement[0], originalEvent, {parameters: options});
 				}
 			}
     	})());

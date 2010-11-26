@@ -36,15 +36,13 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
-import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.behavior.ClientDragBehavior;
 import org.richfaces.component.behavior.ClientDropBehavior;
 import org.richfaces.component.behavior.DropBehavior;
-import org.richfaces.event.DropBehaviorEvent;
+import org.richfaces.event.DropEvent;
 
 
 /**
@@ -64,29 +62,22 @@ import org.richfaces.event.DropBehaviorEvent;
     @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js"),
     @ResourceDependency(library = "org.richfaces", name = "dnd-manager.js")
 })
-public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
+public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
     
     @Override
     public void decode(FacesContext facesContext, UIComponent component, ClientBehavior behavior) {
         if (null == facesContext || null == component || behavior == null) {
             throw new NullPointerException();
         }
-        
-        String clientId = component.getClientId(facesContext);
+
         Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
-        if(clientId.equals(requestParamMap.containsKey("dropSource"))) {
-            String dragSource = (String) requestParamMap.get("dragSource");
-            facesContext.getViewRoot().invokeOnComponent(facesContext, dragSource, new DropBehaviorContextCallBack(component, (ClientDropBehavior)behavior));
-        }
+        String dragSource = (String) requestParamMap.get("dragSource");
+        facesContext.getViewRoot().invokeOnComponent(facesContext, dragSource, new DropBehaviorContextCallBack(component, (ClientDropBehavior)behavior));
     }
     
     @Override
-    public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
-        UIComponent parent = behaviorContext.getComponent();
-        JSFunction function = new JSFunction("RichFaces.ui.DnDManager.droppable");
-        function.addParameter(parent.getClientId(behaviorContext.getFacesContext()));
-        function.addParameter(getOptions(behaviorContext, behavior));
-        return function.toString();
+    protected String getScriptName() {
+        return "RichFaces.ui.DnDManager.droppable";
     }
     
     public Map<String, Object> getOptions(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
@@ -115,10 +106,11 @@ public class DropBehaviorRendererBase extends ClientBehaviorRenderer {
             ClientDragBehavior dragBehavior = getDragBehavior(target, "mouseover");
             
             if(dragBehavior != null) {
-                DropBehaviorEvent dropEvent = new DropBehaviorEvent(dropSource, dropBehavior);
+                DropEvent dropEvent = new DropEvent(dropSource, dropBehavior);
                 dropEvent.setDragSource(target);
                 dropEvent.setDragValue(dragBehavior.getDragValue());
                 dropEvent.setDropValue(dropBehavior.getDropValue());
+                dropEvent.setAcceptType(dropBehavior.getAcceptType());
                 dropEvent.queue();
             } else {
                 //TODO: log

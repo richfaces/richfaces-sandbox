@@ -20,23 +20,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.renderkit;
+package org.richfaces.event;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
 
 
 /**
  * @author abelevich
  *
  */
+public class MethodExpressionDropListener implements DropListener {
+    private MethodExpression methodExpression;
 
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
-    @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
-public class DragIndicatorRendererBase extends RendererBase {
+    public MethodExpressionDropListener() {
+        super();
+    }
+
+    public MethodExpressionDropListener(MethodExpression methodExpression) {
+        super();
+        this.methodExpression = methodExpression;
+    }
+
+    public void processDrop(DropEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { event });
+    }
 }

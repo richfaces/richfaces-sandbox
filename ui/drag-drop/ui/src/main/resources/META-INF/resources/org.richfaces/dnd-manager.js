@@ -9,16 +9,18 @@
 		var droppables = {};
 
 		return {
-    			draggable: function(id, options) {
+    			draggable: function(event, id, options) {
 					var draggable = draggables[id];
 					if(!draggable) {
+						options['event'] = event; 
 						draggables[id] = new rf.ui.Draggable(id, options);
 					}
 				}, 
 				
-				droppable: function(id, options) {
+				droppable: function(event, id, options) {
 					var droppable = droppables[id];
 					if(!droppable) {
+						options['event'] = event;
 						droppables[id] = new rf.ui.Droppable(id, options);
 					}
 				}

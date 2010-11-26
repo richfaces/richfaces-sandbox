@@ -31,14 +31,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
-import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.component.behavior.DragBehavior;
 import org.richfaces.component.behavior.ClientDragBehavior;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.component.behavior.DragBehavior;
 
 /**
  * @author abelevich
@@ -56,19 +53,8 @@ import org.richfaces.renderkit.util.RendererUtils;
     @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js"),
     @ResourceDependency(library = "org.richfaces", name = "dnd-manager.js")
 })
-public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
-    
-    private static final RendererUtils UTILS = RendererUtils.getInstance();
-    
-    @Override
-    public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
-        UIComponent parent = behaviorContext.getComponent();
-        JSFunction function = new JSFunction("RichFaces.ui.DnDManager.draggable");
-        function.addParameter(parent.getClientId(behaviorContext.getFacesContext()));
-        function.addParameter(getOptions(behaviorContext, behavior));
-        return function.toString();
-    }
-    
+public class DragBehaviorRendererBase extends DnDBehaviorRenderBase {
+   
     public Map<String, Object> getOptions(ClientBehaviorContext clientBehaviorContext, ClientBehavior behavior) {
         Map<String, Object> options = new HashMap<String, Object>();
         if(behavior instanceof ClientDragBehavior) {
@@ -77,6 +63,11 @@ public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
             options.put("type", dragBehavior.getType());
         }
         return options;
+    }
+    
+    @Override
+    protected String getScriptName() {
+        return "RichFaces.ui.DnDManager.draggable";
     }
     
     public String getDragIndicatorClientId(ClientBehaviorContext clientBehaviorContext, ClientDragBehavior dragBehavior) {
@@ -92,9 +83,4 @@ public class DragBehaviorRendererBase extends ClientBehaviorRenderer {
         }
         return indicatorId;
     }
-    
-    public RendererUtils getUtils() {
-        return UTILS;
-    }
-
 }
