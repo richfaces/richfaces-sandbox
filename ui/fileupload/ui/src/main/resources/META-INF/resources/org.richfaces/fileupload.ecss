@@ -110,8 +110,9 @@
 	overflow: hidden;
 	position: relative;
 }
+
 .rf-fu-btn-cnt-add-dis {
-	background-image: url("#{resource['org.richfaces:fu-add.gif']}");
+	background-image: url("#{resource['org.richfaces:fu-add-dis.gif']}");
 	color: '#{richSkin.tabDisabledTextColor}';
 }
 
