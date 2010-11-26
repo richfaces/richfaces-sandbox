@@ -27,6 +27,15 @@
     	+ '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
 		+ '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
 	
+    var ITEM_STATE = {
+    	NEW: "new",
+    	UPLOADING: "uploading",
+    	DONE: "done",
+    	SIZE_EXCEEDED: "size_exceeded",
+    	STOPPED: "stopped",
+    	SERVER_ERROR: "server_error"
+    };
+    
     richfaces.ui = richfaces.ui || {};
 
 	richfaces.ui.FileUpload = richfaces.BaseComponent.extendClass({
@@ -35,8 +44,11 @@
 	    
 	    items: [],
 	    
-	    init: function(id) {
+	    uploadedItems: [],
+	    
+	    init: function(id, options) {
 	        this.id = id;
+	        jQuery.extend(this, options);
 	        this.element = jQuery(this.attachToDom());
 	        this.form = this.element.parents("form:first");
 	        var header = this.element.children(".rf-fu-hdr:first");
@@ -55,6 +67,12 @@
 	        this.uploadButton.click(jQuery.proxy(this.__startUpload, this));
 	        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this));
     		this.iframe.load(jQuery.proxy(this.__load, this));
+	    	if (this.onfilesubmit) {
+	    		richfaces.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
+	    	}
+	    	if (this.onuploadcomplete) {
+	    		richfaces.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
+	    	}
 	    },
 	    
 	    __addItem: function() {
@@ -71,6 +89,7 @@
 	    
 	    __removeItem: function(item) {
 	    	this.items.splice(this.items.indexOf(item), 1);
+	    	this.uploadedItems.splice(this.uploadedItems.indexOf(item), 1);
 	    	this.__updateButtons();
 	    },
 	    
@@ -78,6 +97,7 @@
 	    	this.inputContainer.children(":not(:visible)").remove();
 	    	this.list.empty();
 	    	this.items.splice(0);
+	    	this.uploadedItems.splice(0);
 	    	this.__updateButtons();
 	    },
 	    
@@ -98,7 +118,7 @@
 	    __startUpload: function() {
 	    	this.loadableItem = this.items.shift();
 	    	this.__updateButtons();
-	    	this.__submit();
+	    	this.loadableItem.startUploading();
 	    },
 	    
 	    __submit: function() {
@@ -106,18 +126,17 @@
 	    	var originalEncoding = this.form.attr("encoding");
 	    	var originalEnctype = this.form.attr("enctype");
 	    	try {
-	    		this.loadableItem.input.attr("name", this.id);
 	    		this.form.attr("action", originalAction + "?" + UID + "=1");
 	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
 	    		richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
+	    		richfaces.Event.fire(this.element, "onfilesubmit", this.loadableItem.model);
 	    	} finally {
 	    		this.form.attr("action", originalAction);
 	    		this.form.attr("encoding", originalEncoding);
 	    		this.form.attr("enctype", originalEnctype);
 	    		this.loadableItem.input.removeAttr("name");
 			}
-	    	this.loadableItem.startUploading();
 	    },
 	    
 	    __load: function(event) {
@@ -128,8 +147,18 @@
 				if (documentElement.tagName.toUpperCase() != "HTML") {
 					jsf.ajax.response({responseXML: contentDocument}, {}); 
 					this.loadableItem.finishUploading();
-					this.loadableItem = null;
-					this.__updateButtons();
+					this.uploadedItems.push(this.loadableItem);
+					if (this.items.length) {
+						this.__startUpload();
+					} else {
+						this.loadableItem = null;
+						this.__updateButtons();
+						var items = [];
+			    		for (var i in this.uploadedItems) {
+			    			items.push(this.uploadedItems[i].model);
+						}
+			    		richfaces.Event.fire(this.element, "onuploadcomplete", items);
+					}
 				} else {
 					var result = documentElement.id.split(":");
 					if (UID + 1 == result[0]) {
@@ -143,19 +172,19 @@
 	
 	var Item = function(fileUpload) {
 		this.fileUpload = fileUpload;
+		this.input = fileUpload.input;
+		this.model = {name: this.input.val(), state: ITEM_STATE.NEW};
 	};
 	
 	jQuery.extend(Item.prototype, {
 		getJQuery: function() {
-			this.input = this.fileUpload.input;
 			this.element = jQuery(ITEM_HTML);
 	        var leftArea = this.element.children(".rf-fu-itm-lft:first");
 			this.label = leftArea.children(".rf-fu-itm-lbl:first");
 			this.state = this.label.nextAll(".rf-fu-itm-st:first");
 			this.link = leftArea.next().children("a");
-			this.label.html(this.input.val());
+			this.label.html(this.model.name);
 			this.link.html("Delete");
-			
 			this.link.click(jQuery.proxy(this.removeOrStop, this));
 			return this.element;
 		},
@@ -167,17 +196,20 @@
 	    },
 	    
 	    startUploading: function() {
-    		this.input.attr("name", this.fileUpload.id);
 //    		this.state.html(this.fileUpload.progressBar.detach());
 //    		richfaces.$(this.fileUpload.progressBar).poll();
 	    	this.state.css("display", "block");
 			this.link.html("");
+    		this.input.attr("name", this.fileUpload.id);
+			this.model.state = ITEM_STATE.UPLOADING;
+	    	this.fileUpload.__submit();
 	    },
 	    
 	    finishUploading: function() {
 	    	this.input.remove();
 	    	this.state.html("Done");
 			this.link.html("Clear");
+			this.model.state = ITEM_STATE.DONE;
 	    }
 	});
 }(window.RichFaces, jQuery));
