@@ -38,7 +38,7 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  */
 
 @JsfBehavior(
-    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.html.DropBehaviorHandler", type = TagType.Facelets)
+    id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.DropBehaviorHandler", type = TagType.Facelets)
 )
 public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     

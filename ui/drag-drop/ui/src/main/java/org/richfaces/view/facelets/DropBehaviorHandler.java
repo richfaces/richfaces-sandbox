@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.view.facelets.html;
+package org.richfaces.view.facelets;
 
 import javax.faces.view.facelets.BehaviorConfig;
 import javax.faces.view.facelets.FaceletContext;
@@ -32,6 +32,7 @@ import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.behavior.ClientDropBehavior;
 import org.richfaces.event.MethodExpressionDropListener;
+import org.richfaces.view.facelets.html.CustomBehaviorHandler;
 
 /**
  * @author abelevich
