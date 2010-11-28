@@ -47,6 +47,7 @@ public class FileUploadBean {
 //    }
     
     public void listener(UploadEvent event) throws Exception {
+        item.getFile().delete();
         item = event.getUploadItem();
     }
 
