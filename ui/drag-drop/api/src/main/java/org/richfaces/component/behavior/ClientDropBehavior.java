@@ -24,8 +24,7 @@ package org.richfaces.component.behavior;
 
 import java.util.Set;
 
-import javax.faces.component.behavior.ClientBehavior;
-
+import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.event.DropListener;
 
 
@@ -33,14 +32,17 @@ import org.richfaces.event.DropListener;
  * @author abelevich
  *
  */
-public interface ClientDropBehavior extends ClientBehavior{
+public interface ClientDropBehavior extends AjaxClientBehavior {
     
-    public Set<String> getAcceptType();
+    public Set<String> getAcceptedTypes();
     
     public Object getDropValue();
     
     public void addDropListener(DropListener dropListener);
     
     public void removeDropListener(DropListener dropListener);
-
+    
+    public boolean isImmediate();
+    
+    public boolean isBypassUpdates();
 }

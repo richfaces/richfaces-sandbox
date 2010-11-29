@@ -33,7 +33,7 @@ public interface ClientDragBehavior extends ClientBehavior {
     
     public String getType();
     
-    public String getIndicator();
+    public String getDragIndicator();
     
     public Object getDragValue();
 

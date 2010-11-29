@@ -41,7 +41,7 @@ public class DropEvent extends BehaviorEvent {
     
     private Object dragValue;
     
-    private Set<String> acceptType;
+    private Set<String> acceptedTypes;
     
     private UIComponent dragSource;
     
@@ -50,12 +50,12 @@ public class DropEvent extends BehaviorEvent {
         super(component, behavior);
     }
         
-    public Set<String> getAcceptType() {
-        return acceptType;
+    public Set<String> getAcceptedTypes() {
+        return acceptedTypes;
     }
 
-    public void setAcceptType(Set<String> acceptType) {
-        this.acceptType = acceptType;
+    public void setAcceptedTypes(Set<String> acceptedTypes) {
+        this.acceptedTypes = acceptedTypes;
     }
       
     public Object getDropValue() {
@@ -91,5 +91,5 @@ public class DropEvent extends BehaviorEvent {
     public void processListener(FacesListener listener) {
         ((DropListener) listener).processDrop(this);
     }
-
+ 
 }
