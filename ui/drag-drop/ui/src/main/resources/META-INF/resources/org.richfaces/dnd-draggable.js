@@ -4,7 +4,7 @@
       
 	rf.ui.Draggable =  function(id, options) {
 		this.dragElement = $(document.getElementById(id));
-		this.dragElement.draggable({addClasses: false});
+		this.dragElement.draggable({addClasses: false, appendTo: 'body'});
 
 		if(options.indicator) {
 			var element = document.getElementById(options.indicator);
@@ -30,10 +30,13 @@
 	$.extend(rf.ui.Draggable.prototype, ( function () {
     		return {
 				dragStart: function(e, ui) {
-    				if(ui.helper && this.indicator) {
-    					ui.helper.show();
+    				if(ui.helper) {
+						var element = ui.helper[0];
+						this.parentElement = element.parentNode;
+						ui.helper.detach().appendTo("body");
+						ui.helper.setPosition(e).show();
     				}
-				}, 
+    			}, 
 				
 				drag: function(e, ui) {
 					var helper = ui.helper;
@@ -43,13 +46,13 @@
 				},
 				
 				dragStop: function(e, ui){
-					if(ui.helper && this.indicator) {
+					if(ui.helper) {
 						ui.helper.hide();
-					}
-					
-					if(ui.helper[0] != this.dragElement[0]) { 
-						//fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
-						ui.helper[0] = this.dragElement[0];
+						ui.helper.detach().appendTo(this.parentElement);
+						if(ui.helper[0] != this.dragElement[0]) { 
+							//fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
+							ui.helper[0] = this.dragElement[0];
+						}
 					}
 				}
 			}

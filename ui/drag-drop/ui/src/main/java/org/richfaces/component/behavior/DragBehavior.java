@@ -41,7 +41,7 @@ public class DragBehavior extends ClientBehavior implements ClientDragBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DragBehavior";
     
     enum PropertyKeys {
-        type, indicator, dragValue;
+        type, dragIndicator, dragValue;
     }
     
     public void setDragValue(Object dragValue) {
@@ -49,15 +49,15 @@ public class DragBehavior extends ClientBehavior implements ClientDragBehavior {
     }
     
     public Object getDragValue() {
-        return getStateHelper().get(PropertyKeys.dragValue);
+        return getStateHelper().eval(PropertyKeys.dragValue);
     }
     
-    public void setIndicator(String indicator) {
-        getStateHelper().put(PropertyKeys.indicator, indicator);
+    public void setDragIndicator(String indicator) {
+        getStateHelper().put(PropertyKeys.dragIndicator, indicator);
     }
     
-    public String getIndicator() {
-        return (String)getStateHelper().get(PropertyKeys.indicator);
+    public String getDragIndicator() {
+        return (String)getStateHelper().eval(PropertyKeys.dragIndicator);
     }
     
     public void setType(String type) {
@@ -72,8 +72,8 @@ public class DragBehavior extends ClientBehavior implements ClientDragBehavior {
     public void setLiteralAttribute(String name, Object value) {
         if(compare(PropertyKeys.type, name)) {
             setType((String)value);
-        } else if(compare(PropertyKeys.indicator, name)){
-            setIndicator((String)value);
+        } else if(compare(PropertyKeys.dragIndicator, name)){
+            setDragIndicator((String)value);
         } else if(compare(PropertyKeys.dragValue, name)) {
             setDragValue(value);
         }

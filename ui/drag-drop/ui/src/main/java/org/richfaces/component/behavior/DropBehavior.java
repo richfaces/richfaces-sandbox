@@ -25,7 +25,8 @@ package org.richfaces.component.behavior;
 
 import java.util.Set;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
+
+import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
@@ -40,12 +41,12 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 @JsfBehavior(
     id = DropBehavior.BEHAVIOR_ID, tag = @Tag(name = "dropBehavior", handler = "org.richfaces.view.facelets.DropBehaviorHandler", type = TagType.Facelets)
 )
-public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
+public class DropBehavior extends AjaxBehavior implements ClientDropBehavior {
     
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.DropBehavior";
 
     enum PropertyKeys {
-        acceptType, dropValue
+        acceptedTypes, dropValue
     }
     
     public void setDropValue(Object dropValue) {
@@ -53,15 +54,15 @@ public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     }
     
     public Object getDropValue() {
-        return getStateHelper().get(PropertyKeys.dropValue);
+        return getStateHelper().eval(PropertyKeys.dropValue);
     }
     
-    public void setAcceptType(Set<String> acceptType) {
-        getStateHelper().put(PropertyKeys.acceptType, acceptType);
+    public void setAcceptedTypes(Set<String> acceptType) {
+        getStateHelper().put(PropertyKeys.acceptedTypes, acceptType);
     }
     
-    public Set<String> getAcceptType() {
-        return (Set<String>)getStateHelper().eval(PropertyKeys.acceptType);
+    public Set<String> getAcceptedTypes() {
+        return (Set<String>)getStateHelper().eval(PropertyKeys.acceptedTypes);
     }
     
     public void addDropListener(DropListener listener) {
@@ -71,16 +72,17 @@ public class DropBehavior extends ClientBehavior implements ClientDropBehavior {
     public void removeDropListener(DropListener listener) {
         removeBehaviorListener(listener);
     }
-
+    
     @Override
     public void setLiteralAttribute(String name, Object value) {
-        if(compare(PropertyKeys.acceptType, name)) {
-            setAcceptType(CoreAjaxRendererUtils.asSimpleSet(value));
+        super.setLiteralAttribute(name, value);
+        if(compare(PropertyKeys.acceptedTypes, name)) {
+            setAcceptedTypes(CoreAjaxRendererUtils.asSimpleSet(value));
         } else if(compare(PropertyKeys.dropValue, name)) {
             setDropValue(value);
         }
     }
-
+    
     @Override
     public String getRendererType() {
         return BEHAVIOR_ID;

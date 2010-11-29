@@ -56,7 +56,7 @@
 					var accept;
 					var acceptType = draggable.data("type");
 					if(acceptType) {
-						$.each(this.options.acceptType, function() {
+						$.each(this.options.acceptedTypes, function() {
 							accept = (acceptType == this); 	return !(accept);
 						});
 					}	

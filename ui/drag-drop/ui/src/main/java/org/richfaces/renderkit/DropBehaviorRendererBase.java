@@ -30,12 +30,15 @@ import java.util.Set;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
@@ -55,6 +58,7 @@ import org.richfaces.event.DropEvent;
 
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(name = "jquery.position.js"),
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
@@ -85,7 +89,7 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
         
         if(behavior instanceof ClientDropBehavior) {
             ClientDropBehavior dropBehavior = (ClientDropBehavior)behavior;
-            options.put("acceptType", dropBehavior.getAcceptType());
+            options.put("acceptedTypes", dropBehavior.getAcceptedTypes());
         }
         
         return options;
@@ -104,17 +108,50 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
         
         public void invokeContextCallback(FacesContext context, UIComponent target) {
             ClientDragBehavior dragBehavior = getDragBehavior(target, "mouseover");
-            
             if(dragBehavior != null) {
                 DropEvent dropEvent = new DropEvent(dropSource, dropBehavior);
                 dropEvent.setDragSource(target);
                 dropEvent.setDragValue(dragBehavior.getDragValue());
                 dropEvent.setDropValue(dropBehavior.getDropValue());
-                dropEvent.setAcceptType(dropBehavior.getAcceptType());
-                dropEvent.queue();
+                dropEvent.setAcceptedTypes(dropBehavior.getAcceptedTypes());
+                queueDropEvent(dropEvent);
             } else {
                 //TODO: log
             }
+        }
+        
+        private void queueDropEvent(DropEvent event) {
+            PhaseId phaseId = PhaseId.INVOKE_APPLICATION;
+            
+            if (isImmediate()) {
+                phaseId = PhaseId.APPLY_REQUEST_VALUES;
+            } else if (isBypassUpdates()) {
+                phaseId = PhaseId.PROCESS_VALIDATIONS;
+            }
+
+            event.setPhaseId(phaseId);
+            this.dropSource.queueEvent(event);
+        }
+        
+        private boolean isImmediate(){
+            boolean immediate = this.dropBehavior.isImmediate();
+            if(!immediate) {
+                if (dropSource instanceof EditableValueHolder) {
+                    immediate = ((EditableValueHolder) dropSource).isImmediate();
+                } else if (dropSource instanceof ActionSource) {
+                    immediate = ((ActionSource) dropSource).isImmediate();
+                }
+            }
+            
+            return immediate;
+        }
+        
+        private boolean isBypassUpdates(){
+            boolean bypassUpdates = this.dropBehavior.isBypassUpdates();
+            if (!bypassUpdates) {
+                bypassUpdates = getUtils().isBooleanAttribute(this.dropSource, "bypassUpdates");
+            }
+            return bypassUpdates;
         }
         
         private ClientDragBehavior getDragBehavior(UIComponent parent, String event) {

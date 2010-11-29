@@ -71,7 +71,7 @@ public class DragBehaviorRendererBase extends DnDBehaviorRenderBase {
     }
     
     public String getDragIndicatorClientId(ClientBehaviorContext clientBehaviorContext, ClientDragBehavior dragBehavior) {
-        String indicatorId = dragBehavior.getIndicator();
+        String indicatorId = dragBehavior.getDragIndicator();
         if(indicatorId != null) {
             FacesContext facesContext = clientBehaviorContext.getFacesContext();
             UIComponent clientBehaviorHolder = clientBehaviorContext.getComponent();

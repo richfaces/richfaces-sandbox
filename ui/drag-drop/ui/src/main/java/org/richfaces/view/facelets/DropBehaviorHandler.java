@@ -23,16 +23,10 @@
 package org.richfaces.view.facelets;
 
 import javax.faces.view.facelets.BehaviorConfig;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.behavior.ClientDropBehavior;
-import org.richfaces.event.MethodExpressionDropListener;
 import org.richfaces.view.facelets.html.CustomBehaviorHandler;
+import org.richfaces.view.facelets.tag.DropBehaviorRule;
 
 /**
  * @author abelevich
@@ -40,7 +34,7 @@ import org.richfaces.view.facelets.html.CustomBehaviorHandler;
  */
 public class DropBehaviorHandler extends CustomBehaviorHandler{
     
-    private static final DropBehaviorMetaRule METARULE = new DropBehaviorMetaRule();
+    private static final DropBehaviorRule METARULE = new DropBehaviorRule();
     
     public DropBehaviorHandler(BehaviorConfig config) {
         super(config);
@@ -51,29 +45,4 @@ public class DropBehaviorHandler extends CustomBehaviorHandler{
         m.addRule(METARULE);
         return m;
     }
-    
-    static class DropBehaviorMetaRule extends MetaRule {
-        public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if (meta.isTargetInstanceOf(ClientDropBehavior.class) && "dropListener".equals(name)) {
-                return new DropBehaviorMapper(attribute);
-            }
-            return null;
-        }
-    } 
-    
-    static class DropBehaviorMapper extends Metadata {
-
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DropEvent.class };
-
-        private final TagAttribute attribute;
-
-        public DropBehaviorMapper(TagAttribute attribute) {
-            this.attribute = attribute;
-        }
-
-        public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((ClientDropBehavior) instance).addDropListener((new MethodExpressionDropListener( this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
-        }
-    }
-    
 }
