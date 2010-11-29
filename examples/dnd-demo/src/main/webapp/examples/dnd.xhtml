@@ -15,6 +15,7 @@
 	height: 200px;
 	width: 200px;
 	background-color: yellow;
+	overflow: auto;
 }
 
 .draggable {
@@ -51,30 +52,33 @@
 <h:body>
 	<h:form>
 		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej" />
+		
 		<table>
 			<tr>
-				<td><a4j:outputPanel id="drg1" layout="block"
-					styleClass="draggable">
-					<dnd:dragBehavior event="mouseover" type="drg1" indicator="ind" />
+				<td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
+					<h:outputText value="#{dataBean.dragValue1}"/>
+					<dnd:dragBehavior event="mouseover" type="drg1" dragIndicator="ind" dragValue="#{dataBean.dragValue1}"/>
 				</a4j:outputPanel></td>
-				<td><a4j:outputPanel id="drg2" layout="block"
-					styleClass="draggable">
-					<dnd:dragBehavior event="mouseover" type="drg2" indicator="ind" />
+				<td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
+					<h:outputText value="#{dataBean.dragValue2}"/>
+					<dnd:dragBehavior event="mouseover" type="drg2" dragIndicator="ind" dragValue="#{dataBean.dragValue2}"/>
 				</a4j:outputPanel></td>
-				<td><a4j:outputPanel id="drg3" layout="block"
-					styleClass="draggable">
-					<dnd:dragBehavior event="mouseover" type="drg3" indicator="ind" />
+				<td><a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
+					<h:outputText value="#{dataBean.dragValue3}"/>
+					<dnd:dragBehavior event="mouseover" type="drg3" dragIndicator="ind" dragValue="#{dataBean.dragValue3}"/>
 				</a4j:outputPanel></td>
 			</tr>
 		</table>
-		<a4j:outputPanel id="drp" layout="block" styleClass="droppable">
-			<dnd:dropBehavior event="mouseover" acceptType="drg1, drg2" dropListener="#{dataBean.processEvent}"></dnd:dropBehavior>
-			<a4j:ajax event="click"/>
-		</a4j:outputPanel>
-
 		
-		<h:inputText >
-		</h:inputText>
+		<a4j:outputPanel id="drp" layout="block" styleClass="droppable">
+			<dnd:dropBehavior event="mouseover" acceptedTypes="drg1, drg2" listener="#{dataBean.processEvent}" render="grid"></dnd:dropBehavior>
+			<h:dataTable id="grid" var="dropValue" value="#{dataBean.dropValues}">
+				<h:column>
+					<h:outputText value="#{dropValue}"/>
+				</h:column>
+			</h:dataTable>
+		</a4j:outputPanel>
+		
 	</h:form>
 </h:body>
 </html>
