@@ -53,6 +53,9 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     public static final String TEXT_HTML = "text/html";
 
+    /** Session bean name where progress bar's percent map will be stored */
+    public static final String PERCENT_BEAN_NAME = "_richfaces_upload_percents";
+
     private static final BytesHandler NOOP_HANDLER = new BytesHandler() {
         public void handle(byte[] bytes, int length) {
             // do nothing
@@ -61,9 +64,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     /** Session bean name where request size will be stored */
     private static final String REQUEST_SIZE_BEAN_NAME = "_richfaces_request_size";
-
-    /** Session bean name where progress bar's percent map will be stored */
-    private static final String PERCENT_BEAN_NAME = "_richfaces_upload_percents";
 
     private static final String PARAM_NAME = "name";
     private static final String PARAM_FILENAME = "filename";
@@ -77,8 +77,8 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private static final byte CR = 0x0d;
     private static final byte LF = 0x0a;
-    private static final byte[] CR_LF = { CR, LF };
-    private static final byte[] HYPHENS = { 0x2d, 0x2d }; // '--'
+    private static final byte[] CR_LF = {CR, LF};
+    private static final byte[] HYPHENS = {0x2d, 0x2d}; // '--'
 
     private static final Pattern PARAM_VALUE_PATTERN = Pattern.compile("^\\s*([^\\s=]+)\\s*[=:]\\s*(.+)\\s*$");
 
@@ -592,7 +592,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
                 vals.toArray(values);
                 return values;
             } else {
-                return new String[] { (String) vp.getValue() };
+                return new String[] {(String) vp.getValue()};
             }
         } else {
             return super.getParameterValues(name);

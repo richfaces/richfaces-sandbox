@@ -48,6 +48,8 @@ import org.richfaces.request.MultipartRequest;
  */
 public class FileUploadPartialViewContextFactory extends PartialViewContextFactory {
 
+    public static final String UID_KEY = "rf_fu_uid";
+
     private static enum ResponseState {
         size_exceeded, stopped, server_error
     };
@@ -56,12 +58,10 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
 
     private static final Pattern AMPERSAND = Pattern.compile("&+");
 
-    private static final String UID_KEY = "rf_fu_uid";
-
     private PartialViewContextFactory parentFactory;
 
     /** Flag indicating whether a temporary file should be used to cache the uploaded file */
-    private boolean createTempFiles = false;
+    private boolean createTempFiles = true;
 
     private String tempFilesDirectory;
 
@@ -74,12 +74,8 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         String param = context.getInitParameter("createTempFiles");
         if (param != null) {
             this.createTempFiles = Boolean.parseBoolean(param);
-        } else {
-            this.createTempFiles = true;
         }
-
         this.tempFilesDirectory = context.getInitParameter("tempFilesDirectory");
-
         param = context.getInitParameter("maxRequestSize");
         if (param != null) {
             this.maxRequestSize = Integer.parseInt(param);

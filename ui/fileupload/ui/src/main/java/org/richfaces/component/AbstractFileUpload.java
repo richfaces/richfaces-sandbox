@@ -37,6 +37,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.context.FileUploadPartialViewContextFactory;
 import org.richfaces.event.FileUploadListener;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.request.MultipartRequest;
@@ -46,12 +47,19 @@ import org.richfaces.request.MultipartRequest;
  * 
  */
 @JsfComponent(tag = @Tag(handler = "org.richfaces.view.facelets.FileUploadHandler"),
-    renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
+    renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"),
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase implements ComponentSystemEventListener {
     
+    @Attribute
+    public abstract String getAcceptedTypes();
+
     @Attribute(defaultValue = "true")
     public abstract boolean isEnabled();
+
+    @Attribute(defaultValue = "false")
+    public abstract boolean isNoDuplicate();
 
     @Attribute(events = @EventName("filesubmit"))
     public abstract String getOnfilesubmit();
@@ -68,21 +76,23 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
         }
     }
     
-    public boolean isListenerForSource(Object source) {
-        return true;
-    }
-    
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        FacesContext context = getFacesContext();
         Map<String, UIComponent> facets = getFacets();
         UIComponent component = facets.get("progress");
         if (component == null) {
-            FacesContext context = getFacesContext();
-            UIComponent pb = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE,
+            component = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE,
                 "org.richfaces.ProgressBarRenderer");
-            pb.setId(getId() + "_pb");
-            facets.put("progress", pb);
+            component.setId(getId() + "_pb");
+            facets.put("progress", component);
         }
+        component.setValueExpression("value", context.getApplication().getExpressionFactory()
+            .createValueExpression(context.getELContext(),
+                "#{" + MultipartRequest.PERCENT_BEAN_NAME + "[param['"
+                + FileUploadPartialViewContextFactory.UID_KEY + "']]}", Integer.class));
+
     }
+    
     /**
      * <p>Add a new {@link FileUploadListener} to the set of listeners
      * interested in being notified when {@link UploadEvent}s occur.</p>
@@ -95,7 +105,6 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
         addFacesListener(listener);
     }
 
-
     /**
      * <p>Return the set of registered {@link FileUploadListener}s for this
      * {@link AbstractFileUpload} instance.  If there are no registered listeners,
@@ -104,7 +113,6 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
     public FileUploadListener[] getFileUploadListeners() {
         return (FileUploadListener[]) getFacesListeners(FileUploadListener.class);
     }
-
 
     /**
      * <p>Remove an existing {@link FileUploadListener} (if any) from the
