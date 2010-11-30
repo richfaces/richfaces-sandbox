@@ -39,7 +39,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 	<cc:implementation>
 		<cdk:object name="enabled" value="#{component.attributes['enabled']}"/>
-		<div id="#{clientId}" class="rf-fu">
+		<div id="#{clientId}" class="rf-fu #{component.attributes['styleClass']}"
+				cdk:passThroughWithExclusions="">
 			<div class="rf-fu-hdr">
 				<span class="rf-fu-btns-lft">
 					<span class="rf-fu-btn-add#{enabled ? '' : '-dis'}">
@@ -74,7 +75,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</c:if>
 				<iframe name="#{clientId}" class="rf-fu-frm"/>
 				<cdk:scriptObject name="options">
-					<cdk:scriptOption attributes="onfilesubmit onuploadcomplete"/>
+					<cdk:scriptOption attributes="acceptedTypes noDuplicate onfilesubmit onuploadcomplete"/>
 				</cdk:scriptObject>
 				<script type="text/javascript">new RichFaces.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
 			</c:if>

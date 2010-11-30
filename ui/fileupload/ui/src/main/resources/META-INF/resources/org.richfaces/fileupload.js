@@ -49,6 +49,9 @@
 	    init: function(id, options) {
 	        this.id = id;
 	        jQuery.extend(this, options);
+	        if (this.acceptedTypes) {
+	        	this.acceptedTypes = jQuery.trim(this.acceptedTypes).split(/\s*,\s*/);
+	        }
 	        this.element = jQuery(this.attachToDom());
 	        this.form = this.element.parents("form:first");
 	        var header = this.element.children(".rf-fu-hdr:first");
@@ -59,8 +62,9 @@
 	        this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
 	        this.input = this.inputContainer.children("input");
 	        this.list = header.next();
-	        this.progressBar = this.list.next();
-	        this.iframe = this.progressBar.next();
+	        this.progressBarElement = this.list.next();
+	        this.progressBar = richfaces.$(this.progressBarElement);
+	        this.iframe = this.progressBarElement.next();
 	        this.cleanInput = this.input.clone();
 	        this.addProxy =  jQuery.proxy(this.__addItem, this);
 	        this.input.change(this.addProxy);
@@ -76,15 +80,18 @@
 	    },
 	    
 	    __addItem: function() {
-	    	this.input.hide();
-	        this.input.unbind("change", this.addProxy);
-	    	var item = new Item(this);
-	    	this.list.append(item.getJQuery());
-	    	this.items.push(item);
-	    	this.input = this.cleanInput.clone();
-	    	this.inputContainer.append(this.input);
-	        this.input.change(this.addProxy);
-	    	this.__updateButtons();
+	    	var fileName = this.input.val();
+	    	if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
+		    	this.input.hide();
+		        this.input.unbind("change", this.addProxy);
+		    	var item = new Item(this);
+		    	this.list.append(item.getJQuery());
+		    	this.items.push(item);
+		    	this.input = this.cleanInput.clone();
+		    	this.inputContainer.append(this.input);
+		        this.input.change(this.addProxy);
+		    	this.__updateButtons();
+	    	}
 	    },
 	    
 	    __removeItem: function(item) {
@@ -126,7 +133,7 @@
 	    	var originalEncoding = this.form.attr("encoding");
 	    	var originalEnctype = this.form.attr("enctype");
 	    	try {
-	    		this.form.attr("action", originalAction + "?" + UID + "=1");
+	    		this.form.attr("action", originalAction + "?" + UID + "=" + this.loadableItem.uid);
 	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
 	    		richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
@@ -167,6 +174,27 @@
 					}
 				}
 			}
+	    },
+	    
+	    __accept: function(fileName) {
+	    	var result = !this.acceptedTypes;
+	    	for (var i = 0; !result && i < this.acceptedTypes.length; i++) {
+	    		var extension = this.acceptedTypes[i];
+	    		result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
+			}
+	    	return result;
+	    },
+	    
+	    __isFileAlreadyAdded: function(fileName) {
+	    	var result = false;
+	    	for (var i = 0; !result && i < this.items.length; i++) {
+	    		result = this.items[i].model.name == fileName;
+			}
+	    	result = result || (this.loadableItem && this.loadableItem.model.name == fileName);
+	    	for (var i = 0; !result && i < this.uploadedItems.length; i++) {
+	    		result = this.uploadedItems[i].model.name == fileName;
+			}
+	    	return result;
 	    }
 	});
 	
@@ -196,16 +224,23 @@
 	    },
 	    
 	    startUploading: function() {
-//    		this.state.html(this.fileUpload.progressBar.detach());
-//    		richfaces.$(this.fileUpload.progressBar).poll();
 	    	this.state.css("display", "block");
 			this.link.html("");
     		this.input.attr("name", this.fileUpload.id);
 			this.model.state = ITEM_STATE.UPLOADING;
+			this.uid = Math.random();
 	    	this.fileUpload.__submit();
+    		var params = {};
+    		params[UID] = this.uid;
+    		this.fileUpload.progressBar.setValue(0);
+    		this.state.html(this.fileUpload.progressBarElement.detach());
+    		this.fileUpload.progressBar.enable(params);
 	    },
 	    
 	    finishUploading: function() {
+	    	this.fileUpload.progressBar.disable();
+    		this.fileUpload.progressBar.setValue(101);
+    		this.fileUpload.element.append(this.fileUpload.progressBarElement.detach());
 	    	this.input.remove();
 	    	this.state.html("Done");
 			this.link.html("Clear");
