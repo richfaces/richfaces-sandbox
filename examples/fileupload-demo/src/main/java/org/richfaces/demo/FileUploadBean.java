@@ -35,7 +35,9 @@ import org.richfaces.model.UploadItem;
 @SessionScoped
 public class FileUploadBean {
     
+    private String acceptedTypes;
     private boolean enabled = true;
+    private boolean noDuplicate = false;
     private UploadItem item;
     
     public UploadItem getItem() {
@@ -47,8 +49,10 @@ public class FileUploadBean {
 //    }
     
     public void listener(UploadEvent event) throws Exception {
-        item.getFile().delete();
         item = event.getUploadItem();
+        if (item != null) {
+            item.getFile().delete();
+        }
     }
 
     public void setEnabled(boolean enabled) {
@@ -57,6 +61,22 @@ public class FileUploadBean {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setNoDuplicate(boolean noDuplicate) {
+        this.noDuplicate = noDuplicate;
+    }
+
+    public boolean isNoDuplicate() {
+        return noDuplicate;
+    }
+
+    public void setAcceptedTypes(String acceptedTypes) {
+        this.acceptedTypes = acceptedTypes;
+    }
+
+    public String getAcceptedTypes() {
+        return acceptedTypes;
     }  
 
 }

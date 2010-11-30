@@ -58,12 +58,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			};
 			//-->
 			</script>
-			<fu:fileUpload id="fu" enabled="#{fileUploadBean.enabled}" fileUploadListener="#{fileUploadBean.listener}" onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)"/>
+			<fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}" enabled="#{fileUploadBean.enabled}"
+					fileUploadListener="#{fileUploadBean.listener}" noDuplicate="#{fileUploadBean.noDuplicate}"
+					onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)"/>
 			<h:outputText value="File name:" />
 			<a4j:outputPanel ajaxRendered="true">#{fileUploadBean.item.fileName}</a4j:outputPanel>
             <br />
+            <h:outputText value="AcceptedTypes: " />
+            <h:inputText value="#{fileUploadBean.acceptedTypes}">
+                    <f:ajax render="fu"/>
+            </h:inputText>
+            <br />
             <h:outputText value="Enabled: " />
             <h:selectBooleanCheckbox value="#{fileUploadBean.enabled}">
+                    <f:ajax render="fu"/>
+            </h:selectBooleanCheckbox>
+            <br />
+            <h:outputText value="NoDuplicate: " />
+            <h:selectBooleanCheckbox value="#{fileUploadBean.noDuplicate}">
                     <f:ajax render="fu"/>
             </h:selectBooleanCheckbox>
             <br />
