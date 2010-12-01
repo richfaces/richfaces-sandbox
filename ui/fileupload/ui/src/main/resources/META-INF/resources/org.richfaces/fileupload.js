@@ -62,9 +62,10 @@
 	        this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
 	        this.input = this.inputContainer.children("input");
 	        this.list = header.next();
-	        this.progressBarElement = this.list.next();
+	        this.hiddenContainer = this.list.next();
+	        this.iframe = this.hiddenContainer.children("iframe:first");
+	        this.progressBarElement = this.iframe.next();
 	        this.progressBar = richfaces.$(this.progressBarElement);
-	        this.iframe = this.progressBarElement.next();
 	        this.cleanInput = this.input.clone();
 	        this.addProxy =  jQuery.proxy(this.__addItem, this);
 	        this.input.change(this.addProxy);
@@ -232,15 +233,18 @@
 	    	this.fileUpload.__submit();
     		var params = {};
     		params[UID] = this.uid;
-    		this.fileUpload.progressBar.setValue(0);
-    		this.state.html(this.fileUpload.progressBarElement.detach());
-    		this.fileUpload.progressBar.enable(params);
+    		if (this.fileUpload.progressBar) {
+        		this.fileUpload.progressBar.setValue(0);
+        		this.state.html(this.fileUpload.progressBarElement.detach());
+        		this.fileUpload.progressBar.enable(params);
+    		}
 	    },
 	    
 	    finishUploading: function() {
-	    	this.fileUpload.progressBar.disable();
-    		this.fileUpload.progressBar.setValue(101);
-    		this.fileUpload.element.append(this.fileUpload.progressBarElement.detach());
+    		if (this.fileUpload.progressBar) {
+    	    	this.fileUpload.progressBar.disable();
+        		this.fileUpload.hiddenContainer.append(this.fileUpload.progressBarElement.detach());
+    		}
 	    	this.input.remove();
 	    	this.state.html("Done");
 			this.link.html("Clear");

@@ -44,7 +44,7 @@
 	overflow-y: auto;
 }
 
-.rf-fu-frm {
+.rf-fu-cntr-hdn {
 	display: none;
 }
 

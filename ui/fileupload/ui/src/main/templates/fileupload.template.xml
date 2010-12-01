@@ -69,11 +69,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</div>
 			<div class="rf-fu-lst"/>
 			<c:if test="#{enabled}">
-				<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
-				<c:if test="#{progressBar.isRendered()}">
-					<cdk:call expression="progressBar.encodeAll(facesContext)" />
-				</c:if>
-				<iframe name="#{clientId}" class="rf-fu-frm"/>
+				<div class="rf-fu-cntr-hdn">
+					<iframe name="#{clientId}"/>
+					<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
+					<c:if test="#{progressBar.isRendered()}">
+						<cdk:call expression="progressBar.encodeAll(facesContext)" />
+					</c:if>
+				</div>
 				<cdk:scriptObject name="options">
 					<cdk:scriptOption attributes="acceptedTypes noDuplicate onfilesubmit onuploadcomplete"/>
 				</cdk:scriptObject>
