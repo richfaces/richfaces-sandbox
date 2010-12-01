@@ -28,7 +28,6 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
@@ -39,7 +38,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.FileUploadPartialViewContextFactory;
 import org.richfaces.event.FileUploadListener;
-import org.richfaces.event.UploadEvent;
 import org.richfaces.request.MultipartRequest;
 
 /**
@@ -50,7 +48,7 @@ import org.richfaces.request.MultipartRequest;
     renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"),
     attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractFileUpload extends UIComponentBase implements ComponentSystemEventListener {
+public abstract class AbstractFileUpload extends UIComponentBase {
     
     @Attribute
     public abstract String getAcceptedTypes();
@@ -68,29 +66,25 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Comp
     public abstract String getOnuploadcomplete();
 
     @Override
-    public void decode(FacesContext context) {
-        super.decode(context);
-        Object request = context.getExternalContext().getRequest();
-        if (request instanceof MultipartRequest) {
-            queueEvent(new UploadEvent(this, ((MultipartRequest) request).getUploadItems()));
-        }
-    }
-    
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        super.processEvent(event);
         FacesContext context = getFacesContext();
         Map<String, UIComponent> facets = getFacets();
         UIComponent component = facets.get("progress");
         if (component == null) {
-            component = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE,
+            component = context.getApplication().createComponent(context, "org.richfaces.ProgressBar",
                 "org.richfaces.ProgressBarRenderer");
-            component.setId(getId() + "_pb");
-            facets.put("progress", component);
+            if (component != null) {
+                component.setId(getId() + "_pb");
+                facets.put("progress", component);
+            }
         }
-        component.setValueExpression("value", context.getApplication().getExpressionFactory()
-            .createValueExpression(context.getELContext(),
-                "#{" + MultipartRequest.PERCENT_BEAN_NAME + "[param['"
-                + FileUploadPartialViewContextFactory.UID_KEY + "']]}", Integer.class));
-
+        if (component != null) {
+            component.setValueExpression("value", context.getApplication().getExpressionFactory()
+                .createValueExpression(context.getELContext(),
+                    "#{" + MultipartRequest.PERCENT_BEAN_NAME + "[param['"
+                    + FileUploadPartialViewContextFactory.UID_KEY + "']]}", Integer.class));
+        }
     }
     
     /**

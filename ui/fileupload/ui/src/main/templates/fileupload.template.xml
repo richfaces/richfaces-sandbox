@@ -28,7 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	xmlns:xi="http://www.w3.org/2001/XInclude">
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.FileUploadRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
+		<cdk:superclass>org.richfaces.renderkit.FileUploadRendererBase</cdk:superclass>
 		<cdk:component-family>org.richfaces.FileUpload</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.FileUploadRenderer</cdk:renderer-type>
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.ecss" />

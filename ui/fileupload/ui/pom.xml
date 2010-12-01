@@ -56,10 +56,6 @@
             <artifactId>richfaces-ui-common-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui.output</groupId>
-            <artifactId>richfaces-ui-output-ui</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces.ui.fileupload</groupId>
             <artifactId>richfaces-ui-fileupload-api</artifactId>
             <version>${project.version}</version>
