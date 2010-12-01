@@ -52,7 +52,7 @@
 	    
 	    items: [],
 	    
-	    uploadedItems: [],
+	    submitedItems: [],
 	    
 	    init: function(id, options) {
 	        this.id = id;
@@ -108,7 +108,7 @@
 	    
 	    __removeItem: function(item) {
 	    	this.items.splice(this.items.indexOf(item), 1);
-	    	this.uploadedItems.splice(this.uploadedItems.indexOf(item), 1);
+	    	this.submitedItems.splice(this.submitedItems.indexOf(item), 1);
 	    	this.__updateButtons();
 	    },
 	    
@@ -116,7 +116,7 @@
 	    	this.inputContainer.children(":not(:visible)").remove();
 	    	this.list.empty();
 	    	this.items.splice(0);
-	    	this.uploadedItems.splice(0);
+	    	this.submitedItems.splice(0);
 	    	this.__updateButtons();
 	    },
 	    
@@ -163,26 +163,29 @@
 				var contentDocument = event.target.contentWindow.document;
 				contentDocument = contentDocument.XMLDocument || contentDocument;
 				var documentElement = contentDocument.documentElement;
-				if (documentElement.tagName.toUpperCase() != "HTML") {
-					jsf.ajax.response({responseXML: contentDocument}, {}); 
-					this.loadableItem.finishUploading();
-					this.uploadedItems.push(this.loadableItem);
-					if (this.items.length) {
+				var responseStatus, id;
+				if (documentElement.tagName.toUpperCase() == "PARTIAL-RESPONSE") {
+					responseStatus = ITEM_STATE.DONE;
+				} else if ((id = documentElement.id) && id.indexOf(UID + this.loadableItem.uid + ":") == 0) {
+					responseStatus = id.split(":")[1];
+				}
+				if (responseStatus) {
+					responseStatus == ITEM_STATE.DONE && jsf.ajax.response({responseXML: contentDocument}, {}); 
+					this.loadableItem.finishUploading(responseStatus);
+					this.submitedItems.push(this.loadableItem);
+					if (responseStatus == ITEM_STATE.DONE && this.items.length) {
 						this.__startUpload();
 					} else {
 						this.loadableItem = null;
 						this.__updateButtons();
 						var items = [];
-			    		for (var i in this.uploadedItems) {
-			    			items.push(this.uploadedItems[i].model);
+			    		for (var i in this.items) {
+			    			items.push(this.items[i].model);
+						}
+			    		for (var i in this.submitedItems) {
+			    			items.push(this.submitedItems[i].model);
 						}
 			    		richfaces.Event.fire(this.element, "onuploadcomplete", items);
-					}
-				} else {
-					var result = documentElement.id.split(":");
-					if (UID + 1 == result[0]) {
-						if ("done" == result[1]) {
-						}
 					}
 				}
 			}
@@ -203,8 +206,8 @@
 	    		result = this.items[i].model.name == fileName;
 			}
 	    	result = result || (this.loadableItem && this.loadableItem.model.name == fileName);
-	    	for (var i = 0; !result && i < this.uploadedItems.length; i++) {
-	    		result = this.uploadedItems[i].model.name == fileName;
+	    	for (var i = 0; !result && i < this.submitedItems.length; i++) {
+	    		result = this.submitedItems[i].model.name == fileName;
 			}
 	    	return result;
 	    }
@@ -251,15 +254,15 @@
     		}
 	    },
 	    
-	    finishUploading: function() {
+	    finishUploading: function(state) {
     		if (this.fileUpload.progressBar) {
     	    	this.fileUpload.progressBar.disable();
         		this.fileUpload.hiddenContainer.append(this.fileUpload.progressBarElement.detach());
     		}
 	    	this.input.remove();
-	    	this.state.html("Done");
+	    	this.state.html(state == ITEM_STATE.DONE ? "Done" : "File size exceeded");
 			this.link.html("Clear");
-			this.model.state = ITEM_STATE.DONE;
+			this.model.state = state;
 	    }
 	});
 }(window.RichFaces, jQuery));

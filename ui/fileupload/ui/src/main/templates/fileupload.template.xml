@@ -72,7 +72,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<div class="rf-fu-cntr-hdn">
 					<iframe name="#{clientId}"/>
 					<cdk:object name="progressBar" value="#{component.facets['progress']}"/>
-					<c:if test="#{progressBar.isRendered()}">
+					<c:if test="#{progressBar != null and progressBar.isRendered()}">
 						<cdk:call expression="progressBar.encodeAll(facesContext)" />
 					</c:if>
 				</div>
