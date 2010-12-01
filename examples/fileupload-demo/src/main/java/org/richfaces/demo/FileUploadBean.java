@@ -23,6 +23,9 @@ package org.richfaces.demo;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
@@ -77,6 +80,12 @@ public class FileUploadBean {
 
     public String getAcceptedTypes() {
         return acceptedTypes;
-    }  
+    }
 
+    public void updateAttribute(AjaxBehaviorEvent event) throws AbortProcessingException {
+        UIComponent component = (UIComponent) event.getSource();
+        String attributeName = (String) component.findComponent("name").getAttributes().get("value");
+        Object attributeValue = component.findComponent("value").getAttributes().get("value");
+        component.findComponent("fu").getAttributes().put(attributeName, attributeValue);
+    }  
 }

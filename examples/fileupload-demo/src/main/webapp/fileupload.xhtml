@@ -32,6 +32,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 	<h:head>
 		<title>Richfaces FileUpload Demo</title>
+		<style>
+		<!--
+			.fu .rf-fu-lst {
+				height: 500px;
+			}
+		-->
+		</style>
 	</h:head>
 	<h:body>
 		<h:form id="form">
@@ -63,6 +70,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)"/>
 			<h:outputText value="File name:" />
 			<a4j:outputPanel ajaxRendered="true">#{fileUploadBean.item.fileName}</a4j:outputPanel>
+            <br />
+            <h:outputText value="Attribute name: "/>
+            <h:inputText id="name"/>
+            <h:outputText value="Attribute value: "/>
+            <h:inputText id="value"/>
+            <h:commandButton value="Update attribute">
+                    <f:ajax render="fu" execute="name value" listener="#{fileUploadBean.updateAttribute}"/>
+            </h:commandButton>
             <br />
             <h:outputText value="AcceptedTypes: " />
             <h:inputText value="#{fileUploadBean.acceptedTypes}">
