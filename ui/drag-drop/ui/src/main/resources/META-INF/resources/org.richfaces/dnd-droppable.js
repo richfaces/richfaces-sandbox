@@ -17,38 +17,36 @@
     		return {
 				drop: function(e, ui) {
 					if(this.accept(ui.draggable)) {
-						var helper = ui.helper;
-						var indicator = rf.$(helper.attr("id"));
-						if(indicator) {
-							helper.removeClass(indicator.acceptClass());
-							helper.removeClass(indicator.rejectClass());
-						}
 						this.__callAjax(e, ui);
+					}
+						
+					var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+					if(dragIndicatorObj) {
+						ui.helper.removeClass(dragIndicatorObj.acceptClass());
+						ui.helper.removeClass(dragIndicatorObj.rejectClass());
 					}
 				}, 
 				
 				dropover: function(event, ui) {
 					var draggable = ui.draggable;
-					var helper = ui.helper;
-					var indicator = rf.$(helper.attr("id"));
-					if(indicator) {
+					var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+					if(dragIndicatorObj) {
 						if(this.accept(draggable)) {
-							helper.removeClass(indicator.rejectClass());								
-							helper.addClass(indicator.acceptClass());	
+							ui.helper.removeClass(dragIndicatorObj.rejectClass());								
+							ui.helper.addClass(dragIndicatorObj.acceptClass());	
 						} else {
-							helper.removeClass(indicator.acceptClass());
-							helper.addClass(indicator.rejectClass());								
+							ui.helper.removeClass(dragIndicatorObj.acceptClass());
+							ui.helper.addClass(dragIndicatorObj.rejectClass());								
 						}
 					}
 				}, 
 				
 				dropout: function(event, ui) {
 					var draggable = ui.draggable;
-					var helper = ui.helper;
-					var indicator = rf.$(helper.attr("id"));
-					if(indicator) {
-						helper.removeClass(indicator.acceptClass());
-						helper.removeClass(indicator.rejectClass());
+					var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+					if(dragIndicatorObj) {
+						ui.helper.removeClass(dragIndicatorObj.acceptClass());
+						ui.helper.removeClass(dragIndicatorObj.rejectClass());
 					}
 				}, 
 								
