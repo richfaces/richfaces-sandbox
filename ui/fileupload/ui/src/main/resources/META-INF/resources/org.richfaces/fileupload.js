@@ -36,6 +36,14 @@
     	SERVER_ERROR: "server_error"
     };
     
+    var pressButton = function(event) {
+    	jQuery(this).children(":first").css("background-position", "3px 3px").css("padding", "4px 4px 2px 22px");
+    };
+    
+    var unpressButton = function(event) {
+    	jQuery(this).children(":first").css("background-position", "2px 2px").css("padding", "3px 5px 3px 21px");
+    };
+    
     richfaces.ui = richfaces.ui || {};
 
 	richfaces.ui.FileUpload = richfaces.BaseComponent.extendClass({
@@ -69,8 +77,11 @@
 	        this.cleanInput = this.input.clone();
 	        this.addProxy =  jQuery.proxy(this.__addItem, this);
 	        this.input.change(this.addProxy);
-	        this.uploadButton.click(jQuery.proxy(this.__startUpload, this));
-	        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this));
+	        this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
+	        this.uploadButton.click(jQuery.proxy(this.__startUpload, this)).mousedown(pressButton)
+	        	.mouseup(unpressButton).mouseout(unpressButton);
+	        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this)).mousedown(pressButton)
+        		.mouseup(unpressButton).mouseout(unpressButton);
     		this.iframe.load(jQuery.proxy(this.__load, this));
 	    	if (this.onfilesubmit) {
 	    		richfaces.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
