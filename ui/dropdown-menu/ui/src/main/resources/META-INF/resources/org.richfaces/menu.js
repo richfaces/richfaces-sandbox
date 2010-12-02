@@ -23,7 +23,6 @@
         unselectItemCss: "rf-ddm-itm-unsel",
         disabledItemCss: "rf-ddm-itm-dis",
         listCss: "rf-ddm-lst"
-
     };
 
     //constructor definition
@@ -45,19 +44,22 @@
         //menu items list
         //this.target = 'dd_menu_id_label_container';
         //popup for item menu list
-        var base = rf.getDomElement(this.id);
-        this.popup = $(rf.getDomElement(this.id + "_list"));
+        //var base = rf.getDomElement(this.id);
+        
+        this.displayed = false;
+        
+        //this.popup = $(rf.getDomElement(this.id + "_list"));
         //this.initiatePopup(this.popup, base, this.options.showEvent);
         //this.initiateMenu(this.popup, base, this.options.showEvent);
         this.options.attachTo = this.id;
         this.popupList = new RichFaces.ui.PopupList(this.id + "_list", this, this.options);
         this.selectedGroup = null;
-        rf.Event.bindById(this.id, this.options.showEvent, $.proxy(this.showPopup, this), this);
-        rf.Event.bindById(this.id, 'mouseenter', $.proxy(this.__enterHandler, this), this);
+        rf.Event.bindById(this.id, this.options.showEvent, $.proxy(this.___showHandler, this), this);
+        //rf.Event.bindById(this.id, 'mouseenter', $.proxy(this.__enterHandler, this), this);
         rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler, this), this);
-        rf.Event.bindById(this.id, "mouseover", $.proxy(this.__overHandler, this), this);        
-        rf.Event.bindById(this.id, "blur", $.proxy(this.__blurHandler, this), this);
-        rf.Event.bindById(this.id, "focus", $.proxy(this.__focusHandler, this), this);
+        //rf.Event.bindById(this.id, "mouseover", $.proxy(this.__overHandler, this), this);        
+        //rf.Event.bindById(this.id, "blur", $.proxy(this.__blurHandler, this), this);
+       // rf.Event.bindById(this.id, "focus", $.proxy(this.__focusHandler, this), this);
         //this.popupList.show();
     };
 
@@ -91,7 +93,7 @@
                             var id = event.target.id;
                             if (menu.groupList[id]) {                                
                                 menu.invokeEvent("groupshow", rf.getDomElement(menu.id), null);
-                                menu.invokeEvent("show", rf.getDomElement(id), null);
+                                //menu.invokeEvent("show", rf.getDomElement(id), null);
                                 menu.groupList[id].popup.show();                               
                             }
                         },
@@ -100,8 +102,8 @@
                         function(event) {
                             var id = event.target.id;
                             if (menu.groupList[id]) {
-                                //this.invokeEvent("grouphide", rf.getDomElement(menu.id), null);
-                                menu.invokeEvent("hide", rf.getDomElement(id), null);
+                                menu.invokeEvent("grouphide", rf.getDomElement(menu.id), null);
+                                //menu.invokeEvent("hide", rf.getDomElement(id), null);
                                 menu.groupList[id].popup.hide();                                
                             }
                         });
@@ -122,31 +124,35 @@
             },
 
             processItem: function(item) {
-                if (item && !this.isDisabled(item) && item.attr('id').search('group') == -1) {
+                if (item &&  item.atrr('id') && !this.isDisabled(item) && this.isGroup(item)) {
+                	this.invokeEvent("itemclick", rf.getDomElement(this.id), null);
                     this.hidePopup();
-                    this.submitForm(item);                    
+                    //this.submitForm(item);                    
                 }
             },
             
             selectItem: function(item) {                
-                if(item.attr('id') && !this.isDisabled(item)){
-                    item.addClass(this.selectItemCss);
-                    if(item.attr('id').search('group') != -1){
-                        this.selectedGroup=item.attr('id');    
-                    } else {
-                        this.selectedGroup = null;
-                    }                    
-                }               
+//                if(item.attr('id') && !this.isDisabled(item)){
+//                    item.addClass(this.selectItemCss);
+//                    if(item.attr('id').search('group') != -1){
+//                        this.selectedGroup=item.attr('id');    
+//                    } else {
+//                        this.selectedGroup = null;
+//                    }                    
+//                }               
             },
             unselectItem: function(item) {                
-                var nextItem = this.popupList.nextSelectItem();               
-                if (item.attr('id')  && (nextItem.attr('id') != this.selectedGroup) && !this.isWithin(nextItem) ){
-                    item.removeClass(this.selectItemCss);
-                    item.addClass(this.unselectItemCss);
-                }
+//                var nextItem = this.popupList.nextSelectItem();               
+//                if (item.attr('id')  && (nextItem.attr('id') != this.selectedGroup) && !this.isWithin(nextItem) ){
+//                    item.removeClass(this.selectItemCss);
+//                    item.addClass(this.unselectItemCss);
+//                }
                 
             },
-            isDisabled: function(item){
+            isGroup: function(item) {
+            	return 'object' == typeof this.groupList[item.atrr('id')];
+            },
+            isDisabled: function(item) {
                 return item.hasClass(this.options.disabledItemCss);
             },
             isWithin: function(item){
@@ -158,16 +164,27 @@
             },
             
             showPopup: function() {
-                this.invokeEvent("show", rf.getDomElement(this.id), null);
-                this.popupList.show();
+            	if (!this.___isShown()){
+                	this.invokeEvent("show", rf.getDomElement(this.id), null);
+                	 this.popupList.show();
+                	this.displayed=true;
+            	}
             },
             
             hidePopup: function() {
                 for (var i in this.groupList) {                   
                     this.groupList[i].popup.hide();
                 }
-                this.invokeEvent("hide", rf.getDomElement(this.id), null);
+                if (this.___isShown()){
+                	this.invokeEvent("hide", rf.getDomElement(this.id), null);
+               		this.popupList.hide();
+               		this.displayed=false;
+                }              
                 this.popupList.hide();
+            },
+            ___isShown: function() {
+            	return this.displayed;
+            	
             },
             ___showHandler: function() {
                 this.showTimeoutId = window.setTimeout($.proxy(function(){						
@@ -181,6 +198,7 @@
                // this.showPopup();                   
             },
             __leaveHandler: function(e) {
+            	window.clearTimeout(this.showTimeoutId);
                 this.hideTimeoutId = window.setTimeout($.proxy(function(){                                                
                                                 this.hidePopup();
 					}, this), this.options.hideDelay);

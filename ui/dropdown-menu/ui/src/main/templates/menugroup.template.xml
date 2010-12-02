@@ -29,7 +29,7 @@
     	<cdk:object name="onmouseover" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-sel #{selectedClass}'" />
     	<cdk:object name="onmouseout" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-unsel'" />
     	
-		<div id="#{clientId}_group" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}" style="#{style}" 
+		<div id="#{clientId}" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}" style="#{style}" 
 			onmouseover="#{isDisabled ? '' : onmouseover}" 
 			onmouseout="#{isDisabled ? '' : onmouseout}"
 			cdk:passThroughWithExclusions="" >
@@ -59,7 +59,7 @@
 			<div class="rf-ddm-nd">
 				<c:choose>
 					<c:when test="#{not isDisabled}">
-						<div class="rf-ddm-lst rf-ddm-sublst" style="display:none;">
+						<div id="#{clientId}_list" class="rf-ddm-lst rf-ddm-sublst" style="display:none;">
 							<div class="rf-ddm-lst-bg">
 								<cdk:call expression="renderChildren(facesContext, component)" />
 							</div>
