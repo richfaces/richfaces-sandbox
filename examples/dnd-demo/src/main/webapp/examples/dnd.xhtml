@@ -52,11 +52,10 @@
 <h:body>
 	<h:form>
 
-		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acpt" rejectClass="rf-ind-rejt" />
+		<dnd:dragIndicator id="ind"/>
 		
 		<table>
 			<tr>
-				
 				<td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue1}"/>
 					<dnd:dragBehavior event="mouseover" type="drg1" dragValue="#{dataBean.dragValue1}"/>
