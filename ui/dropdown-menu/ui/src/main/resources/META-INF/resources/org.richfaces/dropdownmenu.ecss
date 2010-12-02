@@ -1,0 +1,107 @@
+.rf-ddm-lbl, .rf-ddm-lbl-dis {
+	font-family:Arial, Verdana, sans-serif;
+	font-size:11px;
+	position:relative;
+}
+.rf-ddm-lbl-unsel {
+	border:0 solid transparent;
+	padding:3px 6px;
+}
+.rf-ddm-lbl, .rf-ddm-lbl-dis {
+	height:auto;
+	padding:2px 5px;
+	white-space:nowrap;
+	width:auto;
+}
+.rf-ddm-pos{
+	top:20px;
+	left:0;
+	position:absolute;
+}
+.rf-ddm-lbl-dec {
+	font-weight:bold;
+}
+.rf-ddm-lst { 
+	border:1px solid; /*#bfbfc0*/  /*panelBorderColor*/
+	border-color: '#{richSkin.panelBorderColor}';
+	background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
+	min-width:250px; 
+	position:absolute;
+}
+.rf-ddm-sublst {
+	position:absolute;
+	top:-8px; 
+	left:13px;
+}
+.rf-ddm-lst-bg {
+	border: 1px solid; /* #e7f2fb;*/   /*additionalBackgroundColor*/
+	border-color: '#{richSkin.additionalBackgroundColor}';
+	background-repeat: repeat-y;
+	background-position: left;
+	background-image: "url(#{resource['org.richfaces.images:menu_list_bg.gif']})";  /*from additionalBackgroundColor (left) to tabBackgroundColor (right)*/
+}
+
+.rf-ddm-itm {
+	padding : 1px 35px 1px 1px; 
+	white-space : nowrap; 
+	font-family : '#{richSkin.generalFamilyFont}'; /*verdana;*/ /*generalFamilyFont*/
+	font-size : '#{richSkin.generalSizeFont}'; /*12px;*/  /*generalSizeFont*/
+	position : relative;
+}
+.rf-ddm-itm-unsel {
+	border : 1px solid transparent;
+	padding : 1px 36px 2px 2px;
+}
+.rf-ddm-itm-sel {
+	border : 1px solid; /* #4a70ab;*/ /*headerBackgroundColor*/
+	border-color: '#{richSkin.headerBackgroundColor}';
+	cursor : pointer; 
+	padding : 1px 36px 2px 2px;
+	background-color: '#{richSkin.tabBackgroundColor}';
+	background-repeat: repeat-x;
+	background-position: top;
+	background-image: "url(#{resource['org.richfaces.images:menu_item_bg.gif']})";	
+	z-index:10;
+}
+.rf-ddm-itm-dis {
+	border : 1px solid transparent; 
+	cursor : default; 
+	color : '#{richSkin.tabDisabledTextColor}'; /*#839eca;*/ /*tabDisabledTextColor*/
+}
+.rf-ddm-itm-ic {
+	display:inline-block;
+	margin: 0 10px 0 0;
+	vertical-align:middle;
+}
+.rf-ddm-itm-lbl {
+	color : '#{richSkin.generalTextColor}'; /*#000000;*/  /*generalTextColor*/
+	display:inline-block;
+	text-decoration : none;
+	z-index:2;
+}
+.rf-ddm-sep {
+	font-size : 0px; 
+	border-top: 1px solid; /*  #bfbfc0;*/   /*panelBorderColor*/
+	border-top-color: '#{richSkin.panelBorderColor}';
+	margin : 2px 0px 2px 24px;
+}
+.rf-ddm-nd {			
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.MenuNodeImage']})";
+	background-repeat: no-repeat;
+	background-position: top;
+	font-size: 1px;
+	width: 7px; 
+	height: 7px; 
+	top: 7px; 
+	right: 6px;
+	position : absolute; 
+}
+.rf-ddm-itm-dis .rf-ddm-nd {
+	background-position :  bottom;
+}
+
+.rf-ddm-emptyIcon {
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+}
