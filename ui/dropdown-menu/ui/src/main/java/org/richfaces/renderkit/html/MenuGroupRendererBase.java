@@ -13,12 +13,14 @@ public abstract class MenuGroupRendererBase extends RendererBase {
     
     public static final String RENDERER_TYPE = "org.richfaces.MenuGroupRenderer";
     
+    public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
+    
     @Override
     public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
 
     }
     
-    protected boolean isDisabled(UIComponent component) {
+    protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
         if (component instanceof AbstractMenuGroup) {
             return ((AbstractMenuGroup) component).isDisabled();
         }
@@ -36,7 +38,7 @@ public abstract class MenuGroupRendererBase extends RendererBase {
         }
     }
     
-    protected UIComponent getIconFacet(UIComponent component) {
+    protected UIComponent getIconFacet(FacesContext facesContext, UIComponent component) {
         UIComponent facet = null;
         AbstractMenuGroup menuGroup = (AbstractMenuGroup) component; 
         if (menuGroup != null) {
@@ -50,7 +52,7 @@ public abstract class MenuGroupRendererBase extends RendererBase {
         return facet;   
     }     
     
-    protected String getIconAttribute(UIComponent component) {
+    protected String getIconAttribute(FacesContext facesContext, UIComponent component) {
         String icon = null;
         AbstractMenuGroup menuGroup = (AbstractMenuGroup) component; 
         if (menuGroup != null) {
@@ -64,8 +66,8 @@ public abstract class MenuGroupRendererBase extends RendererBase {
         return icon;   
     }
     
-    protected String getStyleClass(UIComponent component, String styleDDMenu, String styleMenuGroup) {
-        UIComponent ddMenu = getDDMenu(component);
+    protected String getStyleClass(FacesContext facesContext, UIComponent component, String styleDDMenu, String styleMenuGroup) {
+        UIComponent ddMenu = getDDMenu(facesContext, component);
         String styleClass = "";
         if (ddMenu != null) {
             if (ddMenu.getAttributes().get(styleDDMenu) != null) {
@@ -76,7 +78,7 @@ public abstract class MenuGroupRendererBase extends RendererBase {
         return concatClasses(styleClass, component.getAttributes().get(styleMenuGroup));
     }
     
-    protected UIComponent getDDMenu(UIComponent component) {
+    protected UIComponent getDDMenu(FacesContext facesContext, UIComponent component) {
         UIComponent parent = component.getParent();
         while (parent != null) {
             if (parent instanceof AbstractDropDownMenu) {
@@ -85,5 +87,13 @@ public abstract class MenuGroupRendererBase extends RendererBase {
             parent = parent.getParent();
         }
         return null;
+    }
+    
+    protected int getMinPopupWidth(FacesContext facesContext, UIComponent component) {
+        UIComponent parent = getDDMenu(facesContext, component);
+        if (parent != null) {
+            return ((AbstractDropDownMenu) parent).getPopupWith();
+        }
+        return DEFAULT_MIN_POPUP_WIDTH;
     }
 }

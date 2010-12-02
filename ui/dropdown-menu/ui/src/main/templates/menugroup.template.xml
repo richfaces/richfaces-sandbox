@@ -18,13 +18,13 @@
     	<cdk:object name="style" value="#{component.attributes['style']}" />
     	<cdk:object name="iconClass" value="#{component.attributes['iconClass']}" />
     	<cdk:object name="labelClass" value="#{component.attributes['labelClass']}" />
-    	<cdk:object name="styleClass" type="java.lang.String" value="#{getStyleClass(component, 'groupClass', 'styleClass')}" />
-    	<cdk:object name="selectedClass" type="java.lang.String" value="#{getStyleClass(component, 'selectedGroupClass', 'selectedClass')}" />
-    	<cdk:object name="disabledClass" type="java.lang.String" value="#{getStyleClass(component, 'disabledGroupClass', 'disabledClass')}" />
+    	<cdk:object name="styleClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'groupClass', 'styleClass')}" />
+    	<cdk:object name="selectedClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'selectedGroupClass', 'selectedClass')}" />
+    	<cdk:object name="disabledClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'disabledGroupClass', 'disabledClass')}" />
     	
-    	<cdk:object name="isDisabled" type="boolean" value="#{isDisabled(component)}" />
-		<cdk:object name="iconFacet" value="#{getIconFacet(component)}" type="javax.faces.component.UIComponent" />
-		<cdk:object name="iconAttribute" value="#{getIconAttribute(component)}" type="java.lang.String" />
+    	<cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
+		<cdk:object name="iconFacet" value="#{getIconFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
+		<cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
     	
     	<cdk:object name="onmouseover" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-sel #{selectedClass}'" />
     	<cdk:object name="onmouseout" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-unsel'" />
@@ -59,7 +59,7 @@
 			<div class="rf-ddm-nd">
 				<c:choose>
 					<c:when test="#{not isDisabled}">
-						<div id="#{clientId}_list" class="rf-ddm-lst rf-ddm-sublst" style="display:none;">
+						<div id="#{clientId}_list" class="rf-ddm-lst rf-ddm-sublst" style="display:none;min-width:#{getMinPopupWidth(facesContext, component)}px;">
 							<div class="rf-ddm-lst-bg">
 								<cdk:call expression="renderChildren(facesContext, component)" />
 							</div>

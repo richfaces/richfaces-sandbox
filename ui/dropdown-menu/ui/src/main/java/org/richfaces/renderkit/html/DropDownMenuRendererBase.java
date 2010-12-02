@@ -34,6 +34,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
 	 
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
     
+    public static final int DEFAULT_MIN_POPUP_WIDTH = 250;    
+    
     @Override
     public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
         AbstractDropDownMenu dropDownMenu = (AbstractDropDownMenu) component;
@@ -49,14 +51,14 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         }
     }
      
-    protected boolean isDisabled(UIComponent component) {
+    protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
         if (component instanceof AbstractDropDownMenu) {
             return ((AbstractDropDownMenu) component).isDisabled();
         }
         return false;
     }
      
-    protected UIComponent getLabelFacet(UIComponent component) {
+    protected UIComponent getLabelFacet(FacesContext facesContext, UIComponent component) {
         UIComponent facet = null;
         AbstractDropDownMenu ddmenu = (AbstractDropDownMenu) component; 
         if (ddmenu != null) {
@@ -80,6 +82,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 map.put("id", group.getClientId());
                 map.put("horizontalOffset", group.getHorizontalOffset());
                 map.put("verticalOffset", group.getVerticalOffset());
+                map.put("direction", group.getDirection());
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);
                 results.add(map);
@@ -97,5 +100,12 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 getMenuGroups(c, list);                
             }
         }
+    }
+    
+    protected int getMinPopupWidth(FacesContext facesContext, UIComponent component) {
+        if (component instanceof AbstractDropDownMenu) {
+            ((AbstractDropDownMenu) component).getPopupWith();
+        }
+        return DEFAULT_MIN_POPUP_WIDTH;
     }    
 }

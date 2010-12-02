@@ -18,8 +18,8 @@
     <cdk:object name="style" value="#{component.attributes['style']}" />
     <cdk:object name="styleClass" value="#{not empty component.attributes['styleClass'] ? component.attributes['styleClass']:''}" />
     
-    <cdk:object name="label" value="#{getLabelFacet(component)}" type="javax.faces.component.UIComponent" />
-    <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(component)}" />
+    <cdk:object name="label" value="#{getLabelFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
+    <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
 
 		<div id="#{clientId}" class="rf-ddm-lbl #{isDisabled ? 'rf-ddm-lbl-dis' : 'rf-ddm-lbl-unsel '+styleClass} " style="#{style}" 
 		 cdk:passThroughWithExclusions="">
@@ -39,7 +39,7 @@
 				
 			</div>
 			<div class="rf-ddm-pos">
-				<div id="#{clientId}_list" class="rf-ddm-lst" style="display:none;">
+				<div id="#{clientId}_list" class="rf-ddm-lst" style="display:none;min-width:#{getMinPopupWidth(facesContext, component)}px;">
 					<div class="rf-ddm-lst-bg">
 						<cdk:body />
 					</div>
@@ -47,11 +47,11 @@
 			</div>
 	      <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                	<cdk:scriptOption attributes="hideDelay showDelay" />
-                    <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide" wrapper="eventHandler"/>
+                	<cdk:scriptOption attributes="hideDelay showDelay popupWith jointPoint direction mode" />
+                    <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler"/>
                 </cdk:scriptObject>
                                 
-	new RichFaces.ui.Menu("#{clientId}",#{toScriptArgs(options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});            
+	new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});            
             </script>
 		</div>
     </cc:implementation>

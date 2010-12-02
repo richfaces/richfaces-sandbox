@@ -23,7 +23,7 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     @Attribute
     public abstract String getShowEvent();
 
-    @Attribute
+    @Attribute(defaultValue = MenuComponent.MODE_SERVER)
     public abstract String getMode();
     
     @Attribute
@@ -33,7 +33,16 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     public abstract int getHideDelay();
     
     @Attribute(defaultValue = "800")
-    public abstract int getShowDelay();     
+    public abstract int getShowDelay();
+    
+    @Attribute(defaultValue = "250")
+    public abstract int getPopupWith();
+    
+    @Attribute(defaultValue = "auto")
+    public abstract String getJointPoint();
+    
+    @Attribute(defaultValue = "auto")
+    public abstract String getDirection();    
     
     @Attribute(events = @EventName("groupshow"))
     public abstract String getOngroupshow();
@@ -46,6 +55,9 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     
     @Attribute(events = @EventName("hide"))
     public abstract String getOnhide();
+    
+    @Attribute(events = @EventName("itemclick"))
+    public abstract String getOnitemclick();    
     
     public enum Facets {
         LABEL("label"), LABEL_DISABLED("labelDisabled");

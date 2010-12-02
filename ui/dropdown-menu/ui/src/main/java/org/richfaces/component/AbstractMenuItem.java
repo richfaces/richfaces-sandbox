@@ -51,5 +51,4 @@ public abstract class AbstractMenuItem extends AbstractActionComponent
             return facetName;
         }
     }   
-   
 }

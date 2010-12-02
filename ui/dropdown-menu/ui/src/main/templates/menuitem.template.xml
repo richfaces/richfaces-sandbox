@@ -12,27 +12,31 @@
         <cdk:component-family>org.richfaces.DropDownMenu</cdk:component-family>
         <cdk:renderer-type>org.richfaces.MenuItemRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
+        
+        <cdk:resource-dependency name="dropdownmenu.ecss" library="org.richfaces" />
+        <cdk:resource-dependency name="ajax.reslib" library="org.richfaces" />
+        <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
     </cc:interface>
 
     <cc:implementation>
     	<cdk:object name="style" value="#{component.attributes['style']}" />
-    	<cdk:object name="iconClass" type="java.lang.String" value="#{getStyleClass(component, '', 'iconClass', 'iconClass')}" />
-    	<cdk:object name="labelClass" type="java.lang.String" value="#{getStyleClass(component, '', 'labelClass', 'labelClass')}" />
-    	<cdk:object name="styleClass" type="java.lang.String" value="#{getStyleClass(component, 'itemClass', 'styleClass', 'styleClass')}" />
-    	<cdk:object name="selectedClass" type="java.lang.String" value="#{getStyleClass(component, 'selectedItemClass', 'selectedClass', 'selectedClass')}" />
-    	<cdk:object name="disabledClass" type="java.lang.String" value="#{getStyleClass(component, 'disabledItemClass', 'disabledClass', 'disabledClass')}" />
+    	<cdk:object name="iconClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, '', 'iconClass', 'iconClass')}" />
+    	<cdk:object name="labelClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, '', 'labelClass', 'labelClass')}" />
+    	<cdk:object name="styleClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'itemClass', 'styleClass', 'styleClass')}" />
+    	<cdk:object name="selectedClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'selectedItemClass', 'selectedClass', 'selectedClass')}" />
+    	<cdk:object name="disabledClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'disabledItemClass', 'disabledClass', 'disabledClass')}" />
     	    
-    	<cdk:object name="isDisabled" type="boolean" value="#{isDisabled(component)}" />
+    	<cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
     	<cdk:object name="onmouseover" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-sel #{selectedClass}'" />
     	<cdk:object name="onmouseout" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-unsel #{styleClass}'" />
     	    
-	    <cdk:object name="iconFacet" value="#{getIconFacet(component)}" type="javax.faces.component.UIComponent" />
-	    <cdk:object name="iconAttribute" value="#{getIconAttribute(component)}" type="java.lang.String" />
+	    <cdk:object name="iconFacet" value="#{getIconFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
+	    <cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
     
 		<div id="#{clientId}" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}"  style="#{style}"
 			onmouseover="#{isDisabled ? '' : onmouseover}" 
 			onmouseout="#{isDisabled ? '' : onmouseout}"
-			onclick="#{getOnClickFunction(component)}" 
+			onclick="#{getOnClickFunction(facesContext, component)}" 
 			cdk:passThroughWithExclusions="">
 			<span class="rf-ddm-itm-ic #{iconClass}">
 				<c:choose>
