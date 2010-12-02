@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ddm="http://richfaces.org/dropDownMenu"
+      xmlns:tb="http://richfaces.org/toolBar">
+    <h:head>
+        <title>Drop Down Menu</title>
+        <style>
+            .pic {
+                margin-bottom: -4px;
+                margin-right: 2px;
+            }
+        </style>        
+    </h:head>
+    <h:body>
+    
+      <tb:toolBar height="45" itemSeparator="grid" contentStyle="color:red;">
+        <f:facet name="itemSeparator">
+            ||
+        </f:facet>      
+          <tb:toolBarGroup itemSeparator="line" onitemclick="22">
+              <h:graphicImage value="/images/icons/create_doc.gif" styleClass="pic"/>
+              <a href="sdsd">link 1</a> Text
+              <a href="sdsd 2">link 2</a>
+              <h:graphicImage value="/images/icons/create_folder.gif" styleClass="pic" onclick="q1"/>
+              <h:graphicImage value="/images/icons/copy.gif" styleClass="pic"/>
+              <a href="sdsd">link 3</a> Text
+              <a href="sdsd 2">link 4</a>
+          </tb:toolBarGroup>
+          <tb:toolBarGroup itemSeparator="none">
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+          </tb:toolBarGroup>
+          <tb:toolBarGroup itemSeparator="line">
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+              <h:graphicImage value="/images/icons/save.gif" styleClass="pic" onclick="q2"/>
+          </tb:toolBarGroup>
+          
+          <tb:toolBarGroup location="right" itemSeparator="square">
+              <h:graphicImage value="/images/icons/find.gif" styleClass="pic"/>
+              <h:graphicImage value="/images/icons/filter.gif" styleClass="pic"/>
+          </tb:toolBarGroup>
+        </tb:toolBar>
+    
+        <ddm:dropDownMenu value="File">
+                <ddm:menuItem value="New" icon="/images/icons/create_doc.gif">
+                
+				</ddm:menuItem>
+                <ddm:menuItem value="Open" icon="/images/icons/open.gif" />
+                <ddm:menuGroup value="Save As...">
+                    <ddm:menuItem value="Save" icon="/images/icons/save.gif" />
+                    <ddm:menuItem value="Save All">
+
+                    </ddm:menuItem>
+                </ddm:menuGroup>
+                <ddm:menuItem value="Close" />
+                <ddm:menuSeparator id="menuSeparator11" />
+                <ddm:menuItem value="Exit" />
+            </ddm:dropDownMenu>
+    </h:body>
+</html>

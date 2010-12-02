@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ddm="http://richfaces.org/dropDownMenu"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Drop Down Menu</title>
+        <style>
+            .pic {
+                margin-bottom: -4px;
+                margin-right: 2px;
+            }
+        </style>        
+    </h:head>
+    <h:body>
+    	<h:form id="form">
+			<br />
+			<a4j:outputPanel ajaxRendered="true">
+				<h:outputText value="Current Selection: "></h:outputText>
+				<h:outputText style="font-weight:bold" value="#{menuBean.current}"></h:outputText>
+			</a4j:outputPanel>
+    		<br />
+         	<ddm:dropDownMenu disabled="false" mode="ajax" onshow="console.info('onshow event');">
+         		<f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:graphicImage value="images/copy.gif" styleClass="pic"/>
+                        <h:outputText value="File"/>
+                    </h:panelGroup>
+                </f:facet>
+         		<f:facet name="labelDisabled"> 
+                    <h:panelGroup>
+                        <h:graphicImage value="images/copy.gif" styleClass="pic"/>
+                        <h:outputText value="(disabled)File"/>
+                    </h:panelGroup>
+                </f:facet>				
+                <ddm:menuItem label="New" icon="images/create_doc.gif"
+                	action="#{menuBean.doNew}">
+                
+				</ddm:menuItem>
+                <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
+               	    <f:facet name="icon">
+                        <h:graphicImage value="images/open.gif" />
+                    </f:facet>
+                </ddm:menuItem>
+                <ddm:menuGroup label="Save As..." disabled="true">
+                    <ddm:menuItem label="Save" icon="images/save.gif" >
+						<f:facet name="icon">
+                        	<h:graphicImage value="images/save.gif" />
+                    	</f:facet>                    
+                    </ddm:menuItem>
+                    <ddm:menuItem label="Save All" icon="images/save_all.gif" ></ddm:menuItem>
+                </ddm:menuGroup>
+                <ddm:menuGroup label="Save As...">
+                    <ddm:menuItem label="Save" icon="images/save.gif" />
+                    <ddm:menuItem label="Save All" icon="images/save_all.gif" ></ddm:menuItem>
+                </ddm:menuGroup>                
+                <ddm:menuItem label="Close" action="#{menuBean.doClose}"/>
+                <ddm:menuItem label="Close" disabled="true"/>
+                <ddm:menuSeparator id="menuSeparator11" />
+                <ddm:menuItem label="Exit" action="#{menuBean.doExit}"/>
+				<ddm:menuItem action="#{menuBean.doExit}">
+				 ---EXIT--- <input type="text" />
+				</ddm:menuItem>                
+            </ddm:dropDownMenu>
+        </h:form>
+    </h:body>
+</html>
