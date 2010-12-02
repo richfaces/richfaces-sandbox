@@ -28,22 +28,22 @@
 }
 
 .rf-ind {
-	height: 50px;
-	width: 50px;
+	height: 20px;
+	width: 20px;
 	border: 1px dotted red;
 	background-color: blue
 }
 
-.rf-ind-acp {
-	height: 50px;
-	width: 50px;
+.rf-ind-acpt {
+	height: 20px;
+	width: 20px;
 	border: 1px dotted red;
 	background-color: green;
 }
 
-.rf-ind-rej {
-	height: 50px;
-	width: 50px;
+.rf-ind-rejt {
+	height: 20px;
+	width: 20px;
 	border: 1px dotted green;
 	background-color: red;
 }
@@ -51,13 +51,15 @@
 </h:head>
 <h:body>
 	<h:form>
-		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acp" rejectClass="rf-ind-rej" />
+
+		<dnd:dragIndicator id="ind" styleClass="rf-ind" acceptClass="rf-ind-acpt" rejectClass="rf-ind-rejt" />
 		
 		<table>
 			<tr>
+				
 				<td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue1}"/>
-					<dnd:dragBehavior event="mouseover" type="drg1" dragIndicator="ind" dragValue="#{dataBean.dragValue1}"/>
+					<dnd:dragBehavior event="mouseover" type="drg1" dragValue="#{dataBean.dragValue1}"/>
 				</a4j:outputPanel></td>
 				<td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue2}"/>
