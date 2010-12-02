@@ -53,6 +53,7 @@
 							ui.helper.addClass(indicator.draggingClass());
 						}
 					}
+					this.__clearDraggableCss(ui.helper);
 				},
 				
 				dragStop: function(e, ui){
@@ -65,6 +66,13 @@
 				
 				__isCustomDragIndicator: function() {
 					return this.dragElement.data("indicator"); 
+				},
+				
+				__clearDraggableCss: function(element) {
+					if(element && element.removeClass) {
+						//draggable 'addClasses: false' doesn't work so clear jQuery style 
+						element.removeClass("ui-draggable-dragging");	
+					}
 				}
 			}
     	})());
