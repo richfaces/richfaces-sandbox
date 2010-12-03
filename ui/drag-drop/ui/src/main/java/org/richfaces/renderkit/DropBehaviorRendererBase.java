@@ -86,7 +86,7 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
     
     public Map<String, Object> getOptions(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         Map<String, Object> options = new HashMap<String, Object>();
-        
+
         if(behavior instanceof ClientDropBehavior) {
             ClientDropBehavior dropBehavior = (ClientDropBehavior)behavior;
             options.put("acceptedTypes", dropBehavior.getAcceptedTypes());
@@ -110,10 +110,8 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
             ClientDragBehavior dragBehavior = getDragBehavior(target, "mouseover");
             if(dragBehavior != null) {
                 DropEvent dropEvent = new DropEvent(dropSource, dropBehavior);
-                dropEvent.setDragSource(target);
-                dropEvent.setDragValue(dragBehavior.getDragValue());
-                dropEvent.setDropValue(dropBehavior.getDropValue());
-                dropEvent.setAcceptedTypes(dropBehavior.getAcceptedTypes());
+                dropEvent.setDragSource(dragBehavior);
+                dropEvent.setDragComponent(target);
                 queueDropEvent(dropEvent);
             } else {
                 //TODO: log
