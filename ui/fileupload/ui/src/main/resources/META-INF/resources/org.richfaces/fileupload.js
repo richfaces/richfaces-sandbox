@@ -31,9 +31,9 @@
     	NEW: "new",
     	UPLOADING: "uploading",
     	DONE: "done",
-    	SIZE_EXCEEDED: "size_exceeded",
+    	SIZE_EXCEEDED: "sizeExceeded",
     	STOPPED: "stopped",
-    	SERVER_ERROR: "server_error"
+    	SERVER_ERROR: "serverError"
     };
     
     var pressButton = function(event) {
@@ -51,8 +51,14 @@
 	    name: "FileUpload",
 	    
 	    items: [],
-	    
 	    submitedItems: [],
+	    
+	    doneLabel: "Done",
+	    sizeExceededLabel: "File size is exceeded",
+	    stoppedLabel: "",
+	    serverErrorLabel: "Server error",
+	    clearLabel: "Clear",
+	    deleteLabel: "Delete",
 	    
 	    init: function(id, options) {
 	        this.id = id;
@@ -179,11 +185,11 @@
 						this.loadableItem = null;
 						this.__updateButtons();
 						var items = [];
-			    		for (var i in this.items) {
-			    			items.push(this.items[i].model);
-						}
 			    		for (var i in this.submitedItems) {
 			    			items.push(this.submitedItems[i].model);
+						}
+			    		for (var i in this.items) {
+			    			items.push(this.items[i].model);
 						}
 			    		richfaces.Event.fire(this.element, "onuploadcomplete", items);
 					}
@@ -227,7 +233,7 @@
 			this.state = this.label.nextAll(".rf-fu-itm-st:first");
 			this.link = leftArea.next().children("a");
 			this.label.html(this.model.name);
-			this.link.html("Delete");
+			this.link.html(this.fileUpload["deleteLabel"]);
 			this.link.click(jQuery.proxy(this.removeOrStop, this));
 			return this.element;
 		},
@@ -260,8 +266,8 @@
         		this.fileUpload.hiddenContainer.append(this.fileUpload.progressBarElement.detach());
     		}
 	    	this.input.remove();
-	    	this.state.html(state == ITEM_STATE.DONE ? "Done" : "File size exceeded");
-			this.link.html("Clear");
+	    	this.state.html(this.fileUpload[state + "Label"]);
+			this.link.html(this.fileUpload["clearLabel"]);
 			this.model.state = state;
 	    }
 	});
