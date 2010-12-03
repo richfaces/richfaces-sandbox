@@ -14,12 +14,7 @@ public abstract class MenuGroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuGroupRenderer";
     
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
-    
-    @Override
-    public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
 
-    }
-    
     protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
         if (component instanceof AbstractMenuGroup) {
             return ((AbstractMenuGroup) component).isDisabled();

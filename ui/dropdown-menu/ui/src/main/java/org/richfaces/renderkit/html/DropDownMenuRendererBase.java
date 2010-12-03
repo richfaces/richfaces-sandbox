@@ -37,7 +37,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;    
     
     @Override
-    public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
         AbstractDropDownMenu dropDownMenu = (AbstractDropDownMenu) component;
 
         for (UIComponent child : dropDownMenu.getChildren()) {
@@ -75,7 +75,11 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     public List<Map<String, Object>> getMenuGroups(FacesContext facesContext, UIComponent component) {
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
         List<AbstractMenuGroup> groups = new ArrayList<AbstractMenuGroup>();
-        getMenuGroups(component, groups);
+        if (component instanceof AbstractDropDownMenu) {
+            if (component.isRendered() && !((AbstractDropDownMenu) component).isDisabled()) {
+                getMenuGroups(component, groups);        
+            }
+        }
         for (AbstractMenuGroup group : groups) {
             if (group.isRendered() && !group.isDisabled()) {
                 Map<String, Object> map = new HashMap<String, Object>();

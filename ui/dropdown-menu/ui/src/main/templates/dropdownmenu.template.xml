@@ -38,21 +38,25 @@
 				</c:choose>
 				
 			</div>
-			<div class="rf-ddm-pos">
-				<div id="#{clientId}_list" class="rf-ddm-lst" style="display:none;min-width:#{getMinPopupWidth(facesContext, component)}px;">
-					<div class="rf-ddm-lst-bg">
-						<cdk:body />
+
+			<c:if test="#{not isDisabled(facesContext, component)}">
+				<div class="rf-ddm-pos">
+					<div id="#{clientId}_list" class="rf-ddm-lst" style="display:none;min-width:#{getMinPopupWidth(facesContext, component)}px;">
+						<div class="rf-ddm-lst-bg">
+							<cdk:call expression="renderChildren(facesContext, component)" />
+						</div>
 					</div>
 				</div>
-			</div>
-	      <script type="text/javascript">
-                <cdk:scriptObject name="options">
-                	<cdk:scriptOption attributes="hideDelay showDelay popupWith jointPoint direction mode" />
-                    <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler"/>
-                </cdk:scriptObject>
-                                
-	new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});            
-            </script>
+		      <script type="text/javascript">
+	                <cdk:scriptObject name="options">
+	                	<cdk:scriptOption attributes="hideDelay showDelay popupWith jointPoint direction mode" />
+	                    <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler"/>
+	                </cdk:scriptObject>
+	                                
+		new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});
+		
+	            </script>
+            </c:if>            
 		</div>
     </cc:implementation>
     

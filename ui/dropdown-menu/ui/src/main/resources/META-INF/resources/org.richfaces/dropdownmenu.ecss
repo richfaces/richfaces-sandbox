@@ -105,3 +105,17 @@
 	height: 16px;
 	line-height: 16px;
 }
+
+.rf-ddm-itm-ic input[type="checkbox"] {
+	margin:0;
+	width:16px;
+}
+
+.rf-ddm-itm-lbl input[type="text"] {
+	font-family:Arial,Verdana,sans-serif;
+	font-size:11px;
+	background-position:1px 1px;
+	background-repeat:no-repeat;
+	border-style:inset;
+	border-width:1px;				
+}
