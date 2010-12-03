@@ -22,12 +22,12 @@
 
 package org.richfaces.event;
 
-import java.util.Set;
-
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.Behavior;
 import javax.faces.event.BehaviorEvent;
 import javax.faces.event.FacesListener;
+
+import org.richfaces.component.behavior.ClientDragBehavior;
+import org.richfaces.component.behavior.ClientDropBehavior;
 
 /**
  * @author abelevich
@@ -36,51 +36,40 @@ import javax.faces.event.FacesListener;
 public class DropEvent extends BehaviorEvent {
 
     private static final long serialVersionUID = 3717071628237886288L;
-   
-    private Object dropValue;
     
-    private Object dragValue;
+    private ClientDragBehavior dragSource;
     
-    private Set<String> acceptedTypes;
+    private UIComponent dragComponent;
     
-    private UIComponent dragSource;
-    
-    
-    public DropEvent(UIComponent component, Behavior behavior) {
+    public DropEvent(UIComponent component, ClientDropBehavior behavior) {
         super(component, behavior);
     }
-        
-    public Set<String> getAcceptedTypes() {
-        return acceptedTypes;
-    }
-
-    public void setAcceptedTypes(Set<String> acceptedTypes) {
-        this.acceptedTypes = acceptedTypes;
-    }
-      
-    public Object getDropValue() {
-        return dropValue;
-    }
-
-    public void setDropValue(Object dropValue) {
-        this.dropValue = dropValue;
-    }
-
-    public Object getDragValue() {
-        return dragValue;
-    }
-
-    public void setDragValue(Object dragValue) {
-        this.dragValue = dragValue;
-    }
-
-    public UIComponent getDragSource() {
+    
+    public ClientDragBehavior getDragSource() {
         return dragSource;
     }
 
-    public void setDragSource(UIComponent dragSource) {
+
+    public void setDragSource(ClientDragBehavior dragSource) {
         this.dragSource = dragSource;
     }
+
+    public UIComponent getDragComponent() {
+        return dragComponent;
+    }
+
+    public void setDragComponent(UIComponent dragComponent) {
+        this.dragComponent = dragComponent;
+    }
+
+    public ClientDropBehavior getDropSource() {
+        return (ClientDropBehavior)getBehavior();
+    }
+    
+    public UIComponent getDropComponent() {
+        return getComponent();
+    }
+
 
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
