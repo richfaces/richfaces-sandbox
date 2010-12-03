@@ -80,7 +80,7 @@
             },
 
             processItem: function(item) {
-                if (item &&  item.atrr('id') && !this.isDisabled(item) && this.isGroup(item)) {
+                if (item && item.attr('id') && !this.__isDisabled(item) && this.__isGroup(item)) {
                 	this.invokeEvent("itemclick", rf.getDomElement(this.id), null);
                     this.hidePopup();                                        
                 }
@@ -126,7 +126,7 @@
             },
             
             __isGroup: function(item) {
-            	return 'object' == typeof this.groupList[item.atrr('id')];
+            	return 'object' == typeof this.groupList[item.attr('id')];
             },
             
             __isDisabled: function(item) {

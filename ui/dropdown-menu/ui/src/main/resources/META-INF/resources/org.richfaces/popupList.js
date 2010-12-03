@@ -176,11 +176,10 @@
 				}
 			},
 
-			__onClick: function(e) {
-				console.info("e.target: "+$(e.target).attr('id')+"; e.currentTarget:"+$(e.currentTarget).attr('id'));
+			__onClick: function(e) {				
 				var item = this.__getItem(e);				
-				//this.processItem($(item));				
-				//this.__select(item);
+				this.processItem($(item));				
+				this.__select(item);
 			},
 
 			__getItem: function(e) {
