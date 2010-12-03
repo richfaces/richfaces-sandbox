@@ -38,8 +38,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency library="org.richfaces" name="fileupload.js" />
 	</cc:interface>
 	<cc:implementation>
-		<cdk:object name="enabled" value="#{component.attributes['enabled']}"/>
-		<div id="#{clientId}" class="rf-fu #{component.attributes['styleClass']}"
+		<cdk:object name="attributes" value="#{component.attributes}"/>
+		<cdk:object name="enabled" value="#{attributes['enabled']}"/>
+		<div id="#{clientId}" class="rf-fu #{attributes['styleClass']}"
 				cdk:passThroughWithExclusions="">
 			<div class="rf-fu-hdr">
 				<span class="rf-fu-btns-lft">
@@ -50,19 +51,22 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 									<input type="file" class="rf-fu-inp"/>
 								</span>
 							</c:if>
-							Add...
+							<cdk:object name="addLabel" value="#{attributes['addLabel']}"/>
+							#{addLabel != null ? addLabel : 'Add...'}
 						</span>
 					</span>
 					<c:if test="#{enabled}">
 						<span class="rf-fu-btn-upl">
-							<span class="rf-fu-btn-cnt-upl">Upload</span>
+							<cdk:object name="uploadLabel" value="#{attributes['uploadLabel']}"/>
+							<span class="rf-fu-btn-cnt-upl">#{uploadLabel != null ? uploadLabel : 'Upload'}</span>
 						</span>
 					</c:if>
 				</span>
 				<c:if test="#{enabled}">
 					<span class="rf-fu-btns-rgh">
 						<span class="rf-fu-btn-clr">
-							<span class="rf-fu-btn-cnt-clr">Clear All</span>
+							<cdk:object name="clearAllLabel" value="#{attributes['clearAllLabel']}"/>
+							<span class="rf-fu-btn-cnt-clr">#{clearAllLabel != null ? clearAllLabel : 'Clear All'}</span>
 						</span>
 					</span>
 				</c:if>
@@ -77,7 +81,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					</c:if>
 				</div>
 				<cdk:scriptObject name="options">
-					<cdk:scriptOption attributes="acceptedTypes noDuplicate onfilesubmit onuploadcomplete"/>
+					<cdk:scriptOption attributes="acceptedTypes noDuplicate onfilesubmit onuploadcomplete doneLabel
+						sizeExceededLabel stoppedLabel serverErrorLabel clearLabel deleteLabel"/>
 				</cdk:scriptObject>
 				<script type="text/javascript">new RichFaces.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
 			</c:if>

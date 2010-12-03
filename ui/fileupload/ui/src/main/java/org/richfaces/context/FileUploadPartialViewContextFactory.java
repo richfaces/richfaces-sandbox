@@ -51,7 +51,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
     public static final String UID_KEY = "rf_fu_uid";
 
     private static enum ResponseState {
-        size_exceeded, stopped, server_error
+        sizeExceeded, stopped, serverError
     };
     
     private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
@@ -71,12 +71,13 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
     public FileUploadPartialViewContextFactory(PartialViewContextFactory parentFactory) {
         this.parentFactory = parentFactory;
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        String param = context.getInitParameter("createTempFiles");
+        //TODO Use ConfigurationServiceHelper to initialize InitParameters.
+        String param = context.getInitParameter("org.richfaces.fileUpload.createTempFiles");
         if (param != null) {
             this.createTempFiles = Boolean.parseBoolean(param);
         }
-        this.tempFilesDirectory = context.getInitParameter("tempFilesDirectory");
-        param = context.getInitParameter("maxRequestSize");
+        this.tempFilesDirectory = context.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
+        param = context.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
         if (param != null) {
             this.maxRequestSize = Integer.parseInt(param);
         }
@@ -90,7 +91,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         String uid = queryParamMap.get(UID_KEY);
         if (uid != null) {
             if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
-                printResponse(facesContext, uid, ResponseState.size_exceeded);
+                printResponse(facesContext, uid, ResponseState.sizeExceeded);
             } else {
                 MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
                     tempFilesDirectory, maxRequestSize, uid);
@@ -102,7 +103,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
                         externalContext.setRequest(multipartRequest);
                     }
                 } catch (FileUploadException e) {
-                    printResponse(facesContext, uid, ResponseState.server_error);
+                    printResponse(facesContext, uid, ResponseState.serverError);
                 } finally {
                     multipartRequest.clearRequestData();
                 }
