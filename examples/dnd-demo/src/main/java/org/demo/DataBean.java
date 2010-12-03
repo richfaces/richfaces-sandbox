@@ -54,7 +54,7 @@ public class DataBean {
     }
     
     public void processEvent(DropEvent event) {
-        String value = (String)event.getDragValue();
+        String value = (String)event.getDragSource().getDragValue();
         dropValues.add(value);
         System.out.println("DataBean.processEvent()");
     }
