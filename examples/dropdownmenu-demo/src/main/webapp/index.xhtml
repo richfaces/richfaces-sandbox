@@ -21,17 +21,17 @@
          	<ddm:dropDownMenu id="ddmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
          		<f:facet name="label"> 
                     <h:panelGroup>
-                        <h:graphicImage value="images/copy.gif" styleClass="pic"/>
+                        <h:graphicImage value="/images/copy.gif" styleClass="pic"/>
                         <h:outputText value="File"/>
                     </h:panelGroup>
                 </f:facet>
          		<f:facet name="labelDisabled"> 
                     <h:panelGroup>
-                        <h:graphicImage value="images/copy.gif" styleClass="pic"/>
+                        <h:graphicImage value="/images/copy.gif" styleClass="pic"/>
                         <h:outputText value="(disabled)File"/>
                     </h:panelGroup>
                 </f:facet>				
-                <ddm:menuItem id="menuNew" label="New" icon="images/create_doc.gif"
+                <ddm:menuItem id="menuNew" label="New" icon="/images/create_doc.gif"
                 	action="#{menuBean.doNew}" execute="@form">
 					<f:facet name="icon">
 						<h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}"/>
@@ -39,28 +39,28 @@
 				</ddm:menuItem>
                 <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
                	    <f:facet name="icon">
-                        <h:graphicImage value="images/open.gif" />
+                        <h:graphicImage value="/images/open.gif" />
                     </f:facet>
                 </ddm:menuItem>
                 <ddm:menuGroup label="Save As..." disabled="true">
-                    <ddm:menuItem label="Save" icon="images/save.gif" >
+                    <ddm:menuItem label="Save" icon="/images/save.gif" >
 						<f:facet name="icon">
-                        	<h:graphicImage value="images/save.gif" />
+                        	<h:graphicImage value="/images/save.gif" />
                     	</f:facet>                    
                     </ddm:menuItem>
-                    <ddm:menuItem label="Save All" icon="images/save_all.gif" >
+                    <ddm:menuItem label="Save All" icon="/images/save_all.gif" >
                     	<f:setPropertyActionListener target="#{menuBean.value}" value="Save All" />
                     </ddm:menuItem>
                 </ddm:menuGroup>
                 <ddm:menuGroup label="Save As...">
-                    <ddm:menuItem label="Save" icon="images/save.gif" >
+                    <ddm:menuItem label="Save" icon="/images/save.gif" >
                     	<f:setPropertyActionListener target="#{menuBean.value}" value="Save" />
                     </ddm:menuItem>
-					<ddm:menuGroup label="Save All" icon="images/save_all.gif" >
-						<ddm:menuItem label="Save All 1" icon="images/save_all.gif">
+					<ddm:menuGroup label="Save All" icon="/images/save_all.gif" >
+						<ddm:menuItem label="Save All 1" icon="/images/save_all.gif">
 							<f:setPropertyActionListener target="#{menuBean.value}" value="Save All 1" />
 						</ddm:menuItem>
-						<ddm:menuItem label="Save All 2" icon="images/save_all.gif" >
+						<ddm:menuItem label="Save All 2" icon="/images/save_all.gif" >
 							<f:setPropertyActionListener target="#{menuBean.value}" value="Save All 2" />
 						</ddm:menuItem>
                 </ddm:menuGroup>					

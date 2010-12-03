@@ -41,7 +41,7 @@
 						<cdk:call expression="iconFacet.encodeAll(facesContext)" />
 					</c:when>
 					<c:when test="#{not empty iconAttribute}">
-						<img width="16" height="16" src="#{iconAttribute}" alt="" />
+						<img width="16" height="16" src="#{RenderKitUtils.getResourceURL(iconAttribute, facesContext)}" alt="" />
 					</c:when>
 					<c:otherwise>
 						<div class="rf-ddm-emptyIcon"></div>
