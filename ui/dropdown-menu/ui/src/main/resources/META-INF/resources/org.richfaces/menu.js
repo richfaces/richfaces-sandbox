@@ -40,6 +40,7 @@
         this.popupList = new RichFaces.ui.PopupList(this.id + "_list", this, this.options);
         this.selectedGroup = null;
         rf.Event.bindById(this.id, this.options.showEvent, $.proxy(this.___showHandler, this), this);
+        rf.Event.bindById(this.id, "mouseover", $.proxy(this.__overHandler, this), this);
         rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler, this), this);
 
     };
