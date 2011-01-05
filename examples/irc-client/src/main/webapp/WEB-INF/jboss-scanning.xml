@@ -1,0 +1,11 @@
+<scanning xmlns="urn:jboss:scanning:1.0">
+<!--
+    For JBoss AS 6 integration there is a conflict with guava, and
+    google-collections.  JBAS-8361
+-->
+    <path name="WEB-INF/classes"></path>
+
+    <path name="WEB-INF/lib/guava-r07.jar">
+        <exclude name="com.google.common.collect" />
+    </path>
+</scanning>
