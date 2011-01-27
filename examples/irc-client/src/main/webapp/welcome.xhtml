@@ -55,11 +55,11 @@
 			<br clear="all" />
 			<hr />
 			<h:form>
-				<a4j:push address="#{chatBean.channelName}List@chat"
+				<a4j:push address="#{chatBean.userName}_#{chatBean.channelName}List@chat"
 					onerror="alert(event.rf.data)">
 					<a4j:ajax event="dataavailable" render="users" execute="@none" />
 				</a4j:push>
-				<a4j:push address="#{chatBean.channelName}@chat"
+				<a4j:push address="#{chatBean.userName}_#{chatBean.channelName}@chat"
 					onerror="alert(event.rf.data)"
 					ondataavailable="jQuery('&lt;div /&gt;').prependTo('.#{chatBean.channelName}Output').text(event.rf.data)" />
 				<h:inputTextarea value="#{chatBean.message}" rows="3"

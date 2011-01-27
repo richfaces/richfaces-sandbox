@@ -16,6 +16,14 @@
 		<param-name>org.richfaces.skin</param-name>
 		<param-value>#{skinBean.skin}</param-value>
 	</context-param>
+	<context-param>
+		<param-name>org.richfaces.push.jms.connectionUsername</param-name>
+		<param-value>guest</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.push.jms.connectionPassword</param-name>
+		<param-value>guest</param-value>
+	</context-param>
     <filter>
         <filter-name>PushFilter</filter-name>
         <filter-class>org.richfaces.webapp.PushFilter</filter-class>

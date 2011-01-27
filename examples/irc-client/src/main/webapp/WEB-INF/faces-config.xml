@@ -5,12 +5,9 @@
 
 	<application>
 		<system-event-listener>
-			<system-event-listener-class>org.ircclient.listeners.HornetQInitializer</system-event-listener-class>
-			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-		</system-event-listener>
-		<system-event-listener>
 			<system-event-listener-class>org.ircclient.listeners.TopicsInitializer</system-event-listener-class>
 			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
 		</system-event-listener>
 	</application>
+
 </faces-config>
