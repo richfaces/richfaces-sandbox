@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:watermark="http://richfaces.org/sandbox/watermark">
+<h:head>
+    <title>Watermark sample</title>
+    <style type="text/css">
+        .rich-container input.watermark {
+            color: #777;
+        }
+    </style>
+</h:head>
+
+<h:body class="rich-container">
+<rich:messages ajaxRendered="true"/>
+
+<h:form>
+    <a4j:poll ajaxSingle="true" interval="5000"/>
+    <a4j:queue requestDelay="400" ignoreDupResponses="true"/>
+
+    <h:outputLabel value="Watermark text" for="text"/>
+    <h:inputText id="text" value="#{watermarkBean.text}" required="true">
+        <f:ajax event="valueChange" render="@form"/>
+    </h:inputText>
+    <h:commandButton value="Submit" action="#{watermarkBean.submit}"/>
+    <br/><br/>
+    <h:inputText id="watermarked" value="#{watermarkBean.watermarkedInput}">
+        <watermark:watermark value="#{watermarkBean.text}"/>
+    </h:inputText>
+
+    <rich:calendar id="calendar" value="#{watermarkBean.date}" enableManualInput="true" ajaxSingle="true"/>
+    <watermark:watermark value="#{watermarkBean.text}" for="calendar" suffix="InputDate"/>
+
+    <!--<rich:comboBox>-->
+        <!--<watermark:watermark value="#{watermarkBean.text}" suffix="comboboxField"/>-->
+    <!--</rich:comboBox>-->
+
+    <input id="htmlInput" type="text"/>
+    <watermark:watermark value="#{watermarkBean.text}" for="htmlInput"/>
+</h:form>
+
+<div id="status"></div>
+<!--<rich:insert src="/index.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>-->
+
+</h:body>
+</html>
