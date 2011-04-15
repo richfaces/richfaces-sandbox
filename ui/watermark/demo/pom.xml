@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.sandbox.ui.watermark</groupId>
-            <artifactId>watermark</artifactId>
+            <artifactId>watermark-ui</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>

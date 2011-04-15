@@ -8,7 +8,7 @@
         <version>4.1.0-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
-    <artifactId>watermark</artifactId>
+    <artifactId>watermark-ui</artifactId>
     <name>Richfaces UI Components: watermark ui</name>
 
     <dependencies>
