@@ -1,5 +1,13 @@
 package org.richfaces.renderkit.html.scripts;
 
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.resource.AbstractCacheableResource;
+import org.richfaces.resource.DynamicResource;
+
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,20 +17,13 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.resource.AbstractCacheableResource;
-import org.richfaces.resource.DynamicResource;
-
 @DynamicResource
 public class ScheduleMessages extends AbstractCacheableResource {
 
     public static final String BUNDLE_NAME = "org.richfaces.component.UIScheduleMessages";
+
     private static final String MESSAGE_KEY_BASE = "org.richfaces.component.UISchedule.";
+
     private static final Logger LOG = LogFactory.getLogger(ScheduleMessages.class);
 
     public ScheduleMessages() {
@@ -35,7 +36,7 @@ public class ScheduleMessages extends AbstractCacheableResource {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Application application = facesContext.getApplication();
         StringBuilder out = new StringBuilder();
-        out.append("RichFaces.Schedule.prototype.messages=jQuery.extend(RichFaces.Schedule.prototype.messages,{");
+        out.append("RichFaces.ui.Schedule.prototype.messages=jQuery.extend(RichFaces.ui.Schedule.prototype.messages,{");
         Iterator<Locale> supportedLocales = application.getSupportedLocales();
         while (supportedLocales.hasNext()) {
             Locale locale = supportedLocales.next();

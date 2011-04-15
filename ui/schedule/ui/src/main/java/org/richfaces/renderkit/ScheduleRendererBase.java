@@ -1,25 +1,10 @@
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptString;
 import org.richfaces.component.AbstractSchedule;
 import org.richfaces.component.AbstractScheduleAgendaDayView;
 import org.richfaces.component.AbstractScheduleAgendaWeekView;
@@ -38,6 +23,24 @@ import org.richfaces.component.event.ScheduleViewChangeEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 @ResourceDependencies({
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js", target = "head"),
@@ -51,26 +54,48 @@ import org.richfaces.renderkit.util.RendererUtils;
     @ResourceDependency(name = "richfaces.schedule.js", target = "head"),
     @ResourceDependency(name = "org.richfaces.renderkit.html.scripts.ScheduleMessages", target = "head"),
     @ResourceDependency(name = "fullcalendar.css", target = "head")})
-public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
+public abstract class ScheduleRendererBase extends RendererBase {
+// ------------------------------ FIELDS ------------------------------
+
+    public static final String DATE_RANGE_CHANGED_EVENT = "dateRangeChange";
+
+    public static final String DATE_RANGE_SELECTED_EVENT = "dateRangeSelect";
+
+    public static final String DATE_SELECTED_EVENT = "dateSelect";
+
+    public static final String ITEM_MOVE_EVENT = "itemMove";
+
+    public static final String ITEM_RESIZE_EVENT = "itemResize";
+
+    public static final String ITEM_SELECTED_EVENT = "itemSelect";
 
     public static final String RENDERER_TYPE = "org.richfaces.ScheduleRenderer";
-    public static final String ITEM_MOVE_EVENT = "itemMove";
-    public static final String ITEM_RESIZE_EVENT = "itemResize";
-    public static final String ITEM_SELECTED_EVENT = "itemSelect";
-    public static final String DATE_RANGE_CHANGED_EVENT = "dateRangeChange";
+
     public static final String VIEW_CHANGED_EVENT = "viewChange";
-    public static final String DATE_SELECTED_EVENT = "dateSelect";
-    public static final String DATE_RANGE_SELECTED_EVENT = "dateRangeSelect";
-    private static final String CALLBACK = "callback";
-    private static final String END_DATE_PARAM = "endDate";
-    private static final String START_DATE_PARAM = "startDate";
-    private static final String ITEM_ID_PARAM = "itemId";
-    private static final String DAY_DELTA_PARAM = "dayDelta";
-    private static final String MINUTE_DELTA_PARAM = "minuteDelta";
+
     private static final String ALL_DAY_PARAM = "allDay";
-    private static final String EVENT_TYPE_PARAM = "eventType";
-    private static final String VIEW_PARAM = "view";
+
+    private static final String CALLBACK = "callback";
+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private static final String DAY_DELTA_PARAM = "dayDelta";
+
     private static final Map<String, Object> DEFAULTS;
+
+    private static final String END_DATE_PARAM = "endDate";
+
+    private static final String EVENT_TYPE_PARAM = "eventType";
+
+    private static final String ITEM_ID_PARAM = "itemId";
+
+    private static final String MINUTE_DELTA_PARAM = "minuteDelta";
+
+    private static final String START_DATE_PARAM = "startDate";
+
+    private static final String VIEW_PARAM = "view";
+
+// -------------------------- STATIC METHODS --------------------------
 
     /**
      * Following defaults are be used by addOptionIfSetAndNotDefault
@@ -79,7 +104,7 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         Map<String, Object> defaults = new HashMap<String, Object>();
         defaults.put("styleClass", "");
         defaults.put("defaultView", AbstractSchedule.DEFAULT_VIEW);
-        defaults.put("firstDay", AbstractSchedule.DEFAULT_FIRST_DAY);
+        defaults.put("firstDay", AbstractSchedule.DEFAULT_FIRST_DAY - 1);
         defaults.put("isRTL", AbstractSchedule.DEFAULT_RTL);
         defaults.put("weekends", AbstractSchedule.DEFAULT_SHOW_WEEKENDS);
         defaults.put("weekMode", AbstractSchedule.DEFAULT_WEEK_MODE);
@@ -100,6 +125,7 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         defaults.put("disableResizing", AbstractSchedule.DEFAULT_DISABLE_RESIZING);
         defaults.put("dragRevertDuration", AbstractSchedule.DEFAULT_DRAG_REVERT_DURATION);
         defaults.put("allDayDefault", AbstractSchedule.DEFAULT_ALL_DAY_DEFAULT);
+        defaults.put("autoRefreshOnDateRangeSelect", AbstractSchedule.DEFAULT_AUTO_REFRESH_ON_DATE_RANGE_SELECT);
         defaults.put("onbeforeitemselect", "");
         defaults.put("onitemselect", "");
         defaults.put("onbeforeitemdrop", "");
@@ -113,6 +139,7 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         defaults.put("onitemmouseover", "");
         defaults.put("onitemmouseout", "");
         defaults.put("onviewchange", "");
+        defaults.put("onviewdisplay", "");
         defaults.put("onbeforedateselect", "");
         defaults.put("ondateselect", "");
         defaults.put("onbeforedaterangeselect", "");
@@ -120,6 +147,15 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         defaults.put("ondaterangechange", "");
         DEFAULTS = Collections.unmodifiableMap(defaults);
     }
+
+    private static void copyAttribute(String attribute, String suffix, UIComponent source, UIComponent target) {
+        Object value = source.getAttributes().get(attribute);
+        if (value != null) {
+            target.getAttributes().put(attribute + suffix, value);
+        }
+    }
+
+// -------------------------- OTHER METHODS --------------------------
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
@@ -147,8 +183,8 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
 
             try {
                 if (DATE_RANGE_CHANGED_EVENT.equals(eventTypeParam)) {
-                    Date startDate = new Date(Long.parseLong(startDateParam) * 1000);
-                    Date endDate = new Date(Long.parseLong(endDateParam) * 1000);
+                    Date startDate = DATE_FORMAT.parse(startDateParam);
+                    Date endDate = DATE_FORMAT.parse(endDateParam);
                     new ScheduleDateRangeChangeEvent(component, startDate, endDate).queue();
                 } else if (ITEM_MOVE_EVENT.equals(eventTypeParam)) {
                     int dayDelta = Integer.parseInt(dayDeltaParam);
@@ -164,41 +200,74 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
                 } else if (VIEW_CHANGED_EVENT.equals(eventTypeParam)) {
                     new ScheduleViewChangeEvent(component, viewParam).queue();
                 } else if (DATE_SELECTED_EVENT.equals(eventTypeParam)) {
-                    Date startDate = new Date(Long.parseLong(startDateParam) * 1000);
+                    Date startDate = DATE_FORMAT.parse(startDateParam);
                     boolean allDay = Boolean.parseBoolean(allDayParam);
                     new ScheduleDateSelectEvent(component, startDate, allDay).queue();
                 } else if (DATE_RANGE_SELECTED_EVENT.equals(eventTypeParam)) {
-                    Date startDate = new Date(Long.parseLong(startDateParam) * 1000);
-                    Date endDate = new Date(Long.parseLong(endDateParam) * 1000);
+                    Date startDate = DATE_FORMAT.parse(startDateParam);
+                    Date endDate = DATE_FORMAT.parse(endDateParam);
                     boolean allDay = Boolean.parseBoolean(allDayParam);
                     new ScheduleDateRangeSelectEvent(component, startDate, endDate, allDay).queue();
                 }
-            } catch (NumberFormatException ex) {
+            } catch (ParseException ex) {
                 throw new FacesException("Cannot convert request parmeters", ex);
             }
         }
     }
 
-    protected void writeInitFunction(FacesContext context, UIComponent component) throws IOException {
-        AbstractSchedule schedule = (AbstractSchedule) component;
-        ResponseWriter writer = context.getResponseWriter();
-        String clientId = schedule.getClientId(context);
-        Locale locale = context.getViewRoot().getLocale();
-        String widgetVar = schedule.getWidgetVar();
-        if (widgetVar != null) {
-            writer.writeText("var " + widgetVar + " = ", null);
+    private void addOptionHash(String attribute, UIComponent source, Map<String, Object> options) {
+        Map<String, Object> hash = new HashMap<String, Object>(3);
+        Map<String, Object> attributes = source.getAttributes();
+        addOptionIfSetAndNotDefault("month", attributes.get(attribute + "Month"), hash);
+        addOptionIfSetAndNotDefault("basicWeek", attributes.get(attribute + "BasicWeek"), hash);
+        addOptionIfSetAndNotDefault("agendaWeek", attributes.get(attribute + "AgendaWeek"), hash);
+        addOptionIfSetAndNotDefault("basicDay", attributes.get(attribute + "BasicDay"), hash);
+        addOptionIfSetAndNotDefault("agendaDay", attributes.get(attribute + "AgendaDay"), hash);
+        addOptionIfSetAndNotDefault("", attributes.get(attribute), hash);
+        if (hash.size() > 0) {
+            options.put(attribute, hash);
         }
-        writer.writeText(new JSObject("RichFaces.Schedule", clientId, locale.toString(),
-            getOptions(schedule),
-            DATE_RANGE_CHANGED_EVENT,
-            ITEM_SELECTED_EVENT,
-            ITEM_MOVE_EVENT,
-            ITEM_RESIZE_EVENT,
-            VIEW_CHANGED_EVENT,
-            DATE_SELECTED_EVENT,
-            DATE_RANGE_SELECTED_EVENT,
-            createSubmitEventFunction(context, schedule)).toScript(),
-            null);
+    }
+
+    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
+        if (value != null && !"".equals(value) && !value.equals(DEFAULTS.get(optionName))) {
+            options.put(optionName, value);
+        }
+    }
+
+    protected Object createSubmitEventFunction(FacesContext context, AbstractSchedule component) {
+        ScriptString jsFunction;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(getFieldId(context, component, START_DATE_PARAM), new JSReference(START_DATE_PARAM));
+        params.put(getFieldId(context, component, END_DATE_PARAM), new JSReference(END_DATE_PARAM));
+        params.put(getFieldId(context, component, ITEM_ID_PARAM), new JSReference(ITEM_ID_PARAM));
+        params.put(getFieldId(context, component, DAY_DELTA_PARAM), new JSReference(DAY_DELTA_PARAM));
+        params.put(getFieldId(context, component, MINUTE_DELTA_PARAM), new JSReference(MINUTE_DELTA_PARAM));
+        params.put(getFieldId(context, component, ALL_DAY_PARAM), new JSReference(ALL_DAY_PARAM));
+        params.put(getFieldId(context, component, EVENT_TYPE_PARAM), new JSReference(EVENT_TYPE_PARAM));
+        params.put(getFieldId(context, component, VIEW_PARAM), new JSReference(VIEW_PARAM));
+        String clientId = component.getClientId();
+        params.put(clientId, clientId);
+        if (isAjaxMode(component)) {
+            AjaxFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(context, component);
+            ajaxFunction.getOptions().getParameters().putAll(params);
+            ajaxFunction.getOptions().set("complete", new JSReference(CALLBACK));
+            jsFunction = ajaxFunction;
+        } else if (SwitchType.server.equals(component.getSwitchType())) {
+            jsFunction = new JSFunction("RichFaces.submitForm", "#"
+                + RendererUtils.getInstance().getNestingForm(context, component).getClientId(context),
+                params,
+                "");
+        } else {
+            return null;
+        }
+        return new JSFunctionDefinition("event", VIEW_PARAM, EVENT_TYPE_PARAM, ITEM_ID_PARAM, START_DATE_PARAM,
+            END_DATE_PARAM, DAY_DELTA_PARAM, MINUTE_DELTA_PARAM, ALL_DAY_PARAM, CALLBACK).addToBody(jsFunction);
+    }
+
+    protected String getFieldId(FacesContext context, AbstractSchedule component, String attribute) {
+        return RendererUtils.getInstance().clientId(context, component) + UINamingContainer.getSeparatorChar(context)
+            + attribute;
     }
 
     protected Map<String, Object> getOptions(AbstractSchedule schedule) throws IOException {
@@ -237,7 +306,10 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         /**
          * firstDayOfWeek numeration in Calendar (sunday=1,monday=2,etc.) and in widget(sunday=0,monday=1,etc.)
          */
-        addOptionIfSetAndNotDefault("firstDay", schedule.getFirstDay() - 1, options);
+        Integer firstDay = schedule.getFirstDay();
+        if (firstDay != null) {
+            addOptionIfSetAndNotDefault("firstDay", firstDay - 1, options);
+        }
         addOptionIfSetAndNotDefault("isRTL", schedule.isRTL(), options);
         addOptionIfSetAndNotDefault("weekends", schedule.isShowWeekends(), options);
         addOptionIfSetAndNotDefault("weekMode", schedule.getWeekMode(), options);
@@ -272,6 +344,7 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
             options.put("header", headerOptions);
         }
         addOptionIfSetAndNotDefault("allDayDefault", schedule.isAllDayByDefault(), options);
+        addOptionIfSetAndNotDefault("autoRefreshOnDateRangeSelect", schedule.isAutoRefreshOnDateRangeSelect(), options);
 
         addOptionIfSetAndNotDefault("onbeforeitemselect", schedule.getOnbeforeitemselect(), options);
         addOptionIfSetAndNotDefault("onitemselect", schedule.getOnitemselect(), options);
@@ -286,6 +359,7 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         addOptionIfSetAndNotDefault("onitemmouseover", schedule.getOnitemmouseover(), options);
         addOptionIfSetAndNotDefault("onitemmouseout", schedule.getOnitemmouseout(), options);
         addOptionIfSetAndNotDefault("onviewchange", schedule.getOnviewchange(), options);
+        addOptionIfSetAndNotDefault("onviewdisplay", schedule.getOnviewdisplay(), options);
         addOptionIfSetAndNotDefault("onbeforedateselect", schedule.getOnbeforedateselect(), options);
         addOptionIfSetAndNotDefault("ondateselect", schedule.getOndateselect(), options);
         addOptionIfSetAndNotDefault("onbeforedaterangeselect", schedule.getOnbeforedaterangeselect(), options);
@@ -323,48 +397,6 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         return options;
     }
 
-    protected Object createSubmitEventFunction(FacesContext context, AbstractSchedule component) {
-        JSFunction jsFunction;
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put(getFieldId(context, component, START_DATE_PARAM), new JSReference(START_DATE_PARAM));
-        params.put(getFieldId(context, component, END_DATE_PARAM), new JSReference(END_DATE_PARAM));
-        params.put(getFieldId(context, component, ITEM_ID_PARAM), new JSReference(ITEM_ID_PARAM));
-        params.put(getFieldId(context, component, DAY_DELTA_PARAM), new JSReference(DAY_DELTA_PARAM));
-        params.put(getFieldId(context, component, MINUTE_DELTA_PARAM), new JSReference(MINUTE_DELTA_PARAM));
-        params.put(getFieldId(context, component, ALL_DAY_PARAM), new JSReference(ALL_DAY_PARAM));
-        params.put(getFieldId(context, component, EVENT_TYPE_PARAM), new JSReference(EVENT_TYPE_PARAM));
-        params.put(getFieldId(context, component, VIEW_PARAM), new JSReference(VIEW_PARAM));
-        String clientId = component.getClientId();
-        params.put(clientId, clientId);
-        if (isAjaxMode(component)) {
-            jsFunction = AjaxRendererUtils.buildAjaxFunction(context, component, AjaxRendererUtils.AJAX_FUNCTION_NAME);
-            AjaxEventOptions eventOptions = AjaxRendererUtils.buildEventOptions(context, component);
-            eventOptions.getParameters().putAll(params);
-            eventOptions.set("complete", new JSReference(CALLBACK));
-            jsFunction.addParameter(eventOptions);
-        } else if (AbstractSchedule.SWITCH_TYPE_SERVER.equals(component.getSwitchType())) {
-            jsFunction = new JSFunction("RichFaces.submitForm",
-                RendererUtils.getInstance().getNestingForm(context, component).getClientId(context),
-                params,
-                "");
-        } else {
-            return null;
-        }
-        return new JSFunctionDefinition("event", VIEW_PARAM, EVENT_TYPE_PARAM, ITEM_ID_PARAM, START_DATE_PARAM,
-            END_DATE_PARAM, DAY_DELTA_PARAM, MINUTE_DELTA_PARAM, ALL_DAY_PARAM, CALLBACK).addToBody(jsFunction);
-    }
-
-    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
-        if (value != null && !"".equals(value) && !value.equals(DEFAULTS.get(optionName))) {
-            options.put(optionName, value);
-        }
-    }
-
-    protected String getFieldId(FacesContext context, AbstractSchedule component, String attribute) {
-        return RendererUtils.getInstance().clientId(context, component) + UINamingContainer.getSeparatorChar(context)
-            + attribute;
-    }
-
     protected boolean isAjaxMode(AbstractSchedule component) {
         SwitchType mode = component.getSwitchType();
         return SwitchType.ajax.equals(mode) || null == mode;
@@ -375,24 +407,18 @@ public abstract class ScheduleRendererBase extends AjaxComponentRendererBase {
         return SwitchType.client.equals(mode);
     }
 
-    private void addOptionHash(String attribute, UIComponent source, Map<String, Object> options) {
-        Map<String, Object> hash = new HashMap<String, Object>(3);
-        Map<String, Object> attributes = source.getAttributes();
-        addOptionIfSetAndNotDefault("month", attributes.get(attribute + "Month"), hash);
-        addOptionIfSetAndNotDefault("basicWeek", attributes.get(attribute + "BasicWeek"), hash);
-        addOptionIfSetAndNotDefault("agendaWeek", attributes.get(attribute + "AgendaWeek"), hash);
-        addOptionIfSetAndNotDefault("basicDay", attributes.get(attribute + "BasicDay"), hash);
-        addOptionIfSetAndNotDefault("agendaDay", attributes.get(attribute + "AgendaDay"), hash);
-        addOptionIfSetAndNotDefault("", attributes.get(attribute), hash);
-        if (hash.size() > 0) {
-            options.put(attribute, hash);
+    protected void writeInitFunction(FacesContext context, UIComponent component) throws IOException {
+        AbstractSchedule schedule = (AbstractSchedule) component;
+        ResponseWriter writer = context.getResponseWriter();
+        String clientId = schedule.getClientId(context);
+        Locale locale = context.getViewRoot().getLocale();
+        String widgetVar = schedule.getWidgetVar();
+        if (widgetVar != null) {
+            writer.writeText("var " + widgetVar + " = ", null);
         }
-    }
-
-    private static void copyAttribute(String attribute, String suffix, UIComponent source, UIComponent target) {
-        Object value = source.getAttributes().get(attribute);
-        if (value != null) {
-            target.getAttributes().put(attribute + suffix, value);
-        }
+        final Map<String, Object> options = getOptions(schedule);
+        options.put("locale", locale.toString());
+        options.put("submitEventFunction", createSubmitEventFunction(context, schedule));
+        writer.writeText(new JSObject("RichFaces.ui.Schedule", clientId, options).toScript(), null);
     }
 }

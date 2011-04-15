@@ -21,42 +21,12 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.el.ELContext;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.faces.model.ScalarDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
-
-import org.ajax4jsf.component.AjaxComponent;
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -75,10 +45,38 @@ import org.richfaces.component.event.ScheduleItemResizeEvent;
 import org.richfaces.component.event.ScheduleItemResizeListener;
 import org.richfaces.component.event.ScheduleItemSelectEvent;
 import org.richfaces.component.event.ScheduleItemSelectListener;
-import org.richfaces.component.event.ScheduleListenerEventsProducer;
 import org.richfaces.component.event.ScheduleViewChangeEvent;
 import org.richfaces.component.event.ScheduleViewChangeListener;
 import org.richfaces.component.model.DateRange;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.ScheduleRendererBase;
+
+import javax.el.ELContext;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.ResultDataModel;
+import javax.faces.model.ResultSetDataModel;
+import javax.faces.model.ScalarDataModel;
+import javax.servlet.jsp.jstl.sql.Result;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Base class for generation of UISchedule component.
@@ -86,446 +84,122 @@ import org.richfaces.component.model.DateRange;
  * @author Bernard Labno
  */
 @JsfComponent(tag = @Tag(name = "schedule",
-        handler = "org.richfaces.view.facelets.html.ScheduleHandler",
-        generate = true,
-        type = TagType.Facelets),
-        renderer = @JsfRenderer(family = AbstractSchedule.COMPONENT_FAMILY, type = "org.richfaces.ScheduleRenderer"))
-public abstract class AbstractSchedule extends UIComponentBase
-    implements ScheduleCommonViewAttributes, ScheduleListenerEventsProducer, AjaxComponent {
+    handler = "org.richfaces.view.facelets.html.ScheduleTagHandler",
+    generate = true,
+    type = TagType.Facelets),
+    renderer = @JsfRenderer(family = AbstractSchedule.COMPONENT_FAMILY, type = ScheduleRendererBase.RENDERER_TYPE),
+    fires = {
+        @Event(value = ScheduleDateRangeChangeEvent.class, listener = ScheduleDateRangeChangeListener.class),
+        @Event(value = ScheduleDateRangeSelectEvent.class, listener = ScheduleDateRangeSelectListener.class),
+        @Event(value = ScheduleDateSelectEvent.class, listener = ScheduleDateSelectListener.class),
+        @Event(value = ScheduleItemMoveEvent.class, listener = ScheduleItemMoveListener.class),
+        @Event(value = ScheduleItemResizeEvent.class, listener = ScheduleItemResizeListener.class),
+        @Event(value = ScheduleItemSelectEvent.class, listener = ScheduleItemSelectListener.class),
+        @Event(value = ScheduleViewChangeEvent.class, listener = ScheduleViewChangeListener.class)
+    }
+)
+public abstract class AbstractSchedule extends UIComponentBase implements ScheduleCommonViewAttributes {
+// ------------------------------ FIELDS ------------------------------
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.Schedule";
 
     public static final String COMPONENT_TYPE = "org.richfaces.Schedule";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Schedule";
-    /**
-     * Values of view attribute.
-     */
-    public static final String VIEW_MONTH = "month";
-    public static final String VIEW_BASIC_WEEK = "basicWeek";
-    public static final String VIEW_AGENDA_WEEK = "agendaWeek";
-    public static final String VIEW_BASIC_DAY = "basicDay";
-    public static final String VIEW_AGENDA_DAY = "agendaDay";
-    public static final String DEFAULT_VIEW = VIEW_MONTH;
+
     /**
      * Values of switchType attribute
      */
     public static final String SWITCH_TYPE_AJAX = "ajax";
-    public static final String SWITCH_TYPE_SERVER = "server";
+
     public static final String SWITCH_TYPE_CLIENT = "client";
-    public static final String DEFAULT_SWITCH_TYPE = SWITCH_TYPE_AJAX;
+
+    public static final String SWITCH_TYPE_SERVER = "server";
+
+    public static final String VIEW_AGENDA_DAY = "agendaDay";
+
+    public static final String VIEW_AGENDA_WEEK = "agendaWeek";
+
+    public static final String VIEW_BASIC_DAY = "basicDay";
+
+    public static final String VIEW_BASIC_WEEK = "basicWeek";
+
+    /**
+     * Values of view attribute.
+     */
+    public static final String VIEW_MONTH = "month";
+
     /**
      * Values of weekMode attribute.
      */
     public static final String WEEK_MODE_FIXED = "fixed";
+
     public static final String WEEK_MODE_LIQUID = "liquid";
+
     public static final String WEEK_MODE_VARIABLE = "variable";
-    public static final String DEFAULT_WEEK_MODE = WEEK_MODE_FIXED;
-    public static final boolean DEFAULT_SHOW_WEEKENDS = true;
-    public static final boolean DEFAULT_RTL = false;
-    public static final int DEFAULT_FIRST_DAY = Calendar.SUNDAY;
-    public static final double DEFAULT_ASPECT_RATIO = 1.35;
-    public static final boolean DEFAULT_ALL_DAY_SLOT = true;
-    public static final String DEFAULT_AXIS_FORMAT = "h(:mm)tt";
-    public static final int DEFAULT_SLOT_MINUTES = 30;
-    public static final int DEFAULT_EVENT_MINUTES = 120;
-    public static final int DEFAULT_FIRST_HOUR = 6;
-    public static final String DEFAULT_MIN_TIME = "0";
-    public static final String DEFAULT_MAX_TIME = "24";
-    public static final boolean DEFAULT_EDITABLE = false;
-    public static final boolean DEFAULT_SELECTABLE = false;
-    public static final boolean DEFAULT_SELECT_HELPER = false;
-    public static final boolean DEFAULT_UNSELECT_AUTO = true;
-    public static final String DEFAULT_UNSELECT_CANCEL = "";
-    public static final boolean DEFAULT_DISABLE_DRAGGING = false;
-    public static final boolean DEFAULT_DISABLE_RESIZING = false;
-    public static final int DEFAULT_DRAG_REVERT_DURATION = 500;
-    public static final double DEFAULT_DRAG_OPACITY = .3;
+
     public static final boolean DEFAULT_ALL_DAY_DEFAULT = true;
+
+    public static final boolean DEFAULT_ALL_DAY_SLOT = true;
+
+    public static final double DEFAULT_ASPECT_RATIO = 1.35;
+
+    public static final boolean DEFAULT_AUTO_REFRESH_ON_DATE_RANGE_SELECT = true;
+
+    public static final String DEFAULT_AXIS_FORMAT = "h(:mm)tt";
+
+    public static final boolean DEFAULT_DISABLE_DRAGGING = false;
+
+    public static final boolean DEFAULT_DISABLE_RESIZING = false;
+
+    public static final double DEFAULT_DRAG_OPACITY = .3;
+
+    public static final int DEFAULT_DRAG_REVERT_DURATION = 500;
+
+    public static final boolean DEFAULT_EDITABLE = false;
+
+    public static final int DEFAULT_EVENT_MINUTES = 120;
+
+    public static final int DEFAULT_FIRST_DAY = Calendar.SUNDAY;
+
+    public static final int DEFAULT_FIRST_HOUR = 6;
+
+    public static final String DEFAULT_MAX_TIME = "24";
+
+    public static final String DEFAULT_MIN_TIME = "0";
+
+    public static final boolean DEFAULT_RTL = false;
+
+    public static final boolean DEFAULT_SELECTABLE = false;
+
+    public static final boolean DEFAULT_SELECT_HELPER = false;
+
+    public static final boolean DEFAULT_SHOW_WEEKENDS = true;
+
+    public static final int DEFAULT_SLOT_MINUTES = 30;
+
+    public static final String DEFAULT_SWITCH_TYPE = SWITCH_TYPE_AJAX;
+
+    public static final boolean DEFAULT_UNSELECT_AUTO = true;
+
+    public static final String DEFAULT_UNSELECT_CANCEL = "";
+
+    public static final String DEFAULT_VIEW = VIEW_MONTH;
+
+    public static final String DEFAULT_WEEK_MODE = WEEK_MODE_FIXED;
+
     private DataModel model;
 
-    @Attribute
-    public abstract Object getValue();
-
-    @Attribute
-    public abstract String getVar();
-
-    @Attribute
-    public abstract Date getDate();
-
-    public abstract void setDate(Date date);
-
-    @Attribute(defaultValue = "SwitchType." + DEFAULT_SWITCH_TYPE,
-        suggestedValue = SWITCH_TYPE_AJAX + "," + SWITCH_TYPE_SERVER + "," + SWITCH_TYPE_CLIENT)
-    public abstract SwitchType getSwitchType();
-
-    @Attribute(defaultValue = DEFAULT_VIEW,
-        suggestedValue = VIEW_MONTH
-            + "," + VIEW_AGENDA_DAY
-            + "," + VIEW_AGENDA_WEEK
-            + "," + VIEW_BASIC_DAY + "," + VIEW_BASIC_WEEK)
-    public abstract String getView();
-
-    public abstract void setView(String view);
-
-    @Attribute
-    public abstract String getHeaderLeft();
-
-    @Attribute
-    public abstract String getHeaderCenter();
-
-    @Attribute
-    public abstract String getHeaderRight();
-
-    @Attribute(defaultValue = "" + DEFAULT_FIRST_DAY,
-        description = @Description("First day of week. 1 - sunday, 2 - monday,..,7 - saturday."))
-    public abstract Integer getFirstDay();
-
-    public abstract void setFirstDay(Integer firstDay);
-
-    @Attribute(defaultValue = "" + DEFAULT_RTL)
-    public abstract Boolean isRTL();
-
-    @Attribute(defaultValue = "" + DEFAULT_SHOW_WEEKENDS)
-    public abstract Boolean isShowWeekends();
-
-    public abstract void setShowWeekends(Boolean showWeekends);
-
-    @Attribute(defaultValue = DEFAULT_WEEK_MODE,
-        suggestedValue = WEEK_MODE_FIXED + "," + WEEK_MODE_LIQUID + "," + WEEK_MODE_VARIABLE)
-    public abstract String getWeekMode();
-
-    @Attribute
-    public abstract Integer getHeight();
-
-    @Attribute
-    public abstract Integer getContentHeight();
-
-    @Attribute(defaultValue = "" + DEFAULT_ASPECT_RATIO)
-    public abstract Double getAspectRatio();
-
-    @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_DEFAULT)
-    public abstract Boolean isAllDayByDefault();
-
-    @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_SLOT)
-    public abstract Boolean isAllDaySlot();
-
-    @Attribute
-    public abstract String getAllDayText();
-
-    @Attribute(defaultValue = DEFAULT_AXIS_FORMAT)
-    public abstract String getAxisFormat();
-
-    @Attribute(defaultValue = "" + DEFAULT_SLOT_MINUTES)
-    public abstract Integer getSlotMinutes();
-
-    @Attribute(defaultValue = "" + DEFAULT_EVENT_MINUTES)
-    public abstract Integer getDefaultEventMinutes();
-
-    @Attribute(defaultValue = "" + DEFAULT_FIRST_HOUR)
-    public abstract Integer getFirstHour();
-
-    @Attribute(defaultValue = DEFAULT_MIN_TIME)
-    public abstract String getMinTime();
-
-    @Attribute(defaultValue = DEFAULT_MAX_TIME)
-    public abstract String getMaxTime();
-
-    @Attribute(defaultValue = "" + DEFAULT_EDITABLE)
-    public abstract Boolean isEditable();
-
-    @Attribute(defaultValue = "" + DEFAULT_SELECTABLE)
-    public abstract Boolean isSelectable();
-
-    @Attribute(defaultValue = "" + DEFAULT_SELECT_HELPER)
-    public abstract Boolean isSelectHelper();
-
-    @Attribute(defaultValue = "" + DEFAULT_UNSELECT_AUTO)
-    public abstract Boolean isUnselectAuto();
-
-    @Attribute(defaultValue = DEFAULT_UNSELECT_CANCEL)
-    public abstract String getUnselectCancel();
-
-    @Attribute(defaultValue = "" + DEFAULT_DISABLE_DRAGGING)
-    public abstract Boolean isDisableDragging();
-
-    @Attribute(defaultValue = "" + DEFAULT_DISABLE_RESIZING)
-    public abstract Boolean isDisableResizing();
-
-    @Attribute(defaultValue = "" + DEFAULT_DRAG_REVERT_DURATION)
-    public abstract Integer getDragRevertDuration();
-
-    @Attribute(defaultValue = "" + DEFAULT_DRAG_OPACITY)
-    public abstract Double getDragOpacity();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute(events = @EventName("beforeitemselect"))
-    public abstract String getOnbeforeitemselect();
-
-    @Attribute(events = @EventName("itemselect"))
-    public abstract String getOnitemselect();
-
-    @Attribute(events = @EventName("itemdragstart"))
-    public abstract String getOnitemdragstart();
-
-    @Attribute(events = @EventName("itemdragstop"))
-    public abstract String getOnitemdragstop();
-
-    @Attribute(events = @EventName("beforeitemdrop"))
-    public abstract String getOnbeforeitemdrop();
-
-    @Attribute(events = @EventName("itemdrop"))
-    public abstract String getOnitemdrop();
-
-    @Attribute(events = @EventName("itemresizestart"))
-    public abstract String getOnitemresizestart();
-
-    @Attribute(events = @EventName("itemresizestop"))
-    public abstract String getOnitemresizestop();
-
-    @Attribute(events = @EventName("beforeitemresize"))
-    public abstract String getOnbeforeitemresize();
-
-    @Attribute(events = @EventName("itemresize"))
-    public abstract String getOnitemresize();
-
-    @Attribute(events = @EventName("itemmouseover"))
-    public abstract String getOnitemmouseover();
-
-    @Attribute(events = @EventName("itemmouseout"))
-    public abstract String getOnitemmouseout();
-
-    @Attribute(events = @EventName("viewchange"))
-    public abstract String getOnviewchange();
-
-    @Attribute(events = @EventName("beforedateselect"))
-    public abstract String getOnbeforedateselect();
-
-    @Attribute(events = @EventName("dateselect"))
-    public abstract String getOndateselect();
-
-    @Attribute(events = @EventName("beforedaterangeselect"))
-    public abstract String getOnbeforedaterangeselect();
-
-    @Attribute(events = @EventName("daterangeselect"))
-    public abstract String getOndaterangeselect();
-
-    @Attribute(events = @EventName("daterangechange"))
-    public abstract String getOndaterangechange();
-
-    @Attribute(signature = @Signature(parameters = ScheduleItemMoveEvent.class, returnType = Boolean.class))
-    public abstract MethodExpression getItemMoveListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleItemSelectEvent.class))
-    public abstract MethodExpression getItemSelectListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleItemResizeEvent.class, returnType = Boolean.class))
-    public abstract MethodExpression getItemResizeListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleViewChangeEvent.class))
-    public abstract MethodExpression getViewChangeListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleDateRangeChangeEvent.class))
-    public abstract MethodExpression getDateRangeChangeListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleDateRangeSelectEvent.class))
-    public abstract MethodExpression getDateRangeSelectListener();
-
-    @Attribute(signature = @Signature(parameters = ScheduleDateSelectEvent.class))
-    public abstract MethodExpression getDateSelectListener();
-
-    @Attribute
-    public abstract String getWidgetVar();
-
-    private void setResponseData(Object data) {
-        FacesContext facesContext = getFacesContext();
-        AjaxContext ajaxContext = AjaxContext.getCurrentInstance(facesContext);
-        
-        ajaxContext.getResponseComponentDataMap().put(getClientId(facesContext), data);
-    }
-    
-    /**
-     * React on various events.
-     * Vetoable events are first broadcasted to listeners bound via EL to
-     * component attribtues and then if no veto is raised then to the rest of
-     * listeners.
-     * In case of non vetoable events the order of broadcast is reverse.
-     * Vetoable events are: ScheduleItemMoveEvent, ScheduleItemResizeEvent
-     * Non-vetoable events: ScheduleDateRangeChangeEvent, ScheduleItemSelectEvent,
-     * ScheduleViewChangeEvent, ScheduleDateSelectEvent,
-     * ScheduleDateRangeSelectEvent
-     * In case of ScheduleDateRangeChangeEvent new items are returned
-     * via response data map of ajaxContext.
-     * In case of ScheduleItemMoveEvent and ScheduleItemResizeEvent, the
-     * decision if veto was raised is sent back to client via response data map
-     * of ajaxContext as boolean.
-     *
-     * @param event broadcasted event
-     * @throws AbortProcessingException if broadcasting of particular event
-     *                                  should stop
-     */
-    @Override
-    public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof ScheduleDateRangeChangeEvent) {
-            super.broadcast(event);
-            ScheduleDateRangeChangeEvent calendarAjaxEvent = (ScheduleDateRangeChangeEvent) event;
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getDateRangeChangeListener();
-            if (expression != null) {
-                expression.invoke(facesContext.getELContext(), new Object[]{event});
-            }
-            try {
-                setResponseData(getScheduleData(calendarAjaxEvent.getStartDate(), calendarAjaxEvent.getEndDate()));
-            } catch (IOException ex) {
-                getFacesContext().getExternalContext().log("Cannot get schedule data", ex);
-            }
-        } else if (event instanceof ScheduleItemMoveEvent) {
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getItemMoveListener();
-            boolean allow = true;
-            if (expression != null) {
-                Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
-                allow = (Boolean) result;
-            }
-            setResponseData(allow);
-            super.broadcast(event);
-        } else if (event instanceof ScheduleItemResizeEvent) {
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getItemResizeListener();
-            boolean allow = true;
-            if (expression != null) {
-                Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
-                allow = ((Boolean) result);
-            }
-            setResponseData(allow);
-            super.broadcast(event);
-        } else if (event instanceof ScheduleItemSelectEvent) {
-            super.broadcast(event);
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getItemSelectListener();
-            if (expression != null) {
-                expression.invoke(facesContext.getELContext(), new Object[]{event});
-            }
-        } else if (event instanceof ScheduleViewChangeEvent) {
-            super.broadcast(event);
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getViewChangeListener();
-            if (expression != null) {
-                expression.invoke(facesContext.getELContext(), new Object[]{event});
-            }
-        } else if (event instanceof ScheduleDateSelectEvent) {
-            super.broadcast(event);
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getDateSelectListener();
-            if (expression != null) {
-                expression.invoke(facesContext.getELContext(), new Object[]{event});
-            }
-        } else if (event instanceof ScheduleDateRangeSelectEvent) {
-            super.broadcast(event);
-            FacesContext facesContext = getFacesContext();
-            MethodExpression expression = getDateRangeSelectListener();
-            if (expression != null) {
-                expression.invoke(facesContext.getELContext(), new Object[]{event});
-            }
-//        } else if (event instanceof AjaxEvent) {
-//            FacesContext context = getFacesContext();
-//            // complete re-Render fields. AjaxEvent deliver before render
-//            // response.
-//            AjaxContext.getCurrentInstance(context).addRegionsFromComponent(this);
-//            // Put data for send in response
-//            Object data = getData();
-//            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-//            if (null != data) {
-//                ajaxContext.setResponseData(data);
-//            }
-//            String focus = getFocus();
-//            if (null != focus) {
-//                // search for component in tree.
-//                // XXX - use more pourful search, as in h:outputLabel
-//                // component.
-////                UIComponent focusComponent = RendererUtils.getInstance().
-////                    findComponentFor(this, focus);
-////                if (null != focusComponent) {
-////                    focus = focusComponent.getClientId(context);
-////                }
-////                TODO put focus data here
-////                ajaxContext.getResponseDataMap().put(AjaxActionComponent.FOCUS_DATA_ID, focus);
-//            }
-//            ajaxContext.setOncomplete(getOncomplete());
-        } else {
-            super.broadcast(event);
-        }
-    }
+// -------------------------- STATIC METHODS --------------------------
 
     /**
-     * Gets data from provided data model within given range.
-     * Range is [startDate;endDate), which means that start date is inclusive
-     * and end date is exclusive.
-     * Data are in form of list of maps, which is ready to serialize to JSON.
+     * Tells value of firstDay. If it is not set it returns
+     * default value.
      *
-     * @param startDate
-     * @param endDate
-     * @return
-     * @throws IOException
+     * @param schedule inspected schedule
+     * @return value of firstDay
      */
-    public List<Map<String, Object>> getScheduleData(Date startDate, Date endDate) throws IOException {
-        /**
-         * Locale must be US because this is the format the javascript widget supports
-         */
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-        format.setLenient(false);
-        DataModel dataModel = getDataModel();
-        if (dataModel instanceof ExtendedDataModel) {
-            DataVisitor visitor = new DataVisitor() {
-                //TODO Is this fine? or should we stack rowKeys and not use dataModel later on. I'don't know business rules of extendedDataModel, just used it once to do pagination with underlying EntityQuery from Seam
-
-                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-                    return null;
-                }
-            };
-            ((ExtendedDataModel) dataModel).walk(getFacesContext(), visitor, new DateRange(startDate, endDate), null);
-        }
-        ELContext elContext = getFacesContext().getELContext();
-        ValueExpression valueExpression = getFacesContext().getApplication().getExpressionFactory()
-            .createValueExpression(getFacesContext().getELContext(), "#{" + getVar() + "}", Object.class);
-        List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < dataModel.getRowCount(); i++) {
-            dataModel.setRowIndex(i);
-            valueExpression.setValue(elContext, dataModel.getRowData());
-            Map<String, Object> firstDataElement = new HashMap<String, Object>();
-// TODO shouldn't we check earlier if there is at most one renderable UIScheduleItem child?
-            for (UIComponent child : getChildren()) {
-                if (child instanceof AbstractScheduleItem) {
-                    AbstractScheduleItem item = (AbstractScheduleItem) child;
-                    if (!item.isRendered()) {
-                        continue;
-                    }
-                    firstDataElement.put("id", item.getEventId());
-                    firstDataElement.put("title", item.getTitle());
-                    if (item.isAllDay() != null) {
-                        firstDataElement.put("allDay", item.isAllDay());
-                    }
-                    firstDataElement.put("start", format.format(item.getStartDate()));
-                    if (item.getEndDate() != null) {
-                        firstDataElement.put("end", format.format(item.getEndDate()));
-                    }
-                    if (item.getUrl() != null) {
-                        firstDataElement.put("url", item.getUrl());
-                    }
-                    if (item.getStyleClass() != null) {
-                        firstDataElement.put("className", item.getStyleClass());
-                    }
-                    if (item.isEditable() != null) {
-                        firstDataElement.put("editable", item.isEditable());
-                    }
-                    if (item.getData() != null) {
-                        firstDataElement.put("data", item.getData());
-                    }
-                    data.add(firstDataElement);
-                }
-            }
-        }
-        valueExpression.setValue(elContext, null);
-        return data;
+    public static int getFirstDay(AbstractSchedule schedule) {
+        Integer firstDay = schedule.getFirstDay();
+        return firstDay == null ? AbstractSchedule.DEFAULT_FIRST_DAY : firstDay;
     }
 
     /**
@@ -643,34 +317,18 @@ public abstract class AbstractSchedule extends UIComponentBase
         } else {
             throw new IllegalStateException("Invalid view attribute: " + view);
         }
-
     }
 
     /**
-     * Here go static methods for getting value or default value of attributes.
-     */
-    /**
-     * Tells if showWeekends is true or false. If it is not set it returns
+     * Tells value of view. If it is not set it returns
      * default value.
      *
      * @param schedule inspected schedule
-     * @return value of showWeekends
+     * @return value of view
      */
-    public static boolean isShowWeekends(AbstractSchedule schedule) {
-        Boolean showWeekends = schedule.isShowWeekends();
-        return showWeekends == null ? AbstractSchedule.DEFAULT_SHOW_WEEKENDS : schedule.isShowWeekends();
-    }
-
-    /**
-     * Tells value of firstDay. If it is not set it returns
-     * default value.
-     *
-     * @param schedule inspected schedule
-     * @return value of firstDay
-     */
-    public static int getFirstDay(AbstractSchedule schedule) {
-        Integer firstDay = schedule.getFirstDay();
-        return firstDay == null ? AbstractSchedule.DEFAULT_FIRST_DAY : firstDay;
+    public static String getView(AbstractSchedule schedule) {
+        String view = schedule.getView();
+        return view == null ? AbstractSchedule.DEFAULT_VIEW : view;
     }
 
     /**
@@ -686,17 +344,390 @@ public abstract class AbstractSchedule extends UIComponentBase
     }
 
     /**
-     * Tells value of view. If it is not set it returns
+     * Tells if showWeekends is true or false. If it is not set it returns
      * default value.
      *
      * @param schedule inspected schedule
-     * @return value of view
+     * @return value of showWeekends
      */
-    public static String getView(AbstractSchedule schedule) {
-        String view = schedule.getView();
-        return view == null ? AbstractSchedule.DEFAULT_VIEW : view;
+    public static boolean isShowWeekends(AbstractSchedule schedule) {
+        Boolean showWeekends = schedule.isShowWeekends();
+        return showWeekends == null ? AbstractSchedule.DEFAULT_SHOW_WEEKENDS : schedule.isShowWeekends();
     }
 
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface ScheduleCommonViewAttributes ---------------------
+
+    @Attribute(defaultValue = "" + DEFAULT_DRAG_OPACITY)
+    public abstract Double getDragOpacity();
+
+// -------------------------- OTHER METHODS --------------------------
+
+    /**
+     * React on various events.
+     * Vetoable events are first broadcasted to listeners bound via EL to
+     * component attribtues and then if no veto is raised then to the rest of
+     * listeners.
+     * In case of non vetoable events the order of broadcast is reverse.
+     * Vetoable events are: ScheduleItemMoveEvent, ScheduleItemResizeEvent
+     * Non-vetoable events: ScheduleDateRangeChangeEvent, ScheduleItemSelectEvent,
+     * ScheduleViewChangeEvent, ScheduleDateSelectEvent,
+     * ScheduleDateRangeSelectEvent
+     * In case of ScheduleDateRangeChangeEvent new items are returned
+     * via response data map of ajaxContext.
+     * In case of ScheduleItemMoveEvent and ScheduleItemResizeEvent, the
+     * decision if veto was raised is sent back to client via response data map
+     * of ajaxContext as boolean.
+     *
+     * @param event broadcasted event
+     * @throws AbortProcessingException if broadcasting of particular event
+     *                                  should stop
+     */
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        if (event instanceof ScheduleDateRangeChangeEvent) {
+            super.broadcast(event);
+            ScheduleDateRangeChangeEvent calendarAjaxEvent = (ScheduleDateRangeChangeEvent) event;
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getDateRangeChangeListener();
+            if (expression != null) {
+                expression.invoke(facesContext.getELContext(), new Object[]{event});
+            }
+            setResponseData(getScheduleData(calendarAjaxEvent.getStartDate(), calendarAjaxEvent.getEndDate()));
+        } else if (event instanceof ScheduleItemMoveEvent) {
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getItemMoveListener();
+            boolean allow = true;
+            if (expression != null) {
+                Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
+                allow = (Boolean) result;
+            }
+            setResponseData(allow);
+            super.broadcast(event);
+        } else if (event instanceof ScheduleItemResizeEvent) {
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getItemResizeListener();
+            boolean allow = true;
+            if (expression != null) {
+                Object result = expression.invoke(facesContext.getELContext(), new Object[]{event});
+                allow = ((Boolean) result);
+            }
+            setResponseData(allow);
+            super.broadcast(event);
+        } else if (event instanceof ScheduleItemSelectEvent) {
+            super.broadcast(event);
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getItemSelectListener();
+            if (expression != null) {
+                expression.invoke(facesContext.getELContext(), new Object[]{event});
+            }
+        } else if (event instanceof ScheduleViewChangeEvent) {
+            super.broadcast(event);
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getViewChangeListener();
+            if (expression != null) {
+                expression.invoke(facesContext.getELContext(), new Object[]{event});
+            }
+        } else if (event instanceof ScheduleDateSelectEvent) {
+            super.broadcast(event);
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getDateSelectListener();
+            if (expression != null) {
+                expression.invoke(facesContext.getELContext(), new Object[]{event});
+            }
+        } else if (event instanceof ScheduleDateRangeSelectEvent) {
+            super.broadcast(event);
+            FacesContext facesContext = getFacesContext();
+            MethodExpression expression = getDateRangeSelectListener();
+            if (expression != null) {
+                expression.invoke(facesContext.getELContext(), new Object[]{event});
+            }
+        } else {
+            super.broadcast(event);
+        }
+    }
+
+    @Attribute
+    public abstract String getAllDayText();
+
+    @Attribute(defaultValue = "" + DEFAULT_ASPECT_RATIO)
+    public abstract Double getAspectRatio();
+
+    @Attribute(defaultValue = DEFAULT_AXIS_FORMAT)
+    public abstract String getAxisFormat();
+
+    @Attribute
+    public abstract Integer getContentHeight();
+
+    @Attribute
+    public abstract Date getDate();
+
+    @Attribute(signature = @Signature(parameters = ScheduleDateRangeChangeEvent.class))
+    public abstract MethodExpression getDateRangeChangeListener();
+
+    @Attribute(signature = @Signature(parameters = ScheduleDateRangeSelectEvent.class))
+    public abstract MethodExpression getDateRangeSelectListener();
+
+    @Attribute(signature = @Signature(parameters = ScheduleDateSelectEvent.class))
+    public abstract MethodExpression getDateSelectListener();
+
+    @Attribute(defaultValue = "" + DEFAULT_EVENT_MINUTES)
+    public abstract Integer getDefaultEventMinutes();
+
+    @Attribute(defaultValue = "" + DEFAULT_DRAG_REVERT_DURATION)
+    public abstract Integer getDragRevertDuration();
+
+    @Attribute(defaultValue = "" + DEFAULT_FIRST_DAY,
+        description = @Description("First day of week. 1 - sunday, 2 - monday,..,7 - saturday."))
+    public abstract Integer getFirstDay();
+
+    @Attribute(defaultValue = "" + DEFAULT_FIRST_HOUR)
+    public abstract Integer getFirstHour();
+
+    @Attribute
+    public abstract String getHeaderCenter();
+
+    @Attribute
+    public abstract String getHeaderLeft();
+
+    @Attribute
+    public abstract String getHeaderRight();
+
+    @Attribute
+    public abstract Integer getHeight();
+
+    @Attribute(signature = @Signature(parameters = ScheduleItemMoveEvent.class, returnType = Boolean.class))
+    public abstract MethodExpression getItemMoveListener();
+
+    @Attribute(signature = @Signature(parameters = ScheduleItemResizeEvent.class, returnType = Boolean.class))
+    public abstract MethodExpression getItemResizeListener();
+
+    @Attribute(signature = @Signature(parameters = ScheduleItemSelectEvent.class))
+    public abstract MethodExpression getItemSelectListener();
+
+    @Attribute(defaultValue = DEFAULT_MAX_TIME)
+    public abstract String getMaxTime();
+
+    @Attribute(defaultValue = DEFAULT_MIN_TIME)
+    public abstract String getMinTime();
+
+    @Attribute(events = @EventName("beforedaterangeselect"))
+    public abstract String getOnbeforedaterangeselect();
+
+    @Attribute(events = @EventName("beforedateselect"))
+    public abstract String getOnbeforedateselect();
+
+    @Attribute(events = @EventName("beforeitemdrop"))
+    public abstract String getOnbeforeitemdrop();
+
+    @Attribute(events = @EventName("beforeitemresize"))
+    public abstract String getOnbeforeitemresize();
+
+    @Attribute(events = @EventName("beforeitemselect"))
+    public abstract String getOnbeforeitemselect();
+
+    @Attribute(events = @EventName("daterangechange"))
+    public abstract String getOndaterangechange();
+
+    @Attribute(events = @EventName("daterangeselect"))
+    public abstract String getOndaterangeselect();
+
+    @Attribute(events = @EventName(value = "dateselect", defaultEvent = true))
+    public abstract String getOndateselect();
+
+    @Attribute(events = @EventName("itemdragstart"))
+    public abstract String getOnitemdragstart();
+
+    @Attribute(events = @EventName("itemdragstop"))
+    public abstract String getOnitemdragstop();
+
+    @Attribute(events = @EventName("itemdrop"))
+    public abstract String getOnitemdrop();
+
+    @Attribute(events = @EventName("itemmouseout"))
+    public abstract String getOnitemmouseout();
+
+    @Attribute(events = @EventName("itemmouseover"))
+    public abstract String getOnitemmouseover();
+
+    @Attribute(events = @EventName("itemresize"))
+    public abstract String getOnitemresize();
+
+    @Attribute(events = @EventName("itemresizestart"))
+    public abstract String getOnitemresizestart();
+
+    @Attribute(events = @EventName("itemresizestop"))
+    public abstract String getOnitemresizestop();
+
+    @Attribute(events = @EventName("itemselect"))
+    public abstract String getOnitemselect();
+
+    @Attribute(events = @EventName("viewchange"))
+    public abstract String getOnviewchange();
+
+    @Attribute(events = @EventName("viewdisplay"))
+    public abstract String getOnviewdisplay();
+
+    /**
+     * Gets data from provided data model within given range.
+     * Range is [startDate;endDate), which means that start date is inclusive
+     * and end date is exclusive.
+     * Data are in form of list of maps, which is ready to serialize to JSON.
+     *
+     * @param startDate date of earliest item
+     * @param endDate   date of lates item
+     * @return list of items as map of their properties
+     */
+    public List<Map<String, Object>> getScheduleData(Date startDate, Date endDate) {
+        /**
+         * Locale must be US because this is the format the javascript widget supports
+         */
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+        format.setLenient(false);
+        DataModel dataModel = getDataModel();
+        if (dataModel instanceof ExtendedDataModel) {
+            DataVisitor visitor = new DataVisitor() {
+                //TODO Is this fine? or should we stack rowKeys and not use dataModel later on. I'don't know business rules of extendedDataModel, just used it once to do pagination with underlying EntityQuery from Seam
+
+                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+                    return null;
+                }
+            };
+            ((ExtendedDataModel) dataModel).walk(getFacesContext(), visitor, new DateRange(startDate, endDate), null);
+        }
+        ELContext elContext = getFacesContext().getELContext();
+        ValueExpression valueExpression = getFacesContext().getApplication().getExpressionFactory()
+            .createValueExpression(getFacesContext().getELContext(), "#{" + getVar() + "}", Object.class);
+        List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < dataModel.getRowCount(); i++) {
+            dataModel.setRowIndex(i);
+            valueExpression.setValue(elContext, dataModel.getRowData());
+            Map<String, Object> firstDataElement = new HashMap<String, Object>();
+// TODO shouldn't we check earlier if there is at most one renderable UIScheduleItem child?
+            for (UIComponent child : getChildren()) {
+                if (child instanceof AbstractScheduleItem) {
+                    AbstractScheduleItem item = (AbstractScheduleItem) child;
+                    if (!item.isRendered()) {
+                        continue;
+                    }
+                    firstDataElement.put("id", item.getEventId());
+                    firstDataElement.put("title", item.getTitle());
+                    if (item.isAllDay() != null) {
+                        firstDataElement.put("allDay", item.isAllDay());
+                    }
+                    firstDataElement.put("start", format.format(item.getStartDate()));
+                    if (item.getEndDate() != null) {
+                        firstDataElement.put("end", format.format(item.getEndDate()));
+                    }
+                    if (item.getUrl() != null) {
+                        firstDataElement.put("url", item.getUrl());
+                    }
+                    if (item.getStyleClass() != null) {
+                        firstDataElement.put("className", item.getStyleClass());
+                    }
+                    if (item.isEditable() != null) {
+                        firstDataElement.put("editable", item.isEditable());
+                    }
+                    if (item.getData() != null) {
+                        firstDataElement.put("data", item.getData());
+                    }
+                    data.add(firstDataElement);
+                }
+            }
+        }
+        valueExpression.setValue(elContext, null);
+        return data;
+    }
+
+    @Attribute(defaultValue = "" + DEFAULT_SLOT_MINUTES)
+    public abstract Integer getSlotMinutes();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute(defaultValue = "SwitchType." + DEFAULT_SWITCH_TYPE,
+        suggestedValue = SWITCH_TYPE_AJAX + "," + SWITCH_TYPE_SERVER + "," + SWITCH_TYPE_CLIENT)
+    public abstract SwitchType getSwitchType();
+
+    @Attribute(defaultValue = DEFAULT_UNSELECT_CANCEL)
+    public abstract String getUnselectCancel();
+
+    @Attribute(required = true)
+    public abstract Object getValue();
+
+    @Attribute(required = true)
+    public abstract String getVar();
+
+    @Attribute(defaultValue = DEFAULT_VIEW,
+        suggestedValue = VIEW_MONTH
+            + "," + VIEW_AGENDA_DAY
+            + "," + VIEW_AGENDA_WEEK
+            + "," + VIEW_BASIC_DAY + "," + VIEW_BASIC_WEEK)
+    public abstract String getView();
+
+    @Attribute(signature = @Signature(parameters = ScheduleViewChangeEvent.class))
+    public abstract MethodExpression getViewChangeListener();
+
+    @Attribute(defaultValue = DEFAULT_WEEK_MODE,
+        suggestedValue = WEEK_MODE_FIXED + "," + WEEK_MODE_LIQUID + "," + WEEK_MODE_VARIABLE)
+    public abstract String getWeekMode();
+
+    @Attribute
+    public abstract String getWidgetVar();
+
+    @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_DEFAULT)
+    public abstract Boolean isAllDayByDefault();
+
+    @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_SLOT)
+    public abstract Boolean isAllDaySlot();
+
+    /**
+     * Tells if schedule should be automatically refreshed when date range is selected.
+     *
+     * @return true if schedule should be refreshed automaticaly; flase otherwise.
+     */
+    @Attribute(defaultValue = "true")
+    public abstract boolean isAutoRefreshOnDateRangeSelect();
+
+    @Attribute(defaultValue = "" + DEFAULT_DISABLE_DRAGGING)
+    public abstract Boolean isDisableDragging();
+
+    @Attribute(defaultValue = "" + DEFAULT_DISABLE_RESIZING)
+    public abstract Boolean isDisableResizing();
+
+    @Attribute(defaultValue = "" + DEFAULT_EDITABLE)
+    public abstract Boolean isEditable();
+
+    @Attribute(defaultValue = "" + DEFAULT_RTL)
+    public abstract Boolean isRTL();
+
+    @Attribute(defaultValue = "" + DEFAULT_SELECT_HELPER)
+    public abstract Boolean isSelectHelper();
+
+    @Attribute(defaultValue = "" + DEFAULT_SELECTABLE)
+    public abstract Boolean isSelectable();
+
+    @Attribute(defaultValue = "" + DEFAULT_SHOW_WEEKENDS)
+    public abstract Boolean isShowWeekends();
+
+    @Attribute(defaultValue = "" + DEFAULT_UNSELECT_AUTO)
+    public abstract Boolean isUnselectAuto();
+
+    public void setDataModel(DataModel model) {
+        this.model = model;
+    }
+
+    public abstract void setDate(Date date);
+
+    public abstract void setFirstDay(Integer firstDay);
+
+    public abstract void setShowWeekends(Boolean showWeekends);
+
+    public abstract void setView(String view);
+
+    @SuppressWarnings("unchecked")
     protected DataModel getDataModel() {
         // Return any previously cached DataModel instance
         if (this.model != null) {
@@ -721,94 +752,9 @@ public abstract class AbstractSchedule extends UIComponentBase
             setDataModel(new ScalarDataModel(current));
         }
         return model;
-
     }
 
-    public void setDataModel(DataModel model) {
-        this.model = model;
-    }
-
-    public void addItemSelectedListener(ScheduleItemSelectListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeItemSelectedListener(ScheduleItemSelectListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleItemSelectListener[] getItemSelectedListeners() {
-        return (ScheduleItemSelectListener[]) getFacesListeners(ScheduleItemSelectListener.class);
-    }
-
-    public void addItemMoveListener(ScheduleItemMoveListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeItemMoveListener(ScheduleItemMoveListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleItemMoveListener[] getItemMoveListeners() {
-        return (ScheduleItemMoveListener[]) getFacesListeners(ScheduleItemMoveListener.class);
-    }
-
-    public void addItemResizeListener(ScheduleItemResizeListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeItemResizeListener(ScheduleItemResizeListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleItemResizeListener[] getItemResizeListeners() {
-        return (ScheduleItemResizeListener[]) getFacesListeners(ScheduleItemResizeListener.class);
-    }
-
-    public void addViewChangedListener(ScheduleViewChangeListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeViewChangedListener(ScheduleViewChangeListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleViewChangeListener[] getViewChangedListeners() {
-        return (ScheduleViewChangeListener[]) getFacesListeners(ScheduleViewChangeListener.class);
-    }
-
-    public void addDateRangeChangedListener(ScheduleDateRangeChangeListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeDateRangeChangedListener(ScheduleDateRangeChangeListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleDateRangeChangeListener[] getDateRangeChangedListeners() {
-        return (ScheduleDateRangeChangeListener[]) getFacesListeners(ScheduleDateRangeChangeListener.class);
-    }
-
-    public void addDateRangeSelectedListener(ScheduleDateRangeSelectListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeDateRangeSelectedListener(ScheduleDateRangeSelectListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleDateRangeSelectListener[] getDateRangeSelectedListeners() {
-        return (ScheduleDateRangeSelectListener[]) getFacesListeners(ScheduleDateRangeSelectListener.class);
-    }
-
-    public void addDateSelectedListener(ScheduleDateSelectListener listener) {
-        addFacesListener(listener);
-    }
-
-    public void removeDateSelectedListener(ScheduleDateSelectListener listener) {
-        removeFacesListener(listener);
-    }
-
-    public ScheduleDateSelectListener[] getDateSelectedListeners() {
-        return (ScheduleDateSelectListener[]) getFacesListeners(ScheduleDateSelectListener.class);
+    private void setResponseData(Object data) {
+        ExtendedPartialViewContext.getInstance(getFacesContext()).getResponseComponentDataMap().put(getClientId(getFacesContext()), data);
     }
 }

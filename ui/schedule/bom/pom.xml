@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
     Inc. and individual contributors by the @authors tag. See the
     copyright.txt in the distribution for a full listing of
@@ -23,58 +22,35 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>7</version>
-    </parent>
-
-    <groupId>org.richfaces.ui.schedule</groupId>
-    <artifactId>richfaces-ui-schedule-bom</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <groupId>org.richfaces.sandbox.ui.schedule</groupId>
+    <artifactId>schedule-bom</artifactId>
+    <version>4.1.0-SNAPSHOT</version>
     <name>Richfaces UI Components: schedule bom</name>
     <packaging>pom</packaging>
-
-    <properties>
-        <org.richfaces.version>4.0.0-SNAPSHOT</org.richfaces.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>${org.richfaces.version}</version>
+                <version>${project.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>richfaces-ui-schedule-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>richfaces-ui-schedule-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>richfaces-ui-schedule-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>functions-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.notify</groupId>
-                <artifactId>richfaces-ui-notify-ui</artifactId>
+                <artifactId>schedule-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>bernard.labno.pl</id>
+            <name>MyCo Internal Repository</name>
+            <url>http://bernard.labno.pl/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

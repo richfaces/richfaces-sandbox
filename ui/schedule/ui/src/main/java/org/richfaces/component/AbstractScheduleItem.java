@@ -21,27 +21,29 @@
  */
 package org.richfaces.component;
 
-import java.util.Date;
-
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
+import javax.faces.component.UIComponentBase;
+import java.util.Date;
+
 @JsfComponent(tag = @Tag(name = "scheduleItem", type = TagType.Facelets))
 public abstract class AbstractScheduleItem extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ScheduleItem";
+
     public static final String COMPONENT_FAMILY = "org.richfaces.Schedule";
+
     public static final boolean DEFAULT_ALL_DAY = true;
+
     public static final boolean DEFAULT_EDITABLE = AbstractSchedule.DEFAULT_EDITABLE;
 
     @Attribute
     public abstract String getStyleClass();
 
-    @Attribute
+    @Attribute(required = true)
     public abstract String getTitle();
 
     @Attribute
@@ -50,17 +52,18 @@ public abstract class AbstractScheduleItem extends UIComponentBase {
     @Attribute
     public abstract Date getEndDate();
 
-    @Attribute
+    @Attribute(required = true)
     public abstract String getEventId();
 
-    @Attribute(defaultValue = "" + DEFAULT_ALL_DAY)
+    @Attribute(defaultValue = "DEFAULT_ALL_DAY")
     public abstract Boolean isAllDay();
 
     @Attribute
     public abstract String getUrl();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract Boolean isEditable();
 
+    @Attribute
     public abstract Object getData();
 }
