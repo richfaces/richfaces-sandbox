@@ -1,23 +1,10 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright , Red Hat, Inc. and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * jQuery Pines Notify (pnotify) Plugin 1.0.1
  *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
+ * Copyright (c) 2009 Hunter Perrin
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * Licensed (along with all of Pines) under the GNU Affero GPL:
+ *	  http://www.gnu.org/licenses/agpl.html
  */
 
 (function($) {
@@ -253,13 +240,16 @@
                     if (opts.pnotify_mouse_reset && animating == "out") {
                         // If it's animating out, animate back in really quick.
                         pnotify.stop(true);
+                        animating = "in";
                         pnotify.css("height", "auto").animate({"width": opts.pnotify_width, "opacity": opts.pnotify_nonblock ? opts.pnotify_nonblock_opacity : opts.pnotify_opacity}, "fast");
-                    } else if (opts.pnotify_nonblock && animating != "out") {
+                    }
+                    if (opts.pnotify_nonblock) {
                         // If it's non-blocking, animate to the other opacity.
                         pnotify.animate({"opacity": opts.pnotify_nonblock_opacity}, "fast");
                     }
                     if (opts.pnotify_hide && opts.pnotify_mouse_reset) pnotify.pnotify_cancel_remove();
-                    if (opts.pnotify_closer && !opts.pnotify_nonblock) pnotify.closer.show();
+                    //                    Do not update
+                    if (opts.pnotify_closer && !opts.pnotify_nonblock) pnotify.closer.css("visibility", "visible");
                 },
                 "mouseleave": function(e) {
                     if (opts.pnotify_nonblock) e.stopPropagation();
@@ -268,7 +258,8 @@
                     if (opts.pnotify_nonblock && animating != "out")
                         pnotify.animate({"opacity": opts.pnotify_opacity}, "fast");
                     if (opts.pnotify_hide && opts.pnotify_mouse_reset) pnotify.pnotify_queue_remove();
-                    pnotify.closer.hide();
+                    //                    Do not update
+                    pnotify.closer.css("visibility", "hidden");
                     $.pnotify_position_all();
                 },
                 "mouseover": function(e) {
@@ -318,7 +309,7 @@
             pnotify.container = $("<div />", {"class": "rf-ny-co"})
                     .appendTo(pnotify);
 
-            pnotify.pnotify_version = "1.0.0";
+            pnotify.pnotify_version = "1.0.1";
 
             // This function is for updating the notice.
             pnotify.pnotify = function(options) {
@@ -516,10 +507,11 @@
             // Provide a button to close the notice.
             pnotify.closer = $("<div />", {
                 "class": "rf-ny-cl",
-                "css": {"cursor": "pointer", "display": "none"},
+                "css": {"cursor": "pointer", "visibility": "hidden"},
                 "click": function() {
                     pnotify.pnotify_remove();
-                    pnotify.closer.hide();
+                    //                    Do not update
+                    pnotify.closer.css("visibility", "hidden");
                 }
             })
                     .append($("<span />", {"class": "rf-ny-cl-ic"}))
@@ -552,6 +544,9 @@
                     .appendTo(pnotify.container);
             if (opts.pnotify_text === false)
                 pnotify.text_container.hide();
+
+            //Append div with clear:both class
+            $("<div />", {"class":"rf-ny-fcl"}).appendTo(pnotify.container);
 
             // Set width and min height.
             if (typeof opts.pnotify_width == "string")
@@ -599,6 +594,7 @@
                         //							},
                         "click": function() {
                             // Display all notices. (Disregarding non-history notices.)
+                            //                            Don't change it to pnotify's new version, cause using body_data here is a bug
                             $.each(body.data("pnotify"), function() {
                                 if (this.pnotify_history && this.pnotify_display)
                                     this.pnotify_display();

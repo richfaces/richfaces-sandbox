@@ -22,13 +22,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:notify="http://richfaces.org/notify"
-        >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:notify="http://richfaces.org/sandbox/notify">
 <h:head>
     <title>Notify sample</title>
 </h:head>
@@ -52,77 +47,20 @@
 
     <p>
         Here we have notify displaying all messages (not only global).
-        Severity is reflected in overriden style classes.
-    </p>
+        Severity is reflected in overriden style classes. </p>
     <h:form>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
-        <notify:notify sticky="false" stayTime="5000"
-                       title="Default stack"
-                       text="Details of the message"
-                       nonblockingOpacity="0"/>
+        <notify:notify sticky="false" stayTime="5000" title="Default stack" text="Details of the message" nonblockingOpacity="0"/>
 
-        <notify:notify title="Before stack definition"
-                       text="This message is defined in code before stack"
+        <notify:notify title="Before stack definition" text="This message is defined in code before stack" stack="bottomLeftStack"/>
+        <notify:notify title="Left bottom stack 2" text="This message alos should be displayed in the left bottom corner" showCloseButton="true"
                        stack="bottomLeftStack"/>
-        <notify:notify title="Left bottom stack 2"
-                       text="This message alos should be displayed in the left bottom corner"
-                       showCloseButton="true" stack="bottomLeftStack"/>
-        <notify:notifyStack id="bottomLeftStack" styleClass="bottomLeft" stackDir1="up"
-                            stackDir2="right" push="top">
-            <notify:notify sticky="true"
-                           title="Left bottom stack"
-                           text="This message should be displayed in the left bottom corner
-                               and should stay until you close it"
-                           showCloseButton="true"/>
-            <notify:notify title="Nonblocking"
-                           nonblocking="true"/>
+        <notify:notifyStack id="bottomLeftStack" styleClass="bottomLeft" stackDir1="up" stackDir2="right" push="top">
+            <notify:notify sticky="true" title="Left bottom stack" text="This message should be displayed in the left bottom corner
+                               and should stay until you close it" showCloseButton="true"/>
+            <notify:notify title="Nonblocking" nonblocking="true"/>
         </notify:notifyStack>
         <notify:notifyMessages interval="1000" stack="bottomRightStack" ajaxRendered="true"/>
-        <notify:notifyStack id="bottomRightStack" styleClass="bottomRight" stackDir1="up"
-                            stackDir2="left" push="bottom"/>
+        <notify:notifyStack id="bottomRightStack" styleClass="bottomRight" stackDir1="up" stackDir2="left" push="bottom"/>
         Leave this blank for error:
         <br/>
         <h:outputLabel for="greeting" value="Greeting"/>

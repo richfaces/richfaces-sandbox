@@ -61,7 +61,7 @@ public interface NotifyAttributes {
 
     void setAnimationSpeed(Integer animationSpeed);
 
-    @Attribute
+    @Attribute(defaultValue = "true")
     boolean isShowHistory();
 
     void setShowHistory(boolean showHistory);
@@ -76,7 +76,7 @@ public interface NotifyAttributes {
 
     void setShowShadow(boolean showShadow);
 
-    @Attribute
+    @Attribute(defaultValue = "true")
     boolean isShowCloseButton();
 
     void setShowCloseButton(boolean showCloseButton);

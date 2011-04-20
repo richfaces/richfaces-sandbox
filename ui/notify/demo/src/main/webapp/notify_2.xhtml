@@ -22,11 +22,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:notify="http://richfaces.org/notify">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:notify="http://richfaces.org/sandbox/notify">
 <h:head>
     <title>Notify sample</title>
     <style type="text/css">
@@ -52,20 +49,9 @@
     <ui:include src="menu.xhtml"/>
 
     <p>
-        Skinning. Icon, skining by message type.
-    </p>
-    <notify:notify title="You've got mail"
-                   nonblocking="#{greeter.nonblocking}"
-                   sticky="true"
-                   styleClass="mail"
-            />
-    <notify:notify title="You've got more mail (hides in 3sec)"
-                   nonblocking="true"
-                   sticky="false"
-                   styleClass="mail"
-                   delay="3000"
-                   stayTime="3000"
-            />
+        Skinning. Icon, skining by message type. </p>
+    <notify:notify title="You've got mail" nonblocking="#{greeter.nonblocking}" sticky="true" styleClass="mail"/>
+    <notify:notify title="You've got more mail (hides in 3sec)" nonblocking="true" sticky="false" styleClass="mail" delay="3000" stayTime="3000"/>
     <!--
     TODO uncomment this once rich:insert is implemented
     <rich:insert src="/notify_2.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>

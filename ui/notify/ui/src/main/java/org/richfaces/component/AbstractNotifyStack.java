@@ -24,25 +24,33 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.NotifyStackRenderer;
 
 import javax.faces.component.UIComponentBase;
 
-@JsfComponent(tag = @Tag(name = "notifyStack", type = TagType.Facelets))
+@JsfComponent(tag = @Tag(name = "notifyStack", type = TagType.Facelets),
+    renderer = @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE))
 public abstract class AbstractNotifyStack extends UIComponentBase {
+// ------------------------------ FIELDS ------------------------------
 
-    public static final String COMPONENT_TYPE = "org.richfaces.NotifyStack";
     public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
 
-    @Attribute
-    public abstract String getStyleClass();
+    public static final String COMPONENT_TYPE = "org.richfaces.NotifyStack";
 
+// -------------------------- OTHER METHODS --------------------------
+
+    @Attribute
+    public abstract String getPush();
+
+    @Attribute
     public abstract String getStackDir1();
 
     @Attribute
     public abstract String getStackDir2();
 
     @Attribute
-    public abstract String getPush();
+    public abstract String getStyleClass();
 }

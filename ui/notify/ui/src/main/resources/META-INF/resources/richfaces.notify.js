@@ -20,8 +20,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-window.RichFaces = window.RichFaces || {};
-RichFaces.NotifyStack = (function() {
+RichFaces.ui = RichFaces.ui || {};
+RichFaces.ui.NotifyStack = (function() {
     var stacks = {};
     return {
         register: function(id, stack) {
@@ -50,7 +50,7 @@ RichFaces.NotifyStack = (function() {
     }
 })();
 
-RichFaces.Notify = function(options) {
+RichFaces.ui.Notify = function(options) {
     /**
      * Copies attributes from one objects to other object, but
      * can change the name of target attributes.
@@ -68,7 +68,7 @@ RichFaces.Notify = function(options) {
 
     options = jQuery.extend({stack:'default'}, options);
     if (options != null && typeof options.stack == "string") {
-        options.stack = RichFaces.NotifyStack.getStack(options.stack);
+        options.stack = RichFaces.ui.NotifyStack.getStack(options.stack);
     }
     var delegateOptions = extend({}, options, {
         'title':'pnotify_title' ,
@@ -101,74 +101,3 @@ RichFaces.Notify = function(options) {
         }
     });
 };
-
-//TODO remove this fix when it gets in to jquery.js
-(function() {
-    var safariCompatMode;
-    var getCompatMode = function() {
-        var compatMode = document.compatMode;
-        if (!compatMode && jQuery.browser.safari) {
-            if (!safariCompatMode) {
-                //detect compatMode as described in http://code.google.com/p/doctype/wiki/ArticleCompatMode
-                var width = jQuery(document.createElement("div")).attr('style', 'position:absolute;width:0;height:0;width:1')
-                        .css('width');
-                safariCompatMode = compatMode = (width == '1px' ? 'BackCompat' : 'CSS1Compat');
-            } else {
-                compatMode = safariCompatMode;
-            }
-        }
-
-        return compatMode;
-    };
-
-
-    // Create innerHeight, innerWidth, outerHeight and outerWidth methods
-    jQuery.each([ "Height", "Width" ], function(i, name) {
-
-        var tl = i ? "Left" : "Top",  // top or left
-                br = i ? "Right" : "Bottom", // bottom or right
-                lower = name.toLowerCase();
-
-        // innerHeight and innerWidth
-        jQuery.fn["inner" + name] = function() {
-            return this[0] ?
-                    jQuery.css(this[0], lower, false, "padding") :
-                    null;
-        };
-
-        // outerHeight and outerWidth
-        jQuery.fn["outer" + name] = function(margin) {
-            return this[0] ?
-                    jQuery.css(this[0], lower, false, margin ? "margin" : "border") :
-                    null;
-        };
-
-        var type = name.toLowerCase();
-
-        jQuery.fn[ type ] = function(size) {
-            // Get window width or height
-            return this[0] == window ?
-                // Everyone else use document.documentElement or document.body depending on Quirks vs Standards mode
-                    getCompatMode() == "CSS1Compat" && document.documentElement[ "client" + name ] ||
-                            document.body[ "client" + name ] :
-
-                // Get document width or height
-                    this[0] == document ?
-                        // Either scroll[Width/Height] or offset[Width/Height], whichever is greater
-                            Math.max(
-                                    document.documentElement["client" + name],
-                                    document.body["scroll" + name], document.documentElement["scroll" + name],
-                                    document.body["offset" + name], document.documentElement["offset" + name]
-                                    ) :
-
-                        // Get or set width or height on the element
-                            size === undefined ?
-                                // Get width or height on the element
-                                    (this.length ? jQuery.css(this[0], type) : null) :
-
-                                // Set the width or height on the element (default to pixels if value is unitless)
-                                    this.css(type, typeof size === "string" ? size : size + "px");
-        };
-
-    });
-}());

@@ -22,12 +22,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:notify="http://richfaces.org/notify">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:notify="http://richfaces.org/sandbox/notify">
 <h:head>
     <title>Notify sample</title>
     <style type="text/css">
@@ -84,47 +80,19 @@
     <ui:include src="menu.xhtml"/>
     <h:form>
         <a4j:outputPanel ajaxRendered="true">
-            <notify:notifyStack id="customStack"
-                                stackDir1="#{greeter.stackDir1}"
-                                stackDir2="#{greeter.stackDir2}"
-                                push="#{greeter.stackPush}"
-                                styleClass="#{greeter.stackStyleClass}"
-                    />
-            <notify:notify title="#{greeter.title}"
-                           text="#{greeter.text}"
-                           nonblocking="#{greeter.nonblocking}"
-                           showShadow="#{greeter.showShadow}"
-                           showHistory="#{greeter.showHistory}"
-                           showCloseButton="#{greeter.showCloseButton}"
-                           sticky="#{greeter.sticky}"
-                           stayTime="#{greeter.stayTime}"
-                           appearAnimation="#{greeter.appearAnimation}"
-                           hideAnimation="#{greeter.hideAnimation}"
-                           animationSpeed="#{greeter.animationSpeed}"
-                           nonblockingOpacity="#{greeter.nonblockingOpacity}"
-                           styleClass="#{greeter.styleClass}"
-                           stackDir1="#{greeter.stackDir1}"
-                           stackDir2="#{greeter.stackDir2}"
-                           stackPush="#{greeter.stackPush}"
-                           stack="customStack"
-                    />
+            <notify:notifyStack id="customStack" stackDir1="#{greeter.stackDir1}" stackDir2="#{greeter.stackDir2}" push="#{greeter.stackPush}"
+                                styleClass="#{greeter.stackStyleClass}"/>
+            <notify:notify title="#{greeter.title}" text="#{greeter.text}" nonblocking="#{greeter.nonblocking}" showShadow="#{greeter.showShadow}"
+                           showHistory="#{greeter.showHistory}" showCloseButton="#{greeter.showCloseButton}" sticky="#{greeter.sticky}"
+                           stayTime="#{greeter.stayTime}" appearAnimation="#{greeter.appearAnimation}" hideAnimation="#{greeter.hideAnimation}"
+                           animationSpeed="#{greeter.animationSpeed}" nonblockingOpacity="#{greeter.nonblockingOpacity}" styleClass="#{greeter.styleClass}"
+                           stackDir1="#{greeter.stackDir1}" stackDir2="#{greeter.stackDir2}" stackPush="#{greeter.stackPush}" stack="customStack"/>
         </a4j:outputPanel>
-        <notify:notifyMessages interval="#{greeter.interval}"
-                               nonblocking="#{greeter.nonblocking}"
-                               showShadow="#{greeter.showShadow}"
-                               showHistory="#{greeter.showHistory}"
-                               showCloseButton="#{greeter.showCloseButton}"
-                               sticky="#{greeter.sticky}"
-                               stayTime="#{greeter.stayTime}"
-                               appearAnimation="#{greeter.appearAnimation}"
-                               hideAnimation="#{greeter.hideAnimation}"
-                               animationSpeed="#{greeter.animationSpeed}"
-                               nonblockingOpacity="#{greeter.nonblockingOpacity}"
-                               styleClass="#{greeter.styleClass}"
-                               stackDir1="#{greeter.stackDir1}"
-                               stackDir2="#{greeter.stackDir2}"
-                               stackPush="#{greeter.stackPush}"
-                               stack="customStack"/>
+        <notify:notifyMessages interval="#{greeter.interval}" nonblocking="#{greeter.nonblocking}" showShadow="#{greeter.showShadow}"
+                               showHistory="#{greeter.showHistory}" showCloseButton="#{greeter.showCloseButton}" sticky="#{greeter.sticky}"
+                               stayTime="#{greeter.stayTime}" appearAnimation="#{greeter.appearAnimation}" hideAnimation="#{greeter.hideAnimation}"
+                               animationSpeed="#{greeter.animationSpeed}" nonblockingOpacity="#{greeter.nonblockingOpacity}" styleClass="#{greeter.styleClass}"
+                               stackDir1="#{greeter.stackDir1}" stackDir2="#{greeter.stackDir2}" stackPush="#{greeter.stackPush}" stack="customStack"/>
         <a4j:commandButton value="Say Hello" action="#{greeter.sayHello}" execute="@form"/>
         <a4j:commandButton value="Warn me" action="#{greeter.warnMe}" execute="@form"/>
         <a4j:commandButton value="Say error" action="#{greeter.sayError}" execute="@form"/>

@@ -25,20 +25,36 @@ package org.richfaces.component;
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.NotifyMessagesRenderer;
 
 import javax.faces.component.UIMessages;
 
-@JsfComponent(tag = @Tag(name = "notifyMessages", type = TagType.Facelets))
+@JsfComponent(tag = @Tag(name = "notifyMessages", type = TagType.Facelets),
+    renderer = @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE),
+    attributes = {"ajax-props.xml"})
 public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, NotifyAttributes {
+// ------------------------------ FIELDS ------------------------------
 
-    public static final String COMPONENT_TYPE = "org.richfaces.NotifyMessages";
     public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
 
-    @Attribute
-    public abstract Integer getInterval();
+    public static final String COMPONENT_TYPE = "org.richfaces.NotifyMessages";
+
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface AjaxOutput ---------------------
 
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
+
+    @Attribute
+    public abstract boolean isKeepTransient();
+
+// -------------------------- OTHER METHODS --------------------------
+
+    @Attribute
+    public abstract Integer getInterval();
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   JBoss, Home of Professional Open Source
   Copyright , Red Hat, Inc. and individual contributors
   by the @authors tag. See the copyright.txt in the distribution for a
@@ -26,14 +25,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>9</version>
+        <groupId>org.richfaces.sandbox.ui.notify</groupId>
+        <artifactId>notify-parent</artifactId>
+        <version>4.1.0-SNAPSHOT</version>
+        <relativePath>parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.ui.notify</groupId>
     <artifactId>notify-aggregator</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Components: notify Aggregator</name>
 
@@ -44,37 +42,39 @@
         <module>demo</module>
     </modules>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                        <!-- The dist requires clean install for prepare -->
-                        <preparationGoals>clean install</preparationGoals>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <!-- The dist requires clean install for prepare -->
-                    <preparationGoals>clean install</preparationGoals>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0-beta-1</version>
-                <configuration>
-                    <fail>false</fail>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>cli</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.twdata.maven</groupId>
+                        <artifactId>maven-cli-plugin</artifactId>
+                        <version>1.0.6-SNAPSHOT</version>
+                        <configuration>
+                            <userAliases>
+                                <ui>notify-ui clean install</ui>
+                                <demo>notify-demo clean package</demo>
+                            </userAliases>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/notify</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/notify</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>bernard.labno.pl</id>
+            <name>MyCo Internal Repository</name>
+            <url>http://bernard.labno.pl/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

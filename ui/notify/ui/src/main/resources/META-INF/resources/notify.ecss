@@ -1,30 +1,36 @@
 .rf-ny {
-    bottom : auto;
-    right : 10px;
+    bottom: auto;
+    right: 10px;
     top: 10px;
     left: auto;
     z-index: 9999;
 }
+
 .rf-ny-info {
     color: '#{richSkin.generalTextColor}';
 }
+
 .rf-ny-warn {
-    color:orange;
+    color: orange;
 }
+
 .rf-ny-error {
-    color:red;
+    color: red;
 }
+
 .rf-ny-fatal {
-    color:red;
-    font-weight:bold;
+    color: red;
+    font-weight: bold;
 }
+
 html > body .rf-ny {
     position: fixed;
 }
+
 .rf-ny .rf-ny-sh {
-    margin:0;
+    margin: 0;
     padding: 8px;
-    opcity: .3;
+    opacity: .3;
     border-radius: 8px;
     position: absolute;
     z-index: -1;
@@ -34,9 +40,10 @@ html > body .rf-ny {
     right: -.2em;
     background-color: '#{richSkin.headerBackgroundColor}';
     color: '#{richSkin.headerTextColor}';
-    '-moz-border-radius': 8px;
-    '-webkit-border-radius': 8px;
+'-moz-border-radius' : 8 px;
+'-webkit-border-radius' : 8 px;
 }
+
 .rf-ny-co {
     height: 100%;
     padding: .8em;
@@ -46,13 +53,14 @@ html > body .rf-ny {
     border-color: '#{richSkin.panelBorderColor}';
     background-color: '#{richSkin.generalBackgroundColor}';
     color: '#{richSkin.panelTextColor}';
-    '-moz-border-radius': 4px;
-    '-webkit-border-radius': 4px;
+'-moz-border-radius' : 4 px;
+'-webkit-border-radius' : 4 px;
 }
 
 .rf-ny-co-hover {
-    background:red;
+    background: red;
 }
+
 .rf-ny-cl {
     float: right;
     margin-left: .2em;
@@ -62,10 +70,7 @@ html > body .rf-ny {
     display: block;
     width: 11px;
     height: 11px;
-/**
-TODO uncomment this
-    background-image:"url(#{resource['org.richfaces.renderkit.html.images.CancelControlIcon']})";
-*/
+    background-image:"url(#{resource['close.png']})";
 }
 
 .rf-ny-ti {
@@ -74,15 +79,21 @@ TODO uncomment this
     font-weight: bold;
     margin-bottom: .4em;
 }
+
 .rf-ny-te {
     display: block;
 }
+
+.rf-ny-fcl{
+    clear:both;
+}
+
 .rf-ny-ic {
     display: none;
     float: left;
     margin-right: .2em;
-    width:32px;
-    height:32px;
+    width: 32px;
+    height: 32px;
 }
 
 .rf-ny-hc {
@@ -91,10 +102,10 @@ TODO uncomment this
     font-size: '#{richSkin.headerSizeFont}';
     color: '#{richSkin.headerTextColor}';
     font-family: '#{richSkin.headerFamilyFont}';
-/**
-TODO uncomment this
-    background-image:"url(#{resource['org.richfaces.renderkit.html.GradientA']})";
-*/
+    /**
+    TODO uncomment this
+        background-image:"url(#{resource['org.richfaces.renderkit.html.GradientA']})";
+    */
     font-weight: normal;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -104,24 +115,26 @@ TODO uncomment this
     width: 70px;
     z-index: 10000;
     color: '#{richSkin.panelTextColor}';
-    '-moz-border-radius-bottomleft': 4px;
-    '-webkit-border-bottom-left-radius': 4px;
-    '-moz-border-radius-bottomright': 4px;
-    '-webkit-border-bottom-right-radius': 4px;
+'-moz-border-radius-bottomleft' : 4 px;
+'-webkit-border-bottom-left-radius' : 4 px;
+'-moz-border-radius-bottomright' : 4 px;
+'-webkit-border-bottom-right-radius' : 4 px;
 }
 
 .rf-ny-hc .rf-ny-hh {
     padding: 2px;
 }
+
 .rf-ny-hc button {
     cursor: pointer;
     display: block;
     width: 100%;
 }
+
 .rc-ny-ha {
     border-radius: 4px;
-    '-moz-border-radius': 4px;
-    '-webkit-border-radius': 4px;
+'-moz-border-radius' : 4 px;
+'-webkit-border-radius' : 4 px;
 }
 
 .rf-ny-hc .rf-ny-hp {
@@ -130,33 +143,35 @@ TODO uncomment this
     width: 16px;
     height: 16px;
     background-color: '#{richSkin.panelTextColor}';
-/**
-TODO check why nullpointer is thrown because of this
-    background-image:"url(#{resource['org.richfaces.renderkit.html.images.TriangleIconDown']})";
-*/
+    background-image:"url(#{resource['org.richfaces.images:triangleDown.png']})";
 }
+
 .rc-ny-hl {
     font-weight: normal;
     color: '#{richSkin.panelTextColor}';
     border-radius: 4px;
     border-color: '#{richSkin.panelBorderColor}';
     background-color: '#{richSkin.generalBackgroundColor}';
-    '-moz-border-radius': 4px;
-    '-webkit-border-radius': 4px;
+'-moz-border-radius' : 4 px;
+'-webkit-border-radius' : 4 px;
 }
+
 .rf-ny-info .rf-ny-ic {
     display: block;
-    background-image:"url(#{resource['info.png']})";
+    background-image: "url(#{resource['info.png']})";
 }
+
 .rf-ny-warn .rf-ny-ic {
     display: block;
-    background-image:"url(#{resource['warn.png']})";
+    background-image: "url(#{resource['warn.png']})";
 }
+
 .rf-ny-error .rf-ny-ic {
     display: block;
-    background-image:"url(#{resource['error.png']})";
+    background-image: "url(#{resource['error.png']})";
 }
+
 .rf-ny-fatal .rf-ny-ic {
     display: block;
-    background-image:"url(#{resource['fatal.png']})";
+    background-image: "url(#{resource['fatal.png']})";
 }

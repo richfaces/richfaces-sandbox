@@ -22,19 +22,18 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractNotify;
 import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Iterator;
 
 @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE)
 public class NotifyMessagesRenderer extends NotifyRenderer {
@@ -77,7 +76,7 @@ public class NotifyMessagesRenderer extends NotifyRenderer {
             if (messagesComponent.isShowSummary()) {
                 notify.setTitle(msg.getSummary());
             }
-            if (messagesComponent.isShowDetail()) {
+            if (messagesComponent.isShowDetail() && msg.getDetail() != null && !msg.getDetail().equals(msg.getSummary())) {
                 notify.setText(msg.getDetail());
             }
             String styleClass = messagesComponent.getStyleClass();

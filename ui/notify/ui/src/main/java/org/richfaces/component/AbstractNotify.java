@@ -24,26 +24,33 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.NotifyRenderer;
 
 import javax.faces.component.UIComponentBase;
 
-@JsfComponent(tag = @Tag(name = "notify", type = TagType.Facelets))
+@JsfComponent(tag = @Tag(name = "notify", type = TagType.Facelets),
+    renderer = @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE))
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
+// ------------------------------ FIELDS ------------------------------
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
 
     public static final String COMPONENT_TYPE = "org.richfaces.Notify";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
 
     public static final double DEFAULT_NONBLOCKING_OPACITY = .2;
 
-    @Attribute
-    public abstract String getTitle();
-
-    public abstract void setTitle(String summary);
+// -------------------------- OTHER METHODS --------------------------
 
     @Attribute
     public abstract String getText();
 
-    public abstract void setText(String test);
+    @Attribute
+    public abstract String getTitle();
+
+    public abstract void setText(String text);
+
+    public abstract void setTitle(String summary);
 }

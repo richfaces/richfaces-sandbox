@@ -22,24 +22,23 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractNotify;
+import org.richfaces.component.AbstractNotifyStack;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractNotify;
-import org.richfaces.component.AbstractNotifyStack;
-import org.richfaces.renderkit.AjaxComponentRendererBase;
-import org.richfaces.renderkit.HtmlConstants;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE)
 @ResourceDependencies({
@@ -49,10 +48,14 @@ import org.richfaces.renderkit.HtmlConstants;
     @ResourceDependency(name = "jquery.pnotify.js", target = "head"),
     @ResourceDependency(name = "richfaces.notify.js", target = "head"),
     @ResourceDependency(name = "notify.ecss", target = "head")})
-public class NotifyRenderer extends AjaxComponentRendererBase {
+public class NotifyRenderer extends RendererBase {
+// ------------------------------ FIELDS ------------------------------
 
     public static final String RENDERER_TYPE = "org.richfaces.NotifyRenderer";
+
     private static final Map<String, Object> DEFAULTS;
+
+// -------------------------- STATIC METHODS --------------------------
 
     static {
         Map<String, Object> defaults = new HashMap<String, Object>();
@@ -72,6 +75,8 @@ public class NotifyRenderer extends AjaxComponentRendererBase {
         DEFAULTS = Collections.unmodifiableMap(defaults);
     }
 
+// -------------------------- OTHER METHODS --------------------------
+
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         if (!(component instanceof AbstractNotify)) {
@@ -82,10 +87,19 @@ public class NotifyRenderer extends AjaxComponentRendererBase {
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getUtils().clientId(context, component), "type");
         writer.startElement(HtmlConstants.SCRIPT_ELEM, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
-        writer.writeText(new JSFunction("RichFaces.Notify", getOptions(context, (AbstractNotify) component)), null);
+        writer.writeText(new JSFunction("RichFaces.ui.Notify", getOptions(context, (AbstractNotify) component)), null);
         writer.writeText(";", null);
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
         writer.endElement(HtmlConstants.DIV_ELEM);
+    }
+
+    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
+        if (value != null && !"".equals(value)
+            && !value.equals(DEFAULTS.get(optionName))
+            && !(value instanceof Collection && ((Collection) value).size() == 0)
+            && !(value instanceof Map && ((Map) value).size() == 0)) {
+            options.put(optionName, value);
+        }
     }
 
     protected Map<String, Object> getOptions(FacesContext context, AbstractNotify notify) throws IOException {
@@ -120,20 +134,6 @@ public class NotifyRenderer extends AjaxComponentRendererBase {
         return options;
     }
 
-    protected String getStackStyleClass(FacesContext context, AbstractNotify notify) {
-        AbstractNotifyStack stack = getStackComponent(context, notify);
-        return stack == null ? "" : stack.getStyleClass();
-    }
-
-    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
-        if (value != null && !"".equals(value)
-            && !value.equals(DEFAULTS.get(optionName))
-            && !(value instanceof Collection && ((Collection) value).size() == 0)
-            && !(value instanceof Map && ((Map) value).size() == 0)) {
-            options.put(optionName, value);
-        }
-    }
-
     protected AbstractNotifyStack getStackComponent(FacesContext context, AbstractNotify notify) {
         String stackId = notify.getStack();
         if (stackId == null) {
@@ -150,5 +150,10 @@ public class NotifyRenderer extends AjaxComponentRendererBase {
                 return null;
             }
         }
+    }
+
+    protected String getStackStyleClass(FacesContext context, AbstractNotify notify) {
+        AbstractNotifyStack stack = getStackComponent(context, notify);
+        return stack == null ? "" : stack.getStyleClass();
     }
 }

@@ -22,22 +22,21 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractNotifyStack;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractNotifyStack;
-import org.richfaces.renderkit.AjaxComponentRendererBase;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE)
 @ResourceDependencies({
@@ -45,7 +44,7 @@ import org.richfaces.renderkit.util.RendererUtils;
     @ResourceDependency(name = "richfaces.js", target = "head"),
     @ResourceDependency(name = "richfaces.notify.js", target = "head")
 })
-public class NotifyStackRenderer extends AjaxComponentRendererBase {
+public class NotifyStackRenderer extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.NotifyStackRenderer";
 
@@ -56,7 +55,7 @@ public class NotifyStackRenderer extends AjaxComponentRendererBase {
         }
         ResponseWriter writer = context.getResponseWriter();
         writer.startElement(HtmlConstants.SCRIPT_ELEM, null);
-        writer.writeText(new JSFunction("RichFaces.NotifyStack.register",
+        writer.writeText(new JSFunction("RichFaces.ui.NotifyStack.register",
             RendererUtils.getInstance().clientId(context, component),
             getOptions((AbstractNotifyStack) component)
         ), null);
