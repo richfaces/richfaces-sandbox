@@ -54,7 +54,7 @@
                         <version>1.0.6-SNAPSHOT</version>
                         <configuration>
                             <userAliases>
-                                <ui>watermark clean install</ui>
+                                <ui>watermark-ui clean install</ui>
                                 <demo>watermark-demo clean package</demo>
                             </userAliases>
                         </configuration>

@@ -19,7 +19,7 @@ import java.util.Map;
     @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),
     @ResourceDependency(name = "richfaces.watermark.js", target = "head")
 })
-public abstract class WatermarkRendererBase extends RendererBase {
+public abstract class WatermarkRendererBase extends InputRendererBase {
 // ------------------------------ FIELDS ------------------------------
 
     /**
@@ -44,13 +44,13 @@ public abstract class WatermarkRendererBase extends RendererBase {
         }
     }
 
-    protected Map<String, Object> getOptions(AbstractWatermark watermark) {
+    protected Map<String, Object> getOptions(FacesContext context, AbstractWatermark watermark) {
         /**
          * Include only attributes that are actually set.
          */
         Map<String, Object> options = new HashMap<String, Object>();
         addOptionIfSetAndNotDefault("styleClass", watermark.getAttributes().get("styleClass"), options);
-        addOptionIfSetAndNotDefault("text", watermark.getValue(), options);
+        addOptionIfSetAndNotDefault("text", getInputValue(context, watermark), options);
         return options;
     }
 
@@ -58,7 +58,7 @@ public abstract class WatermarkRendererBase extends RendererBase {
         AbstractWatermark watermark = (AbstractWatermark) component;
         ResponseWriter writer = context.getResponseWriter();
         String clientId = watermark.getClientId(context);
-        final Map<String, Object> options = getOptions(watermark);
+        final Map<String, Object> options = getOptions(context, watermark);
         options.put("targetId", watermark.getTargetClientId(context));
         writer.writeText(new JSObject("RichFaces.ui.Watermark", clientId, options).toScript(), null);
     }

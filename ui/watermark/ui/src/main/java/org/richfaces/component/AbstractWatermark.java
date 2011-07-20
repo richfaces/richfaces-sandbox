@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.WatermarkRendererBase;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 /**
@@ -40,62 +40,24 @@ import javax.faces.context.FacesContext;
  */
 @JsfComponent(tag = @Tag(name = "watermark", type = TagType.Facelets),
     renderer = @JsfRenderer(family = AbstractWatermark.COMPONENT_FAMILY, type = WatermarkRendererBase.RENDERER_TYPE),
-    attributes = {"core-props.xml","javax.faces.component.ValueHolder.xml"}
+    attributes = {"core-props.xml", "javax.faces.component.ValueHolder.xml"}
 )
-public abstract class AbstractWatermark extends UIOutput {
+public abstract class AbstractWatermark extends UIInput {
 // ------------------------------ FIELDS ------------------------------
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Watermark";
 
     public static final String COMPONENT_TYPE = "org.richfaces.Watermark";
 
-// -------------------------- OTHER METHODS --------------------------
+// ------------------------ INTERFACE METHODS ------------------------
 
-    public String getTargetClientId(FacesContext context) {
-       String sid = getFor();
-        String target;
-        if (sid != null && ! "".equals(sid)) {
-            try {
 
-                UIComponent forcomp = findComponent(sid);
-                if (forcomp != null) {
-                        target = forcomp.getClientId(context);
-                } else {
-                    target = sid;
-                }
-             }catch(IllegalArgumentException e) {
-                target = sid;
-             }
-        } else {
-            target = getParent().getClientId(context);
-        }
-        String suffix = getSuffix();
-         if(suffix != null && !"".equals(suffix)) {
-             target += suffix;
-         }
-        return target;
-    }
-
-    /**
-     * This attribute is not used.
-     * @return irrelevant
-     */
-    @Attribute(hidden = true)
-    public abstract String getTitle();
+// --------------------- Interface ValueHolder ---------------------
 
     @Attribute(required = true)
     public abstract Object getValue();
 
-    /**
-     * Use this if watermark should be attached to element with id different then component id.
-     * i.e.: rich:comboBox with id="combo" nested in form with id="f" renders input with
-     * clientId="f:combocomboboxField"
-     * So in order to attach watermark to that element provide suffix="comboboxField".
-     *
-     * @return the suffix
-     */
-    @Attribute
-    public abstract String getSuffix();
+// -------------------------- OTHER METHODS --------------------------
 
     /**
      * Use this if watermark cannot be nested within come components i.e. in calendar.
@@ -112,4 +74,47 @@ public abstract class AbstractWatermark extends UIOutput {
      */
     @Attribute
     public abstract String getFor();
+
+    /**
+     * Use this if watermark should be attached to element with id different then component id.
+     * i.e.: rich:comboBox with id="combo" nested in form with id="f" renders input with
+     * clientId="f:combocomboboxField"
+     * So in order to attach watermark to that element provide suffix="comboboxField".
+     *
+     * @return the suffix
+     */
+    @Attribute
+    public abstract String getSuffix();
+
+    public String getTargetClientId(FacesContext context) {
+        String sid = getFor();
+        String target;
+        if (sid != null && !"".equals(sid)) {
+            try {
+                UIComponent forcomp = findComponent(sid);
+                if (forcomp != null) {
+                    target = forcomp.getClientId(context);
+                } else {
+                    target = sid;
+                }
+            } catch (IllegalArgumentException e) {
+                target = sid;
+            }
+        } else {
+            target = getParent().getClientId(context);
+        }
+        String suffix = getSuffix();
+        if (suffix != null && !"".equals(suffix)) {
+            target += suffix;
+        }
+        return target;
+    }
+
+    /**
+     * This attribute is not used.
+     *
+     * @return irrelevant
+     */
+    @Attribute(hidden = true)
+    public abstract String getTitle();
 }

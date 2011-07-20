@@ -13,35 +13,36 @@
 </h:head>
 
 <h:body class="rich-container">
-<rich:messages ajaxRendered="true"/>
+    <rich:messages ajaxRendered="true"/>
 
-<h:form>
-    <a4j:poll ajaxSingle="true" interval="5000"/>
-    <a4j:queue requestDelay="400" ignoreDupResponses="true"/>
+    <h:form>
+        <a4j:poll ajaxSingle="true" interval="5000"/>
+        <a4j:queue requestDelay="400" ignoreDupResponses="true"/>
 
-    <h:outputLabel value="Watermark text" for="text"/>
-    <h:inputText id="text" value="#{watermarkBean.text}" required="true">
-        <f:ajax event="valueChange" render="@form"/>
-    </h:inputText>
-    <h:commandButton value="Submit" action="#{watermarkBean.submit}"/>
-    <br/><br/>
-    <h:inputText id="watermarked" value="#{watermarkBean.watermarkedInput}">
-        <watermark:watermark value="#{watermarkBean.text}"/>
-    </h:inputText>
+        <h:outputLabel value="Watermark text" for="text"/>
+        <h:inputText id="text" value="#{watermarkBean.text}" required="true">
+            <f:ajax event="valueChange" render="@form"/>
+        </h:inputText>
+        <h:commandButton value="Submit" action="#{watermarkBean.submit}"/>
+        <br/><br/>
+        <h:inputText id="watermarked" value="#{watermarkBean.watermarkedInput}">
+            <watermark:watermark value="#{watermarkBean.text}"/>
+        </h:inputText>
 
-    <rich:calendar id="calendar" value="#{watermarkBean.date}" enableManualInput="true" ajaxSingle="true"/>
-    <watermark:watermark value="#{watermarkBean.text}" for="calendar" suffix="InputDate"/>
+        <rich:calendar id="calendar" value="#{watermarkBean.date}" enableManualInput="true" ajaxSingle="true"/>
+        <watermark:watermark value="#{watermarkBean.text}" for="calendar" suffix="InputDate"/>
 
-    <!--<rich:comboBox>-->
+        <!--<rich:comboBox>-->
         <!--<watermark:watermark value="#{watermarkBean.text}" suffix="comboboxField"/>-->
-    <!--</rich:comboBox>-->
+        <!--</rich:comboBox>-->
 
-    <input id="htmlInput" type="text"/>
-    <watermark:watermark value="#{watermarkBean.text}" for="htmlInput"/>
-</h:form>
+        <input id="htmlInput" type="text"/>
+        <watermark:watermark value="#{watermarkBean.textObject}" for="htmlInput" converter="#{watermarkBean.converter}"/>
 
-<div id="status"></div>
-<!--<rich:insert src="/index.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>-->
+    </h:form>
+
+    <div id="status"></div>
+    <!--<rich:insert src="/index.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>-->
 
 </h:body>
 </html>
