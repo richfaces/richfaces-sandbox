@@ -1,0 +1,109 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:visualsearch="http://richfaces.org/sandbox/visualsearch">
+<h:head>
+    <title>Visualsearch sample</title>
+</h:head>
+<h:body class="rich-container">
+
+    <ui:include src="menu.xhtml"/>
+
+    <p>
+
+        Try typing Status, Version or Assignee :)
+
+    </p>
+
+    <rich:notifyMessages/>
+
+    <h:form>
+        Ajax mode:
+        <visualsearch:visualsearch query="#{bean.query}" facetSuggestionListener="#{bean.suggestFacet}" valueSuggestionListener="#{bean.suggestValue}"
+                                   onsearch="jQuery('#onsearch').html(query+' '+queryJSON)" searchListener="#{bean.search}" value="#{bean.value}"
+                                   render="counter"/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        Client mode:
+        <visualsearch:visualsearch onsearch="RichFaces.ui.Notify({severity:0,summary:query} )" switchType="client"
+                                   valueSuggestions="#{bean.fixedValueSuggestions}" facetSuggestions="#{bean.fixedFacetSuggestions}"/>
+    </h:form>
+
+    <a4j:outputPanel ajaxRendered="true">
+        <h:panelGrid columns="2">
+            bean.query:
+            <h:outputText value="#{bean.query}"/>
+            bean.value:
+            <h:outputText value="#{bean.value}"/>
+        </h:panelGrid>
+    </a4j:outputPanel>
+
+    <h:outputText id="counter" value="Counter: #{bean.counter}"/>
+
+    <ol>
+        Questions &amp; TODO:
+        <li>
+            Limit ajax request, the component is crazy with them!
+        </li>
+        <li>
+            Should this component be value holder?
+            Since it is also action source then when shall the value be updated, only on search?
+        </li>
+        <li>
+            I think that server mode lacks sense with autocomplete.
+        </li>
+        <li>
+            Should we pass only query to onsearch listener or also stringified queryJSON or maybe something else?
+        </li>
+        <li>
+            It would be cool to not re-render anything during suggestion and only on search.
+        </li>
+        <li>
+            Actually I think that there should be only javascript onsearch hook that someone could attach a4j:ajax to in stead of having one
+            built-in ajax function for all 3 hooks (facetSuggestion, valueSuggestion, onsearch), what do you think?
+            <br/>
+            <br/>
+            Note that if we specify "render" attribute then it will be called on every hook, like facetSuggestion, valueSuggestion, onsearch.
+            And I don't think anyone would like to refresh datatable with search results until the entire search query is ready.
+            See the "Counter", how it increments on every request from visualsearch component.
+        </li>
+        <li>
+            Should method bound to valueSuggestionListener accept ValueSuggestionEvent param (which makes bean dependant on RF, thus view layer)
+            or should we pass string params. Problem with string params is that there can be many of them (searchTerm,facet,query,queryJSON).
+        </li>
+        <li>
+            Right now valueSuggestions must return map of string facet name as key and list of string values for that facet.
+            Maybe it would be cool to allow attaching converter for suggestions, thus allowing them to be list of objects.
+            Or even better add extra tag like &lt;visualsearch:visualsearchValueSuggestion facet="#{obj.someName}" value="#{obj.someValue}"/>
+            and visualsearch:visualsearchFacetSuggestion.
+        </li>
+    </ol>
+
+    <h:messages/>
+</h:body>
+</html>
