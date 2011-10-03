@@ -447,53 +447,49 @@ $.fn.watermark = function (text, options) {
 				// we need to replace the form's submit function with our own
 				// function.  Otherwise watermarks won't be cleared when the form
 				// is submitted programmatically.
-				if (this.form) {
-					var form = this.form,
-						$form = $(form);
-					
-					if (!$form.data(dataFormSubmit)) {
-						$form.submit($.watermark.hideAll);
-						
-						// form.submit exists for all browsers except Google Chrome
-						// (see "else" below for explanation)
-						if (form.submit) {
-							$form.data(dataFormSubmit, form.submit);
-							
-							form.submit = (function (f, $f) {
-								return function () {
-									var nativeSubmit = $f.data(dataFormSubmit);
-									
-									$.watermark.hideAll();
-									
-									if (nativeSubmit.apply) {
-										nativeSubmit.apply(f, Array.prototype.slice.call(arguments));
-									}
-									else {
-										nativeSubmit();
-									}
-								};
-							})(form, $form);
-						}
-						else {
-							$form.data(dataFormSubmit, 1);
-							
-							// This strangeness is due to the fact that Google Chrome's
-							// form.submit function is not visible to JavaScript (identifies
-							// as "undefined").  I had to invent a solution here because hours
-							// of Googling (ironically) for an answer did not turn up anything
-							// useful.  Within my own form.submit function I delete the form's
-							// submit function, and then call the non-existent function --
-							// which, in the world of Google Chrome, still exists.
-							form.submit = (function (f) {
-								return function () {
-									$.watermark.hideAll();
-									delete f.submit;
-									f.submit();
-								};
-							})(form);
-						}
-					}
-				}
+                if (this.form) {
+                    var form = this.form,
+                            $form = $(form);
+
+                    if (!$form.data(dataFormSubmit)) {
+                        $form.submit($.watermark.hideAll);
+
+                        // form.submit exists for all browsers except Google Chrome
+                        // (see "else" below for explanation)
+                        if (form.submit) {
+                            $form.data(dataFormSubmit, form.onsubmit || 1);
+
+                            form.onsubmit = (function (f, $f) {
+                                return function () {
+                                    var nativeSubmit = $f.data(dataFormSubmit);
+                                    $.watermark.hideAll();
+                                    if (nativeSubmit instanceof Function) {
+                                        nativeSubmit();
+                                    } else {
+                                        eval(nativeSubmit);
+                                    }
+                                };
+                            })(form, $form);
+                        } else {
+                            $form.data(dataFormSubmit, 1);
+
+                            // This strangeness is due to the fact that Google Chrome's
+                            // form.submit function is not visible to JavaScript (identifies
+                            // as "undefined").  I had to invent a solution here because hours
+                            // of Googling (ironically) for an answer did not turn up anything
+                            // useful.  Within my own form.submit function I delete the form's
+                            // submit function, and then call the non-existent function --
+                            // which, in the world of Google Chrome, still exists.
+                            form.submit = (function (f) {
+                                return function () {
+                                    $.watermark.hideAll();
+                                    delete f.submit;
+                                    f.submit();
+                                };
+                            })(form);
+                        }
+                    }
+                }
 			}
 			
 			$.watermark._show($input);
