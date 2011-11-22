@@ -123,6 +123,7 @@ public class Bean implements Serializable {
     public Bean() {
         Calendar instance = Calendar.getInstance();
         instance.setTime(getInitialDate());
+        final String[] colors = new String[]{"#00ff00", "#ff0000", "#0000ff"};
         Random random = new Random();
         for (int i = -30; i < 60; i++) {
             instance.set(Calendar.HOUR, minTime + random.nextInt(maxTime - minTime));
@@ -131,7 +132,8 @@ public class Bean implements Serializable {
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("category", "category-" + (i % 3));
             int taskId = taskIdSequence++;
-            allTasks.add(new ScheduleTask("" + taskId, "Title " + taskId, instance.getTime(), instance.getTime(), data));
+
+            allTasks.add(new ScheduleTask("" + taskId, "Title " + taskId, instance.getTime(), instance.getTime(), data, colors[random.nextInt(3)]));
         }
     }
 

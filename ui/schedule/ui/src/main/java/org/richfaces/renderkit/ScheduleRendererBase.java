@@ -102,6 +102,10 @@ public abstract class ScheduleRendererBase extends RendererBase {
      */
     static {
         Map<String, Object> defaults = new HashMap<String, Object>();
+        defaults.put("eventColor", "");
+        defaults.put("eventBackgroundColor", "");
+        defaults.put("eventBorderColor", "");
+        defaults.put("eventTextColor", "");
         defaults.put("styleClass", "");
         defaults.put("defaultView", AbstractSchedule.DEFAULT_VIEW);
         defaults.put("firstDay", AbstractSchedule.DEFAULT_FIRST_DAY - 1);
@@ -332,6 +336,10 @@ public abstract class ScheduleRendererBase extends RendererBase {
         addOptionIfSetAndNotDefault("disableDragging", schedule.isDisableDragging(), options);
         addOptionIfSetAndNotDefault("disableResizing", schedule.isDisableResizing(), options);
         addOptionIfSetAndNotDefault("dragRevertDuration", schedule.getDragRevertDuration(), options);
+        addOptionIfSetAndNotDefault("eventColor", schedule.getEventColor(), options);
+        addOptionIfSetAndNotDefault("eventBackgroundColor", schedule.getEventBackgroundColor(), options);
+        addOptionIfSetAndNotDefault("eventBorderColor", schedule.getEventBorderColor(), options);
+        addOptionIfSetAndNotDefault("eventTextColor", schedule.getEventTextColor(), options);
         addOptionHash("dragOpacity", schedule, options);
         addOptionHash("titleFormat", schedule, options);
         addOptionHash("timeFormat", schedule, options);

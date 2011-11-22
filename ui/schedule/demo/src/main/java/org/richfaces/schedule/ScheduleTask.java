@@ -17,6 +17,7 @@ public class ScheduleTask implements Serializable {
     private Boolean editable;
     private String url;
     private String details;
+    private String color;
 
     public ScheduleTask() {
     }
@@ -36,12 +37,13 @@ public class ScheduleTask implements Serializable {
         this.allDay = allDay;
     }
 
-    public ScheduleTask(String id, String title, Date start, Date end, Map<String, Object> data) {
+    public ScheduleTask(String id, String title, Date start, Date end, Map<String, Object> data, String color) {
         this.id = id;
         this.title = title;
         this.startDate = start;
         this.endDate = end;
         this.data = data;
+        this.color = color;
     }
 
     public String getId() {
@@ -137,5 +139,13 @@ public class ScheduleTask implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

@@ -66,4 +66,17 @@ public abstract class AbstractScheduleItem extends UIComponentBase {
 
     @Attribute
     public abstract Object getData();
+
+    @Attribute
+    public abstract String getColor();
+
+    @Attribute
+    public abstract String getBackgroundColor();
+
+    @Attribute
+    public abstract String getBorderColor();
+
+    @Attribute
+    public abstract String getTextColor();
+
 }

@@ -1,7 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:schedule="http://richfaces.org/sandbox/schedule">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+      xmlns:schedule="http://richfaces.org/sandbox/schedule">
 <head>
     <title></title>
 </head>
@@ -9,32 +11,52 @@
 <!-- mode should passed to this template as param -->
 <ui:composition>
     <h:form id="f">
-        <schedule:schedule id="schedule" widgetVar="schedule" switchType="#{mode}" value="#{myBean.lazyDataModel}" var="event" weekMode="#{myBean.weekMode}"
-                           height="#{myBean.height}" date="#{myBean.initialDate}" firstDay="#{myBean.firstDay}" showWeekends="#{myBean.showWeekends}"
-
-                           allDayText="#{myBean.allDayText}" allDayByDefault="#{myBean.allDayByDefault}" allDaySlot="#{myBean.allDaySlot}"
-                           aspectRatio="#{myBean.aspectRatio}" axisFormat="#{myBean.axisFormat}" contentHeight="#{myBean.contentHeight}"
+        <schedule:schedule id="schedule" widgetVar="schedule" switchType="#{mode}" value="#{myBean.lazyDataModel}"
+                           var="event" weekMode="#{myBean.weekMode}"
+                           height="#{myBean.height}" date="#{myBean.initialDate}" firstDay="#{myBean.firstDay}"
+                           showWeekends="#{myBean.showWeekends}"
+                           eventColor="#00ff00" eventBorderColor="#ffff00" eventBackgroundColor="#ff00ff"
+                           eventTextColor="#ff55ff"
+                           allDayText="#{myBean.allDayText}" allDayByDefault="#{myBean.allDayByDefault}"
+                           allDaySlot="#{myBean.allDaySlot}"
+                           aspectRatio="#{myBean.aspectRatio}" axisFormat="#{myBean.axisFormat}"
+                           contentHeight="#{myBean.contentHeight}"
                            defaultEventMinutes="#{myBean.defaultEventMinutes}" dragOpacity="#{myBean.dragOpacity}"
-                           dragRevertDuration="#{myBean.dragRevertDuration}" editable="#{myBean.editable}" selectable="#{myBean.selectable}"
-                           selectHelper="#{myBean.selectHelper}" unselectAuto="#{myBean.unselectAuto}" unselectCancel="#{myBean.unselectCancel}"
-                           firstHour="#{myBean.firstHour}" headerCenter="#{myBean.headerCenter}" headerLeft="#{myBean.headerLeft}"
-                           headerRight="#{myBean.headerRight}" isRTL="#{myBean.isRTL}" maxTime="#{myBean.maxTime}" minTime="#{myBean.minTime}"
+                           dragRevertDuration="#{myBean.dragRevertDuration}" editable="#{myBean.editable}"
+                           selectable="#{myBean.selectable}"
+                           selectHelper="#{myBean.selectHelper}" unselectAuto="#{myBean.unselectAuto}"
+                           unselectCancel="#{myBean.unselectCancel}"
+                           firstHour="#{myBean.firstHour}" headerCenter="#{myBean.headerCenter}"
+                           headerLeft="#{myBean.headerLeft}"
+                           headerRight="#{myBean.headerRight}" isRTL="#{myBean.isRTL}" maxTime="#{myBean.maxTime}"
+                           minTime="#{myBean.minTime}"
                            slotMinutes="#{myBean.slotMinutes}" view="#{myBean.view}"
 
-                           columnFormat="#{myBean.columnFormat}" titleFormat="#{myBean.titleFormat}" timeFormat="#{myBean.timeFormat}"
+                           columnFormat="#{myBean.columnFormat}" titleFormat="#{myBean.titleFormat}"
+                           timeFormat="#{myBean.timeFormat}"
 
-                           itemResizeListener="#{myBean.taskResized}" itemMoveListener="#{myBean.taskMoved}" itemSelectListener="#{myBean.taskSelected}"
-                           viewChangeListener="#{myBean.viewChanged}" dateRangeChangeListener="#{myBean.dateRangeChanged}"
-                           dateRangeSelectListener="#{myBean.dateRangeSelected}" dateSelectListener="#{myBean.dateSelected}"
+                           itemResizeListener="#{myBean.taskResized}" itemMoveListener="#{myBean.taskMoved}"
+                           itemSelectListener="#{myBean.taskSelected}"
+                           viewChangeListener="#{myBean.viewChanged}"
+                           dateRangeChangeListener="#{myBean.dateRangeChanged}"
+                           dateRangeSelectListener="#{myBean.dateRangeSelected}"
+                           dateSelectListener="#{myBean.dateSelected}"
 
                            ondaterangeselect="#{rich:component('schedule')}.unselect()">
-            <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}" endDate="#{event.endDate}"
-                                   allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
-            <schedule:scheduleMonthView weekMode="#{myBean.weekMode}" titleFormat="MM yy" timeFormat="h:m" columnFormat="dddd" dragOpacity=".1"/>
-            <schedule:scheduleAgendaDayView titleFormat="d MMM yy" timeFormat="hh:m" columnFormat="ddd" dragOpacity=".3"/>
-            <schedule:scheduleBasicDayView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd" dragOpacity=".5"/>
-            <schedule:scheduleAgendaWeekView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd" dragOpacity=".7"/>
-            <schedule:scheduleBasicWeekView titleFormat="bw dd MMM yy" timeFormat="bw hh:mm" columnFormat="bw ddd" dragOpacity=".9"/>
+            <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                   endDate="#{event.endDate}"
+                                   allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                   data="#{event.data}" color="#{event.color}"/>
+            <schedule:scheduleMonthView weekMode="#{myBean.weekMode}" titleFormat="MM yy" timeFormat="h:m"
+                                        columnFormat="dddd" dragOpacity=".1"/>
+            <schedule:scheduleAgendaDayView titleFormat="d MMM yy" timeFormat="hh:m" columnFormat="ddd"
+                                            dragOpacity=".3"/>
+            <schedule:scheduleBasicDayView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd"
+                                           dragOpacity=".5"/>
+            <schedule:scheduleAgendaWeekView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd"
+                                             dragOpacity=".7"/>
+            <schedule:scheduleBasicWeekView titleFormat="bw dd MMM yy" timeFormat="bw hh:mm" columnFormat="bw ddd"
+                                            dragOpacity=".9"/>
             <!--
             TODO uncomment this
             <schedule:itemSelectedListener binding="#{myBean.additionalListener}"/>

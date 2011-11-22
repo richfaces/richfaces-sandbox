@@ -597,9 +597,9 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
             };
             ((ExtendedDataModel) dataModel).walk(getFacesContext(), visitor, new DateRange(startDate, endDate), null);
         }
-        ELContext elContext = getFacesContext().getELContext();
+        ELContext elContext = (ELContext) getFacesContext().getELContext();
         ValueExpression valueExpression = getFacesContext().getApplication().getExpressionFactory()
-            .createValueExpression(getFacesContext().getELContext(), "#{" + getVar() + "}", Object.class);
+            .createValueExpression(elContext, "#{" + getVar() + "}", Object.class);
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < dataModel.getRowCount(); i++) {
             dataModel.setRowIndex(i);
@@ -632,6 +632,18 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
                     }
                     if (item.getData() != null) {
                         firstDataElement.put("data", item.getData());
+                    }
+                    if (item.getColor() != null) {
+                        firstDataElement.put("color", item.getColor());
+                    }
+                    if (item.getBackgroundColor() != null) {
+                        firstDataElement.put("backgroundColor", item.getBackgroundColor());
+                    }
+                    if (item.getBorderColor() != null) {
+                        firstDataElement.put("borderColor", item.getBorderColor());
+                    }
+                    if (item.getTextColor() != null) {
+                        firstDataElement.put("textColor", item.getTextColor());
                     }
                     data.add(firstDataElement);
                 }
@@ -714,6 +726,18 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
 
     @Attribute(defaultValue = "" + DEFAULT_UNSELECT_AUTO)
     public abstract Boolean isUnselectAuto();
+
+    @Attribute
+    public abstract String getEventColor();
+
+    @Attribute
+    public abstract String getEventBackgroundColor();
+
+    @Attribute
+    public abstract String getEventBorderColor();
+
+    @Attribute
+    public abstract String getEventTextColor();
 
     public void setDataModel(DataModel model) {
         this.model = model;
