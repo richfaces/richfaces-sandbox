@@ -54,7 +54,7 @@
                         <version>1.0.6-SNAPSHOT</version>
                         <configuration>
                             <userAliases>
-                                <ui>schedule clean install</ui>
+                                <ui>schedule-ui clean install</ui>
                                 <demo>schedule-demo clean package</demo>
                             </userAliases>
                         </configuration>
@@ -66,7 +66,8 @@
 
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</developerConnection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule
+        </developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 
