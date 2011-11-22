@@ -38,7 +38,9 @@ public class ScheduleMessages extends AbstractCacheableResource {
         StringBuilder out = new StringBuilder();
         out.append("RichFaces.ui.Schedule.prototype.messages=jQuery.extend(RichFaces.ui.Schedule.prototype.messages,{");
         Iterator<Locale> supportedLocales = application.getSupportedLocales();
+        int localeCount = 0;
         while (supportedLocales.hasNext()) {
+            localeCount++;
             Locale locale = supportedLocales.next();
             ResourceBundle applicationBundle = ResourceBundle.getBundle(application.getMessageBundle(), locale, loader);
             ResourceBundle stockBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale, loader);
@@ -60,7 +62,9 @@ public class ScheduleMessages extends AbstractCacheableResource {
                 "prevYear", "nextYear", "today", "month", "day", "week"});
             out.append("},");
         }
-        out.delete(out.length() - 1, out.length());
+        if (localeCount > 0) {
+            out.delete(out.length() - 1, out.length());
+        }
         out.append("})");
         try {
 //            TODO where to get encoding from? It should match properties file's encoding, but probably be converted to response encoding
