@@ -85,8 +85,7 @@ public class DashboardRenderer extends RendererBase {
 // -------------------------- OTHER METHODS --------------------------
 
     @Override
-    public void decode(FacesContext context, UIComponent component)
-    {
+    public void decode(FacesContext context, UIComponent component) {
         super.decode(context, component);
         if (!component.isRendered()) {
             return;
@@ -106,21 +105,18 @@ public class DashboardRenderer extends RendererBase {
     }
 
     @Override
-    public boolean getRendersChildren()
-    {
+    public boolean getRendersChildren() {
         return true;
     }
 
-    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options)
-    {
+    protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
         if (value != null && !"".equals(value) && !value.equals(DEFAULTS.get(optionName)) && !(value instanceof Collection && ((Collection) value).size() == 0)
             && !(value instanceof Map && ((Map) value).size() == 0)) {
             options.put(optionName, value);
         }
     }
 
-    protected Object createSubmitEventFunction(FacesContext context, AbstractDashboard component)
-    {
+    protected Object createSubmitEventFunction(FacesContext context, AbstractDashboard component) {
         ScriptString jsFunction;
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(getFieldId(context, component, START_X_PARAM), new JSReference(START_X_PARAM));
@@ -141,8 +137,7 @@ public class DashboardRenderer extends RendererBase {
     }
 
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-    {
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         if (!(component instanceof AbstractDashboard)) {
             return;
         }
@@ -156,8 +151,7 @@ public class DashboardRenderer extends RendererBase {
     }
 
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-    {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         for (UIComponent child : component.getChildren()) {
             if (child instanceof UIColumn) {
                 if (!child.isRendered()) {
@@ -184,14 +178,13 @@ public class DashboardRenderer extends RendererBase {
                 }
                 writer.endElement(HtmlConstants.DIV_ELEM);
             } else {
-                component.encodeAll(context);
+                child.encodeAll(context);
             }
         }
     }
 
     @Override
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-    {
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         if (!(component instanceof AbstractDashboard)) {
             return;
         }
@@ -209,13 +202,11 @@ public class DashboardRenderer extends RendererBase {
         writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
-    protected String getFieldId(FacesContext context, AbstractDashboard component, String attribute)
-    {
+    protected String getFieldId(FacesContext context, AbstractDashboard component, String attribute) {
         return RendererUtils.getInstance().clientId(context, component) + UINamingContainer.getSeparatorChar(context) + attribute;
     }
 
-    protected Map<String, Object> getOptions(FacesContext context, AbstractDashboard dashboard) throws IOException
-    {
+    protected Map<String, Object> getOptions(FacesContext context, AbstractDashboard dashboard) throws IOException {
         /**
          * Include only attributes that are actually set.
          */
@@ -228,8 +219,7 @@ public class DashboardRenderer extends RendererBase {
         return options;
     }
 
-    protected boolean isAjaxMode(AbstractDashboard component)
-    {
+    protected boolean isAjaxMode(AbstractDashboard component) {
         SwitchType mode = component.getSwitchType();
         return SwitchType.ajax.equals(mode) || null == mode;
     }

@@ -36,10 +36,12 @@ import org.richfaces.event.PositionChangeListener;
 import org.richfaces.renderkit.html.DashboardRenderer;
 
 import javax.el.MethodExpression;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 
 @JsfComponent(tag = @Tag(name = "dashboard", handler = "org.richfaces.view.facelets.html.DashboardTagHandler", generate = true, type = TagType.Facelets),
     fires = {@Event(value = PositionChangeEvent.class, listener = PositionChangeListener.class)},
@@ -59,8 +61,7 @@ public abstract class AbstractDashboard extends UIComponentBase {
 // -------------------------- OTHER METHODS --------------------------
 
     @Override
-    public void broadcast(FacesEvent event) throws AbortProcessingException
-    {
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof PositionChangeEvent) {
             super.broadcast(event);
             FacesContext facesContext = getFacesContext();
@@ -95,8 +96,29 @@ public abstract class AbstractDashboard extends UIComponentBase {
     @Attribute(defaultValue = "true")
     public abstract boolean isForcePlaceholderSize();
 
-    private void setResponseData(Object data)
-    {
+    @Override
+    public void queueEvent(FacesEvent event) {
+        UIComponent c = event.getComponent();
+        if (event instanceof PositionChangeEvent && c instanceof AbstractDashboard) {
+            if (((AbstractDashboard) c).isImmediate()) {
+                event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+            } else {
+                event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            }
+        }
+        super.queueEvent(event);
+    }
+
+    /**
+     * If you are moving any object that is nested inside somethin iterable like a4j:repeat and you set this to true
+     * then reordering of components will be done before applying request values which means that values may get to wrong places.
+     *
+     * @return true if listener is to be notified during APPLY_REQUEST_VALUES phase; false if in INVOKE_APPLICATION
+     */
+    @Attribute(defaultValue = "false")
+    protected abstract boolean isImmediate();
+
+    private void setResponseData(Object data) {
         ExtendedPartialViewContext.getInstance(getFacesContext()).getResponseComponentDataMap().put(getClientId(getFacesContext()), data);
     }
 }
