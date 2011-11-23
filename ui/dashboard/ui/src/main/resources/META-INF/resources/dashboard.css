@@ -1,0 +1,32 @@
+.rf-db {
+
+}
+
+.rf-db-cn {
+
+}
+
+.rf-db .rf-db-plh {
+    background: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)) repeat scroll 0 0 #85B2CB;
+    border: 1px solid #7096AB;
+    box-shadow: 0 0 8px #85B2CB;
+    box-shadow: 0 0 8px #85B2CB, 0 1px 0 #FFFFFF inset;
+}
+
+.rf-db-cl {
+    float: left;
+    width: 200px;
+}
+
+.rf-db-cl + .rf-db-cl {
+    margin-left: 1ex;
+}
+
+.rf-db-cl >  * {
+    margin-top: 1ex;
+}
+
+.rf-db-clr {
+    clear: both;
+    height: 0;
+}

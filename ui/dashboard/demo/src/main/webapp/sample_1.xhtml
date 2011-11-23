@@ -1,0 +1,143 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:dashboard="http://richfaces.org/sandbox/dashboard">
+<h:head>
+    <title>Dashboard sample</title>
+</h:head>
+<h:body class="rich-container">
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .pink {
+            color: pink;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .blue .orange {
+            background-color: orange;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+        function handleChange(event, item, sX, sY, eX, eY)
+        {
+            RichFaces.ui.Notify({severity:0,summary:'Client change handler',detail:'It`s the client! sX=' + sX + ';sY=' + sY + ';eX=' + eX + ";eY=" + eY
+                    + ";item=" + item.text() + ";event=" + event.type});
+        }
+    </script>
+    <ui:include src="menu.xhtml"/>
+
+    <p>
+
+    </p>
+
+    <rich:notifyMessages/>
+
+    <h:form id="f">
+        <h:outputLabel value="Dashboard enabled" for="enable"/>
+        <h:selectBooleanCheckbox id="enable" value="#{bean.enabled}"
+                                 onchange="if(this.checked){#{rich:component('dashboard')}.enable()} else {#{rich:component('dashboard')}.disable()}"/>
+        <h:outputLabel value="Allow changes" for="changesAccepted"/>
+        <h:selectBooleanCheckbox id="changesAccepted"/>
+
+        <dashboard:dashboard id="dashboard" style="border:1px dotted #aaa;" placeholderClass="orange" title="The dashboard"
+                             onchange="handleChange(event,item,startX,startY,endX,endY)"
+                             onbeforechange="if(!#{rich:element('changesAccepted')}.checked) {RichFaces.ui.Notify({severity:2,summary:'Changes are not allowed',detail:'Tick the `Allow changes`checkbox'});return false;}"
+                             positionChangeListener="#{bean.positionChanged}" enabled="#{bean.enabled}">
+            <h:column>
+                <h:panelGroup layout="block" id="jack">Jack</h:panelGroup>
+                <h:panelGroup layout="block" id="viki">Viki</h:panelGroup>
+                <rich:panel>
+                    The panel
+                </rich:panel>
+            </h:column>
+            <h:column id="column2" headerClass="red">
+                <h:panelGroup layout="block" id="ron">Red Ron</h:panelGroup>
+                <h:panelGroup layout="block" id="sam">Red Sam</h:panelGroup>
+                <h:commandButton value="Buttons are not movable"/>
+                <h:inputText value="Inputs are not movable"/>
+            </h:column>
+            <h:column id="column3" footerClass="blue">
+                <h:panelGroup layout="block" id="blue">Blue</h:panelGroup>
+            </h:column>
+            <h:column id="column4" rendered="false">
+                <h:panelGroup layout="block" id="hidden">Hidden</h:panelGroup>
+            </h:column>
+            <rich:column styleClass="pink" footerClass="bold" headerClass="italic">
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    The pink panel <br/>
+                    <h:commandButton value="Action" action="#{bean.action}"/>
+                </rich:panel>
+            </rich:column>
+        </dashboard:dashboard>
+
+        <p>This is another dashboard:</p>
+        <dashboard:dashboard id="panelBoard" positionChangeListener="#{bean.positionChanged}">
+            <h:column>
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    Jill
+                </rich:panel>
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    Jack
+                </rich:panel>
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    Baloo
+                </rich:panel>
+            </h:column>
+            <h:column>
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    Lessie
+                </rich:panel>
+                <rich:panel>
+                    <f:facet name="header">Panel</f:facet>
+                    Phill
+                </rich:panel>
+            </h:column>
+        </dashboard:dashboard>
+    </h:form>
+
+</h:body>
+</html>
