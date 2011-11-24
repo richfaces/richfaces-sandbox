@@ -116,7 +116,7 @@ public abstract class AbstractDashboard extends UIComponentBase {
      * @return true if listener is to be notified during APPLY_REQUEST_VALUES phase; false if in INVOKE_APPLICATION
      */
     @Attribute(defaultValue = "false")
-    protected abstract boolean isImmediate();
+    public abstract boolean isImmediate();
 
     private void setResponseData(Object data) {
         ExtendedPartialViewContext.getInstance(getFacesContext()).getResponseComponentDataMap().put(getClientId(getFacesContext()), data);
