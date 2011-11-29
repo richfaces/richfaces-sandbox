@@ -84,6 +84,8 @@
                         });
                     });
                 }
+                // Disable browser context menu (requires both selectors to work in IE/Safari + FF/Chrome)
+				$(el).bind('contextmenu', function() { return false; });
 
             });
             return $(this);
