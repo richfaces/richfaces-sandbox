@@ -17,9 +17,7 @@
                 // Simulate a true right click
                 $(this).mousedown(function(e) {
                     var evt = e;
-                    evt.stopPropagation();
                     $(this).mouseup(function(e) {
-                        e.stopPropagation();
                         var srcElement = $(this);
                         $(this).unbind('mouseup');
                         if (evt.button == 2) {
@@ -36,7 +34,7 @@
                                 d.innerHeight = self.innerHeight;
                                 d.innerWidth = self.innerWidth;
                             } else if (document.documentElement &&
-                                    document.documentElement.clientHeight) {
+                                document.documentElement.clientHeight) {
                                 d.pageYOffset = document.documentElement.scrollTop;
                                 d.pageXOffset = document.documentElement.scrollLeft;
                                 d.innerHeight = document.documentElement.clientHeight;
@@ -49,8 +47,7 @@
                             }
                             (e.pageX) ? x = e.pageX : x = e.clientX + d.scrollLeft;
                             (e.pageY) ? y = e.pageY : y = e.clientY + d.scrollTop;
-                            x -= jQuery(document).scrollLeft();
-                            y -= jQuery(document).scrollTop();
+
                             // Show the menu
                             $(document).unbind('click');
                             $(menu).css({ top: y, left: x }).fadeIn(o.inSpeed);
@@ -86,7 +83,9 @@
                     });
                 }
                 // Disable browser context menu (requires both selectors to work in IE/Safari + FF/Chrome)
-				$(el).bind('contextmenu', function() { return false; });
+                $(el).bind('contextmenu', function() {
+                    return false;
+                });
 
             });
             return $(this);
