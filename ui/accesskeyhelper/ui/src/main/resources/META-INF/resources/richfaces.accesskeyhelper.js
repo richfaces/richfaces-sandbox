@@ -10,15 +10,15 @@
     rf.ui.AccessKeyHelper = rf.BaseComponent.extendClass({
         // class name
         name:"AccessKeyHelper",
-        init: function (options) {
-            options = $.extend({shortcutKey:String.fromCharCode(9)}, options);
+        init: function (componentId, options) {
+            options = $.extend({shortcutKeyCode:9}, options);
             // call constructor of parent class if needed
-            $super.constructor.call(this);
+            $super.constructor.call(this, componentId);
             // attach component object to DOM element for
             // future cleaning and for client side API calls
-//            this.attachToDom(this.id);
+            this.attachToDom(this.id);
             // ...
-            $.accesskeyHelper({shortcutKeyCode:options['shortcutKey'].charCodeAt(0)});
+            $.accesskeyHelper(options);
         },
         // private functions definition
         // destructor definition

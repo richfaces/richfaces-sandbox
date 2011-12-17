@@ -57,7 +57,9 @@ public class AccessKeyHelperRenderer extends RendererBase {
 
     static {
         Map<String, Object> defaults = new HashMap<String, Object>();
-        defaults.put("shortcutKey", "\t");
+        defaults.put("shortcutKeyCode", 9);
+        defaults.put("hideOnAnyKey", true);
+        defaults.put("timeout", 6000);
         DEFAULTS = Collections.unmodifiableMap(defaults);
     }
 
@@ -93,7 +95,9 @@ public class AccessKeyHelperRenderer extends RendererBase {
          * Include only attributes that are actually set.
          */
         Map<String, Object> options = new HashMap<String, Object>();
-        addOptionIfSetAndNotDefault("shortcutKey", accesskeyhelper.getShortcutKey(), options);
+        addOptionIfSetAndNotDefault("shortcutKeyCode", accesskeyhelper.getShortcutKeyCode(), options);
+        addOptionIfSetAndNotDefault("timeout", accesskeyhelper.getTimeout(), options);
+        addOptionIfSetAndNotDefault("hideOnAnyKey", accesskeyhelper.isHideOnAnyKey(), options);
         return options;
     }
 }

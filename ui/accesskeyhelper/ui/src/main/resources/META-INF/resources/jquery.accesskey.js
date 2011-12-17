@@ -22,7 +22,7 @@
  */
 (function($) {
     $.accesskeyHelper = function(options) {
-        var defaults = {shortcutKeyCode:9};
+        var defaults = {shortcutKeyCode:9,timeout:6000,hideOnAnyKey:true};
         options = $.extend(defaults, options);
         // I would use jQuery.sub() to have our own jQuery, but
         // it did not work with .extend($.expr[':']) for whatever reason.
@@ -76,7 +76,14 @@
             var api = {
                 'show': function() {
                     body.addClass('accesskey-shown');
-                    shown = true
+                    shown = true;
+                    if (options.hideOnAnyKey) {
+                        var keydownHandler = function() {
+                            api.hide();
+                            $(window).unbind("keydown", keydownHandler);
+                        };
+                        $(window).keydown(keydownHandler);
+                    }
                 },
                 'hide': function() {
                     body.removeClass('accesskey-shown');
@@ -93,7 +100,7 @@
                 api.show();
                 setTimeout(function() {
                     api.hide();
-                }, 6000);
+                }, options.timeout);
             };
             return api
         })();

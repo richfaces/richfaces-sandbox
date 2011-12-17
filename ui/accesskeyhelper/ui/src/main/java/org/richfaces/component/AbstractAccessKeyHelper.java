@@ -39,5 +39,11 @@ public abstract class AbstractAccessKeyHelper extends UIComponentBase {
 // -------------------------- OTHER METHODS --------------------------
 
     @Attribute
-    public abstract String getShortcutKey();
+    public abstract Integer getShortcutKeyCode();
+
+    @Attribute
+    public abstract Long getTimeout();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isHideOnAnyKey();
 }
