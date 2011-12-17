@@ -1,0 +1,331 @@
+/* general styles */
+
+/* reset styles */
+
+.agile_carousel img {
+    border: 0;
+}
+
+.agile_carousel p, .agile_carousel ul, .agile_carousel ul li {
+    margin: 0;
+    padding: 0;
+}
+
+/* agile carousel styles */
+
+/* -----------------------------------*/
+/*-- outer containers --*/
+/* -----------------------------------*/
+
+/*-- the most outer container rendered by JS 
+Contains .slides .slide_content_... .persistent_content and controls that have "no_control_set" --*/
+
+.agile_carousel {
+    position: relative;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+/*-- container for all slides only --*/
+
+.agile_carousel .slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*-- individual slide --*/
+
+.agile_carousel .slide {
+    float: left;
+}
+
+/* -----------------------------------*/
+/*-- default style for controls --*/
+/* -----------------------------------*/
+
+/*-- default styles for all control sets --*/
+
+.agile_carousel .control_set {
+    position: absolute;
+    z-index: 4000;
+}
+
+/*-- default styles for all button containers --*/
+
+.agile_carousel .button_container {
+    z-index: 5000;
+}
+
+/*-- default style for controls whose trigger type is "hover" --*/
+
+.agile_carousel .ac_hover {
+    cursor: text;
+}
+
+/*-- default style for controls which are currently selected
+such as the current slide number --*/
+
+.agile_carousel .ac_selected {
+}
+
+/*-- default style for disabled controls 
+"previous" and "next" controls may be disabled near the first/last slide --*/
+
+.agile_carousel .ac_disabled {
+}
+
+/*-- style applied to all controls --*/
+
+.slide_button {
+    z-index: 5000;
+    cursor: pointer;
+    display: block;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/*-- previous button --*/
+
+.previous_button {
+}
+
+/*-- next button --*/
+
+.next_button {
+}
+
+/*-- hover previous button --*/
+
+.hover_previous_button {
+}
+
+/*-- hover next button --*/
+
+.hover_next_button {
+}
+
+/*-- numbered buttons container --*/
+
+.agile_carousel .numbered_buttons_container {
+}
+
+/*-- numbered button --*/
+
+.agile_carousel .numbered_button {
+    float: left;
+}
+
+/*-- grouped numbered buttons container --*/
+
+.agile_carousel .grouped_numbered_buttons_container {
+}
+
+/*-- group numbered button --*/
+
+.agile_carousel .grouped_numbered_button {
+    float: left;
+}
+
+/*-- content buttons container --*/
+
+.agile_carousel .content_buttons_container {
+}
+
+/*-- content button --*/
+
+.agile_carousel .content_button {
+}
+
+/*-- thumbnail buttons container --*/
+
+.agile_carousel .thumbnail_buttons_container {
+}
+
+/*-- thumbnail button --*/
+
+.agile_carousel .thumbnail_button {
+}
+
+/* -------------------------------------------- */
+/*-- "things" that are not slides or controls --*/
+/* -------------------------------------------- */
+
+.current_slide_number {
+    cursor: text;
+}
+
+.slide_count {
+    cursor: text;
+}
+
+/* -------------------------------------------- */
+/*-- #basic_slideshow styles --*/
+/* -------------------------------------------- */
+
+/*-- hide the captions --*/
+#basic_slideshow .caption {
+    display: none;
+}
+
+/* -------------------------------------------- */
+/*-- .multiple_slides_visible styles --*/
+/* -------------------------------------------- */
+
+/*-- outer container --*/
+
+.multiple_slides_visible .agile_carousel {
+    overflow: hidden;
+    -moz-box-shadow: 0px 0px 4px #dfdfdf; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 0px #dfdfdf; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 4px #dfdfdf; /* Opera 10.5, IE9, Chrome 10+ */
+    background-color: #ededeb;
+}
+
+/*-- slide container --*/
+
+.multiple_slides_visible .slides {
+    margin-top: 28px;
+}
+
+/*-- individual slides --*/
+
+.multiple_slides_visible .slide_inner {
+    text-align: center;
+}
+
+.multiple_slides_visible .slide_inner {
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #cfcece;
+    background-color: #fff;
+    text-align: center;
+    width: 144px;
+    margin: 0 auto;
+}
+
+/*-- large photos --*/
+
+.multiple_slides_visible .photo_link {
+    width: 129px;
+    height: 137px;
+    overflow: hidden;
+    display: block;
+    margin: 8px auto 4px;
+}
+
+.multiple_slides_visible .photo {
+    height: 137px;
+}
+
+/*-- for the links beneath the photos --*/
+
+.multiple_slides_visible .caption:link, .multiple_slides_visible .caption:visited, .multiple_slides_visible .caption:hover {
+    color: #333333;
+    text-decoration: none;
+    width: 128px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 3px;
+}
+
+.multiple_slides_visible .caption:hover {
+    text-decoration: underline;
+}
+
+.multiple_slides_visible .persistent_content {
+    position: absolute;
+    top: 2px;
+    left: 12px;
+    font-size: 14px;
+    text-shadow: 0px 1px 1px #ccc;
+    color: #B5B5B5;
+}
+
+/*-- .control_set_1 - includes: .previous_next_button --*/
+
+.multiple_slides_visible .control_set_1 {
+    float: right;
+    position: relative;
+    margin: 4px 6px 0;
+}
+
+.multiple_slides_visible .previous_next_button {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    text-indent: 1000px;
+    background-image: url(#{resource['sprite_ac_normal.png']});
+    background-color: #ccc;
+    border: 1px solid #cfcece;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    -moz-box-shadow: 0px 0px 2px #dfdfdf; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 0px #dfdfdf; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 2px #dfdfdf; /* Opera 10.5, IE9, Chrome 10+ */
+}
+
+.multiple_slides_visible .previous_button {
+    background-position: 4px 3px;
+}
+
+.multiple_slides_visible .next_button {
+    background-position: -44px 3px;
+}
+
+.multiple_slides_visible .previous_next_button:hover {
+    background-color: #f7f7f7;
+}
+
+.multiple_slides_visible .previous_button:hover {
+    background-image: url(#{resource['sprite_ac_hover.png']});
+}
+
+.multiple_slides_visible .next_button:hover {
+    background-image: url(#{resource['sprite_ac_hover.png']});
+}
+
+.multiple_slides_visible .control_set_1 .ac_disabled {
+    background-image: url(#{resource['sprite_ac_disabled.png']});
+}
+
+/*-- .control_set_2 - includes: group_numbered_buttons --*/
+
+.multiple_slides_visible .control_set_2 {
+    float: right;
+    position: relative;
+    margin: 8px 0 0 0;
+}
+
+.multiple_slides_visible .slide_button {
+    float: left;
+}
+
+.multiple_slides_visible .group_numbered_buttons_container {
+    float: left;
+    margin-right: 14px;
+}
+
+.multiple_slides_visible .group_numbered_button {
+    color: #000;
+    padding: 0 2px;
+    font-size: 12px;
+    margin-right: 2px;
+    background-image: url(#{resource['sprite_ac_normal.png']});
+    background-position: -95px 0;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    text-indent: 1000px;
+    background-color: transparent;
+}
+
+.multiple_slides_visible .group_numbered_button:hover, .multiple_slides_visible .group_numbered_buttons_container .ac_selected {
+    background-image: url(#{resource['sprite_ac_hover.png']});
+}

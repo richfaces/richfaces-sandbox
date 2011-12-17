@@ -1,0 +1,269 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:carousel="http://richfaces.org/sandbox/carousel">
+<h:head>
+    <title>Carousel sample</title>
+</h:head>
+<h:body class="rich-container">
+    <style type="text/css">
+        td {
+            vertical-align: top;
+        }
+
+        .flavor_2 .content_button_inner {
+            padding: 1em 0;
+        }
+
+        .flavor_3 .rf-crl-cbtn img {
+            max-width: 37px;
+            max-height: 37px;
+            margin: 1em;
+            vertical-align: middle;
+        }
+
+        .flavor_2 .rf-crl-cbtn img {
+            margin: 1em auto;
+            display: block;
+            max-height: 48px;
+            max-width: 48px;
+        }
+        .source {
+            white-space: pre; font-family: arial,sans; font-size: 10px;
+        }
+    </style>
+    <ui:include src="menu.xhtml"/>
+
+    <p>
+        This component is based on <a href="http://www.agilecarousel.com/">Agile carousel</a>, a jQuery plugin.
+        Note that this component can work in 2 ways. You can hard code the slides :
+    </p>
+    <p class="source">
+        &lt;carousel:carousel>
+            &lt;h:graphicImage value="/img/banner_bike.jpg"/>
+            &lt;h:graphicImage value="/img/banner_paint.jpg"/>
+        &lt;/carousel:carousel>
+    </p>
+
+    <p>
+        or you can iterate over some collection or datamodel (presence of value attribute decides):
+    </p>
+    <p class="source">
+        &lt;carousel:carousel value="\#{bean.data}" var="img">
+            &lt;h:graphicImage value="\#{img.photo}"/>
+            \#{img.title}
+        &lt;/carousel:carousel>
+    </p>
+    <h:panelGrid columns="2">
+        <carousel:carousel id="carousel" styleClass="pink" width="480" height="229"
+                           control_set_1="numbered_buttons,pause_button">
+            <h:graphicImage value="/img/banner_bike.jpg"/>
+            <h:graphicImage value="/img/banner_paint.jpg"/>
+            <h:graphicImage value="/img/banner_tunnel.jpg"/>
+        </carousel:carousel>
+        <h:panelGroup styleClass="source">
+&lt;carousel:carousel id="carousel" styleClass="pink" width="480" height="229"
+                   control_set_1="numbered_buttons,pause_button">
+    &lt;h:graphicImage value="/img/banner_bike.jpg"/>
+    &lt;h:graphicImage value="/img/banner_paint.jpg"/>
+    &lt;h:graphicImage value="/img/banner_tunnel.jpg"/>
+&lt;/carousel:carousel>
+        </h:panelGroup>
+
+        <carousel:carousel id="carousel2" interval="2000" width="480" height="330" slideHeight="230" slideWidth="480"
+                           flavor="flavor_2" transitionType="fade" transitionTime="600"
+                           control_set_1="numbered_buttons,previous_button,pause_button,next_button"
+                           control_set_2="content_buttons">
+            <h:panelGroup style="color:orange">
+                <h:graphicImage value="/img/banner_bike.jpg"/>
+                <h:panelGroup styleClass="rf-crl-cbtn">
+                    <h:graphicImage value="/img/banner_bike.jpg"/>
+                    The bike
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup style="color:blue">
+                <h:graphicImage value="/img/banner_paint.jpg"/>
+                <h:panelGroup styleClass="rf-crl-cbtn">
+                    <h:graphicImage value="/img/banner_paint.jpg"/>
+                    This is 'paint' slide
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:graphicImage value="/img/banner_tunnel.jpg"/>
+                <h:panelGroup styleClass="rf-crl-cbtn">
+                    <h:graphicImage value="/img/banner_tunnel.jpg"/>
+                    Have you seen this tunnel?
+                </h:panelGroup>
+            </h:panelGroup>
+        </carousel:carousel>
+
+        <h:panelGroup styleClass="source">
+        &lt;carousel:carousel id="carousel2" interval="2000" width="480" height="330" slideHeight="230" slideWidth="480"
+                           flavor="flavor_2" transitionType="fade" transitionTime="600"
+                           control_set_1="numbered_buttons,previous_button,pause_button,next_button"
+                           control_set_2="content_buttons">
+            &lt;h:panelGroup style="color:orange">
+                &lt;h:graphicImage value="/img/banner_bike.jpg"/>
+                &lt;h:panelGroup styleClass="rf-crl-cbtn">
+                    &lt;h:graphicImage value="/img/banner_bike.jpg"/>
+                    The bike
+                &lt;/h:panelGroup>
+            &lt;/h:panelGroup>
+            &lt;h:panelGroup style="color:blue">
+                &lt;h:graphicImage value="/img/banner_paint.jpg"/>
+                &lt;h:panelGroup styleClass="rf-crl-cbtn">
+                    &lt;h:graphicImage value="/img/banner_paint.jpg"/>
+                    This is 'paint' slide
+                &lt;/h:panelGroup>
+            &lt;/h:panelGroup>
+            &lt;h:panelGroup>
+                &lt;h:graphicImage value="/img/banner_tunnel.jpg"/>
+                &lt;h:panelGroup styleClass="rf-crl-cbtn">
+                    &lt;h:graphicImage value="/img/banner_tunnel.jpg"/>
+                    Have you seen this tunnel?
+                &lt;/h:panelGroup>
+            &lt;/h:panelGroup>
+        &lt;/carousel:carousel>
+        </h:panelGroup>
+
+        <carousel:carousel id="carousel3" styleClass="pink" width="480" height="229" continuousScrolling="true"
+                           value="#{bean.imageDatas}" var="img"
+                           control_set_1="numbered_buttons,pause_button" rowKeyConverter="#{bean.rowKeyConverter}"
+                           stateVar="state" rowKeyVar="key">
+            <h:graphicImage id="im" value="/img/#{img.filename}"/>
+        </carousel:carousel>
+
+        <h:panelGroup styleClass="source">
+        &lt;carousel:carousel id="carousel3" styleClass="pink" width="480" height="229" continuousScrolling="true"
+                           value="\#{bean.imageDatas}" var="img"
+                           control_set_1="numbered_buttons,pause_button" rowKeyConverter="\#{bean.rowKeyConverter}"
+                           stateVar="state" rowKeyVar="key">
+            &lt;h:graphicImage id="im" value="/img/\#{img.filename}"/>
+        &lt;/carousel:carousel>
+        </h:panelGroup>
+
+        <carousel:carousel id="carousel4" styleClass="pink" continuousScrolling="true" interval="1000"
+                           width="480" height="330" slideHeight="230" slideWidth="480"
+                           flavor="flavor_2"
+                           value="#{bean.imageDatasDataModel}" var="img"
+                           control_set_1="numbered_buttons,previous_button,pause_button,next_button"
+                           control_set_2="content_buttons"
+                           changeOnHover="content_buttons"
+                           rowKeyConverter="#{bean.rowKeyConverter}"
+                           stateVar="state" rowKeyVar="key" rows="3">
+            <h:panelGroup>
+                <h:graphicImage id="im" value="/img/#{img.filename}"/>
+                <h:panelGroup styleClass="rf-crl-cbtn">
+                    <h:graphicImage id="im" value="/img/#{img.filename}"/>
+                    #{img.text}
+                </h:panelGroup>
+            </h:panelGroup>
+        </carousel:carousel>
+
+        <h:panelGroup styleClass="source">
+            &lt;carousel:carousel id="carousel4" styleClass="pink" continuousScrolling="true" interval="1000"
+                               width="480" height="330" slideHeight="230" slideWidth="480"
+                               flavor="flavor_2"
+                               value="\#{bean.imageDatasDataModel}" var="img"
+                               control_set_1="numbered_buttons,previous_button,pause_button,next_button"
+                               control_set_2="content_buttons"
+                               changeOnHover="content_buttons"
+                               rowKeyConverter="\#{bean.rowKeyConverter}"
+                               stateVar="state" rowKeyVar="key" rows="3">
+                &lt;h:panelGroup>
+                    &lt;h:graphicImage id="im" value="/img/\#{img.filename}"/>
+                    &lt;h:panelGroup styleClass="rf-crl-cbtn">
+                        &lt;h:graphicImage id="im" value="/img/\#{img.filename}"/>
+                        \#{img.text}
+                    &lt;/h:panelGroup>
+                &lt;/h:panelGroup>
+            &lt;/carousel:carousel>
+        </h:panelGroup>
+
+        <carousel:carousel id="carousel5" styleClass="pink" continuousScrolling="true" interval="1000"
+                           width="480" height="220" slideHeight="220" slideWidth="480"
+                           flavor="flavor_3"
+                           value="#{bean.imageDatas}" var="img"
+                           control_set_1="content_buttons"
+                           changeOnHover="content_buttons"
+                >
+            <h:panelGroup>
+                <h:graphicImage id="im" value="/img/#{img.filename}"/>
+                <h:panelGroup styleClass="rf-crl-cbtn">
+                    <h:graphicImage id="im" value="/img/#{img.filename}"/>
+                    #{img.text}
+                </h:panelGroup>
+            </h:panelGroup>
+        </carousel:carousel>
+
+        <h:panelGroup styleClass="source">
+            &lt;carousel:carousel id="carousel5" styleClass="pink" continuousScrolling="true" interval="1000"
+                               width="480" height="220" slideHeight="220" slideWidth="480"
+                               flavor="flavor_3"
+                               value="\#{bean.imageDatas}" var="img"
+                               control_set_1="content_buttons"
+                               changeOnHover="content_buttons"
+                    >
+                &lt;h:panelGroup>
+                    &lt;h:graphicImage id="im" value="/img/\#{img.filename}"/>
+                    &lt;h:panelGroup styleClass="rf-crl-cbtn">
+                        &lt;h:graphicImage id="im" value="/img/\#{img.filename}"/>
+                        \#{img.text}
+                    &lt;/h:panelGroup>
+                &lt;/h:panelGroup>
+            &lt;/carousel:carousel>
+        </h:panelGroup>
+    </h:panelGrid>
+
+    <h1>Custom CSS used</h1>
+    <div class="source">
+    &lt;style type="text/css">
+        td {
+            vertical-align: top;
+        }
+
+        .flavor_2 .content_button_inner {
+            padding: 1em 0;
+        }
+
+        .flavor_3 .rf-crl-cbtn img {
+            max-width: 37px;
+            max-height: 37px;
+            margin: 1em;
+            vertical-align: middle;
+        }
+
+        .flavor_2 .rf-crl-cbtn img {
+            margin: 1em auto;
+            display: block;
+            max-height: 48px;
+            max-width: 48px;
+        }
+    &lt;/style>
+    </div>
+</h:body>
+</html>
