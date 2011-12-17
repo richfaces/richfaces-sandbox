@@ -73,21 +73,22 @@
         var hints = (function() {
             var body = $('body');
             var shown = false;
+            var timeoutId;
+            var keydownHandler = function() {
+                api.hide();
+            };
             var api = {
                 'show': function() {
                     body.addClass('accesskey-shown');
                     shown = true;
                     if (options.hideOnAnyKey) {
-                        var keydownHandler = function() {
-                            api.hide();
-                            $(window).unbind("keydown", keydownHandler);
-                        };
                         $(window).keydown(keydownHandler);
                     }
                 },
                 'hide': function() {
                     body.removeClass('accesskey-shown');
-                    shown = false
+                    shown = false;
+                    $(window).unbind("keydown", keydownHandler);
                 },
                 'shown': function() {
                     return shown
@@ -98,7 +99,10 @@
                     return true;
                 }
                 api.show();
-                setTimeout(function() {
+                if (timeoutId != null) {
+                    clearTimeout(timeoutId);
+                }
+                timeoutId = setTimeout(function() {
                     api.hide();
                 }, options.timeout);
             };
