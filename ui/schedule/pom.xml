@@ -66,8 +66,7 @@
 
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule
-        </developerConnection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 
