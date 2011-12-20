@@ -17,15 +17,14 @@
     http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0.Final</version>
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.schedule</groupId>
@@ -50,7 +49,7 @@
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
-                <version>${org.richfaces.cdk.version}</version>
+                <version>4.1.0.Final</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -62,7 +61,7 @@
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-cdk-plugin</artifactId>
-                    <version>${org.richfaces.cdk.version}</version>
+                    <version>4.1.0.Final</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -114,4 +113,10 @@
         </snapshotRepository>
     </distributionManagement>
 
+
+  <scm>
+    <connection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</developerConnection>
+    <url>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</url>
+  </scm>
 </project>
