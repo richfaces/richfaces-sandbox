@@ -29,6 +29,7 @@
 
     <groupId>org.richfaces.sandbox.ui.schedule</groupId>
     <artifactId>schedule-parent</artifactId>
+  <version>4.1.1-SNAPSHOT</version>
     <name>Richfaces UI Components: schedule parent</name>
     <packaging>pom</packaging>
 
@@ -49,7 +50,7 @@
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
-                <version>4.1.0.Final</version>
+                <version>yes</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -112,11 +113,4 @@
             <url>http://artifactory.it-crowd.com.pl/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
-
-  <scm>
-    <connection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</developerConnection>
-    <url>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final/schedule-parent</url>
-  </scm>
 </project>

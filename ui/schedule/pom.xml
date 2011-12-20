@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.schedule</groupId>
         <artifactId>schedule-parent</artifactId>
-        <version>4.1.0.Final</version>
+        <version>4.1.1-SNAPSHOT</version>
         <relativePath>parent/pom.xml</relativePath>
     </parent>
 
@@ -64,9 +64,9 @@
     </profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final</developerConnection>
-        <url>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/tags/schedule-aggregator-4.1.0.Final</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/schedule</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 
 </project>
