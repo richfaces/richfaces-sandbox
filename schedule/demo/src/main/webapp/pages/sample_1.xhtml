@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:schedule="http://richfaces.org/sandbox/schedule">
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        <style type="text/css">
+            .slim {
+                width: 200px;
+            }
+        </style>
+        <p>
+            Notice that in this mode, we will have entire shedule re rendered on date navigation,
+            so "date" attribute should be updated on DateRangeChangeEvent.
+            This can be achieved by binding following listener method to "dateRangeChangeListener" attribtue: </p>
+            <pre>
+public void dateRangeChanged(ScheduleDateRangeChangeEvent event) {
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Date range changed", event.toString()));
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(event.getStartDate());
+    if (AbstractSchedule.VIEW_MONTH.equals(getView())) {
+        calendar.add(Calendar.DATE, 15);
+    }
+    setInitialDate(calendar.getTime());
+}
+            </pre>
+        <p>
+            Right schedule does not have "dateRangeChangeListener" attribute bound, so after
+            re render it stays on the initial date. </p>
+        <ui:include src="settingsPanel.xhtml"/>
+        <ui:include src="schedule.xhtml">
+            <ui:param name="mode" value="server"/>
+        </ui:include>
+        <h:form>
+            <schedule:schedule switchType="server" value="#{myBean.lazyDataModel}" var="event" date="#{myBean.initialDate}" styleClass="slim">
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}" endDate="#{event.endDate}"
+                                       allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}" data="#{event.data}"/>
+            </schedule:schedule>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>	
