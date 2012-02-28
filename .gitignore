@@ -1,0 +1,10 @@
+target
+test-output
+.classpath
+.settings
+.project
+.clover
+.externalToolBuilders
+MANIFEST.MF
+dependency-reduced-pom.xml
+*.orig

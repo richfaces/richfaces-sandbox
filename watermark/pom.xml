@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.watermark</groupId>
         <artifactId>watermark-parent</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.2.1-SNAPSHOT</version>
         <relativePath>parent/pom.xml</relativePath>
     </parent>
 

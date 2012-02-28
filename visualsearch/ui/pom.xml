@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.visualsearch</groupId>
         <artifactId>visualsearch-parent</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.2.1-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
     <artifactId>visualsearch-ui</artifactId>

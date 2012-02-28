@@ -23,7 +23,7 @@
 
     <groupId>org.richfaces.sandbox.ui.schedule</groupId>
     <artifactId>schedule-bom</artifactId>
-    <version>4.1.1-SNAPSHOT</version>
+    <version>4.2.1-SNAPSHOT</version>
     <name>Richfaces UI Components: schedule bom</name>
     <packaging>pom</packaging>
 

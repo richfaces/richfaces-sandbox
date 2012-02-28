@@ -24,7 +24,7 @@
 
     <groupId>org.richfaces.sandbox.ui.watermark</groupId>
     <artifactId>watermark-bom</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
+    <version>4.2.1-SNAPSHOT</version>
     <name>Richfaces UI Components: watermark bom</name>
     <packaging>pom</packaging>
 

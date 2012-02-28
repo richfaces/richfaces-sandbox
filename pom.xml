@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
     JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
     Inc. and individual contributors by the @authors tag. See the
     copyright.txt in the distribution for a full listing of
@@ -16,43 +17,34 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.richfaces.sandbox.ui.lightbox</groupId>
-    <artifactId>lightbox-bom</artifactId>
+    <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
+         examples at once from trunk. -->
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>12</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.richfaces.sandbox</groupId>
+    <artifactId>richfaces-sandbox-aggregator</artifactId>
     <version>4.2.1-SNAPSHOT</version>
-    <name>Richfaces UI Components: lightbox bom</name>
     <packaging>pom</packaging>
+    <name>RichFaces Sandbox Aggregator</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>lightbox-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bernard.labno.pl</id>
-            <name>MyCo Internal Repository</name>
-            <url>http://bernard.labno.pl/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+    <modules>
+        <module>accesskeyhelper</module>
+        <module>carousel</module>
+        <module>contextmenu</module>
+        <module>dashboard</module>
+        <module>lightbox</module>
+        <module>schedule</module>
+        <module>visualsearch</module>
+        <module>watermark</module>
+    </modules>
 </project>

@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.2.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.dashboard</groupId>
@@ -38,7 +38,7 @@
 
     <properties>
         <richfaces.checkstyle.version>1</richfaces.checkstyle.version>
-        <org.richfaces.cdk.version>4.1.0-SNAPSHOT</org.richfaces.cdk.version>
+        <org.richfaces.cdk.version>4.2.1-SNAPSHOT</org.richfaces.cdk.version>
     </properties>
 
     <dependencyManagement>

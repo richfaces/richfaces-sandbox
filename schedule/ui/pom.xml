@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.schedule</groupId>
         <artifactId>schedule-parent</artifactId>
-        <version>4.1.1-SNAPSHOT</version>
+        <version>4.2.1-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
     <artifactId>schedule-ui</artifactId>
@@ -14,13 +14,13 @@
         <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
-            <version>4.1.0.Final</version>
+            <version>4.2.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
-            <version>4.1.0.Final</version>
+            <version>4.2.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
