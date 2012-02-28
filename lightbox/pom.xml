@@ -64,18 +64,4 @@
         </profile>
     </profiles>
 
-    <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/lightbox</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/lightbox</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
-    </scm>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bernard.labno.pl</id>
-            <name>MyCo Internal Repository</name>
-            <url>http://bernard.labno.pl/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>

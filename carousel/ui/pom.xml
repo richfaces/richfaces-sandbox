@@ -85,10 +85,4 @@
         </plugins>
     </build>
 
-    <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/carousel</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/carousel</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
-    </scm>
-
 </project>

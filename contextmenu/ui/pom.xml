@@ -85,11 +85,4 @@
         </plugins>
     </build>
 
-    <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/sandbox/trunk/ui/contextmenu</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/sandbox/trunk/ui/contextmenu
-        </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
-    </scm>
-
 </project>

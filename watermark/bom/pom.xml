@@ -47,12 +47,4 @@
         </dependencies>
     </dependencyManagement>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>bernard.labno.pl</id>
-            <name>MyCo Internal Repository</name>
-            <url>http://bernard.labno.pl/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>
