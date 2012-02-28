@@ -22,6 +22,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>12</version>
+        <relativePath>../../parent/pom.xml</relativePath>
+    </parent>
+
     <groupId>org.richfaces.sandbox.ui.watermark</groupId>
     <artifactId>watermark-bom</artifactId>
     <version>4.2.1-SNAPSHOT</version>
