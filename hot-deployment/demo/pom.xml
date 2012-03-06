@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.examples</groupId>
+        <artifactId>richfaces-example-parent</artifactId>
+        <version>4.2.0.Final</version>
+        <relativePath>../../dev-examples/parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.richfaces.sandbox.examples.hot</groupId>
+    <artifactId>hot-demo</artifactId>
+    <version>4.3.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>RichFaces Hot Deployment Demo</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.hot</groupId>
+            <artifactId>hot-ui</artifactId>
+            <version>4.3.0-SNAPSHOT</version>
+        </dependency>
+        <!-- todo remove this dependency -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

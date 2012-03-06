@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.HotComponentRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.HotComponentRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.HotComponent</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.HotComponentRenderer</cdk:renderer-type>
+        <cdk:resource-dependency name="hotComponent.js" library="org.richfaces" />
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}">Hot Component #{getRendererString()} target</span>
+    </cc:implementation>
+
+</cdk:root>
