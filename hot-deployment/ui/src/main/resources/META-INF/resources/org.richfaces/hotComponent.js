@@ -1,1 +1,1 @@
-document.title='15';
+document.title = 'The title is provided from script';

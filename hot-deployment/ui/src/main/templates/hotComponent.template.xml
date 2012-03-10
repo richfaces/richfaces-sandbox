@@ -12,11 +12,12 @@
         
         <!-- 
         <cdk:resource-dependency name="hotComponent.js" library="org.richfaces" />
+        <cdk:resource-dependency name="hotComponent.css" library="org.richfaces" />
          -->
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}">
+        <div id="#{clientId}" class="rf-hc">
             <div>Hot Component</div>
             <div>Content: #{generateContent()}</div>
             <div>Title: #{component.attributes['title']}</div>
