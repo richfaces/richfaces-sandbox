@@ -26,16 +26,13 @@ import javax.faces.component.UIComponentBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Lukas Fryc
  */
 @JsfComponent(type = AbstractHotComponent.COMPONENT_TYPE,
     family = AbstractHotComponent.COMPONENT_FAMILY,
-    renderer = @JsfRenderer(type = "org.richfaces.HotComponentRenderer"),
-    tag = @Tag(type = TagType.Facelets))
+    renderer = @JsfRenderer(type = "org.richfaces.HotComponentRenderer"))
 public abstract class AbstractHotComponent extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HotComponent";
     public static final String COMPONENT_FAMILY = "org.richfaces.HotComponent";
