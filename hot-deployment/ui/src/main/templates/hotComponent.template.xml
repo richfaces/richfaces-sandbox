@@ -10,10 +10,8 @@
         <cdk:component-family>org.richfaces.HotComponent</cdk:component-family>
         <cdk:renderer-type>org.richfaces.HotComponentRenderer</cdk:renderer-type>
         
-        <!-- 
         <cdk:resource-dependency name="hotComponent.js" library="org.richfaces" />
         <cdk:resource-dependency name="hotComponent.css" library="org.richfaces" />
-         -->
     </cc:interface>
 
     <cc:implementation>

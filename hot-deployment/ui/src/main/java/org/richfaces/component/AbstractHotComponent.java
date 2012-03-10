@@ -28,15 +28,19 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
 /**
+ * The component description for the tag library and documentation
+ * 
  * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractHotComponent.COMPONENT_TYPE,
-    family = AbstractHotComponent.COMPONENT_FAMILY,
+@JsfComponent(type = "org.richfaces.HotComponent",
+    family = "org.richfaces.HotComponent",
     renderer = @JsfRenderer(type = "org.richfaces.HotComponentRenderer"))
 public abstract class AbstractHotComponent extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.HotComponent";
-    public static final String COMPONENT_FAMILY = "org.richfaces.HotComponent";
     
+    /**
+     * The title of the hot component, which will be generated to tag
+     * library and documentation
+     */
     @Attribute
     public abstract String getTitle();
 
