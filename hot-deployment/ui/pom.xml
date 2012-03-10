@@ -56,6 +56,11 @@
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.ui.input</groupId>
+            <artifactId>richfaces-ui-input-ui</artifactId>
+        </dependency>
     </dependencies>
     
     <profiles>

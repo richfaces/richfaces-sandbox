@@ -28,7 +28,7 @@ import javax.faces.render.Renderer;
  */
 public abstract class HotComponentRendererBase extends Renderer {
 
-    public String getRendererString() {
-        return "another";
+    public String generateContent() {
+        return "some complex renderer logic content";
     }
 }

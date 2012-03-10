@@ -9,11 +9,18 @@
         <cdk:superclass>org.richfaces.renderkit.HotComponentRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.HotComponent</cdk:component-family>
         <cdk:renderer-type>org.richfaces.HotComponentRenderer</cdk:renderer-type>
+        
+        <!-- 
         <cdk:resource-dependency name="hotComponent.js" library="org.richfaces" />
+         -->
     </cc:interface>
 
     <cc:implementation>
-        <span id="#{clientId}">Hot Component #{getRendererString()} target</span>
+        <div id="#{clientId}">
+            <div>Hot Component</div>
+            <div>Content: #{generateContent()}</div>
+            <div>Title: #{component.attributes['title']}</div>
+        </div>
     </cc:implementation>
 
 </cdk:root>
