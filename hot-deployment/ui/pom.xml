@@ -98,6 +98,18 @@
             <build>
                 <plugins>
                     <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-dependencies</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.zeroturnaround</groupId>
                         <artifactId>jrebel-maven-plugin</artifactId>
                         <executions>
