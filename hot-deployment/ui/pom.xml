@@ -107,6 +107,9 @@
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
+                                <configuration>
+                                    <rebelXmlDirectory>src/main/resources</rebelXmlDirectory>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
