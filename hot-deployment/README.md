@@ -33,12 +33,12 @@ Check out [CDK](https://github.com/richfaces/cdk) and [Sandbox](https://github.c
 Build CDK
 ---------
 
-        cd ~/cdk/
-        mvn clean install -DskipTests=true
+    cd ~/cdk/
+    mvn clean install -DskipTests=true
 
 Built binaries for CDK command-line generator now resides in `~/cdk/cmdline-generator/target/`
 
-        ls cmdln-generator/target/cdk-cmdline-generator.jar
+    ls cmdln-generator/target/cdk-cmdline-generator.jar
 
 
 Setup the component project (`hot-ui`)
@@ -103,7 +103,7 @@ as custom external builder to allow build on the source change:
     Main tab
         
         Location: ~/cdk/cmdln-generator/run.sh
-        Arguments: -d -p ${build_project}
+        Arguments: -p ${build_project}
 
     Refresh tab
 
@@ -130,17 +130,23 @@ Setup the sample project (`hot-demo`)
 -------------------------------------
 
 ### Import hot-demo project to the IDE
+
     File > Import > Existing Maven Projects
     Browser > Select "sandbox/hot-deployment/demo"
 
 
-### Activate "jrebel" Maven profile
+### Activate `jrebel` Maven profile
+
     Project -> Maven > Select profiles
     Check "jrebel" and confirm
 
 ### Build the project for the first time
+
     Project > Run As > Maven install
-    
+
+Refresh the newly generated resources:
+
+    Project > Refresh
 
 Setup the JBoss AS 7
 --------------------
@@ -171,7 +177,7 @@ Start the project in JBoss AS
     Select "JBoss 7.0 Runtime Server"
     Finish
 
-Now the project is starting, you should see following output, which indicates that:
+Now the project is starting, you should see following output in the Console view, which indicates that:
 
 * the JRebel integration is active
 * `hot-demo` is being deployed
