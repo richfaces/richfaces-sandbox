@@ -10,11 +10,11 @@ Prerequisities
     * Eclipse (3.7)
     * M2E - Maven for Eclipse
 * [JRebel](http://zeroturnaround.com/jrebel/) (4.6.1) - requires license
-* [JBoss AS 7](http://www.jboss.org/jbossas/downloads) (7.1.1.Final)
+* [JBoss AS 7](http://www.jboss.org/jbossas/downloads) (7.0.2.Final)
 
 Note: The reference versions in brackets.
 
-Check out CDK and Sandbox projects
+Check out [CDK](https://github.com/richfaces/cdk) and [Sandbox](https://github.com/richfaces/sandbox) projects
 ----------------------------------
 
 1. clone sources
@@ -34,11 +34,11 @@ Build CDK
 ---------
 
         cd ~/cdk/
-        mvn clean package
+        mvn clean install -DskipTests=true
 
 Built binaries for CDK command-line generator now resides in `~/cdk/cmdline-generator/target/`
 
-        ls ./target/cdk-cmdline-generator.jar
+        ls cmdln-generator/target/cdk-cmdline-generator.jar
 
 
 Setup the component project (`hot-ui`)
@@ -56,7 +56,7 @@ Browse > Select `sandbox/hot-deployment/ui`
 
 Note: *Project* = Context Menu on the given project in Project Explorer view
 
-    Project -> Maven > Select profiles
+    Project -> Maven > Select Maven Profiles
 
     Check `jrebel` and confirm
 
@@ -67,6 +67,13 @@ This step will generate sources to `target/generated-sources` directory.
 
     Project > Run As > Maven install
 
+It will also create JRebel configuration specific for your project location:
+
+    ~/sandbox/hot-deployment/ui/src/main/resources/rebel.xml
+
+You need to refresh the project to allow IDE detect newly generated resources.
+
+    Project > Refresh
 
 ### Setup classpath
 
@@ -87,33 +94,37 @@ as custom external builder to allow build on the source change:
 
     Project > Properties > Builders > New...
 
-    Main tab
+    Select type "Program" and confirm
 
-        Name: CDK Generator
-        Location: /home/lfryc/workspaces/richfaces/cdk/cmdln-generator/run.sh
-        Arguments: -p ${build_project}
+    Configure as follows:
+
+    Name: CDK Generator
+    
+    Main tab
+        
+        Location: ~/cdk/cmdln-generator/run.sh
+        Arguments: -d -p ${build_project}
 
     Refresh tab
 
         Check "Refresh resources upon completion"
         Select "Specific resources"
-        Specify resources...
+        Specify Resources...
             hot-ui/target/generated-sources/main/java
             hot-ui/target/generated-sources/main/resources
 
     Build Options tab
 
         Uncheck "After a Clean"
-        Check "During manual builds"
         Check "During auto builds"
-        Uncheck "During a "Clean"
         Check "Specify working set of relevant resources"
-        Specify...
+        Specify Resources...
             hot-ui/src/main/java/org/richfaces/component/component
             hot-ui/src/main/java/org/richfaces/component/renderkit
             hot-ui/src/main/templates
 
-
+Note: if something won't work well later, once we will generate application,
+you can add `-d` argument to enable debugging output
 
 Setup the sample project (`hot-demo`)
 -------------------------------------
@@ -129,7 +140,6 @@ Setup the sample project (`hot-demo`)
 
 ### Build the project for the first time
     Project > Run As > Maven install
-    Open "new server wizard" link
     
 
 Setup the JBoss AS 7
@@ -137,7 +147,7 @@ Setup the JBoss AS 7
     Extract the JBoss AS 7 distribution
     Open the Servers view
     Hit "new server wizard" link
-    Select server type "JBoss AS 7.1"
+    Select server type "JBoss AS 7.0"
     Hit "Next" button
     
     Hit "Browse..." button
@@ -150,7 +160,7 @@ Start the project in JBoss AS
 ### Turn on JRebel integration
 
     Go to the Servers view
-    Open overview - click twice on "JBoss AS 7.1 Runtime Server"
+    Open overview - click twice on "JBoss AS 7.0 Runtime Server"
     Look for "JRebel integration" section
     Check "Enable JRebel agent"
 
@@ -158,7 +168,7 @@ Start the project in JBoss AS
 ### Run the `hot-demo` on the server
 
     Project > Run As > Run on Server
-    Select JBoss 7.1 Runtime Server
+    Select "JBoss 7.0 Runtime Server"
     Finish
 
 Now the project is starting, you should see following output, which indicates that:
@@ -197,23 +207,30 @@ Check that the application is running fine:
 
 [http://localhost:8080/hot-demo/](http://localhost:8080/hot-demo/)
 
-Everything is now prepared for using quick turnaround.
+You should see following output on the page:
 
-Let's try do modifications to the project in order to 
+    Hot Component
+    Content: some complex renderer logic content
+    Title: some title
+
+That's the output from our sample component!
+
+Everything is now prepared for using quick turnaround.
+Let's try do modifications to the project in order to employ CDK!
 
 Trying Quick Turnaround
 -----------------------
 
-Let's modify some CDK resources from `hot-demo`
+Let's modify some CDK resources from `hot-ui`
 to start the CDK generator and then use JRebel to hot-reload resources.
 
 ### Trying hot generation & deployment
 
 #### Modifying renderer base
 
-1. Open `HotComponentRenderer` class in the `hot-ui` project
+1. Open `HotComponentRendererBase` class in the `hot-ui` project
 2. Change return value of `generateContent()` method
-3. Hit save button
+3. Save the file
 
 The CDK Generator is now fired and you should see following output
 in  the Console view in Eclipse:
@@ -225,17 +242,27 @@ Refresh the page to see the modified content immediately:
 
 [http://localhost:8080/hot-demo/](http://localhost:8080/hot-demo/)
 
+In the server console, you should see following output:
+
+    20:00:33,540 INFO  [stdout] (http--127.0.0.1-8080-1) JRebel: Reloading class 'org.richfaces.renderkit.HotComponentRendererBase'.
+    20:00:35,115 INFO  [stdout] (http--127.0.0.1-8080-1) JRebel: Reloading class 'org.richfaces.component.UIHotComponent'.
+    20:00:35,125 INFO  [stdout] (http--127.0.0.1-8080-1) JRebel: Reloading class 'org.richfaces.component.UIHotComponent$Properties'.
+    20:00:35,148 INFO  [stdout] (http--127.0.0.1-8080-1) JRebel: Reinitialized class 'org.richfaces.component.UIHotComponent$Properties'.
+    20:00:35,182 INFO  [stdout] (http--127.0.0.1-8080-1) JRebel: Reloading class 'org.richfaces.renderkit.html.HotComponentRenderer'.
+
+
+Note: if something dind't go well, you can add `-d` argument to enable
+debugging output, see section "Setup Builder" above.
+
 #### Modifying template file
 
 Let's try another modification:
 
 1. Open `hotComponent.template.xml` in `hot-ui` project
 2. Change line 19 to read "My Hot Component"
+3. Save the file
 
-The generator is triggered again:
-
-    [generate: ~/sandbox/hot-deployment/ui]
-    [total: 2931 ms]
+The generator is triggered again.
 
 Let's refresh the browser:
 
