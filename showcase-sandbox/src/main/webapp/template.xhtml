@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:sand="http://richfaces.org/sandbox"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich">
+
+
+<h:head>
+    <title>Sandbox samples</title>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/main.css"/>
+    <ui:insert name="htmlHead">
+
+    </ui:insert>
+</h:head>
+
+<h:body>
+    <rich:notifyMessages ajaxRendered="true"/>
+
+    <div id="pageWrapper">
+        <div>
+            <ui:insert name="header"/>
+        </div>
+        <div class="menu">
+            <h:link value="Access key helper" outcome="/pages/accesskeyhelper/sample_1.xhtml"/>
+            <h:link value="Carousel" outcome="/pages/carousel/sample_1.xhtml"/>
+            <h:link value="Context menu" outcome="/pages/contextmenu/sample_1.xhtml"/>
+            <h:link value="Dashboard" outcome="/pages/dashboard/sample_1.xhtml"/>
+            <h:link value="Focus" outcome="/pages/focus/focus_1.xhtml"/>
+            <h:link value="Image select tool" outcome="/pages/imageSelectTool/index.xhtml"/>
+            <h:link value="Lightbox" outcome="/pages/lightbox/sample_1.xhtml"/>
+            <h:link value="Schedule" outcome="/pages/schedule/index.xhtml"/>
+            <h:link value="Visual search" outcome="/pages/visualsearch/sample_1.xhtml"/>
+            <h:link value="Watermark" outcome="/pages/watermark/index.xhtml"/>
+        </div>
+        <div>
+            <ui:insert name="content"/>
+        </div>
+        <div>
+            <ui:insert name="footer"/>
+        </div>
+    </div>
+</h:body>
+</html>

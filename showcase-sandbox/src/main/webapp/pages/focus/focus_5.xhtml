@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <ui:include src="menu.xhtml"/>
+
+        <p>On initial request focus should be placed on username. This is because direct parent of
+            focus component is not UIInput.
+            In such situation focus is put on first UIInput in parent form.
+            Please not that focus component is not direct child of form.
+            This sample is to ensure you that UIInput is not searched
+            within direct parent of focus component, but within nesting form.
+        </p>
+        <ul>
+            <li>username gets default priority 0</li>
+            <li>email gets priority 1</li>
+        </ul>
+        <p>On form submit, when username is valid and email is invalid, focus
+            should be placed on email.
+        </p>
+
+        <p>On form submit, when all fields are valid, focus
+            should be placed on username.
+        </p>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Username" for="username"/>
+                <h:inputText value="#{username}" id="username" required="true"/>
+                <h:message for="username"/>
+            </h:panelGrid>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Email" for="email"/>
+                <h:inputText value="#{email}" id="email" required="true"/>
+                <h:message for="email"/>
+                <sandbox:focus/>
+            </h:panelGrid>
+            <h:commandButton value="Submit"/>
+        </h:form>
+
+        <!--<rich:insert src="/focus_5.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

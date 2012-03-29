@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <ui:include src="menu.xhtml"/>
+
+        <p>Focus should be placed on username :</p>
+        <ul>
+            <li>username gets default priority 0</li>
+            <li>email gets priority 1</li>
+        </ul>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Username" for="username"/>
+                <h:inputText value="#{username}" id="username" required="true">
+                    <sandbox:focus/>
+                </h:inputText>
+                <h:message for="username"/>
+
+                <h:outputLabel value="Email" for="email"/>
+                <h:inputText value="#{email}" id="email" required="true"/>
+                <h:message for="email"/>
+            </h:panelGrid>
+            <h:commandButton value="Submit"/>
+            <sandbox:focus for="email"/>
+        </h:form>
+
+        <!--<rich:insert src="/focus_3.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

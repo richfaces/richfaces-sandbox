@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <style type="text/css">
+            .rich-container input.watermark {
+                color: #777;
+            }
+        </style>
+
+        <h:form>
+            <a4j:poll ajaxSingle="true" interval="5000"/>
+            <a4j:queue requestDelay="400" ignoreDupResponses="true"/>
+
+            <h:outputLabel value="Watermark text" for="text"/>
+            <h:inputText id="text" value="#{watermarkBean.text}" required="true">
+                <f:ajax event="valueChange" render="@form"/>
+            </h:inputText>
+            <h:commandButton value="Submit" action="#{watermarkBean.submit}"/>
+            <br/><br/>
+            If you want to nest watermark inside h:inputText or h:outputText then you need to set context param in web.xml 'com.sun.faces.allowTextChildren' to true.
+            <h:inputText id="watermarked" value="#{watermarkBean.watermarkedInput}">
+                <sandbox:watermark value="#{watermarkBean.text}"/>
+            </h:inputText>
+
+            <rich:calendar id="calendar" value="#{watermarkBean.date}" enableManualInput="true" ajaxSingle="true"/>
+            <sandbox:watermark value="#{watermarkBean.text}" for="calendar" suffix="InputDate"/>
+
+            <!--<rich:comboBox>-->
+            <!--<watermark:watermark value="#{watermarkBean.text}" suffix="comboboxField"/>-->
+            <!--</rich:comboBox>-->
+
+            <input id="htmlInput" type="text"/>
+            <sandbox:watermark value="#{watermarkBean.textObject}" for="htmlInput"
+                               converter="#{watermarkBean.converter}"/>
+
+        </h:form>
+
+        <div id="status"></div>
+        <!--<rich:insert src="/index.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

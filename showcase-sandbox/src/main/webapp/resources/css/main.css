@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+#pageWrapper {
+    width: 1200px;
+    min-height: 800px;
+    border: 1px solid;
+    margin: auto;
+}
+
+.menu a + a {
+    margin-left: 2ex;
+}

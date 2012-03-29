@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <style type="text/css">
+            #gallery ul {
+                list-style: none outside none;
+            }
+
+            #gallery ul li {
+                display: inline;
+            }
+
+            #gallery ul img {
+                border: 5px solid #3E3E3E;
+                border-bottom-width: 20px;
+            }
+
+            #gallery ul a:hover img {
+                border: 5px solid #000;
+                border-bottom-width: 20px;
+                color: #FFFFFF;
+            }
+
+            #gallery ul a:hover {
+                color: #FFFFFF;
+            }
+
+        </style>
+
+        <div id="gallery">
+            <ul>
+                <li>
+                    <a href="photos/image1.jpg" title="Blue flower">
+                        <h:graphicImage value="photos/thumb_image1.jpg"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="photos/image2.jpg" title="Red leafs">
+                        <h:graphicImage value="photos/thumb_image2.jpg"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="photos/image3.jpg" title="Rain drops">
+                        <h:graphicImage value="photos/thumb_image3.jpg"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="photos/image4.jpg" title="Fresh green">
+                        <h:graphicImage value="photos/thumb_image4.jpg"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="photos/image5.jpg" title="More fresh green">
+                        <h:graphicImage value="photos/thumb_image5.jpg"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <sandbox:lightbox id="lightbox" selector="#gallery a" containerBorderSize="#{configBean.containerBorderSize}"
+                          containerResizeSpeed="#{configBean.containerResizeSpeed}"
+                          keyToClose="#{configBean.keyToClose}"
+                          keyToNext="#{configBean.keyToNext}"
+                          keyToPrev="#{configBean.keyToPrev}" overlayBgColor="#{configBean.overlayBgColor}"
+                          overlayOpacity="#{configBean.overlayOpacity}"
+                          txtImage="#{configBean.txtImage}" txtOf="#{configBean.txtOf}"
+                          imageBlank="#{configBean.imageBlank}"
+                          imageBtnClose="#{configBean.imageBtnClose}"
+                          imageBtnNext="#{configBean.imageBtnNext}" imageBtnPrev="#{configBean.imageBtnPrev}"
+                          imageLoading="#{configBean.imageLoading}"/>
+
+
+        <h:form id="lightboxForm">
+
+
+            <h:panelGrid columns="3">
+                <h:outputLabel value="containerBorderSize" for="containerBorderSize"/>
+                <h:inputText id="containerBorderSize" value="#{configBean.containerBorderSize}"/>
+                <h:message for="containerBorderSize"/>
+
+                <h:outputLabel value="containerResizeSpeed" for="containerResizeSpeed"/>
+                <h:inputText id="containerResizeSpeed" value="#{configBean.containerResizeSpeed}"/>
+                <h:message for="containerResizeSpeed"/>
+
+                <h:outputLabel value="keyToClose" for="keyToClose"/>
+                <h:inputText id="keyToClose" value="#{configBean.keyToClose}"/>
+                <h:message for="keyToClose"/>
+
+                <h:outputLabel value="keyToNext" for="keyToNext"/>
+                <h:inputText id="keyToNext" value="#{configBean.keyToNext}"/>
+                <h:message for="keyToNext"/>
+
+                <h:outputLabel value="" for="keyToPrev"/>
+                <h:inputText id="keyToPrev" value="#{configBean.keyToPrev}"/>
+                <h:message for="keyToPrev"/>
+
+                <h:outputLabel value="overlayBgColor" for="overlayBgColor"/>
+                <h:inputText id="overlayBgColor" value="#{configBean.overlayBgColor}"/>
+                <h:message for="overlayBgColor"/>
+
+                <h:outputLabel value="overlayOpacity" for="overlayOpacity"/>
+                <h:inputText id="overlayOpacity" value="#{configBean.overlayOpacity}"/>
+                <h:message for="overlayOpacity"/>
+
+                <h:outputLabel value="txtImage" for="txtImage"/>
+                <h:inputText id="txtImage" value="#{configBean.txtImage}"/>
+                <h:message for="txtImage"/>
+
+                <h:outputLabel value="txtOf" for="txtOf"/>
+                <h:inputText id="txtOf" value="#{configBean.txtOf}"/>
+                <h:message for="txtOf"/>
+
+                <h:outputLabel value="imageBlank" for="imageBlank"/>
+                <h:inputText id="imageBlank" value="#{configBean.imageBlank}"/>
+                <h:message for="imageBlank"/>
+
+                <h:outputLabel value="imageBtnClose" for="imageBtnClose"/>
+                <h:inputText id="imageBtnClose" value="#{configBean.imageBtnClose}"/>
+                <h:message for="imageBtnClose"/>
+
+                <h:outputLabel value="imageBtnNext" for="imageBtnNext"/>
+                <h:inputText id="imageBtnNext" value="#{configBean.imageBtnNext}"/>
+                <h:message for="imageBtnNext"/>
+
+                <h:outputLabel value="imageBtnPrev" for="imageBtnPrev"/>
+                <h:inputText id="imageBtnPrev" value="#{configBean.imageBtnPrev}"/>
+                <h:message for="imageBtnPrev"/>
+
+                <h:outputLabel value="imageLoading" for="imageLoading"/>
+                <h:inputText id="imageLoading" value="#{configBean.imageLoading}"/>
+                <h:message for="imageLoading"/>
+
+                <a4j:commandButton value="Submit" reRender="lightbox,lightboxForm"/>
+            </h:panelGrid>
+        </h:form>
+
+        <!--<rich:insert src="sample_1.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

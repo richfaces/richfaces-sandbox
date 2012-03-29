@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<head>
+    <title></title>
+</head>
+<body>
+<!-- mode should passed to this template as param -->
+<ui:composition>
+    <h:form id="f">
+        <sandbox:schedule id="schedule" widgetVar="schedule" switchType="#{mode}" value="#{scheduleBean.lazyDataModel}"
+                          var="event" weekMode="#{scheduleBean.weekMode}"
+                          height="#{scheduleBean.height}" date="#{scheduleBean.initialDate}"
+                          firstDay="#{scheduleBean.firstDay}"
+                          showWeekends="#{scheduleBean.showWeekends}"
+                          eventColor="#00ff00" eventBorderColor="#ffff00" eventBackgroundColor="#ff00ff"
+                          eventTextColor="#ff55ff"
+                          allDayText="#{scheduleBean.allDayText}" allDayByDefault="#{scheduleBean.allDayByDefault}"
+                          allDaySlot="#{scheduleBean.allDaySlot}"
+                          aspectRatio="#{scheduleBean.aspectRatio}" axisFormat="#{scheduleBean.axisFormat}"
+                          contentHeight="#{scheduleBean.contentHeight}"
+                          defaultEventMinutes="#{scheduleBean.defaultEventMinutes}"
+                          dragOpacity="#{scheduleBean.dragOpacity}"
+                          dragRevertDuration="#{scheduleBean.dragRevertDuration}" editable="#{scheduleBean.editable}"
+                          selectable="#{scheduleBean.selectable}"
+                          selectHelper="#{scheduleBean.selectHelper}" unselectAuto="#{scheduleBean.unselectAuto}"
+                          unselectCancel="#{scheduleBean.unselectCancel}"
+                          firstHour="#{scheduleBean.firstHour}" headerCenter="#{scheduleBean.headerCenter}"
+                          headerLeft="#{scheduleBean.headerLeft}"
+                          headerRight="#{scheduleBean.headerRight}" isRTL="#{scheduleBean.isRTL}"
+                          maxTime="#{scheduleBean.maxTime}"
+                          minTime="#{scheduleBean.minTime}"
+                          slotMinutes="#{scheduleBean.slotMinutes}" view="#{scheduleBean.view}"
+
+                          columnFormat="#{scheduleBean.columnFormat}" titleFormat="#{scheduleBean.titleFormat}"
+                          timeFormat="#{scheduleBean.timeFormat}"
+
+                          itemResizeListener="#{scheduleBean.taskResized}" itemMoveListener="#{scheduleBean.taskMoved}"
+                          itemSelectListener="#{scheduleBean.taskSelected}"
+                          viewChangeListener="#{scheduleBean.viewChanged}"
+                          dateRangeChangeListener="#{scheduleBean.dateRangeChanged}"
+                          dateRangeSelectListener="#{scheduleBean.dateRangeSelected}"
+                          dateSelectListener="#{scheduleBean.dateSelected}"
+
+                          ondaterangeselect="#{rich:component('schedule')}.unselect()">
+            <sandbox:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                  endDate="#{event.endDate}"
+                                  allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                  data="#{event.data}" color="#{event.color}"/>
+            <sandbox:scheduleMonthView weekMode="#{scheduleBean.weekMode}" titleFormat="MM yy" timeFormat="h:m"
+                                       columnFormat="dddd" dragOpacity=".1"/>
+            <sandbox:scheduleAgendaDayView titleFormat="d MMM yy" timeFormat="hh:m" columnFormat="ddd"
+                                           dragOpacity=".3"/>
+            <sandbox:scheduleBasicDayView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd"
+                                          dragOpacity=".5"/>
+            <sandbox:scheduleAgendaWeekView titleFormat="dd MMM yy" timeFormat="hh:mm" columnFormat="aaa ddd"
+                                            dragOpacity=".7"/>
+            <sandbox:scheduleBasicWeekView titleFormat="bw dd MMM yy" timeFormat="bw hh:mm" columnFormat="bw ddd"
+                                           dragOpacity=".9"/>
+            <!--
+            TODO uncomment this
+            <schedule:itemSelectedListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:itemMoveListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:itemResizeListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:dateRangeChangedListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:dateRangeSelectedListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:dateSelectedListener binding="#{scheduleBean.additionalListener}"/>
+            <schedule:viewChangedListener binding="#{scheduleBean.additionalListener}"/>
+            -->
+        </sandbox:schedule>
+    </h:form>
+    <!--
+    TODO uncomment this
+    <rich:insert src="/pages/schedule.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    -->
+</ui:composition>
+</body>
+</html>

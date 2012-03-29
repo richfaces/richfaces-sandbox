@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <ui:include src="menu.xhtml"/>
+
+        <p>
+            Focus is placed on control withing modal panel. Modal panel is rendered before it is shown, thus
+            javascript that sets focus should not be invoked at that moment.
+            To cope with that focus component has "timing" attribute which, when valued to "onJScall"
+            allows setting focus later whenever user wishes. When "timing" is set to "onJScall" then "name" attribute
+            must be also specified. It is name of JavaScript function that will be generated and can be called by user
+            to set focus in any moment.
+            In this example we put onshow="focusTheForm();" in modal panel which causes
+            focus to be placed after the modal is visible.
+            Notice that "name" attribute of focuse component is equal to "focusTheForm".
+        </p>
+        <h:form>
+            <h:commandButton value="Show modal" aonclick="return false;">
+                <rich:componentControl target="panel" event="click" operation="show"/>
+            </h:commandButton>
+        </h:form>
+        <rich:popupPanel id="panel" autosized="true" onshow="focusTheForm();">
+            <h:form id="theForm">
+                <sandbox:focus name="focusTheForm" timing="onJScall"/>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Username" for="username"/>
+                    <h:inputText value="#{username}" id="username" required="true"/>
+                    <h:message for="username"/>
+                    <h:outputLabel value="Email" for="email"/>
+                    <h:inputText value="#{email}" id="email" required="true"/>
+                    <h:message for="email"/>
+                </h:panelGrid>
+                <a4j:commandButton value="Submit" reRender="theForm" oncomplete="Richfaces.FocusManager.focus();"/>
+                <h:commandButton value="Close">
+                    <rich:componentControl for="panel" event="onclick" operation="hide" disableDefault="true"/>
+                </h:commandButton>
+            </h:form>
+        </rich:popupPanel>
+
+        <!--<rich:insert src="/focus_6.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

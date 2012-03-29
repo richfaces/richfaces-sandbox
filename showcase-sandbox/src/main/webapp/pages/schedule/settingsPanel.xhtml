@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <h:form styleClass="settingsPanel">
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Allow task moving" for="allowTaskMoving"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.allowTaskMoving}" id="allowTaskMoving"/>
+
+            <h:outputLabel value="Show weekends" for="showWeekends"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.showWeekends}" id="showWeekends"/>
+
+            <h:outputLabel value="Allow task resizing" for="allowTaskResizing"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.allowTaskResizing}" id="allowTaskResizing"/>
+
+            <h:outputLabel value="allDayByDefault" for="allDayByDefault"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.allDayByDefault}" id="allDayByDefault"/>
+
+            <h:outputLabel value="editable" for="editable"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.editable}" id="editable"/>
+
+            <h:outputLabel value="selectable" for="selectable"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.selectable}" id="selectable"/>
+
+            <h:outputLabel value="selectHelper" for="selectHelper"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.selectHelper}" id="selectHelper"/>
+
+            <h:outputLabel value="unselectAuto" for="unselectAuto"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.unselectAuto}" id="unselectAuto"/>
+
+            <h:outputLabel value="allDaySlot" for="allDaySlot"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.allDaySlot}" id="allDaySlot"/>
+
+            <h:outputLabel value="isRTL" for="isRTL"/>
+            <h:selectBooleanCheckbox value="#{scheduleBean.isRTL}" id="isRTL"/>
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="2">
+
+            <h:outputLabel value="First day" for="firstDay"/>
+            <h:selectOneMenu value="#{scheduleBean.firstDay}" id="firstDay" required="true" label="First day">
+                <f:selectItem itemValue="1" itemLabel="Sunday"/>
+                <f:selectItem itemValue="2" itemLabel="Monday"/>
+                <f:selectItem itemValue="3" itemLabel="Tuesday"/>
+                <f:selectItem itemValue="4" itemLabel="Wednesday"/>
+                <f:selectItem itemValue="5" itemLabel="Thursday"/>
+                <f:selectItem itemValue="6" itemLabel="Friday"/>
+                <f:selectItem itemValue="7" itemLabel="Saturday"/>
+            </h:selectOneMenu>
+
+            <h:outputLabel value="Initial date" for="initialDate"/>
+            <h:inputText value="#{scheduleBean.initialDate}" id="initialDate" required="true" label="Initial date">
+                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+            </h:inputText>
+
+            <h:outputLabel value="Week mode" for="weekMode"/>
+            <h:selectOneRadio value="#{scheduleBean.weekMode}" id="weekMode">
+                <f:selectItem itemValue="fixed" itemLabel="fixed"/>
+                <f:selectItem itemValue="liquid" itemLabel="liquid"/>
+                <f:selectItem itemValue="variable" itemLabel="variable"/>
+            </h:selectOneRadio>
+
+            <h:outputLabel value="contentHeight" for="contentHeight"/>
+            <h:inputText value="#{scheduleBean.contentHeight}" id="contentHeight"/>
+
+            <h:outputLabel value="axisFormat" for="axisFormat"/>
+            <h:inputText value="#{scheduleBean.axisFormat}" id="axisFormat"/>
+
+            <h:outputLabel value="All day text" for="allDayText"/>
+            <h:inputText value="#{scheduleBean.allDayText}" id="allDayText"/>
+
+            <h:outputLabel value="aspectRatio" for="aspectRatio"/>
+            <h:inputText value="#{scheduleBean.aspectRatio}" id="aspectRatio"/>
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="2">
+
+            <h:outputLabel value="defaultEventMinutes" for="defaultEventMinutes"/>
+            <h:inputText value="#{scheduleBean.defaultEventMinutes}" id="defaultEventMinutes"/>
+
+            <h:outputLabel value="dragRevertDuration" for="dragRevertDuration"/>
+            <h:inputText value="#{scheduleBean.dragRevertDuration}" id="dragRevertDuration"/>
+
+            <h:outputLabel value="firstHour" for="firstHour"/>
+            <h:inputText value="#{scheduleBean.firstHour}" id="firstHour"/>
+
+            <h:outputLabel value="headerCenter" for="headerCenter"/>
+            <h:inputText value="#{scheduleBean.headerCenter}" id="headerCenter"/>
+
+            <h:outputLabel value="headerLeft" for="headerLeft"/>
+            <h:inputText value="#{scheduleBean.headerLeft}" id="headerLeft"/>
+
+            <h:outputLabel value="headerRight" for="headerRight"/>
+            <h:inputText value="#{scheduleBean.headerRight}" id="headerRight"/>
+
+            <h:outputLabel value="minTime" for="minTime"/>
+            <h:inputText value="#{scheduleBean.minTime}" id="minTime"/>
+
+            <h:outputLabel value="maxTime" for="maxTime"/>
+            <h:inputText value="#{scheduleBean.maxTime}" id="maxTime"/>
+
+            <h:outputLabel value="slotMinutes" for="slotMinutes"/>
+            <h:inputText value="#{scheduleBean.slotMinutes}" id="slotMinutes"/>
+
+            <h:outputLabel value="unselectCancel" for="unselectCancel"/>
+            <h:inputText value="#{scheduleBean.unselectCancel}" id="unselectCancel"/>
+
+        </h:panelGrid>
+
+        <h:commandButton value="Submit"/>
+        <br/>
+        <h:outputText value="For option values check"/>
+        <br/>
+        <h:outputLink value="http://arshaw.com/fullcalendar/docs/">fullcalendar docs</h:outputLink>
+    </h:form>
+    <!--
+    TODO uncomment this
+        <a4j:outputPanel ajaxRendered="true">
+            <h:outputText value="Selected task is #{scheduleBean.selectedTask.title}"
+                          rendered="#{not empty scheduleBean.selectedTask}"/>
+            <h:outputText value=" It starts on #{scheduleBean.selectedTask.startDate}"
+                          rendered="#{not empty scheduleBean.selectedTask}"/>
+            <h:outputText value=" ends on #{scheduleBean.selectedTask.endDate}" rendered="#{not empty scheduleBean.selectedTask}"/>
+            <h:outputText value=" and lasts all day"
+                          rendered="#{not empty scheduleBean.selectedTask and scheduleBean.selectedTask.allDay}"/>
+            <h:outputText value=" and is not 'all day'"
+                          rendered="#{not empty scheduleBean.selectedTask and not scheduleBean.selectedTask.allDay}"/>
+        </a4j:outputPanel>
+    -->
+
+</ui:composition>

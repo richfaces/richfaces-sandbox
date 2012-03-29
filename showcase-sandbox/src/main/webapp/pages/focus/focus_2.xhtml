@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <ui:include src="menu.xhtml"/>
+
+        <p>Focus should be placed on first radio :</p>
+        <ul>
+            <li>username gets priority 9999</li>
+            <li>email gets default priority 1</li>
+        </ul>
+        <h:form>
+            <h:panelGrid columns="3">
+
+                <h:outputLabel value="Username" for="username"/>
+                <h:inputText value="#{username}" id="username" required="true">
+                    <sandbox:focus priority="9999"/>
+                </h:inputText>
+                <h:message for="username"/>
+
+                <h:outputLabel value="Option" for="option"/>
+                <h:selectOneRadio value="#{option}" id="option" required="true">
+                    <f:selectItem itemLabel="Option 1" itemValue="1"/>
+                    <f:selectItem itemLabel="Option 2" itemValue="2"/>
+                    <f:selectItem itemLabel="Option 3" itemValue="3"/>
+                    <sandbox:focus suffix=":0"/>
+                </h:selectOneRadio>
+                <h:message for="option"/>
+
+            </h:panelGrid>
+            <h:commandButton value="Submit"/>
+        </h:form>
+
+        <!--<rich:insert src="/focus_2.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>

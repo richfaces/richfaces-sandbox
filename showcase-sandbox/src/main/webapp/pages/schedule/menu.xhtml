@@ -1,0 +1,32 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:h="http://java.sun.com/jsf/html" xmlns:notify="http://richfaces.org/sandbox/notify">
+    <div>
+        <h:panelGrid columns="10" style="width:100%;">
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/index.jsf">Ajax mode
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_1.jsf">Server mode
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_2.jsf">Client mode
+            </h:outputLink>
+            <h:outputLink
+                    value="#{facesContext.externalContext.requestContextPath}/pages/sample_3.jsf">Customization per view
+            </h:outputLink>
+            <h:outputLink
+                    value="#{facesContext.externalContext.requestContextPath}/pages/sample_4.jsf">Client side callbacks
+            </h:outputLink>
+            <h:outputLink
+                    value="#{facesContext.externalContext.requestContextPath}/pages/sample_5.jsf">Fetch additional data
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_6.jsf">With modal panel
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_7.jsf">Internationalization
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_8.jsf">JavaScript API
+            </h:outputLink>
+            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/pages/sample_9.jsf">3 in 1
+            </h:outputLink>
+        </h:panelGrid>
+    </div>
+    <notify:notifyMessages id="notifyMessages"/>
+</ui:component>

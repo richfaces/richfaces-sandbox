@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:schedule="http://richfaces.org/sandbox/schedule">
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        <style type="text/css">
+            .slim {
+                width: 300px;
+            }
+
+            .right {
+                float: right;
+            }
+        </style>
+        <h:form>
+            Ajax schedule
+            <schedule:schedule switchType="ajax" value="#{myBean.lazyDataModel}" var="event" styleClass="slim">
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}"
+                                       allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                       data="#{event.data}"/>
+            </schedule:schedule>
+
+            <div class="slim right">
+                Server schedule
+                <schedule:schedule switchType="server" date="#{myBean.initialDate}" value="#{myBean.lazyDataModel}"
+                                   var="event" height="400"
+                                   styleClass="slim right" dateRangeChangeListener="#{myBean.dateRangeChanged}">
+                    <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                           endDate="#{event.endDate}"
+                                           allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                           data="#{event.data}"/>
+                </schedule:schedule>
+            </div>
+            <div style="clear:both"></div>
+            <h:commandButton value="Re render client schedule">
+                <f:ajax event="click" render="clientSchedule"/>
+            </h:commandButton>
+            Client schedule
+            <schedule:schedule id="clientSchedule" switchType="client" value="#{myBean.allEvents}" var="event">
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}"
+                                       allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                       data="#{event.data}"/>
+            </schedule:schedule>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>	

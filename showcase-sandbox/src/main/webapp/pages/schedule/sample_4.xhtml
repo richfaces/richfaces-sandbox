@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:schedule="http://richfaces.org/sandbox/schedule">
+<ui:composition template="/pages/template.xhtml">
+    <ui:define name="body">
+        <style type="text/css">
+            .rich-schedule {
+                width: 600px;
+                margin-left: 20px;
+            }
+
+            .customFC {
+                border: 1px solid red;
+            }
+
+            .fc-header span {
+                font-size: 12px;
+            }
+
+            #log {
+                float: left;
+                width: 400px;
+            }
+
+            #log div {
+                border-bottom: 1px solid #000;
+            }
+        </style>
+        <script type="text/javascript">
+            function clearLog() {
+                jQuery("#log").html("");
+            }
+            function notify(action, text, timeToStay) {
+                jQuery("#log").append("&lt;div>" + action + ": " + text + "&lt;/div>");
+                //                RichFaces.Notify({title:action,text:text,sticky:false,styleClass:'rf-ny-info',stayTime:timeToStay});
+            }
+            function blockEvent(item, event, action) {
+                notify(action, item.title + " - blocked");
+                //                RichFaces.Notify({title:action,text:item.title,sticky:false,styleClass:'rf-ny-error'});
+            }
+            function onviewchange(view) {
+                notify('View changed', view.name);
+            }
+            function onbeforedateselect(date, allDay, event, view) {
+                notify('Day select', toString(date) + ' ' + (allDay ? 'with all day slot' : ''));
+            }
+            function ondateselect(date, allDay, event, view, data) {
+                notify('Day select complete', toString(date) + ' ' + (allDay ? 'with all day slot' : '') + ";data=" + toString(data));
+            }
+
+            function onbeforeitemselect(item, event, view) {
+                notify("onbeforeitemselect", "item:" + item.title + ";event=" + event.type + ";view:" + view.name);
+            }
+            function onitemselect(item, event, view, data) {
+                notify("onitemselect", "item:" + item.title + ";event=" + event.type + ";view:" + view.name + ";data=" + toString(data));
+            }
+            function onbeforeitemresize(item, dayDelta, minuteDelta, event, ui, view) {
+                notify("onbeforeitemresize", "item:" + item.title + ";dayDelta=" + dayDelta + ";minuteDelta=" + minuteDelta + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemresize(item, dayDelta, minuteDelta, vetoed, event, ui, view, data) {
+                notify("onitemresize", "item:" + item.title + ";dayDelta=" + dayDelta + ";minuteDelta=" + minuteDelta + ";vetoed=" + vetoed + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name + ";data=" + toString(data));
+            }
+            function onbeforeitemdrop(item, dayDelta, minuteDelta, allDay, event, ui, view) {
+                notify("onbeforeitemdrop", "item:" + item.title + ";dayDelta=" + dayDelta + ";minuteDelta=" + minuteDelta + ";allDay=" + allDay + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemdrop(item, dayDelta, minuteDelta, allDay, vetoed, event, ui, view, data) {
+                notify("onitemdrop", "item:" + item.title + ";dayDelta=" + dayDelta + ";minuteDelta=" + minuteDelta + ";allDay=" + allDay + ";vetoed=" + vetoed + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name + ";data=" + toString(data));
+            }
+            function onitemdragstart(item, event, ui, view) {
+                notify("onitemdragstart", "item:" + item.title + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemdragstop(item, event, ui, view) {
+                notify("onitemdragstop", "item:" + item.title + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemresizestart(item, event, ui, view) {
+                notify("onitemresizestart", "item:" + item.title + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemresizestop(item, event, ui, view) {
+                notify("onitemresizestop", "item:" + item.title + ";event=" + event.type + ";ui=" + ui + ";view:" + view.name);
+            }
+            function onitemmouseover(item) {
+                notify("onitemmouseover", item.title, 1000);
+            }
+            function onitemmouseout(item) {
+                notify("onitemmouseout", item.title, 1000);
+            }
+            function ondaterangeselect(startDate, endDate, allDay, view, data) {
+                notify("ondaterangeselect", toString(startDate) + " - " + toString(endDate) + "; " + (allDay ? "all day" : "not all day") + ";view:" + view.name + ";data=" + toString(data));
+            }
+            function onbeforedaterangeselect(startDate, endDate, allDay, view) {
+                notify('onbeforedaterangeselect', toString(startDate) + " - " + toString(endDate) + "; " + (allDay ? "all day" : "not all day") + ";view:" + view.name);
+            }
+            function ondaterangechange(startDate, endDate) {
+                notify('ondaterangechange', toString(startDate) + " - " + toString(endDate));
+            }
+            function onviewdisplay(view) {
+                notify('onviewdisplay', view);
+            }
+            function toString(object) {
+                if (object instanceof Date) {
+                    return object.getFullYear() + "/" + object.getMonth() + "/" + object.getDate() + " " + object.getHours() + ":" + object.getMinutes();
+                }
+                if (typeof object == "string") {
+                    return object;
+                }
+                var str = "[";
+                for (i in object) {
+                    str += i + "=" + object[i] + ";"
+                }
+                return str + "]";
+            }
+        </script>
+        <p>
+            Furst schedule's JavaScript callbacks do not veto
+            any event and just notify user (veto may be raised by server side listener). </p>
+
+        <p>
+            Second schedule's JavaScript callbacks <b>veto</b>
+            all events. </p>
+        <input type="button" value="Clear log" onclick="clearLog()"/>
+        <h:form>
+            <h:selectOneRadio value="#{myBean.switchType}">
+                <f:selectItem itemValue="ajax" itemLabel="Ajax"/>
+                <f:selectItem itemValue="server" itemLabel="Server"/>
+                <f:selectItem itemValue="client" itemLabel="Client"/>
+                <f:ajax render=":schedules"/>
+            </h:selectOneRadio>
+        </h:form>
+        <h:form id="schedules">
+            <schedule:schedule switchType="#{myBean.switchType}" value="#{myBean.lazyDataModel}" var="event"
+                               date="#{myBean.initialDate}" editable="true"
+                               selectable="true" headerCenter="title" headerLeft="prevYear,nextYear"
+                               headerRight="basicDay,basicWeek agendaDay,agendaWeek month today prev,next"
+                               itemResizeListener="#{myBean.taskResized}"
+                               itemMoveListener="#{myBean.taskMoved}" data="#{myBean.allDayText}"
+                               eventsQueue="schedule1"
+                               onbeforeitemselect="onbeforeitemselect(item,event,view)"
+                               onitemselect="onitemselect(item,event,view,data)"
+                               onbeforeitemresize="onbeforeitemresize(item,dayDelta,minuteDelta,event,ui,view)"
+                               onitemresize="onitemresize(item,dayDelta,minuteDelta,vetoed,event,ui,view,data)"
+                               onbeforeitemdrop="onbeforeitemdrop(item,dayDelta,minuteDelta,allDay,event,ui,view)"
+                               onitemdrop="onitemdrop(item,dayDelta,minuteDelta,allDay,vetoed,event,ui,view,data)"
+                               onitemdragstart="onitemdragstart(item,event,ui,view)"
+                               onitemdragstop="onitemdragstop(item,event,ui,view)"
+                               onitemresizestart="onitemresizestart(item,event,ui,view)"
+                               onitemresizestop="onitemresizestop(item,event,ui,view)"
+                               onviewchange="onviewchange(view)"
+                               onbeforedateselect="onbeforedateselect(date,allDay,event,view)"
+                               ondateselect="ondateselect(date,allDay,event,view,data)"
+                               onbeforedaterangeselect="onbeforedaterangeselect(startDate,endDate,allDay,view)"
+                               ondaterangeselect="ondaterangeselect(startDate,endDate,allDay,view)"
+                               ondaterangechange="ondaterangechange(startDate,endDate)"
+                               onitemmouseover="onitemmouseover(item)" onitemmouseout="onitemmouseout(item)"
+                               onviewdisplay="onviewdisplay(view)"
+                               styleClass="customFC">
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}"
+                                       allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                       data="#{event.data}"/>
+            </schedule:schedule>
+
+            <schedule:schedule switchType="#{myBean.switchType}" value="#{myBean.lazyDataModel}" var="event"
+                               date="#{myBean.initialDate}" editable="true"
+                               selectable="true" headerCenter="title" headerLeft="prevYear,nextYear"
+                               headerRight="basicDay,basicWeek agendaDay,agendaWeek month today prev,next"
+                               eventsQueue="schedule2"
+                               onbeforeitemselect="blockEvent(item,event,'onbeforeitemselect'); return false;"
+                               onitemselect="onitemselect(item,event,view,data)"
+                               onbeforeitemresize="blockEvent(item,event,'onbeforeitemresize'); return false;"
+                               onitemresize="onitemresize(item,dayDelta,minuteDelta,vetoed,event,ui,view,data)"
+                               onbeforeitemdrop="blockEvent(item,event,'onbeforeitemdrop'); return false;"
+                               onitemdrop="onitemdrop(item,dayDelta,minuteDelta,allDay,vetoed,event,ui,view,data)"
+                               onitemdragstart="onitemdragstart(item,event,ui,view); return false;"
+                               onitemdragstop="onitemdragstop(item,event,ui,view); return false;"
+                               onitemresizestart="onitemresizestart(item,event,ui,view); return false;"
+                               onitemresizestop="onitemresizestop(item,event,ui,view); return false;"
+                               onviewchange="onviewchange(view); return false;"
+                               onbeforedateselect="blockEvent(date,event,'onbeforedateselect');return false;"
+                               ondateselect="ondateselect(date,allDay,event,view,data)"
+                               onbeforedaterangeselect="blockEvent(startDate,endDate,'onbeforedaterangeselect'); return false;"
+                               ondaterangeselect="ondaterangeselect(startDate,endDate,allDay,view,data)"
+                               ondaterangechange="ondaterangechange(startDate,endDate);return false;"
+                               onviewdisplay="onviewdisplay(view)">
+                <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"
+                                       endDate="#{event.endDate}"
+                                       allDay="#{event.allDay}" styleClass="#{event.id == 1 ? 'first' : null}"
+                                       data="#{event.data}"/>
+            </schedule:schedule>
+        </h:form>
+
+        <div id="log"></div>
+        <!--
+        TODO Uncomment this once rich:insert is ready
+        <rich:insert src="/pages/sample_4.xhtml" highlight="xhtml"/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>	

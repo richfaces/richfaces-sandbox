@@ -1,0 +1,60 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+
+    <ui:define name="content">
+        <style type="text/css">
+            a:hover, a:active, a:focus {
+                background-color: inherit;
+                color: blue;
+                text-shadow: 0 3px 3px #AAAAAA;
+            }
+        </style>
+
+        <p>
+            Press TAB to see accesskey hints. </p>
+
+        <sandbox:accesskeyhelper hideOnAnyKey="true" timeout="2000"/>
+
+
+        <div>
+            <label for="name">Name:</label>
+            <input id="name" type="text" accesskey="n"/>
+        </div>
+        We can have two objects with the same access key like in this case:
+        <ul>
+            <li><a accesskey="b" href="#b1">Barnie</a></li>
+            <li><a accesskey="b" href="#b2">Bill</a></li>
+            <li><a accesskey="b" href="#b3">Buck</a></li>
+        </ul>
+        Unfortunately stuff with the same accesskey must be in the same list, so this wont work in FF with ALT+SHIFT, but will work with CTRL+ALT:
+        <a href="#richfaces" accesskey="r">RichFaces</a> compomponent development with
+        <a href="#jrebel" accesskey="r">jRebel</a> is way fast.
+    </ui:define>
+</ui:composition>
+</html>

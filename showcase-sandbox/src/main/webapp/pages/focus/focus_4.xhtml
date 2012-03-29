@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sandbox="http://richfaces.org/sandbox">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <ui:include src="menu.xhtml"/>
+
+        <p>This example shows that focus can be put on non JSF control</p>
+        <h:panelGrid columns="3">
+            <h:outputLabel value="Non JSF control" for="option"/>
+            <input type="radio" id="option_1" name="option"/> 1
+            <input type="radio" id="option_2" name="option"/> 2
+        </h:panelGrid>
+        <sandbox:focus targetClientId="option_2"/>
+
+        <!--<rich:insert src="/focus_4.xhtml" highlight="html"/>-->
+
+    </ui:define>
+</ui:composition>
+</html>
