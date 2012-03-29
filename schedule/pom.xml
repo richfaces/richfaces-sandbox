@@ -20,47 +20,25 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.sandbox.ui.schedule</groupId>
-        <artifactId>schedule-parent</artifactId>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
-        <relativePath>parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>schedule-aggregator</artifactId>
+    <groupId>org.richfaces.sandbox.ui.schedule</groupId>
+    <artifactId>schedule-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: schedule Aggregator</name>
+    <name>Richfaces UI Components: schedule parent</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
         <module>ui</module>
         <module>demo</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>cli</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.twdata.maven</groupId>
-                        <artifactId>maven-cli-plugin</artifactId>
-                        <version>1.0.6-SNAPSHOT</version>
-                        <configuration>
-                            <userAliases>
-                                <ui>schedule-ui clean install</ui>
-                                <demo>schedule-demo clean package</demo>
-                            </userAliases>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

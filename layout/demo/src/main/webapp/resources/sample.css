@@ -1,0 +1,18 @@
+.rf-pg-hdr {
+    text-align: center;
+}
+
+.rf-pg-cnt {
+    border: 1px solid purple;
+    padding-bottom: 10px;
+
+    padding-top: 2px;
+}
+
+.rf-pg-m {
+    border: none;
+}
+
+.rf-pg-b {
+    border: none;
+}

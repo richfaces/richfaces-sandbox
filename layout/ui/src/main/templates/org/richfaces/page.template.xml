@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite" xmlns:x="http://www.w3.org/1999/xhtml">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PageRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.AbstractPageRenderer</cdk:superclass>
+        <cdk:component-family>org.richfaces.Page</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PageRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="namespace" value="#{prolog(facesContext,component)}" type="java.lang.String"/>
+        <html x:xmlns="#{namespace}" lang="#{facesContext.viewRoot.locale}">
+            <head>
+                <c:if test="#{this:hasTitle(facesContext,component)}">
+                    <x:title>#{component.attributes['pageTitle']}</x:title>
+                </c:if>
+                <cdk:call expression="themeStyle(facesContext,component)"/>
+                <cdk:call expression="themeScript(facesContext,component)"/>
+                <cdk:call expression="encodeHeadResources(facesContext)"/>
+                <cdk:call expression="pageStyle(facesContext,component)"/>
+                <cdk:call expression="insertFacet(&quot;pageHeader&quot;,facesContext,component)"/>
+            </head>
+            <!--TODO what we do with  passThroughWithExclusions="value,name,type,id"?-->
+            <body cdk:passThroughWithExclusions="value,name,type,id"
+                  oncontextmenu="#{component.attributes['oncontextmenu']}">
+                <div id="#{clientId}" class="rf-pg #{component.attributes['pageClass']}"
+                     style="#{component.attributes['pageStyle']}">
+                    <c:if test="#{this:hasFacet(component,'header')}">
+                        <div id="#{clientId}:hd" class="rf-pg-hdr #{component.attributes['headerClass']}">
+                            <div id="#{clientId}:hdc" class="rf-pg-hdr-cnt">
+                                <cdk:call expression="insertFacet(&quot;header&quot;,facesContext,component)"/>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="#{this:hasFacet(component,'subheader')}">
+                        <div id="#{clientId}:shd" class="rf-pg-shdr #{component.attributes['subheaderClass']}">
+                            <cdk:call expression="insertFacet(&quot;subheader&quot;,facesContext,component)"/>
+                        </div>
+                    </c:if>
+                    <div id="#{clientId}:cnt" class="rf-pg-cnt #{component.attributes['contentClass']}">
+                        <c:if test="#{this:hasFacet(component,'sidebar')}">
+                            <div class="rf-pg-sb #{component.attributes['sidebarClass']}">
+                                <cdk:call expression="insertFacet(&quot;sidebar&quot;,facesContext,component)"/>
+                            </div>
+                        </c:if>
+                        <cdk:body>
+                            <div class="rf-pg-m">
+                                <div class="rf-pg-bd #{component.attributes['bodyClass']}">
+                                    <cdk:call expression="renderChildren(facesContext,component)"/>
+                                </div>
+                            </div>
+                        </cdk:body>
+                        <div style="clear:both"></div>
+                    </div>
+                    <c:if test="#{this:hasFacet(component,'footer')}">
+                        <div id="#{clientId}:ft" class="rf-pg-ftr #{component.attributes['footerClass']}">
+                            <div id="#{clientId}:ftc" class="rf-pg-ftr-cnt">
+                                <cdk:call expression="insertFacet(&quot;footer&quot;,facesContext,component)"/>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+                <cdk:call expression="encodeBodyResources(facesContext)"/>
+            </body>
+        </html>
+    </cc:implementation>
+
+</cdk:root>

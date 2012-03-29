@@ -1,0 +1,39 @@
+.rf-ak-h {
+    color: '#{richSkin.generalBackgroundColor}';
+    background-color: '#{richSkin.generalTextColor}';
+}
+
+.rf-ak-p {
+    position: absolute;
+    width: 16px;
+    height: 17px;
+    overflow: hidden;
+    line-height: 17px;
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    color: '#{richSkin.headerTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: 11px;
+    text-align: center;
+    cursor: default;
+    display: none;
+    opacity: 0.8;
+    border: 1px solid;
+    border-color: "#{richSkin.panelBorderColor}";
+    border-radius: 3px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=80)";
+}
+
+.rf-ak-u {
+    font-style: normal;
+    text-decoration: underline;
+}
+
+* html .rf-ak-p {
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity = 80);
+}
+
+*:first-child+html .rf-ak-p {
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity = 80);
+}

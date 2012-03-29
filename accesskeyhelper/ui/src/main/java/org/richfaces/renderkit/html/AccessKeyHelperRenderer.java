@@ -41,11 +41,11 @@ import java.util.Map;
 
 @JsfRenderer(family = AbstractAccessKeyHelper.COMPONENT_FAMILY, type = AccessKeyHelperRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),
-        @ResourceDependency(name = "richfaces.js", target = "head"),
-        @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
-        @ResourceDependency(name = "jquery.accesskey.js", target = "head"),
-        @ResourceDependency(name = "richfaces.accesskeyhelper.js", target = "head"),
-        @ResourceDependency(name = "jquery.accesskey.css", target = "head")})
+    @ResourceDependency(name = "richfaces.js", target = "head"),
+    @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
+    @ResourceDependency(name = "jquery.keytips.js", target = "head"),
+    @ResourceDependency(name = "richfaces.accesskeyhelper.js", target = "head"),
+    @ResourceDependency(name = "richfaces.accesskeyhelper.ecss", target = "head")})
 public class AccessKeyHelperRenderer extends RendererBase {
 // ------------------------------ FIELDS ------------------------------
 
@@ -57,9 +57,7 @@ public class AccessKeyHelperRenderer extends RendererBase {
 
     static {
         Map<String, Object> defaults = new HashMap<String, Object>();
-        defaults.put("shortcutKeyCode", 9);
-        defaults.put("hideOnAnyKey", true);
-        defaults.put("timeout", 6000);
+        defaults.put("highlightMode", "toggleClass");
         DEFAULTS = Collections.unmodifiableMap(defaults);
     }
 
@@ -84,20 +82,17 @@ public class AccessKeyHelperRenderer extends RendererBase {
 
     protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
         if (value != null && !"".equals(value) && !value.equals(DEFAULTS.get(
-                optionName)) && !(value instanceof Collection && ((Collection) value).size() == 0) && !(value instanceof Map && ((Map) value).size() == 0)) {
+            optionName)) && !(value instanceof Collection && ((Collection) value).size() == 0) && !(value instanceof Map && ((Map) value).size() == 0)) {
             options.put(optionName, value);
         }
     }
-
 
     protected Map<String, Object> getOptions(AbstractAccessKeyHelper accesskeyhelper) throws IOException {
         /**
          * Include only attributes that are actually set.
          */
         Map<String, Object> options = new HashMap<String, Object>();
-        addOptionIfSetAndNotDefault("shortcutKeyCode", accesskeyhelper.getShortcutKeyCode(), options);
-        addOptionIfSetAndNotDefault("timeout", accesskeyhelper.getTimeout(), options);
-        addOptionIfSetAndNotDefault("hideOnAnyKey", accesskeyhelper.isHideOnAnyKey(), options);
+        addOptionIfSetAndNotDefault("highlightMode", accesskeyhelper.getHighlightMode(), options);
         return options;
     }
 }

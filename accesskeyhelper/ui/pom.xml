@@ -31,8 +31,8 @@
         <groupId>org.richfaces.sandbox.ui.accesskeyhelper</groupId>
         <artifactId>accesskeyhelper-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
     </parent>
+
     <artifactId>accesskeyhelper-ui</artifactId>
     <name>Richfaces UI Components: accesskeyhelper ui</name>
 
@@ -52,6 +52,7 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -71,7 +72,7 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
-                <version>${org.richfaces.cdk.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>cdk-generate-sources</id>

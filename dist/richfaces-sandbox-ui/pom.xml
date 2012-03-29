@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.2.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.richfaces.sandbox.ui</groupId>
+    <artifactId>richfaces-sandbox-ui</artifactId>
+    <packaging>jar</packaging>
+    <name>RichFaces UI Components sandbox UI</name>
+
+    <properties>
+        <shade-transformers.version>7</shade-transformers.version>
+        <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
+        <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- artifacts for aggregation -->
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.accesskeyhelper</groupId>
+            <artifactId>accesskeyhelper-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.carousel</groupId>
+            <artifactId>carousel-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.colorpicker</groupId>
+            <artifactId>colorpicker-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.dashboard</groupId>
+            <artifactId>dashboard-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.focus</groupId>
+            <artifactId>focus-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.imageSelectTool</groupId>
+            <artifactId>imageSelectTool-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.layout</groupId>
+            <artifactId>layout-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.lightbox</groupId>
+            <artifactId>lightbox-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.outputFile</groupId>
+            <artifactId>outputFile-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.rating</groupId>
+            <artifactId>rating-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.schedule</groupId>
+            <artifactId>schedule-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.syntaxhighlighter</groupId>
+            <artifactId>syntaxhighlighter-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.visualsearch</groupId>
+            <artifactId>visualsearch-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.sandbox.ui.watermark</groupId>
+            <artifactId>watermark-ui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/assembly</directory>
+                <targetPath>${project.build.directory}/assembly</targetPath>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <!-- unpack necessary dependencies for collecting sources, jsdoc and javadocs -->
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>deps</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>sources</classifier>
+                            <includeGroupIds>
+                                ${assembly.projects.group}.accesskeyhelper,${assembly.projects.group}.focus
+                            </includeGroupIds>
+                            <useSubDirectoryPerArtifact>false</useSubDirectoryPerArtifact>
+                            <excludeTransitive>true</excludeTransitive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>${project.build.directory}/assembly/assembler-jar.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assembly-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.build.directory}/assembly/assembler-sources.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.richfaces.build.resources</groupId>
+                        <artifactId>faces-shade-transformers</artifactId>
+                        <version>${shade-transformers.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- unpack necessary dependencies for collecting jsdoc and javadocs -->
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>vdldeps</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.richfaces.build.resources</groupId>
+                                            <artifactId>faces-vdl-documentation</artifactId>
+                                            <version>${faces-vdl-documentation.version}</version>
+                                            <outputDirectory>${project.build.directory}/resources/</outputDirectory>
+                                            <includes>**/*.xsl</includes>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.richfaces.build.resources</groupId>
+                                            <artifactId>faces-vdl-documentation</artifactId>
+                                            <outputDirectory>${project.build.directory}/vdldoc/</outputDirectory>
+                                            <includes>**/*.css</includes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- Generate a single javadoc jar from all of the sources 
+                             expanded in /target/dependency directory -->
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <sourcepath>${basedir}/target/dependency</sourcepath>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>xml-maven-plugin</artifactId>
+                        <version>1.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>transform</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>${basedir}/src/main/properties</dir>
+                                    <stylesheet>${project.build.directory}/resources/xsl/common.xsl</stylesheet>
+                                    <parameters>
+                                        <parameter>
+                                            <name>output-dir</name>
+                                            <value>${project.build.directory}/vdldoc/</value>
+                                        </parameter>
+                                    </parameters>
+                                    <fileMappers>
+                                        <fileMapper
+                                                implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                            <pattern>^(.*)\.(.*)$</pattern>
+                                            <replacement>all.txt</replacement>
+                                        </fileMapper>
+                                    </fileMappers>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sf.saxon</groupId>
+                                <artifactId>saxon</artifactId>
+                                <version>8.7</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>${project.build.directory}/assembly/assembler-vdldoc.xml
+                                        </descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces.build.resources</groupId>
+                    <artifactId>faces-vdl-documentation</artifactId>
+                    <version>${faces-vdl-documentation.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>

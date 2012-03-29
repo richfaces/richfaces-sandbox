@@ -1,0 +1,29 @@
+<assembly>
+    <id>sources</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+
+    <moduleSets>
+        <moduleSet>
+            <includeSubModules>true</includeSubModules>
+            <includes>
+                <include>org.richfaces.sandbox.ui.*:*</include>
+            </includes>
+
+            <sources>
+                <outputDirectoryMapping>/</outputDirectoryMapping>
+                <excludeSubModuleDirectories>true</excludeSubModuleDirectories>
+                <fileSets>
+                    <fileSet>
+                        <directory>src/main/resources/META-INF/resources</directory>
+                        <outputDirectory>/</outputDirectory>
+                        <includes>
+                            <include>*.js</include>
+                        </includes>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+    </moduleSets>
+</assembly>

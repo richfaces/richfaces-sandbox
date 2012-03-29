@@ -8,3 +8,6 @@ test-output
 MANIFEST.MF
 dependency-reduced-pom.xml
 *.orig
+.idea
+*.iml
+rebel.xml

@@ -1,0 +1,100 @@
+body {
+    font-family: '#{richSkin.generalFamilyFont}';
+    margin: 0;
+    padding: 0;
+    background-color: #FFF;
+    background-repeat: repeat-x;
+}
+
+.rf-pg {
+    font-size: '#{richSkin.generalSizeFont}';
+}
+
+
+.rf-pg-hdr {
+    background-image: "url(#{resource['org.richfaces.images:pageHeaderGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    border-bottom: 1px solid;
+    border-bottom-color: '#{richSkin.generalBackgroundColor}';
+    background-color: '#{richSkin.headerGradientColor}';
+    min-height: 40px;
+    padding: 0 20px;
+    color: '#{richSkin.trimColor}';
+}
+.rf-pg-shdr {
+    border-bottom: 1px solid;
+    border-bottom-color: '#{richSkin.generalBackgroundColor}';
+    background-color: '#{richSkin.headerGradientColor}';
+    padding: 0 20px;
+    color: '#{richSkin.trimColor}';
+}
+
+.rf-pg-cnt {
+    background-color: '#{richSkin.generalBackgroundColor}';
+    border: 2px solid;
+    border-color: '#{richSkin.panelBorderColor}';
+}
+
+.rf-pg-m {
+    border-top: 2px solid;
+    border-top-color: '#{richSkin.panelBorderColor}';
+}
+
+.rf-pg-bd {
+    vertical-align: top;
+    width: 100%;
+}
+
+.rf-pg-ftr {
+color:red;
+    background-image: "url(#{resource['org.richfaces.images:pageFooterGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: center left;
+    border-top: 1px solid;
+    border-top-color: '#{richSkin.generalBackgroundColor}';
+    background-color: '#{richSkin.panelBorderColor}';
+    text-align: center;
+    padding: 20px 0;
+}
+
+.rf-pg-sb {
+    vertical-align: top;
+}
+
+*.rf-pg-sb, *.rf-pg-bd, *.rf-pg-ftr {
+        font-family: '#{richSkin.generalFamilyFont}';
+        color: '#{richSkin.generalTextColor}';
+        font-size: '#{richSkin.generalSizeFont}';
+}
+*.rf-pg-hdr-cnt {
+        font-family: '#{richSkin.headerFamilyFont}';
+        color: '#{richSkin.headerTextColor}';
+        font-size: '#{richSkin.headerSizeFont}';
+}
+
+h1,h2,h3 {
+    font-family: '#{richSkin.headerFamilyFont}';
+    margin: 0;
+    color: '#{richSkin.headTextColor}';
+}
+h1 {
+    font-size: 333.4%;
+}
+h2 {
+    font-size: 197%;
+}
+p,ul,ol {
+    font-family: '#{richSkin.generalFamilyFont}';
+    margin-top: 0;
+    line-height: 240%;
+    color: '#{richSkin.controlTextColor}';
+}
+
+a:hover {
+    color: '#{richSkin.hoverLinkColor}';
+}
+
+a:visited {
+    color: '#{richSkin.visitedLinkColor}';
+}

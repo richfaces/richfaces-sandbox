@@ -26,42 +26,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.sandbox.ui.lightbox</groupId>
-        <artifactId>lightbox-parent</artifactId>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
-        <relativePath>parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>lightbox-aggregator</artifactId>
+    <groupId>org.richfaces.sandbox.ui.lightbox</groupId>
+    <artifactId>lightbox-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: lightbox Aggregator</name>
+    <name>Richfaces UI Components: lightbox parent</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
         <module>ui</module>
         <module>demo</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>cli</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.twdata.maven</groupId>
-                        <artifactId>maven-cli-plugin</artifactId>
-                        <version>1.0.6-SNAPSHOT</version>
-                        <configuration>
-                            <userAliases>
-                                <ui>lightbox-ui clean install</ui>
-                                <demo>lightbox-demo clean package</demo>
-                            </userAliases>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

@@ -1,0 +1,65 @@
+<layout:page xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:rich="http://richfaces.org/rich"
+             markupType="xhtml"
+             contentType="text/html" theme="#{layoutBean.theme}"
+             width="#{layoutBean.pageWidth}" sidebarWidth="#{layoutBean.sidebarWidth}"
+             pageTitle="#{layoutBean.pageTitle}"
+             sidebarPosition="#{layoutBean.sidebarPosition}" xmlns:layout="http://richfaces.org/sandbox/layout">
+    <h:outputScript name="bodyScript.js" target="body"/>
+    <h:outputScript name="jquery.js" target="head"/>
+    <h:outputScript name="headScript.js" target="head"/>
+    <h:outputStylesheet name="sample.css"/>
+    <f:facet name="sidebar">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Theme" for="theme"/>
+                <h:selectOneListbox value="#{layoutBean.theme}" id="theme">
+                    <f:selectItem itemValue="simple" itemLabel="simple"/>
+                </h:selectOneListbox>
+
+                <h:outputLabel value="Page Width" for="pageWidth"/>
+                <h:inputText value="#{layoutBean.pageWidth}" id="pageWidth"/>
+
+                <h:outputLabel value="Sidebar Width" for="sidebarWidth"/>
+                <h:inputText value="#{layoutBean.sidebarWidth}" id="sidebarWidth"/>
+
+                <h:outputLabel value="Page Title" for="pageTitle"/>
+                <h:inputText value="#{layoutBean.pageTitle}" id="pageTitle"/>
+
+                <h:outputLabel value="Sidebar Position" for="sidebarPosition"/>
+                <h:inputText value="#{layoutBean.sidebarPosition}" id="sidebarPosition"/>
+
+                <h:panelGroup/>
+                <h:commandButton value="Apply"/>
+            </h:panelGrid>
+        </h:form>
+    </f:facet>
+    <f:facet name="header">
+        Header
+    </f:facet>
+    <f:facet name="footer">
+        <h:outputText value="Copyright (c) 2012 RichFaces. All rights reserved. RichFaces version 4.X"/>
+    </f:facet>
+    <h:form>
+        <rich:tabPanel>
+            <rich:tab>
+                <layout:layout styleClass="shadoww">
+                    <layout:layoutPanel position="top" width="100%">
+                        Grid top
+                    </layout:layoutPanel>
+                    <layout:layoutPanel position="left" width="50%" style="padding:3px;">
+                        Grid left
+                    </layout:layoutPanel>
+                    <layout:layoutPanel position="center" width="50%" style="padding:3px;">
+                        Central grid
+                    </layout:layoutPanel>
+                    <layout:layoutPanel position="bottom">
+                        Something about source
+                    </layout:layoutPanel>
+                </layout:layout>
+            </rich:tab>
+        </rich:tabPanel>
+    </h:form>
+</layout:page>

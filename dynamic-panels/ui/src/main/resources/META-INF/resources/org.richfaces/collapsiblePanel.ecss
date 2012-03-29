@@ -1,0 +1,108 @@
+.rf-cp {
+    background-color: '#{richSkin.generalBackgroundColor}';
+    color: '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-radius: '#{richSkin.panelBorderRadius}';
+    padding: 1px;
+}
+
+.rf-cp-hdr {
+    cursor: pointer;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-color: '#{richSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+    font-size: '#{richSkin.headerSizeFont}';
+    color: '#{richSkin.headerTextColor}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    background-position: top left;
+    background-repeat: repeat-x;
+    background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
+}
+
+.rf-cp-hdr-exp {
+    
+}
+
+.rf-cp-hdr-colps {
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
+}
+
+.rf-cp-b {
+    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    padding: 10px;
+}
+
+.rf-cp-gr {
+    width: 100%
+}
+
+.rf-cp-ico {
+    width: 16px;
+    height: 16px;
+}
+
+.rf-cp-exp-ico {
+    width: 16px;
+    height: 16px;
+}
+
+.rf-cp-ico-colps {
+    
+}
+
+.rf-cp-ico-exp {
+    
+}
+
+.rf-cp-lbl {
+    
+}
+
+.rf-cp-lbl-colps {
+    
+}
+
+.rf-cp-lbl-exp {
+    
+}
+
+.rf-cp-hdr-exp .rf-cp-ico-exp {
+    display: block;
+}
+
+.rf-cp-hdr-exp .rf-cp-ico-colps {
+    display: none;
+}
+
+.rf-cp-hdr-exp .rf-cp-lbl-exp {
+    display: block;
+}
+
+.rf-cp-hdr-exp .rf-cp-lbl-colps {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-ico-exp {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-ico-colps {
+    display: block;
+}
+
+.rf-cp-hdr-colps .rf-cp-lbl-exp {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-lbl-colps {
+    display: block;
+}

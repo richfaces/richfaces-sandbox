@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+    <window-title>VDL Documentation</window-title>
+    <doc-title>Tag Library Documentation Generator - Generated Documentation</doc-title>
+
+    <taglibs>
+        <taglib short-name="sandbox">
+            <display-name>RichFaces</display-name>
+            <doc-title>RichFaces VDL Documentation</doc-title>
+            <path>../../../target/taglibs/META-INF/sandbox.taglib.xml</path>
+            <description>Represents self-contained and advanced sandbox UI components with out-of-the-box Ajax
+                functionality.
+            </description>
+        </taglib>
+    </taglibs>
+</properties>

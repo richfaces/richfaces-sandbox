@@ -1,0 +1,27 @@
+.rf-pg-ftr {
+	 clear:both;
+}
+.rf-pg {
+	margin: auto;
+	text-align: left;
+	min-width: 750px;
+}
+.rf-pg-sb {
+	position: relative;
+}
+.rf-pg-bd {
+	position: static;
+}
+.rf-pg-m  {
+	width: 100%;
+}
+.rf-pg-cnt:after {
+	content: '.';
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.rf-pg-cnt {
+	zoom: 1;
+}

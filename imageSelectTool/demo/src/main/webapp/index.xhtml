@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:imageSelectTool="http://richfaces.org/sandbox/imageSelectTool"
+        >
+<h:head>
+    <title>ImageSelectTool sample</title>
+    <style type="text/css">
+        input.short {
+            width: 30px;
+        }
+    </style>
+</h:head>
+<h:body class="rich-container">
+    <ui:include src="menu.xhtml"/>
+
+    <p>
+
+    </p>
+    <rich:messages ajaxRendered="true"/>
+    <h:panelGrid columns="3">
+        <h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="srcImage" for="srcImage"/>
+                    <h:inputText value="#{cropper.srcImage}" id="srcImage"/>
+                    <h:outputLabel value="minWidth" for="minWidth"/>
+                    <h:inputText value="#{cropper.minWidth}" id="minWidth"/>
+                    <h:outputLabel value="minHeight" for="minHeight"/>
+                    <h:inputText value="#{cropper.minHeight}" id="minHeight"/>
+                    <h:outputLabel value="maxWidth" for="maxWidth"/>
+                    <h:inputText value="#{cropper.maxWidth}" id="maxWidth"/>
+                    <h:outputLabel value="maxHeight" for="maxHeight"/>
+                    <h:inputText value="#{cropper.maxHeight}" id="maxHeight"/>
+                    <h:outputLabel value="backgroundColor" for="backgroundColor"/>
+                    <h:inputText value="#{cropper.backgroundColor}" id="backgroundColor"/>
+                    <h:outputLabel value="backgroundOpacity" for="backgroundOpacity"/>
+                    <h:inputText value="#{cropper.backgroundOpacity}" id="backgroundOpacity"/>
+                    <h:outputLabel value="aspectRatio" for="aspectRatio"/>
+                    <h:inputText value="#{cropper.aspectRatio}" id="aspectRatio"/>
+                </h:panelGrid>
+                <h:commandButton value="Submit"/>
+            </h:form>
+
+            <div id="coords"/>
+            <input type="text" id="x" class="short"/>
+            <input type="text" id="y" class="short"/>
+            <input type="text" id="width" class="short"/>
+            <input type="text" id="height" class="short"/>
+            <input type="button" id="setSelection" value="Set selection"/>
+            <input type="button" id="animateTo" value="Animate to"/>
+
+            <h:form>
+
+            </h:form>
+        </h:panelGroup>
+
+
+        <h:graphicImage value="#{cropper.srcImage}" id="image"/>
+
+        <rich:panel id="result">
+            #{cropper.selection}
+        </rich:panel>
+    </h:panelGrid>
+    <script type="text/javascript">
+        function updateInputs(event) {
+            jQuery('#coords').html('selected:' + event.x + ';' + event.y + ';' + event.width + ';' + event.height);
+            jQuery('#x').val(event.x);
+            jQuery('#y').val(event.y);
+            jQuery('#width').val(event.width);
+            jQuery('#height').val(event.height);
+        }
+        jQuery('#setSelection').click(function() {
+            selector.setSelection(
+                    parseInt(jQuery('#x').val()),
+                    parseInt(jQuery('#y').val()),
+                    parseInt(jQuery('#width').val()),
+                    parseInt(jQuery('#height').val())
+            );
+        });
+        jQuery('#animateTo').click(function() {
+            selector.animateTo(
+                    parseInt(jQuery('#x').val()),
+                    parseInt(jQuery('#y').val()),
+                    parseInt(jQuery('#width').val()),
+                    parseInt(jQuery('#height').val())
+            );
+        });
+    </script>
+    <h:form>
+        <imageSelectTool:imageSelectTool id="selector"
+                                         target="image"
+                                         widgetVar="selector"
+                                         value="#{cropper.selection}"
+                                         aspectRatio="#{cropper.aspectRatio}"
+                                         backgroundColor="#{cropper.backgroundColor}"
+                                         backgroundOpacity="#{cropper.backgroundOpacity}"
+                                         maxHeight="#{cropper.maxHeight}"
+                                         maxWidth="#{cropper.maxWidth}"
+                                         minWidth="#{cropper.minWidth}"
+                                         minHeight="#{cropper.minHeight}"
+                                         onchange="updateInputs(event);"
+                                         onselect="updateInputs(event);reRenderResult()"/>
+        <a4j:jsFunction name="reRenderResult" execute="@form" render="result"/>
+        <a4j:commandButton value="ReRender image" render="image"/>
+        <a4j:commandButton value="ReRender imageSelectTool" render="selector"/>
+        <a4j:commandButton value="ReRender both" render="selector,image"/>
+    </h:form>
+    <!--<rich:insert src="/index.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>-->
+
+</h:body>
+</html>

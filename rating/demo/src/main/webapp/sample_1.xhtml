@@ -1,0 +1,83 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rating="http://richfaces.org/sandbox/rating" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Rating sample</title>
+
+</h:head>
+<h:body class="rich-container">
+
+    <rich:notifyMessages/>
+
+    <ui:include src="menu.xhtml"/>
+
+    <h:form>
+        <script type="text/javascript">
+            function doit(value) {
+                RichFaces.ui.Notify({summary:value});
+            }
+        </script>
+        <h:panelGrid columns="1">
+            <rating:rating value="#{ratingBean.intValue}" cancelLabel="Anuluj" style="color:red" itemStyleClass="millo"
+                           styleClass="gienia">
+                <f:selectItem itemValue="1"/>
+                <f:selectItem itemValue="2"/>
+                <f:selectItem itemValue="3"/>
+                <f:selectItem itemValue="4"/>
+            </rating:rating>
+
+            <rating:rating value="#{ratingBean.stringValue}" onfocus="doit(event)">
+                <f:selectItems value="#{ratingBean.values}" var="str" itemValue="#{str}"/>
+                <a4j:ajax render="out"/>
+            </rating:rating>
+
+
+            <rating:rating value="#{ratingBean.intValue}" split="2"
+                           onclick="RichFaces.ui.Notify({summary:'Value changed'})">
+                <f:selectItem itemValue="1"/>
+                <f:selectItem itemValue="2"/>
+                <f:selectItem itemValue="3"/>
+                <f:selectItem itemValue="4"/>
+                <f:selectItem itemValue="5"/>
+                <f:selectItem itemValue="6"/>
+                <f:selectItem itemValue="7"/>
+                <f:selectItem itemValue="8"/>
+            </rating:rating>
+        </h:panelGrid>
+        <h:commandButton value="Submit"/>
+    </h:form>
+
+    <h:panelGrid columns="2" id="out">
+        <h:outputText value="Selected int:"/>
+        #{ratingBean.intValue}
+        <h:outputText value="Selected string:"/>
+        #{ratingBean.stringValue}
+    </h:panelGrid>
+
+</h:body>
+</html>

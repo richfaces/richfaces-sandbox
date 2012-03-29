@@ -1,0 +1,18 @@
+.rf-cp {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+}
+
+.rf-cp .rf-cp-h {
+    z-index: 5;
+    position: relative;
+    top: 1em; /**this must equal to .rf-cp@height*/
+    background-color: #fff;
+    border: 1px solid #AAAAAA;
+    display: inline-block;
+}
+
+.rf-cp .rf-cp-i {
+    display: none;
+}

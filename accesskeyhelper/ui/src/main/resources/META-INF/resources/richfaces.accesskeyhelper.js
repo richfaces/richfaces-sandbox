@@ -11,14 +11,14 @@
         // class name
         name:"AccessKeyHelper",
         init: function (componentId, options) {
-            options = $.extend({shortcutKeyCode:9}, options);
+            options = $.extend({highlightClass:'rf-ak-h',popupClass:'rf-ak-p',accessKeyTagClass:'rf-ak-u'}, options);
             // call constructor of parent class if needed
             $super.constructor.call(this, componentId);
             // attach component object to DOM element for
             // future cleaning and for client side API calls
             this.attachToDom(this.id);
             // ...
-            $.accesskeyHelper(options);
+            $.keyTips(options);
         },
         // private functions definition
         // destructor definition

@@ -1,0 +1,180 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:dynamic-panels="http://richfaces.org/sandbox/dynamic-panels" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>DynamicTabPanel sample</title>
+</h:head>
+<h:body class="rich-container">
+    <!--<style type="text/css">-->
+
+    <!--</style>-->
+    <!--<ui:include src="menu.xhtml"/>-->
+
+    <!--<h:form>-->
+        <!--<h:panelGrid columns="3">-->
+            <!--<h:outputLabel value="Name" for="name"/>-->
+            <!--<h:inputText id="name" value="#{dynamicTabPanelBean.newPerson.name}" required="true"/>-->
+            <!--<h:message for="name"/>-->
+            <!--<h:outputLabel value="Birth date" for="birthDate"/>-->
+            <!--<h:inputText id="birthDate" value="#{dynamicTabPanelBean.newPerson.birthDate}" required="true">-->
+                <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+            <!--</h:inputText>-->
+            <!--<h:message for="birthDate"/>-->
+            <!--<h:outputText/>-->
+            <!--<h:commandButton value="Add person" action="#{dynamicTabPanelBean.addPerson}"/>-->
+            <!--<h:commandButton value="Remove first lady" action="#{dynamicTabPanelBean.removeFirstLady}" immediate="true"/>-->
+        <!--</h:panelGrid>-->
+    <!--</h:form>-->
+
+    <h:form>
+        <h1>Dynamic tab panel in ajax mode</h1>
+        <dynamic-panels:tabPanel switchType="ajax" value="#{dynamicTabPanelBean.ladies}" var="person" rowKeyVar="index">
+            <dynamic-panels:tab id="tab#{index}" name="#{person.name}">
+                #{person.name}
+                <h:inputText value="#{person.birthDate}">
+                    <f:convertDateTime pattern="yyyy-mm-dd"/>
+                </h:inputText>
+            </dynamic-panels:tab>
+        </dynamic-panels:tabPanel>
+    </h:form>
+
+    <!--<h:form>-->
+        <!--<h1>Dynamic tab panel in client mode</h1>-->
+        <!--<dynamic-panels:tabPanel switchType="client" value="#{dynamicTabPanelBean.ladies}" var="person" rowKeyVar="index">-->
+            <!--<dynamic-panels:tab id="tab#{index}" name="#{person.name}">-->
+                <!--#{person.name}-->
+                <!--<h:inputText value="#{person.birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:tab>-->
+        <!--</dynamic-panels:tabPanel>-->
+        <!--<h:commandButton/>-->
+    <!--</h:form>-->
+
+    <!--<h:form>-->
+        <!--<h1>Static tab panel</h1>-->
+        <!--<dynamic-panels:tabPanel switchType="ajax">-->
+            <!--<dynamic-panels:tab id="tab0" name="#{dynamicTabPanelBean.ladies[0].name}">-->
+                <!--#{dynamicTabPanelBean.ladies[0].name}-->
+                <!--<h:inputText id="bd0" value="#{dynamicTabPanelBean.ladies[0].birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:tab>-->
+            <!--<dynamic-panels:tab id="tab1" name="#{dynamicTabPanelBean.ladies[1].name}">-->
+                <!--#{dynamicTabPanelBean.ladies[1].name}-->
+                <!--<h:inputText id="bd1" value="#{dynamicTabPanelBean.ladies[1].birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:tab>-->
+        <!--</dynamic-panels:tabPanel>-->
+    <!--</h:form>-->
+
+    <!--<h:form>-->
+        <!--<h1>Dynamic accordion</h1>-->
+        <!--<dynamic-panels:accordion switchType="ajax" value="#{dynamicTabPanelBean.ladies}" var="person" rowKeyVar="index">-->
+            <!--<dynamic-panels:accordionItem id="tab#{index}" name="#{person.name}">-->
+                <!--<f:facet name="header">##{index}: #{person.name}</f:facet>-->
+                <!--#{person.name}-->
+                <!--<h:inputText value="#{person.birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:accordionItem>-->
+        <!--</dynamic-panels:accordion>-->
+    <!--</h:form>-->
+
+    <!--<h:form>-->
+        <!--<h1>Static accordion</h1>-->
+        <!--<dynamic-panels:accordion activeItem="Margaret Tatcher" switchType="server">-->
+            <!--<dynamic-panels:accordionItem id="tab0" name="#{dynamicTabPanelBean.ladies[0].name}">-->
+                <!--#{dynamicTabPanelBean.ladies[0].name}-->
+                <!--<h:inputText id="bd0" value="#{dynamicTabPanelBean.ladies[0].birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:accordionItem>-->
+            <!--<dynamic-panels:accordionItem id="tab1" name="#{dynamicTabPanelBean.ladies[1].name}">-->
+                <!--#{dynamicTabPanelBean.ladies[1].name}-->
+                <!--<h:inputText id="bd1" value="#{dynamicTabPanelBean.ladies[1].birthDate}">-->
+                    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+                <!--</h:inputText>-->
+            <!--</dynamic-panels:accordionItem>-->
+        <!--</dynamic-panels:accordion>-->
+    <!--</h:form>-->
+
+
+    <!-- ******************************************************************************************** -->
+
+    <!--<dynamic-panels:collapsiblePanel activeItem="Margaret Tatcher" switchType="client" value="#{dynamicTabPanelBean.ladies}" var="person"-->
+    <!--rowKeyVar="index">-->
+    <!--<f:facet name="headerCollapsed">Collapsed</f:facet>-->
+    <!--<f:facet name="headerExpanded">Expanded</f:facet>-->
+    <!--#{dynamicTabPanelBean.ladies[0].name}-->
+    <!--<h:inputText value="#{dynamicTabPanelBean.ladies[0].birthDate}">-->
+    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+    <!--</h:inputText>-->
+    <!--</dynamic-panels:collapsiblePanel>-->
+
+    <!--<dynamic-panels:togglePanel id="togP" activeItem="Margaret Tatcher" switchType="client" value="#{dynamicTabPanelBean.ladies}" var="person" rowKeyVar="index">-->
+    <!--<dynamic-panels:togglePanelItem name="#{person.name}">-->
+    <!--#{person.name}-->
+    <!--<h:inputText value="#{person.birthDate}">-->
+    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+    <!--</h:inputText>-->
+    <!--</dynamic-panels:togglePanelItem>-->
+    <!--<h:outputLink value="Margaret"> Margaret-->
+    <!--<dynamic-panels:toggleControl targetPanel="togP" targetItem="Margaret Tatcher" event="click"/>-->
+    <!--</h:outputLink>-->
+    <!--<h:outputLink value="Ayn"> Ayn-->
+    <!--<dynamic-panels:toggleControl targetPanel="togP" targetItem="Ayn Rand" event="click"/>-->
+    <!--</h:outputLink>-->
+    <!--</dynamic-panels:togglePanel>-->
+
+    <!--<dynamic-panels:togglePanel activeItem="Margaret Tatcher" switchType="client" value="#{dynamicTabPanelBean.ladies}" var="person" rowKeyVar="index">-->
+    <!--</dynamic-panels:togglePanel>-->
+    <!--<rich:tabPanel activeItem="Margaret Tatcher" switchType="client">-->
+    <!--<rich:tab id="tab0" name="Margaret Tatcher">-->
+    <!--Margaret Tatcher-->
+    <!--<h:inputText value="#{dynamicTabPanelBean.ladies[0].birthDate}">-->
+    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+    <!--</h:inputText>-->
+    <!--</rich:tab>-->
+    <!--<rich:tab id="tab1" name="Ayn Rand">-->
+    <!--Ayn Rand-->
+    <!--<h:inputText value="#{dynamicTabPanelBean.ladies[1].birthDate}">-->
+    <!--<f:convertDateTime pattern="yyyy-mm-dd"/>-->
+    <!--</h:inputText>-->
+    <!--</rich:tab>-->
+    <!--</rich:tabPanel>-->
+
+
+<!--<dynamictabpanel:dynamicTabPanel activeItem="wacek" switchType="client" tabs="#{dynamicTabPanelBean.ladies}" var="person">-->
+<!--<rich:tab name="wacek">-->
+<!--#{person.name}-->
+<!--</rich:tab>-->
+<!--</dynamictabpanel:dynamicTabPanel>-->
+
+</h:body></html>

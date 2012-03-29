@@ -22,13 +22,17 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.AccessKeyHelperRenderer;
 
 import javax.faces.component.UIComponentBase;
 
 @JsfComponent(tag = @Tag(name = "accesskeyhelper", type = TagType.Facelets),
-        renderer = @JsfRenderer(family = AbstractAccessKeyHelper.COMPONENT_FAMILY, type = AccessKeyHelperRenderer.RENDERER_TYPE))
+    renderer = @JsfRenderer(family = AbstractAccessKeyHelper.COMPONENT_FAMILY, type = AccessKeyHelperRenderer.RENDERER_TYPE))
 public abstract class AbstractAccessKeyHelper extends UIComponentBase {
 // ------------------------------ FIELDS ------------------------------
 
@@ -38,12 +42,6 @@ public abstract class AbstractAccessKeyHelper extends UIComponentBase {
 
 // -------------------------- OTHER METHODS --------------------------
 
-    @Attribute
-    public abstract Integer getShortcutKeyCode();
-
-    @Attribute
-    public abstract Long getTimeout();
-
-    @Attribute(defaultValue = "true")
-    public abstract boolean isHideOnAnyKey();
+    @Attribute(suggestedValue = "toggleClass")
+    public abstract String getHighlightMode();
 }

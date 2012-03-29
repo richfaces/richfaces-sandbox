@@ -1,0 +1,170 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright , Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:syntaxhighlighter="http://richfaces.org/sandbox/syntaxhighlighter" xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j" xmlns:outputfile="http://richfaces.org/sandbox/outputfile">
+<h:head>
+    <title>SyntaxHighlighter sample</title>
+
+</h:head>
+<h:body class="rich-container">
+
+    <rich:notifyMessages/>
+
+    <ui:include src="menu.xhtml"/>
+
+    <h:form>
+        <a4j:queue requestDelay="500"/>
+
+        <p>
+            If you select "collapsed" then also select "toolbar". </p>
+
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Collapsed" for="collapsed"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.collapsed}" id="collapsed">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="Gutter" for="gutter"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.gutter}" id="gutter">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="AutoLinks" for="autoLinks"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.autoLinks}" id="autoLinks">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="HtmlScript" for="htmlScript"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.htmlScript}" id="htmlScript">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="SmartTabs" for="smartTabs"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.smartTabs}" id="smartTabs">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="StripBrs" for="stripBrs"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.stripBrs}" id="stripBrs">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="Toolbar" for="toolbar"/>
+            <h:selectBooleanCheckbox value="#{syntaxHighlighterBean.toolbar}" id="toolbar">
+                <a4j:ajax render="preview"/>
+            </h:selectBooleanCheckbox>
+
+            <h:outputLabel value="FirstLine" for="firstLine"/>
+            <h:inputText value="#{syntaxHighlighterBean.firstLine}" id="firstLine">
+                <a4j:ajax render="preview"/>
+            </h:inputText>
+
+            <h:outputLabel value="Highlight" for="highlight"/>
+            <h:inputText value="#{syntaxHighlighterBean.highlight}" id="highlight">
+                <a4j:ajax render="preview"/>
+            </h:inputText>
+
+            <h:outputLabel value="TabSize" for="tabSize"/>
+            <h:inputText value="#{syntaxHighlighterBean.tabSize}" id="tabSize">
+                <a4j:ajax render="preview"/>
+            </h:inputText>
+
+
+            <h:outputLabel value="Theme (non-ajax)" for="theme"/>
+            <h:selectOneListbox value="#{syntaxHighlighterBean.theme}" id="theme" layout="pageDirection" size="1">
+                <f:selectItem itemValue="default" itemLabel="Default"/>
+                <f:selectItem itemValue="django" itemLabel="DJango"/>
+                <f:selectItem itemValue="eclipse" itemLabel="Eclipse"/>
+                <f:selectItem itemValue="emacs" itemLabel="Emacs"/>
+                <f:selectItem itemValue="fadeToGrey" itemLabel="fadeToGrey"/>
+                <f:selectItem itemValue="mdultra" itemLabel="MDUltra"/>
+                <f:selectItem itemValue="midnight" itemLabel="Midnight"/>
+                <f:selectItem itemValue="rdark" itemLabel="RDark"/>
+            </h:selectOneListbox>
+
+            <h:outputLabel value="Language (non-ajax)" for="language"/>
+            <h:selectOneListbox value="#{syntaxHighlighterBean.language}" id="language" layout="pageDirection" size="1">
+                <f:selectItem itemValue="applescript" itemLabel="applescript"/>
+                <f:selectItem itemValue="as3" itemLabel="as3"/>
+                <f:selectItem itemValue="bash" itemLabel="bash"/>
+                <f:selectItem itemValue="cpp" itemLabel="cpp"/>
+                <f:selectItem itemValue="csharp" itemLabel="csharp"/>
+                <f:selectItem itemValue="css" itemLabel="css"/>
+                <f:selectItem itemValue="delphi" itemLabel="delphi"/>
+                <f:selectItem itemValue="diff" itemLabel="diff"/>
+                <f:selectItem itemValue="erlang" itemLabel="erlang"/>
+                <f:selectItem itemValue="groovy" itemLabel="groovy"/>
+                <f:selectItem itemValue="java" itemLabel="java"/>
+                <f:selectItem itemValue="javafx" itemLabel="javafx"/>
+                <f:selectItem itemValue="jscript" itemLabel="jscript"/>
+                <f:selectItem itemValue="perl" itemLabel="perl"/>
+                <f:selectItem itemValue="php" itemLabel="php"/>
+                <f:selectItem itemValue="plain" itemLabel="plain"/>
+                <f:selectItem itemValue="powershell" itemLabel="powershell"/>
+                <f:selectItem itemValue="python" itemLabel="python"/>
+                <f:selectItem itemValue="ruby" itemLabel="ruby"/>
+                <f:selectItem itemValue="sass" itemLabel="sass"/>
+                <f:selectItem itemValue="scala" itemLabel="scala"/>
+                <f:selectItem itemValue="sql" itemLabel="sql"/>
+                <f:selectItem itemValue="vb" itemLabel="vb"/>
+                <f:selectItem itemValue="xml" itemLabel="xml"/>
+            </h:selectOneListbox>
+
+
+        </h:panelGrid>
+
+        <syntaxhighlighter:syntaxhighlighter id="preview" language="#{syntaxHighlighterBean.language}"
+                                             theme="#{syntaxHighlighterBean.theme}"
+                                             styleClass="niceCode" collapsed="#{syntaxHighlighterBean.collapsed}"
+                                             gutter="#{syntaxHighlighterBean.gutter}"
+                                             autoLinks="#{syntaxHighlighterBean.autoLinks}"
+                                             firstLine="#{syntaxHighlighterBean.firstLine}"
+                                             highlight="#{syntaxHighlighterBean.highlight}"
+                                             htmlScript="#{syntaxHighlighterBean.htmlScript}"
+                                             smartTabs="#{syntaxHighlighterBean.smartTabs}"
+                                             stripBrs="#{syntaxHighlighterBean.stripBrs}"
+                                             tabSize="#{syntaxHighlighterBean.tabSize}"
+                                             toolbar="#{syntaxHighlighterBean.toolbar}">
+            <h:outputText value="#{syntaxHighlighterBean.code}"/>
+        </syntaxhighlighter:syntaxhighlighter>
+
+        <h:inputTextarea value="#{syntaxHighlighterBean.code}" cols="40" rows="20">
+            <a4j:ajax render="preview" event="keyup"/>
+        </h:inputTextarea>
+
+
+        <h:commandButton value="Submit"/>
+
+    </h:form>
+
+    <syntaxhighlighter:syntaxhighlighter language="xml" collapsed="true">
+        <outputfile:outputFile value="/sample_1.xhtml"/>
+    </syntaxhighlighter:syntaxhighlighter>
+
+</h:body>
+</html>

@@ -26,7 +26,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:accesskeyhelper="http://richfaces.org/sandbox/accesskeyhelper">
 <h:head>
-    <title>Carousel sample</title>
+    <title>AccessKeyHelper sample</title>
 </h:head>
 <h:body class="rich-container">
     <style type="text/css">
@@ -35,14 +35,14 @@
             color: blue;
             text-shadow: 0 3px 3px #AAAAAA;
         }
+
+        body {
+            padding: 0 10ex;
+        }
     </style>
     <ui:include src="menu.xhtml"/>
 
-    <p>
-        Press TAB to see accesskey hints. </p>
-
-    <accesskeyhelper:accesskeyhelper hideOnAnyKey="true" timeout="2000"/>
-
+    <accesskeyhelper:accesskeyhelper/>
 
     <div>
         <label for="name">Name:</label>

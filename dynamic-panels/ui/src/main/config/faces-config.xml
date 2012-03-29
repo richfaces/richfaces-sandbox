@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
+    version="2.0">
+
+    <faces-config-extension>
+        <cdk:faces-event>
+            <cdk:event-class>org.richfaces.event.ItemChangeEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.event.ItemChangeListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.event.ItemChangeSource</cdk:source-class>
+            <cdk:tag>
+                <cdk:tag-name>itemChangeListener</cdk:tag-name>
+                <cdk:tag-type>Facelets</cdk:tag-type>
+                <cdk:handler-class>org.richfaces.sandbox.view.facelets.html.ItemChangeListenerHandler</cdk:handler-class>
+                <cdk:generate>false</cdk:generate>
+            </cdk:tag>
+        </cdk:faces-event>
+
+        <cdk:faces-event>
+            <cdk:event-class>org.richfaces.event.PanelToggleEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.event.PanelToggleListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.event.PanelToggleSource</cdk:source-class>
+            <cdk:tag>
+                <cdk:tag-name>panelToggleListener</cdk:tag-name>
+                <cdk:tag-type>Facelets</cdk:tag-type>
+                <cdk:handler-class>org.richfaces.sandbox.view.facelets.html.PanelToggleListenerHandler</cdk:handler-class>
+                <cdk:generate>false</cdk:generate>
+            </cdk:tag>
+        </cdk:faces-event>
+    </faces-config-extension>
+
+</faces-config>

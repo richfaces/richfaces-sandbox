@@ -40,10 +40,17 @@
     <modules>
         <module>accesskeyhelper</module>
         <module>carousel</module>
-        <module>contextmenu</module>
+        <module>colorpicker</module>
         <module>dashboard</module>
+        <module>dynamic-panels</module>
+        <module>focus</module>
+        <module>imageSelectTool</module>
+        <module>layout</module>
         <module>lightbox</module>
+        <module>outputFile</module>
+        <module>rating</module>
         <module>schedule</module>
+        <module>syntaxhighlighter</module>
         <module>visualsearch</module>
         <module>watermark</module>
     </modules>
