@@ -39,23 +39,5 @@
         <module>ui</module>
         <module>demo</module>
     </modules>
-
-    <distributionManagement>
-        <repository>
-            <id>it-crowd.com.pl</id>
-            <name>IT Crowd company Internal Repository</name>
-            <url>http://artifactory.it-crowd.com.pl/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>it-crowd.com.pl</id>
-            <name>IT Crowd company Repository</name>
-            <url>http://artifactory.it-crowd.com.pl/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <scm>
-        <connection>scm:git:https://blabno@github.com/blabno/sandbox.git</connection>
-        <developerConnection>scm:git:https://blabno@github.com/blabno/sandbox.git</developerConnection>
-        <url>https://github.com/blabno/sandbox</url>
-    </scm>
+    
 </project>
