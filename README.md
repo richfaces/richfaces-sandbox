@@ -10,10 +10,16 @@ Prerequsities
 Building Sandbox Components
 ---------------------------
 
+You can build all the components modules using Maven:
+
     mvn clean install
 
 
 Building Sandbox Showcase
 -------------------------
 
+You can build Showcase and all components with following command:
+
     mvn clean install -Pshowcase
+
+Once built, Showcase is available at `showcase-sandbox/target/showcase.war`.
