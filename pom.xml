@@ -54,4 +54,14 @@
         <module>visualsearch</module>
         <module>watermark</module>
     </modules>
+    
+    <profiles>
+        <profile>
+            <id>showcase</id>
+            <modules>
+                <module>dist</module>
+                <module>showcase-sandbox</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
