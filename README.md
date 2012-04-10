@@ -1,10 +1,11 @@
 RichFaces Sandbox
 =================
 
-Setup / Prerequsities
+Prerequsities
 -------------
 
-* [JBoss Maven Repository](https://community.jboss.org/wiki/MavenGettingStarted-Developers)
+* Maven 3.0.3+
+* settings for [JBoss Maven Repository](https://community.jboss.org/wiki/MavenGettingStarted-Developers)
 
 Building Sandbox Components
 ---------------------------
