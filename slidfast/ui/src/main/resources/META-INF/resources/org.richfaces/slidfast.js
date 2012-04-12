@@ -55,7 +55,11 @@
                     try{
                         defaultPageID = options.defaultPageID;
                         if(options.callback){
-                            callback = window[options.callback];
+                            if (typeof options.callback === "function") {
+                                callback = options.callback;
+                            } else {
+                                callback = window[options.callback];
+                            }
                         }
                         backButtonID = options.backButtonID;
                     }catch(e){

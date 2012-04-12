@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.slidfast.renderkit.PageChangerRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.slidfast.renderkit.PageChangerRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.slidfast.PageChangerRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}" style="display: none;">
+            <script type="text/javascript">
+                new RichFaces.ui.PageChanger("#{clientId}", {});
+            </script>
+        </span>
+    </cc:implementation>
+</cdk:root>

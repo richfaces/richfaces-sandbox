@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:slidfast="http://richfaces.org/slidfast">
+<h:head>
+    <title>Java EE 6 Starter Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+</h:head>
+<h:body>
+    <div id="container">
+        <div id="inner">
+            <div id="content">
+                <ui:insert name="content">
+                    <h:outputStylesheet name="app.css" library="css"/>
+                    <h:outputStylesheet name="mobile.css" library="css"/>
+
+                    <div id="browser">
+                        <header>
+                            <div>
+                                <div id="back-button" class="hide-button">Home</div>
+                                <div id="info-button" class="right-header-button info-link">
+                                    <a href="#about">i</a>
+                                </div>
+                                <p>Richfaces Mobile</p>
+                            </div>
+                        </header>
+                        <h:form id="mobileForm">
+                            <slidfast:pageChanger id="pageChanger" activePage="#{pageBean.location}" render="pages" />
+
+                            <h:panelGroup id="pages">
+
+                            <div id="page-container">
+                                <div id="home-page" class="page stage-left">
+                                    <ui:include src="/mobile/home.xhtml"/>
+                                </div>
+                                <div id="app-page" class="page stage-right">
+                                    <ui:include src="#{pageBean.page}"/>
+                                </div>
+                            </div>
+
+                            </h:panelGroup>
+                        </h:form>
+                    </div>
+                    <h:outputStylesheet library="org.richfaces" name="rf-mobile-skin.css" />
+
+                </ui:insert>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>
