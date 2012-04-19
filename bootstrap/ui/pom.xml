@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-        <artifactId>componentName-parent</artifactId>
+        <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+        <artifactId>bootstrap-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>componentName-ui</artifactId>
-    <name>Richfaces UI Sandbox Components: componentName ui</name>
+    <artifactId>bootstrap-ui</artifactId>
+    <name>Richfaces UI Sandbox Components: bootstrap ui</name>
 
     <dependencies>
         <dependency>

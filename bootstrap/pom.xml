@@ -31,10 +31,10 @@
         <version>4.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-    <artifactId>componentName-parent</artifactId>
+    <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+    <artifactId>bootstrap-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Sandbox Components: componentName parent</name>
+    <name>Richfaces UI Sandbox Components: bootstrap parent</name>
 
     <modules>
         <module>ui</module>

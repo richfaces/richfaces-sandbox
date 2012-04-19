@@ -19,13 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component;
+package org.richfaces.bootstrap.component;
 
+import org.richfaces.bootstrap.renderkit.HeroUnitRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.renderkit.ComponentNameRendererBase;
 
 import javax.faces.component.UIComponentBase;
 
@@ -33,17 +33,21 @@ import javax.faces.component.UIComponentBase;
  * Base class for the component.
  */
 @JsfComponent(
-        type = ComponentName.COMPONENT_FAMILY,
-        family = ComponentName.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ComponentNameRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="componentName"))
-public abstract class ComponentName extends UIComponentBase {
-    public static final String COMPONENT_FAMILY = "org.richfaces.ComponentNameFamily";
-    public static final String COMPONENT_TYPE = "org.richfaces.ComponentName";
-
-    private String attr;
+        type = HeroUnit.COMPONENT_TYPE,
+        family = HeroUnit.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = HeroUnitRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="heroUnit"))
+public abstract class HeroUnit extends UIComponentBase {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Typography";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.HeroUnit";
 
     @Attribute
-    abstract public String getAttr();
+    abstract public String getHeading();
+
+    @Attribute
+    abstract public String getTagline();
+
+    @Attribute
+    abstract public String getStyleClass();
 
 }
