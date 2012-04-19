@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "com.jqueryui/css/ui-lightness", name = "jquery-ui-1.8.16.custom.css"),
+        @ResourceDependency(library = "com.jqueryui/css/ui-lightness", name = "jquery-ui.custom.css"),
         @ResourceDependency(library = "com.jqueryui/development-bundle/ui", name = "jquery.ui.core.js"),
         @ResourceDependency(library = "com.jqueryui/development-bundle/ui", name = "jquery.ui.widget.js"),
         @ResourceDependency(library = "com.jqueryui/development-bundle/ui", name = "jquery.ui.tabs.js")})

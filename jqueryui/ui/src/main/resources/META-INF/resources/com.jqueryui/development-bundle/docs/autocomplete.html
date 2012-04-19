@@ -21,8 +21,14 @@
 <li>a String, specifying a URL</li>
 <li>a Callback</li>
 </ul>
-<p>The local data can be a simple Array of Strings, or it contains Objects for each item in the array, with either a label or value property or both. The label property is displayed in the suggestion menu. The value will be inserted into the input element after the user selected something from the menu. If just one property is specified, it will be used for both, eg. if you provide only value-properties, the value will also be used as the label.</p>
-<p>When a String is used, the Autocomplete plugin expects that string to point to a URL resource that will return JSON data. It can be on the same host or on a different one (must provide JSONP). The request parameter "term" gets added to that URL. The data itself can be in the same format as the local data described above.</p>
+<p><b>Expected data format</b></p>
+<p>The data from local data, a url or a callback can come in two variants:</p>
+<ul>
+<li>An Array of Strings:<br /><code>[ "Choice1", "Choice2" ]</code></li>
+<li>An Array of Objects with label and value properties:<br /><code>[ { label: "Choice1", value: "value1" }, ... ]</code></li>
+</ul>
+<p>The label property is displayed in the suggestion menu. The value will be inserted into the input element after the user selected something from the menu. If just one property is specified, it will be used for both, eg. if you provide only value-properties, the value will also be used as the label.</p>
+<p>When a String is used, the Autocomplete plugin expects that string to point to a URL resource that will return JSON data. It can be on the same host or on a different one (must provide JSONP). The Autocomplete plugin does not filter the results, instead the request parameter "term" gets added to the URL, which the server-side script should use for filtering the results. The data itself can be in the same format as the local data described above.</p>
 <p>The third variation, the callback, provides the most flexibility, and can be used to connect any data source to Autocomplete. The callback gets two arguments:</p>
 <ul>
 <li>A request object, with a single property called "term", which refers to the value currently in the text input. For example, when the user entered "new yo" in a city field, the Autocomplete term will equal "new yo".</li>
@@ -346,8 +352,7 @@ $( ".selector" ).autocomplete( "option", "position", { my : &quot;right top&quot
     </dl>
   </div>
   <div class="option-description">
-    <p>Defines the data to use, must be specified. See Overview section for more details, and look at the various demos.
-</p>
+    <p>Defines the data to use, must be specified. See Overview section for more details, and look at the various demos.</p>
   </div>
   <div class="option-examples">
     <h4>Code examples</h4>
@@ -867,9 +872,9 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
 
 </p><!-- 
 Pre-expand include size: 35982 bytes
-Post-expand include size: 61393 bytes
-Template argument size: 33841 bytes
+Post-expand include size: 61699 bytes
+Template argument size: 34147 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20110815133304 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20120416184232 -->

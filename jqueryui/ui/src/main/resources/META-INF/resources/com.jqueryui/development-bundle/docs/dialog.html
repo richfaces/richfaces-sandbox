@@ -296,7 +296,7 @@ $( ".selector" ).dialog( "option", "closeOnEscape", false );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'close'</dd>
+        <dd class="option-default">&quot;close&quot;</dd>
       
     </dl>
   </div>
@@ -338,7 +338,7 @@ $( ".selector" ).dialog( "option", "closeText", 'hide' );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">''</dd>
+        <dd class="option-default">&quot;&quot;</dd>
       
     </dl>
   </div>
@@ -353,7 +353,7 @@ $( ".selector" ).dialog( "option", "closeText", 'hide' );</code></pre>
   Initialize a dialog with the <code>dialogClass</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).dialog({ dialogClass: 'alert' });</code></pre>
+<pre><code>$( ".selector" ).dialog({ dialogClass: "alert" });</code></pre>
 </dd>
 
     
@@ -364,7 +364,7 @@ $( ".selector" ).dialog( "option", "closeText", 'hide' );</code></pre>
 <pre><code>//getter
 var dialogClass = $( ".selector" ).dialog( "option", "dialogClass" );
 //setter
-$( ".selector" ).dialog( "option", "dialogClass", 'alert' );</code></pre>
+$( ".selector" ).dialog( "option", "dialogClass", "alert" );</code></pre>
 </dd>
 
     </dl>
@@ -422,7 +422,7 @@ $( ".selector" ).dialog( "option", "draggable", false );</code></pre>
         <dd class="option-type">Number</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'auto'</dd>
+        <dd class="option-default">"auto"</dd>
       
     </dl>
   </div>
@@ -461,7 +461,7 @@ $( ".selector" ).dialog( "option", "height", 530 );</code></pre>
     <h3 class="option-name"><a href="#option-hide">hide</a></h3>
     <dl>
       <dt class="option-type-label">Type:</dt>
-        <dd class="option-type">String, Object</dd>
+        <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
         <dd class="option-default">null</dd>
@@ -479,7 +479,7 @@ $( ".selector" ).dialog( "option", "height", 530 );</code></pre>
   Initialize a dialog with the <code>hide</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).dialog({ hide: 'slide' });</code></pre>
+<pre><code>$( ".selector" ).dialog({ hide: "slide" });</code></pre>
 </dd>
 
     
@@ -490,7 +490,49 @@ $( ".selector" ).dialog( "option", "height", 530 );</code></pre>
 <pre><code>//getter
 var hide = $( ".selector" ).dialog( "option", "hide" );
 //setter
-$( ".selector" ).dialog( "option", "hide", 'slide' );</code></pre>
+$( ".selector" ).dialog( "option", "hide", "slide" );</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
+<li class="option" id="option-hide">
+  <div class="option-header">
+    <h3 class="option-name"><a href="#option-hide">hide</a></h3>
+    <dl>
+      <dt class="option-type-label">Type:</dt>
+        <dd class="option-type">Object</dd>
+      
+      <dt class="option-default-label">Default:</dt>
+        <dd class="option-default">null</dd>
+      
+    </dl>
+  </div>
+  <div class="option-description">
+    <p>The effect to be used when the dialog is closed.</p>
+  </div>
+  <div class="option-examples">
+    <h4>Code examples</h4>
+    <dl class="option-examples-list">
+    
+<dt>
+  Initialize a dialog with the <code>hide</code> option specified.
+</dt>
+<dd>
+<pre><code>$( ".selector" ).dialog({ hide: { effect: 'drop', direction: "down" } });</code></pre>
+</dd>
+
+    
+<dt>
+  Get or set the <code>hide</code> option, after init.
+</dt>
+<dd>
+<pre><code>//getter
+var hide = $( ".selector" ).dialog( "option", "hide" );
+//setter
+$( ".selector" ).dialog( "option", "hide", { effect: 'drop', direction: "down" } );</code></pre>
 </dd>
 
     </dl>
@@ -716,7 +758,7 @@ $( ".selector" ).dialog( "option", "modal", true );</code></pre>
         <dd class="option-type">String, Array</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'center'</dd>
+        <dd class="option-default">"center"</dd>
       
     </dl>
   </div>
@@ -731,7 +773,7 @@ $( ".selector" ).dialog( "option", "modal", true );</code></pre>
   Initialize a dialog with the <code>position</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).dialog({ position: 'top' });</code></pre>
+<pre><code>$( ".selector" ).dialog({ position: "top" });</code></pre>
 </dd>
 
     
@@ -742,7 +784,7 @@ $( ".selector" ).dialog( "option", "modal", true );</code></pre>
 <pre><code>//getter
 var position = $( ".selector" ).dialog( "option", "position" );
 //setter
-$( ".selector" ).dialog( "option", "position", 'top' );</code></pre>
+$( ".selector" ).dialog( "option", "position", "top" );</code></pre>
 </dd>
 
     </dl>
@@ -763,7 +805,7 @@ $( ".selector" ).dialog( "option", "position", 'top' );</code></pre>
     </dl>
   </div>
   <div class="option-description">
-    <p>If set to true, the dialog will be resizeable.</p>
+    <p>If set to true, the dialog will be resizable.</p>
   </div>
   <div class="option-examples">
     <h4>Code examples</h4>
@@ -797,7 +839,7 @@ $( ".selector" ).dialog( "option", "resizable", false );</code></pre>
     <h3 class="option-name"><a href="#option-show">show</a></h3>
     <dl>
       <dt class="option-type-label">Type:</dt>
-        <dd class="option-type">String, Object</dd>
+        <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
         <dd class="option-default">null</dd>
@@ -815,7 +857,7 @@ $( ".selector" ).dialog( "option", "resizable", false );</code></pre>
   Initialize a dialog with the <code>show</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).dialog({ show: 'slide' });</code></pre>
+<pre><code>$( ".selector" ).dialog({ show: "slide" });</code></pre>
 </dd>
 
     
@@ -826,7 +868,49 @@ $( ".selector" ).dialog( "option", "resizable", false );</code></pre>
 <pre><code>//getter
 var show = $( ".selector" ).dialog( "option", "show" );
 //setter
-$( ".selector" ).dialog( "option", "show", 'slide' );</code></pre>
+$( ".selector" ).dialog( "option", "show", "slide" );</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
+<li class="option" id="option-show">
+  <div class="option-header">
+    <h3 class="option-name"><a href="#option-show">show</a></h3>
+    <dl>
+      <dt class="option-type-label">Type:</dt>
+        <dd class="option-type">Object</dd>
+      
+      <dt class="option-default-label">Default:</dt>
+        <dd class="option-default">null</dd>
+      
+    </dl>
+  </div>
+  <div class="option-description">
+    <p>The effect to be used when the dialog is opened.</p>
+  </div>
+  <div class="option-examples">
+    <h4>Code examples</h4>
+    <dl class="option-examples-list">
+    
+<dt>
+  Initialize a dialog with the <code>show</code> option specified.
+</dt>
+<dd>
+<pre><code>$( ".selector" ).dialog({ show: { effect: 'drop', direction: "up" } });</code></pre>
+</dd>
+
+    
+<dt>
+  Get or set the <code>show</code> option, after init.
+</dt>
+<dd>
+<pre><code>//getter
+var show = $( ".selector" ).dialog( "option", "show" );
+//setter
+$( ".selector" ).dialog( "option", "show", { effect: 'drop', direction: "up" } );</code></pre>
 </dd>
 
     </dl>
@@ -884,7 +968,7 @@ $( ".selector" ).dialog( "option", "stack", false );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">''</dd>
+        <dd class="option-default">&quot;&quot;</dd>
       
     </dl>
   </div>
@@ -899,7 +983,7 @@ $( ".selector" ).dialog( "option", "stack", false );</code></pre>
   Initialize a dialog with the <code>title</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).dialog({ title: 'Dialog Title' });</code></pre>
+<pre><code>$( ".selector" ).dialog({ title: "Dialog Title" });</code></pre>
 </dd>
 
     
@@ -910,7 +994,7 @@ $( ".selector" ).dialog( "option", "stack", false );</code></pre>
 <pre><code>//getter
 var title = $( ".selector" ).dialog( "option", "title" );
 //setter
-$( ".selector" ).dialog( "option", "title", 'Dialog Title' );</code></pre>
+$( ".selector" ).dialog( "option", "title", "Dialog Title" );</code></pre>
 </dd>
 
     </dl>
@@ -1689,10 +1773,10 @@ $( ".selector" ).dialog( "option", "zIndex", 3999 );</code></pre>
 </div>
 
 </p><!-- 
-Pre-expand include size: 66533 bytes
-Post-expand include size: 111347 bytes
-Template argument size: 61352 bytes
+Pre-expand include size: 69635 bytes
+Post-expand include size: 118811 bytes
+Template argument size: 65296 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3775-1!1!0!!en!2 and timestamp 20110815120751 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3775-1!1!0!!en!2 and timestamp 20120416183421 -->

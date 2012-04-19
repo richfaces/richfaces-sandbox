@@ -12,12 +12,12 @@
     <h2 class="top-header">Overview</h2>
     <div id="overview-main">
         <p>The jQuery UI Slider plugin makes selected elements into sliders. There are various options such as multiple handles, and ranges. The handle can be moved with the mouse or the arrow keys.</p>
-<p>All callbacks receive two arguments: The original browser event and a prepared ui object, view below for a documentation of this object (if you name your second argument 'ui'):
+<p>The start, slide, and stop callbacks receive two arguments: The original browser event and a prepared ui object, view below for a documentation of this object (if you name your second argument 'ui'):
 </p><p>The slider widget will create handle elements with the class 'ui-slider-handle' on initialization. You can specify custom handle elements by creating and appending the elements and adding the 'ui-slider-handle' class before init. It will only create the number of handles needed to match the length of value/values. For example, if you specify 'values: [1, 5, 18]' and create one custom handle, the plugin will create the other two.
 </p>
 <ul>
-  <li><b>ui.handle</b>: DOMElement - the current focused handle
-  <li><b>ui.value</b>: Integer - the current handle's value
+  <li><b>ui.handle</b>: DOMElement - the current focused handle</li>
+  <li><b>ui.value</b>: Integer - the current handle's value</li>
 </ul>
     </div>
     <div id="overview-dependencies">
@@ -245,7 +245,7 @@ $( ".selector" ).slider( "option", "min", -7 );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'horizontal'</dd>
+        <dd class="option-default">"horizontal"</dd>
       
     </dl>
   </div>
@@ -260,7 +260,7 @@ $( ".selector" ).slider( "option", "min", -7 );</code></pre>
   Initialize a slider with the <code>orientation</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).slider({ orientation: 'vertical' });</code></pre>
+<pre><code>$( ".selector" ).slider({ orientation: "vertical" });</code></pre>
 </dd>
 
     
@@ -271,7 +271,7 @@ $( ".selector" ).slider( "option", "min", -7 );</code></pre>
 <pre><code>//getter
 var orientation = $( ".selector" ).slider( "option", "orientation" );
 //setter
-$( ".selector" ).slider( "option", "orientation", 'vertical' );</code></pre>
+$( ".selector" ).slider( "option", "orientation", "vertical" );</code></pre>
 </dd>
 
     </dl>
@@ -579,7 +579,7 @@ $( ".selector" ).slider( "option", "values", [1,5,9] );</code></pre>
     </dl>
   </div>
   <div class="event-description">
-    <p>This event is triggered on slide stop, or if the value is changed programmatically (by the <code>value</code> method).  Takes arguments event and ui.  Use event.orginalEvent to detect whether the value changed by mouse, keyboard, or programmatically. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(this).slider('values', index) to get another handle's value.</p>
+    <p>This event is triggered on slide stop, or if the value is changed programmatically (by the <code>value</code> method).  Takes arguments event and ui.  Use event.originalEvent to detect whether the value changed by mouse, keyboard, or programmatically. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(this).slider('values', index) to get another handle's value.</p>
   </div>
   <div class="event-examples">
     <h4>Code examples</h4>
@@ -852,9 +852,9 @@ $( ".selector" ).slider( "option", "values", [1,5,9] );</code></pre>
 
 </p><!-- 
 Pre-expand include size: 36451 bytes
-Post-expand include size: 55582 bytes
-Template argument size: 27644 bytes
+Post-expand include size: 55617 bytes
+Template argument size: 27679 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3776-1!1!0!!en!2 and timestamp 20110815120757 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3776-1!1!0!!en!2 and timestamp 20120416183447 -->

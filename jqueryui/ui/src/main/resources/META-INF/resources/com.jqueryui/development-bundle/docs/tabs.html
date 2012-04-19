@@ -29,8 +29,7 @@
 <li class="toclevel-2"><a href="#...select_a_tab_from_a_text_link_instead_of_clicking_a_tab_itself"><span class="tocnumber">3.3</span> <span class="toctext">...select a tab from a text link instead of clicking a tab itself</span></a></li>
 <li class="toclevel-2"><a href="#...prevent_switching_to_the_tab_on_click_depending_on_form_validation"><span class="tocnumber">3.4</span> <span class="toctext">...prevent switching to the tab on click depending on form validation</span></a></li>
 <li class="toclevel-2"><a href="#...immediately_select_a_just_added_tab"><span class="tocnumber">3.5</span> <span class="toctext">...immediately select a just added tab</span></a></li>
-<li class="toclevel-2"><a href="#...follow_a_tab.27s_URL_instead_of_loading_its_content_via_ajax"><span class="tocnumber">3.6</span> <span class="toctext">...follow a tab's URL instead of loading its content via ajax</span></a></li>
-<li class="toclevel-2"><a href="#...prevent_a_FOUC_.28Flash_of_Unstyled_Content.29_before_tabs_are_initialized"><span class="tocnumber">3.7</span> <span class="toctext">...prevent a FOUC (Flash of Unstyled Content) before tabs are initialized</span></a></li>
+<li class="toclevel-2"><a href="#...prevent_a_FOUC_.28Flash_of_Unstyled_Content.29_before_tabs_are_initialized"><span class="tocnumber">3.6</span> <span class="toctext">...prevent a FOUC (Flash of Unstyled Content) before tabs are initialized</span></a></li>
 </ul>
 </li>
 <li class="toclevel-1"><a href="#Why_does..."><span class="tocnumber">4</span> <span class="toctext">Why does...</span></a>
@@ -100,9 +99,9 @@ var selected = $tabs.tabs('option', 'selected'); // =&gt; 0</pre>
 </p>
 <pre>$('#example').tabs({
     load: function(event, ui) {
-        $('a', ui.panel).click(function() {
+        $(ui.panel).delegate('a', 'click', function(event) {
             $(ui.panel).load(this.href);
-            return false;
+            event.preventDefault();
         });
     }
 });</pre>
@@ -128,23 +127,7 @@ $('#my-text-link').click(function() { // bind click event to link
         $tabs.tabs('select', '#' + ui.panel.id);
     }
 });</pre>
-<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=10" title="Template:UIAPIPlugin">edit</a>]</div><a name="...follow_a_tab.27s_URL_instead_of_loading_its_content_via_ajax"></a><h3>...follow a tab's URL instead of loading its content via ajax</h3>
-<p>Note that opening a tab in a new window is unexpected, e.g.
-inconsistent behaviour exposing a usablity problem (<a href="http://www.useit.com/alertbox/tabs.html" class="external free" title="http://www.useit.com/alertbox/tabs.html">http://www.useit.com/alertbox/tabs.html</a>).
-</p>
-<pre>$('#example').tabs({
-    select: function(event, ui) {
-        var url = $.data(ui.tab, 'load.tabs');
-        if( url ) {
-            location.href = url;
-            return false;
-        }
-        return true;
-    }
-});</pre>
-<p><br />
-</p>
-<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=11" title="Template:UIAPIPlugin">edit</a>]</div><a name="...prevent_a_FOUC_.28Flash_of_Unstyled_Content.29_before_tabs_are_initialized"></a><h3>...prevent a FOUC (Flash of Unstyled Content) before tabs are initialized</h3>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=10" title="Template:UIAPIPlugin">edit</a>]</div><a name="...prevent_a_FOUC_.28Flash_of_Unstyled_Content.29_before_tabs_are_initialized"></a><h3>...prevent a FOUC (Flash of Unstyled Content) before tabs are initialized</h3>
 <p>Add the necessary classes to hide an inactive tab panel to the HTML right away - note that this will <b>not</b> degrade gracefully with JavaScript being disabled:
 </p>
 <pre>&lt;div id=&quot;example&quot; class=&quot;ui-tabs&quot;&gt;
@@ -152,8 +135,8 @@ inconsistent behaviour exposing a usablity problem (<a href="http://www.useit.co
   &lt;div id=&quot;a-tab-panel&quot; class=&quot;ui-tabs-hide&quot;&gt; &lt;/div&gt;
   ...
 &lt;/div&gt;</pre>
-<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=12" title="Template:UIAPIPlugin">edit</a>]</div><a name="Why_does..."></a><h2>Why does...</h2>
-<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=13" title="Template:UIAPIPlugin">edit</a>]</div><a name="...my_slider.2C_Google_Map.2C_sIFR_etc._not_work_when_placed_in_a_hidden_.28inactive.29_tab.3F"></a><h3>...my slider, Google Map, sIFR etc. not work when placed in a hidden (inactive) tab?</h3>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=11" title="Template:UIAPIPlugin">edit</a>]</div><a name="Why_does..."></a><h2>Why does...</h2>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="http://docs.jquery.com/action/edit/Template:UIAPIPlugin?section=12" title="Template:UIAPIPlugin">edit</a>]</div><a name="...my_slider.2C_Google_Map.2C_sIFR_etc._not_work_when_placed_in_a_hidden_.28inactive.29_tab.3F"></a><h3>...my slider, Google Map, sIFR etc. not work when placed in a hidden (inactive) tab?</h3>
 <p>Any component that requires some dimensional computation for its initialization won't work in a hidden tab, because the tab panel itself is hidden via <code>display: none</code> so that any elements inside won't report their actual width and height (0 in most browsers).
 </p><p>There's an easy workaround. Use the <em>off-left technique</em> for hiding inactive tab panels. E.g. in your style sheet replace the rule for the class selector ".ui-tabs .ui-tabs-hide" with
 </p>
@@ -175,7 +158,7 @@ resizeMap() will call Google Maps' checkResize() on the particular map.
         <ul>
 <li>UI Core</li>
 <li>UI Widget</li>
-<li><strong>Optional:</strong> <a href="http://plugins.jquery.com/project/cookie" class="external text" title="http://plugins.jquery.com/project/cookie">jquery.cookie.js</a> for use with <a href="http://jqueryui.com/demos/tabs/#option-cookie" class="external text" title="http://jqueryui.com/demos/tabs/#option-cookie">cookie option</a> (also included in development-bundle&gt;external folder.)</li>
+<li><strong>Optional:</strong> <a href="https://github.com/carhartl/jquery-cookie" class="external text" title="https://github.com/carhartl/jquery-cookie">jquery.cookie.js</a> for use with <a href="http://jqueryui.com/demos/tabs/#option-cookie" class="external text" title="http://jqueryui.com/demos/tabs/#option-cookie">cookie option</a> (also included in development-bundle&gt;external folder.)</li>
 </ul>
     </div>
     <div id="overview-example">
@@ -537,7 +520,7 @@ $( ".selector" ).tabs( "option", "disabled", [1, 2] );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'click'</dd>
+        <dd class="option-default">"click"</dd>
       
     </dl>
   </div>
@@ -552,7 +535,7 @@ $( ".selector" ).tabs( "option", "disabled", [1, 2] );</code></pre>
   Initialize a tabs with the <code>event</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).tabs({ event: 'mouseover' });</code></pre>
+<pre><code>$( ".selector" ).tabs({ event: "mouseover" });</code></pre>
 </dd>
 
     
@@ -563,7 +546,7 @@ $( ".selector" ).tabs( "option", "disabled", [1, 2] );</code></pre>
 <pre><code>//getter
 var event = $( ".selector" ).tabs( "option", "event" );
 //setter
-$( ".selector" ).tabs( "option", "event", 'mouseover' );</code></pre>
+$( ".selector" ).tabs( "option", "event", "mouseover" );</code></pre>
 </dd>
 
     </dl>
@@ -621,7 +604,7 @@ $( ".selector" ).tabs( "option", "fx", { opacity: 'toggle' } );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'ui-tabs-'</dd>
+        <dd class="option-default">"ui-tabs-"</dd>
       
     </dl>
   </div>
@@ -636,7 +619,7 @@ $( ".selector" ).tabs( "option", "fx", { opacity: 'toggle' } );</code></pre>
   Initialize a tabs with the <code>idPrefix</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).tabs({ idPrefix: 'ui-tabs-primary' });</code></pre>
+<pre><code>$( ".selector" ).tabs({ idPrefix: "ui-tabs-primary" });</code></pre>
 </dd>
 
     
@@ -647,7 +630,7 @@ $( ".selector" ).tabs( "option", "fx", { opacity: 'toggle' } );</code></pre>
 <pre><code>//getter
 var idPrefix = $( ".selector" ).tabs( "option", "idPrefix" );
 //setter
-$( ".selector" ).tabs( "option", "idPrefix", 'ui-tabs-primary' );</code></pre>
+$( ".selector" ).tabs( "option", "idPrefix", "ui-tabs-primary" );</code></pre>
 </dd>
 
     </dl>
@@ -663,7 +646,7 @@ $( ".selector" ).tabs( "option", "idPrefix", 'ui-tabs-primary' );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'&lt;div&gt;&lt;/div&gt;'</dd>
+        <dd class="option-default">"&lt;div&gt;&lt;/div&gt;"</dd>
       
     </dl>
   </div>
@@ -678,7 +661,7 @@ $( ".selector" ).tabs( "option", "idPrefix", 'ui-tabs-primary' );</code></pre>
   Initialize a tabs with the <code>panelTemplate</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).tabs({ panelTemplate: '&lt;li&gt;&lt;/li&gt;' });</code></pre>
+<pre><code>$( ".selector" ).tabs({ panelTemplate: "&lt;li&gt;&lt;/li&gt;" });</code></pre>
 </dd>
 
     
@@ -689,7 +672,7 @@ $( ".selector" ).tabs( "option", "idPrefix", 'ui-tabs-primary' );</code></pre>
 <pre><code>//getter
 var panelTemplate = $( ".selector" ).tabs( "option", "panelTemplate" );
 //setter
-$( ".selector" ).tabs( "option", "panelTemplate", '&lt;li&gt;&lt;/li&gt;' );</code></pre>
+$( ".selector" ).tabs( "option", "panelTemplate", "&lt;li&gt;&lt;/li&gt;" );</code></pre>
 </dd>
 
     </dl>
@@ -747,7 +730,7 @@ $( ".selector" ).tabs( "option", "selected", 3 );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'&lt;em&gt;Loading&amp;#8230;&lt;/em&gt;'</dd>
+        <dd class="option-default">"&lt;em&gt;Loading&amp;#8230;&lt;/em&gt;"</dd>
       
     </dl>
   </div>
@@ -762,7 +745,7 @@ $( ".selector" ).tabs( "option", "selected", 3 );</code></pre>
   Initialize a tabs with the <code>spinner</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).tabs({ spinner: 'Retrieving data...' });</code></pre>
+<pre><code>$( ".selector" ).tabs({ spinner: "Retrieving data..." });</code></pre>
 </dd>
 
     
@@ -773,7 +756,7 @@ $( ".selector" ).tabs( "option", "selected", 3 );</code></pre>
 <pre><code>//getter
 var spinner = $( ".selector" ).tabs( "option", "spinner" );
 //setter
-$( ".selector" ).tabs( "option", "spinner", 'Retrieving data...' );</code></pre>
+$( ".selector" ).tabs( "option", "spinner", "Retrieving data..." );</code></pre>
 </dd>
 
     </dl>
@@ -789,7 +772,7 @@ $( ".selector" ).tabs( "option", "spinner", 'Retrieving data...' );</code></pre>
         <dd class="option-type">String</dd>
       
       <dt class="option-default-label">Default:</dt>
-        <dd class="option-default">'&lt;li&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;'</dd>
+        <dd class="option-default">"&lt;li&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;"</dd>
       
     </dl>
   </div>
@@ -804,7 +787,7 @@ $( ".selector" ).tabs( "option", "spinner", 'Retrieving data...' );</code></pre>
   Initialize a tabs with the <code>tabTemplate</code> option specified.
 </dt>
 <dd>
-<pre><code>$( ".selector" ).tabs({ tabTemplate: '&lt;div&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;' });</code></pre>
+<pre><code>$( ".selector" ).tabs({ tabTemplate: "&lt;div&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;" });</code></pre>
 </dd>
 
     
@@ -815,7 +798,7 @@ $( ".selector" ).tabs( "option", "spinner", 'Retrieving data...' );</code></pre>
 <pre><code>//getter
 var tabTemplate = $( ".selector" ).tabs( "option", "tabTemplate" );
 //setter
-$( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;' );</code></pre>
+$( ".selector" ).tabs( "option", "tabTemplate", "&lt;div&gt;&lt;a href&#61;"#&#123;href&#125;"&gt;&lt;span&gt;#&#123;label&#125;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;" );</code></pre>
 </dd>
 
     </dl>
@@ -1316,7 +1299,7 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
     </dl>
   </div>
   <div class="method-description">
-    <p>Remove a tab. The second argument is the zero-based index of the tab to be removed.</p>
+    <p>Remove a tab. The second argument is the zero-based index of the tab to be removed. Instead of an index, the href of the tab may be passed.</p>
   </div>
 </li>
 
@@ -1338,7 +1321,7 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
     </dl>
   </div>
   <div class="method-description">
-    <p>Enable a disabled tab.  To enable more than one tab at once reset the disabled property like: <code>$('#example').tabs("option","disabled",[]);</code>. The second argument is the zero-based index of the tab to be enabled.</p>
+    <p>Enable a disabled tab.  To enable more than one tab at once reset the disabled property like: <code>$('#example').tabs("option","disabled",[]);</code>. The second argument is the zero-based index of the tab to be enabled. Instead of an index, the href of the tab may be passed.</p>
   </div>
 </li>
 
@@ -1360,7 +1343,7 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
     </dl>
   </div>
   <div class="method-description">
-    <p>Disable a tab. The selected tab cannot be disabled. To disable more than one tab at once use: <code>$('#example').tabs("option","disabled", [1, 2, 3]);</code>  The second argument is the zero-based index of the tab to be disabled.</p>
+    <p>Disable a tab. The selected tab cannot be disabled. To disable more than one tab at once use: <code>$('#example').tabs("option","disabled", [1, 2, 3]);</code>  The second argument is the zero-based index of the tab to be disabled. Instead of an index, the href of the tab may be passed.</p>
   </div>
 </li>
 
@@ -1540,10 +1523,10 @@ $( ".selector" ).tabs( "option", "tabTemplate", '&lt;div&gt;&lt;a href&#61;"#&#1
 </div>
 
 </p><!-- 
-Pre-expand include size: 57666 bytes
-Post-expand include size: 97459 bytes
-Template argument size: 57562 bytes
+Pre-expand include size: 57707 bytes
+Post-expand include size: 98959 bytes
+Template argument size: 58199 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3777-1!1!0!!en!2 and timestamp 20110815120800 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3777-1!1!0!!en!2 and timestamp 20120416174411 -->
