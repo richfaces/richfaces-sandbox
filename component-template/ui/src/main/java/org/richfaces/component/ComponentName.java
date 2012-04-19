@@ -33,15 +33,13 @@ import javax.faces.component.UIComponentBase;
  * Base class for the component.
  */
 @JsfComponent(
-        type = ComponentName.COMPONENT_FAMILY,
+        type = ComponentName.COMPONENT_TYPE,
         family = ComponentName.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ComponentNameRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="componentName"))
+        tag = @Tag(name="bootstrap"))
 public abstract class ComponentName extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.ComponentNameFamily";
     public static final String COMPONENT_TYPE = "org.richfaces.ComponentName";
-
-    private String attr;
 
     @Attribute
     abstract public String getAttr();
