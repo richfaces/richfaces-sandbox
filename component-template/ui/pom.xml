@@ -15,8 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui.core</groupId>
-            <artifactId>richfaces-ui-core-ui</artifactId>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
