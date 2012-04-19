@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.jqueryui.renderkit.TabsRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.jqueryui.renderkit.TabsRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.jqueryui.TabsRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="rf_jq_tabs">
+            <ul>
+                <c:forEach items="#{component.children}" var="child"> <li>
+                        <a href="##{child.clientId}">#{child.attributes['title']}</a></li>
+                </c:forEach>
+            </ul>
+            <cdk:body />
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function() {
+                $(document.getElementById('#{clientId}')).tabs();
+            });
+	    </script>
+    </cc:implementation>
+
+</cdk:root>

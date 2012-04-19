@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.jqueryui.renderkit.DatepickerRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.jqueryui.renderkit.DatepickerRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.jqueryui.DatepickerRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <input type="text" id="#{clientId}" name="#{clientId}" class="rf_jq_cal"
+               value="#{getInputValue(facesContext, component)}"/>
+        <script type="text/javascript">
+            <cdk:scriptObject name="pluginOptions">
+                <cdk:scriptOption name="buttonImage"
+                                  value="#{getResourcePath(facesContext, 'org.richfaces', 'calendar.gif')}"/>
+                <cdk:scriptOption attributes="showOn dateFormat buttonImageOnly"/>
+            </cdk:scriptObject>
+            jQuery(function() {
+                $(document.getElementById('#{clientId}')).datepicker(#{toScriptArgs(pluginOptions)});
+            });
+        </script>
+    </cc:implementation>
+
+</cdk:root>

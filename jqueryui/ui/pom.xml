@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-        <artifactId>componentName-parent</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <groupId>org.richfaces.sandbox.ui.jqueryui</groupId>
+        <artifactId>jqueryui-parent</artifactId>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>componentName-ui</artifactId>
-    <name>Richfaces UI Sandbox Components: componentName ui</name>
+    <artifactId>jqueryui-ui</artifactId>
+    <name>Richfaces UI Sandbox Components: jqueryui ui</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui.core</groupId>
-            <artifactId>richfaces-ui-core-ui</artifactId>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
