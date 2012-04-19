@@ -35,7 +35,7 @@ import javax.faces.component.UIPanel;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        type = AbstractTab.COMPONENT_FAMILY,
+        type = AbstractTab.COMPONENT_TYPE,
         family = AbstractTab.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = TabRendererBase.RENDERER_TYPE),
         tag = @Tag(name="tab"))

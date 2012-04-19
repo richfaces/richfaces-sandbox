@@ -35,7 +35,7 @@ import javax.faces.component.UIInput;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        type = AbstractDatepicker.COMPONENT_FAMILY,
+        type = AbstractDatepicker.COMPONENT_TYPE,
         family = AbstractDatepicker.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = DatepickerRendererBase.RENDERER_TYPE),
         tag = @Tag(name="datepicker"))
