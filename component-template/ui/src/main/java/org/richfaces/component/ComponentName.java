@@ -30,9 +30,7 @@ import org.richfaces.renderkit.ComponentNameRendererBase;
 import javax.faces.component.UIComponentBase;
 
 /**
- * Base class for generation of UISchedule component.
- *
- * @author Bernard Labno
+ * Base class for the component.
  */
 @JsfComponent(
         type = ComponentName.COMPONENT_FAMILY,
