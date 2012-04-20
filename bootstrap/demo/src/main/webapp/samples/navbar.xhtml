@@ -10,12 +10,12 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
-        <bootstrap:heroUnit heading="RichFaces Bootstrap" tagline="Build JSF applications with the amazing Bootstrap components">
-            <p>
-                Click one of the menu links above to see some Bootstrap components in action!
-            </p>
-        </bootstrap:heroUnit>
+        <bootstrap:navbar brand="Nav Bar">
+            <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+            <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+            <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+            <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+        </bootstrap:navbar>
     </ui:define>
 </ui:composition>
-
-</html>	
+</html>

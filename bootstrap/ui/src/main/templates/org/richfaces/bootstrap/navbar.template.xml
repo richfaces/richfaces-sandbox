@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.NavbarRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.NavbarRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.NavbarRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractNavbar" name="navbar"
+                    value="#{castComponent(component)}"/>
+        <div id="#{clientId}" class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <c:if test="#{not empty navbar.brand}"/>
+                    <a class="brand" href="#">
+                        #{navbar.brand}
+                    </a>
+                    <ul class="nav">
+                        <c:forEach var="child" items="#{component.getChildren()}">
+                            <li>
+                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

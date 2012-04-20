@@ -3,12 +3,14 @@
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:ui="http://java.sun.com/jsf/facelets"
-             xmlns:rich="http://richfaces.org/rich">
+             xmlns:rich="http://richfaces.org/rich"
+             xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <div>
-        <h:panelGrid columns="10" style="width:100%;">
+        <bootstrap:navbar brand="Richfaces">
             <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
             <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
             <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
-        </h:panelGrid>
+            <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+        </bootstrap:navbar>
     </div>
 </ui:fragment>
