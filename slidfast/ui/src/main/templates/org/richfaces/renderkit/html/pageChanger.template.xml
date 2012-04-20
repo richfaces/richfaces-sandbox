@@ -13,7 +13,11 @@
     <cc:implementation>
         <span id="#{clientId}" style="display: none;">
             <script type="text/javascript">
-                new RichFaces.ui.PageChanger("#{clientId}", {});
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="defaultPageID" value="#{getClientId('home-page')}" />
+                    <cdk:scriptOption name="dynamicPageID" value="#{getClientId('app-page')}" />
+                </cdk:scriptObject>
+                new RichFaces.ui.PageChanger("#{clientId}", #{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>

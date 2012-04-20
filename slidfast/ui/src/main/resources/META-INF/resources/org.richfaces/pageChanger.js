@@ -7,12 +7,15 @@
         $super.constructor.call(this, id, mergedOptions);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
-        slidfast({
-            defaultPageID: mergedOptions.defaultPageID,
-            callback: $.proxy(this.callback, this),
-            backButtonID: 'back-button'
-        });
+        if (! window.slidfast.slidfast) {
+            slidfast({
+                defaultPageID: mergedOptions.defaultPageID,
+                callback: $.proxy(this.callback, this),
+                backButtonID: 'back-button'
+            });
+        }
         this.activePageId = null;
+        this.dynamicPageID = mergedOptions.dynamicPageID;
     };
 
     rf.BaseComponent.extend(rf.ui.PageChanger);
@@ -32,7 +35,7 @@
             callback : function(pageId) {
 
                 if (this.activePageId === pageId) {
-                    slidfast.core.slideTo('app-page');
+                    slidfast.core.slideTo(this.dynamicPageID);
                 } else {
                     this.renderPage(pageId);
                 }
@@ -41,8 +44,9 @@
             renderPage: function(pageId) {
                 var clientParameters = {};
                 clientParameters[this.request_param] = pageId;
+                var that = this;
                 var ajaxSuccess = function (event) {
-                    slidfast.core.slideTo('app-page');
+                    slidfast.core.slideTo(that.dynamicPageID);
                 }
 
                 rf.ajax(this.id, null, {clientParameters: clientParameters ,incId :"1", complete : ajaxSuccess} );

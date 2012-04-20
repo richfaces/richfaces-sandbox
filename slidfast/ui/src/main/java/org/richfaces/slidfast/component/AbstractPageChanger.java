@@ -29,7 +29,6 @@ import org.richfaces.cdk.annotations.Tag;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

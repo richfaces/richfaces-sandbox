@@ -35,19 +35,15 @@
                             </div>
                         </header>
                         <h:form id="mobileForm">
-                            <slidfast:pageChanger id="pageChanger" activePage="#{pageBean.location}" render="pages" />
+                            <slidfast:pageChanger id="pageChanger" activePage="#{pageBean.location}" render="pageContainer" />
 
-                            <h:panelGroup id="pages">
-
-                            <div id="page-container">
-                                <div id="home-page" class="page stage-left">
+                            <h:panelGroup layout="block" class="page-container">
+                                <h:panelGroup layout="block" id="home-page" class="page stage-left">
                                     <ui:include src="/mobile/home.xhtml"/>
-                                </div>
-                                <div id="app-page" class="page stage-right">
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" id="app-page" class="page stage-right">
                                     <ui:include src="#{pageBean.page}"/>
-                                </div>
-                            </div>
-
+                                </h:panelGroup>
                             </h:panelGroup>
                         </h:form>
                     </div>

@@ -57,7 +57,7 @@ Mobile Device Page Setup
 
 }
 
-#page-container {
+.page-container {
     position:absolute;
     top: 44px;
    width:100%;

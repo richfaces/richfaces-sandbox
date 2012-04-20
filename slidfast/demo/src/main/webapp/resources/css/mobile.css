@@ -1,4 +1,4 @@
-#page-container h1 {
+.page-container h1 {
    font-size: large;
 }
 
@@ -17,6 +17,6 @@ header .info-link {
    padding: 5px 10px;
 }
 
-#page-container .mobileContent {
+.page-container .mobileContent {
    padding: 0 15px;
 }

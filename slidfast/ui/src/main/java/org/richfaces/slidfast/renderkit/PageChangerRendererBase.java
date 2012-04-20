@@ -21,6 +21,7 @@
  **/
 package org.richfaces.slidfast.renderkit;
 
+import org.richfaces.function.RichFunction;
 import org.richfaces.slidfast.component.AbstractPageChanger;
 import org.richfaces.renderkit.RendererBase;
 
@@ -57,6 +58,10 @@ public class PageChangerRendererBase extends RendererBase {
         pvc.getRenderIds().add(pageChanger.getRender());
 
         super.doDecode(context, component);
+    }
+
+    public String getClientId(String id) {
+        return RichFunction.clientId(id);
     }
 
 }
