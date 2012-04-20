@@ -35,16 +35,16 @@ import javax.faces.component.html.HtmlOutputLink;
 import java.util.ArrayList;
 import java.util.List;
 
-@ResourceDependencies({
-        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
-        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 /**
  * Base class for the navbar renderer
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
+@ResourceDependencies({
+        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
+        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class NavbarRendererBase extends DivPanelRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.NavbarRenderer";
 

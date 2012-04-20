@@ -30,7 +30,9 @@ import org.richfaces.cdk.annotations.Tag;
 import javax.faces.component.UIComponentBase;
 
 /**
- * Base class for the component.
+ * Base class for the heroUnit component.
+ *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
         type = HeroUnit.COMPONENT_TYPE,

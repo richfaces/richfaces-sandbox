@@ -7,6 +7,11 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 
+/**
+ * Base class for the heroUnit renderer
+ *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ */
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),

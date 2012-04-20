@@ -18,10 +18,11 @@
         <div id="#{clientId}" class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <c:if test="#{not empty navbar.brand}"/>
-                    <a class="brand" href="#">
-                        #{navbar.brand}
-                    </a>
+                    <c:if test="#{not empty navbar.brand}">
+                        <a class="brand" href="#">
+                            #{navbar.brand}
+                        </a>
+                    </c:if>
                     <ul class="nav">
                         <c:forEach var="child" items="#{component.getChildren()}">
                             <li>

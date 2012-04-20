@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import javax.faces.component.UIPanel;
 
 /**
- * Base class for the tabs component
+ * Base class for the tabbable component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */

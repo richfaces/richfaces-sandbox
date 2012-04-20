@@ -11,15 +11,26 @@
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
     <h:form>
-        <bootstrap:buttonGroup title="Action">
-            <a4j:commandLink action="heroUnit" value="heroUnit" />
-        </bootstrap:buttonGroup>
-        <bootstrap:buttonGroup title="Primary" buttonStyle="btn-primary">
-            <a4j:commandLink action="heroUnit" value="heroUnit" />
-        </bootstrap:buttonGroup>
-        <bootstrap:buttonGroup title="Danger" buttonStyle="btn-danger">
-            <a4j:commandLink action="heroUnit" value="heroUnit" />
-        </bootstrap:buttonGroup>
+        <h:panelGrid columns="3">
+            <bootstrap:buttonGroup title="Action">
+                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+            </bootstrap:buttonGroup>
+            <bootstrap:buttonGroup title="Primary" buttonStyle="btn-primary">
+                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+            </bootstrap:buttonGroup>
+            <bootstrap:buttonGroup title="Danger" buttonStyle="btn-danger">
+                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+            </bootstrap:buttonGroup>
+        </h:panelGrid>
     </h:form>
     </ui:define>
 </ui:composition>

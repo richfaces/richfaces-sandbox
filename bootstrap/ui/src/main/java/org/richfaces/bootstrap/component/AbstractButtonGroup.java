@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 import javax.faces.component.UIPanel;
 
 /**
- * Base class for the tab component
+ * Base class for the buttonGroup component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
