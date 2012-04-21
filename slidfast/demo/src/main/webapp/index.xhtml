@@ -37,14 +37,14 @@
                         <h:form id="mobileForm">
                             <slidfast:pageChanger id="pageChanger" activePage="#{pageBean.location}" render="pageContainer" />
 
-                            <h:panelGroup layout="block" class="page-container">
+                            <slidfast:pageContainer id="pageContainer">
                                 <h:panelGroup layout="block" id="home-page" class="page stage-left">
                                     <ui:include src="/mobile/home.xhtml"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" id="app-page" class="page stage-right">
                                     <ui:include src="#{pageBean.page}"/>
                                 </h:panelGroup>
-                            </h:panelGroup>
+                            </slidfast:pageContainer>
                         </h:form>
                     </div>
                     <h:outputStylesheet library="org.richfaces" name="rf-mobile-skin.css" />
