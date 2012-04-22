@@ -1,0 +1,54 @@
+/**
+ * JBoss, Home of Professional Open Source
+ * Copyright , Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.richfaces.slidfast.component;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.slidfast.renderkit.PageContainerRendererBase;
+import org.richfaces.slidfast.renderkit.PageRendererBase;
+
+import javax.faces.component.UIPanel;
+
+/**
+ * Base class for the page component
+ *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ */
+@JsfComponent(
+        type = AbstractPage.COMPONENT_TYPE,
+        family = AbstractPage.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = PageRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="page"))
+abstract public class AbstractPage extends UIPanel {
+    public static final String COMPONENT_FAMILY = "org.richfaces.slidfast.Page";
+    public static final String COMPONENT_TYPE = "org.richfaces.slidfast.Page";
+
+    @Attribute(defaultValue = "right")
+    abstract public String getStage();
+
+    public String getStageClass() {
+        return "stage-" + getStage();
+    }
+
+}

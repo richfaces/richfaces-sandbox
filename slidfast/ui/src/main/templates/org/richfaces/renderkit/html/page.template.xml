@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.slidfast.renderkit.PageRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.slidfast.renderkit.PageRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.slidfast.PageRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.slidfast.component.AbstractPage" name="pageComponent" value="#{castComponent(component)}"/>
+        <div id="#{clientId}" class="page #{pageComponent.stageClass}">
+            <cdk:body />
+        </div>
+    </cc:implementation>
+
+</cdk:root>

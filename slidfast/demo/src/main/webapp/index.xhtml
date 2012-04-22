@@ -38,12 +38,12 @@
                             <slidfast:pageChanger id="pageChanger" activePage="#{pageBean.location}" render="pageContainer" />
 
                             <slidfast:pageContainer id="pageContainer">
-                                <h:panelGroup layout="block" id="home-page" class="page stage-left">
+                                <slidfast:page id="home-page" stage="left">
                                     <ui:include src="/mobile/home.xhtml"/>
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" id="app-page" class="page stage-right">
+                                </slidfast:page>
+                                <slidfast:page id="app-page" stage="right">
                                     <ui:include src="#{pageBean.page}"/>
-                                </h:panelGroup>
+                                </slidfast:page>
                             </slidfast:pageContainer>
                         </h:form>
                     </div>
