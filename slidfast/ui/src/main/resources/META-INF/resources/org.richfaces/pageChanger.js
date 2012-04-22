@@ -46,7 +46,9 @@
                 clientParameters[this.request_param] = pageId;
                 var that = this;
                 var ajaxSuccess = function (event) {
-                    slidfast.core.slideTo(that.dynamicPageID);
+                    setTimeout(function() { // this timeout is required to see the page slide in
+                        slidfast.core.slideTo(that.dynamicPageID)
+                    }, 1);
                 }
 
                 rf.ajax(this.id, null, {clientParameters: clientParameters ,incId :"1", complete : ajaxSuccess} );
