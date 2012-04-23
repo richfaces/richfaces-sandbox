@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <bootstrap:accordion id="accordion2">
+            <bootstrap:accordionGroup heading="Layout Components" id="collpaseOne">
+                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+                </bootstrap:accordionGroup>
+            <bootstrap:accordionGroup heading="Button Components">
+                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+            </bootstrap:accordionGroup>
+            <bootstrap:accordionGroup heading="Navigation components">
+                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+            </bootstrap:accordionGroup>
+        </bootstrap:accordion>
+    </ui:define>
+</ui:composition>
+</html>
