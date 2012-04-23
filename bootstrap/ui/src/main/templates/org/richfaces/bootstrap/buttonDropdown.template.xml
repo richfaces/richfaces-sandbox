@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.ButtonDropdownRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.ButtonDropdownRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.ButtonDropdownRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonDropdown" name="buttonDropdown" value="#{castComponent(component)}"/>
+        <div class="btn-group">
+            <a class="btn #{buttonDropdown.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#">
+                #{buttonDropdown.title}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <c:forEach var="child" items="#{component.getChildren()}">
+                    <li>
+                        <cdk:call expression="child.encodeAll(facesContext)" />
+                    </li>
+                </c:forEach>
+            <li>
+            </li>
+            </ul>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

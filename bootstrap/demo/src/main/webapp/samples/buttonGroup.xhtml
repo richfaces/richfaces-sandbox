@@ -12,23 +12,11 @@
     <ui:define name="body">
     <h:form>
         <h:panelGrid columns="3">
-            <bootstrap:buttonGroup title="Action">
-                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
-                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
-                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
-                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
-            </bootstrap:buttonGroup>
-            <bootstrap:buttonGroup title="Primary" buttonStyle="btn-primary">
-                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
-                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
-                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
-                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
-            </bootstrap:buttonGroup>
-            <bootstrap:buttonGroup title="Danger" buttonStyle="btn-danger">
-                <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
-                <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
-                <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
-                <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+            <bootstrap:buttonGroup>
+                <h:link styleClass="btn" outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+                <h:link styleClass="btn" outcome="/samples/tabbable.xhtml" value="tabbable"/>
+                <h:link styleClass="btn" outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+                <h:link styleClass="btn" outcome="/samples/navbar.xhtml" value="navbar"/>
             </bootstrap:buttonGroup>
         </h:panelGrid>
     </h:form>

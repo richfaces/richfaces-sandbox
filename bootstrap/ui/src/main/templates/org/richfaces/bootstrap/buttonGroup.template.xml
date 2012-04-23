@@ -9,25 +9,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.ButtonGroupRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.ButtonGroupRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.ButtonGroupRenderer</cdk:renderer-type>
-        <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonGroup" name="buttonGroup" value="#{castComponent(component)}"/>
         <div class="btn-group">
-            <a class="btn #{buttonGroup.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#">
-                #{buttonGroup.title}
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <c:forEach var="child" items="#{component.getChildren()}">
-                    <li>
-                        <cdk:call expression="child.encodeAll(facesContext)" />
-                    </li>
-                </c:forEach>
-            <li>
-            </li>
-            </ul>
+            <cdk:body />
         </div>
     </cc:implementation>
 

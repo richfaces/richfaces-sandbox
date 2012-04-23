@@ -19,27 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.bootstrap.component;
+package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.renderkit.ButtonGroupRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.bootstrap.component.AbstractButtonDropdown;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
-import javax.faces.component.UIPanel;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
 
 /**
- * Base class for the buttonGroup component
+ * Base class for the buttonDropdown renderer
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(
-        type = AbstractButtonGroup.COMPONENT_TYPE,
-        family = AbstractButtonGroup.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ButtonGroupRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="buttonGroup"))
-abstract public class AbstractButtonGroup extends UIPanel {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonGroup";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonGroup";
+@ResourceDependencies({
+        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
+        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
+public abstract class ButtonDropdownRendererBase extends DivPanelRenderer {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.ButtonDropdownRenderer";
+
+    // A workaround for RF-11668
+    public AbstractButtonDropdown castComponent(UIComponent component) {
+        return (AbstractButtonDropdown) component;
+    }
 }
