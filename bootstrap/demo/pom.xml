@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.examples</groupId>
-        <artifactId>richfaces-example-parent</artifactId>
+        <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+        <artifactId>bootstrap-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
     <artifactId>bootstrap-demo</artifactId>
     <name>Richfaces UI Components: bootstrap demo</name>
     <packaging>war</packaging>
@@ -47,6 +46,30 @@
     <build>
         <finalName>bootstrap-demo</finalName>
     </build>
+
+    <profiles>
+        <!-- Profile using JRebel for fast development turnaround -->
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
 
 

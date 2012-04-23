@@ -27,8 +27,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>12</version>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.2.1-SNAPSHOT</version>
+        <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>

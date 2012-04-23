@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui-parent</artifactId>
+        <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+        <artifactId>bootstrap-parent</artifactId>
         <version>4.2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
     <artifactId>bootstrap-ui</artifactId>
     <name>Richfaces UI Sandbox Components: bootstrap ui</name>
 
@@ -61,5 +60,44 @@
 
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Profile for quick CDK turnaround using JRebel and CDK command-line generator -->
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-dependencies</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <excludeTypes>pom</excludeTypes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
