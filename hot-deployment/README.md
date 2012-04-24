@@ -69,7 +69,7 @@ This step will generate sources to `target/generated-sources` directory.
 
 It will also create JRebel configuration specific for your project location:
 
-    ~/sandbox/hot-deployment/ui/src/main/resources/rebel.xml
+    ~/sandbox/hot-deployment/ui/target/classes/rebel.xml
 
 You need to refresh the project to allow IDE detect newly generated resources.
 
@@ -274,4 +274,31 @@ Let's refresh the browser:
 
 [http://localhost:8080/hot-demo/](http://localhost:8080/hot-demo/)
 
+
+Troubleshooting
+===============
+
+#### application server does not monitor changes in project
+
+If there is no evidence of JRebel monitoring changes
+
+    JRebel: Directory '...' will be monitored for changes.
+
+then check that
+
+* you have rebel.xml inside the WAR (`$WAR/WEB-INF/classes/rebel.xml`)
+* you have rebel.xml inside the JAR (`$WAR/WEB-INF/lib/hot-ui.jar/rebel.xml`)
+
+It's probable that you are running into next issue.
+
+#### `rebel.xml` deleted from time to time
+
+If you experiencing problems with `rebel.xml` deleted during development cycle,
+the IDE could delete it during clean up of the project.
+
+In that case, copy the rebel.xml to `src/main/resources`,
+where it will reside and will be copied into final JAR.
+
+Remember to do not commit it to version control,
+since it is specific for your environment.
 
