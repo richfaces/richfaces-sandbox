@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.accesskeyhelper</groupId>
         <artifactId>accesskeyhelper-parent</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>accesskeyhelper-ui</artifactId>

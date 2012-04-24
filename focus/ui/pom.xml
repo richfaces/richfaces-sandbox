@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.focus</groupId>
         <artifactId>focus-parent</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>focus-ui</artifactId>
