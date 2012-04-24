@@ -39,12 +39,15 @@
 
     <modules>
         <module>accesskeyhelper</module>
+        <module>bootstrap</module>
         <module>carousel</module>
         <module>colorpicker</module>
+        <module>component-template</module>
         <module>dashboard</module>
         <module>dynamic-panels</module>
         <module>focus</module>
         <module>imageSelectTool</module>
+        <module>jqueryui</module>
         <module>layout</module>
         <module>lightbox</module>
         <module>outputFile</module>
