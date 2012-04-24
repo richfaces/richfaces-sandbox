@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+    
+        <h1>Basic usage</h1>
+    
+        <bootstrap:blockquote>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus ultricies erat, et convallis ante imperdiet eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lorem eros, congue vitae condimentum vel, sodales ut dolor. Cras posuere lectus eget ipsum aliquet eleifend. Cras id facilisis nulla. Praesent dictum turpis nec augue gravida at semper felis semper. Maecenas nec risus eget nisi facilisis venenatis. Donec diam est, iaculis eu pellentesque eget, rhoncus sit amet nisi. 
+        </bootstrap:blockquote>
+        
+        <h1>With author and cite</h1>
+        <h6>Let your mouse over the author a few seconds</h6>
+        
+        <bootstrap:blockquote author="Famous author" cite="quote source url">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus ultricies erat, et convallis ante imperdiet eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lorem eros, congue vitae condimentum vel, sodales ut dolor. Cras posuere lectus eget ipsum aliquet eleifend. Cras id facilisis nulla. Praesent dictum turpis nec augue gravida at semper felis semper. Maecenas nec risus eget nisi facilisis venenatis. Donec diam est, iaculis eu pellentesque eget, rhoncus sit amet nisi. 
+        </bootstrap:blockquote>
+        
+        <h1>To the right!</h1>
+        <h6>Without cite</h6>
+        
+        <bootstrap:blockquote author="Famous author" position="right">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus ultricies erat, et convallis ante imperdiet eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lorem eros, congue vitae condimentum vel, sodales ut dolor. Cras posuere lectus eget ipsum aliquet eleifend. Cras id facilisis nulla. Praesent dictum turpis nec augue gravida at semper felis semper. Maecenas nec risus eget nisi facilisis venenatis. Donec diam est, iaculis eu pellentesque eget, rhoncus sit amet nisi. 
+        </bootstrap:blockquote>
+        
+        <h1>Show your style and your class</h1>
+        <h6>Using "styleClass" attribute and not "position" for the float right</h6>
+        
+        <bootstrap:blockquote style="color:red;" styleClass="pull-right">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus ultricies erat, et convallis ante imperdiet eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis lorem eros, congue vitae condimentum vel, sodales ut dolor. Cras posuere lectus eget ipsum aliquet eleifend. Cras id facilisis nulla. Praesent dictum turpis nec augue gravida at semper felis semper. Maecenas nec risus eget nisi facilisis venenatis. Donec diam est, iaculis eu pellentesque eget, rhoncus sit amet nisi.
+        </bootstrap:blockquote>
+    </ui:define>
+</ui:composition>
+</html>

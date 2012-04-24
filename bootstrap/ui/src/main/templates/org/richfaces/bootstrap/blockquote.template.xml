@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.BlockquoteRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.BlockquoteRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.BlockquoteRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" name="blockquote"
+                    value="#{castComponent(component)}"/>
+        <blockquote id="#{clientId}" cite="#{blockquote.cite}"
+            style="#{blockquote.style}"
+            class="#{blockquote.styleClass} #{blockquote.position != null and !blockquote.position.equals('') ? 'pull-'.concat(blockquote.position) : ''}">
+            
+            <cdk:body />
+            
+            <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" name="blockquote"
+                    value="#{castComponent(component)}"/>
+            
+            <c:if test="#{blockquote.author != null and !blockquote.author.equals('')}">
+                <small>
+                    <c:choose>
+                        <c:when test="#{blockquote.cite != null and !blockquote.cite.equals('')}">
+                            <cite title="#{blockquote.cite}">#{blockquote.author}</cite>
+                        </c:when>
+                        <c:otherwise>
+                            #{blockquote.author}
+                        </c:otherwise>
+                    </c:choose>
+                </small>
+            </c:if>
+        </blockquote>
+    </cc:implementation>
+
+</cdk:root>
