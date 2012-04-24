@@ -18,11 +18,16 @@
         <div id="#{clientId}" class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <c:if test="#{not empty navbar.brand}">
-                        <a class="brand" href="#">
-                            #{navbar.brand}
-                        </a>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="#{component.getFacet('brand') != null and component.getFacet('brand').rendered}">
+                            <cdk:call expression="renderBrandFacet(facesContext, component)" />
+                        </c:when>
+                        <c:when test="#{component.attributes['brand']!= null and not component.attributes['brand'].equals('')}">
+                            <span class="brand">#{navbar.brand}</span>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                    </c:choose>
                     <ul class="nav">
                         <c:forEach var="child" items="#{component.getChildren()}">
                             <li>
