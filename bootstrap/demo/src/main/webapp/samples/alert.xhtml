@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+    
+        <h1>Basic usage</h1>
+        
+        <bootstrap:alert>
+            <strong>Warning</strong> This is an alert!
+        </bootstrap:alert>
+        
+        <h1>Success and closable</h1>
+        
+        <bootstrap:alert severity="success" closable="true">
+            Congrats!
+        </bootstrap:alert>
+        
+        <h1>Error, block layout, header and closable</h1>
+        <h6>Ultimate combo</h6>
+        
+        <bootstrap:alert severity="error" layout="block" header="Fatal error" closable="true">
+            Red alert! Red alert!
+        </bootstrap:alert>
+        
+        <h1>Info</h1>
+        
+        <bootstrap:alert severity="info">
+            <p>Here is a tip for you : just press "F5" or the following button to revive all closed alerts.</p>
+            <p>
+                <h:link outcome="/samples/alert.xhtml" styleClass="btn" value="Refresh" />
+            </p>
+            <h6>Yeah, there is no problem with having link or button inside an alert. Anything is fine.</h6>
+        </bootstrap:alert>
+        
+        <h1>Inverse</h1>
+        
+        <bootstrap:alert severity="inverse" closable="true">
+            What were you hoping for? There is no "inverse" style for an alert. Close me please, I should not exist.
+        </bootstrap:alert>
+    </ui:define>
+</ui:composition>
+</html>
