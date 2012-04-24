@@ -21,19 +21,15 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractNavbar;
-import org.richfaces.bootstrap.component.AbstractTabbable;
-import org.richfaces.component.AbstractCommandLink;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import java.io.IOException;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.component.html.HtmlOutcomeTargetLink;
-import javax.faces.component.html.HtmlOutputLink;
-import java.util.ArrayList;
-import java.util.List;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.bootstrap.component.AbstractNavbar;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * Base class for the navbar renderer
@@ -51,5 +47,10 @@ public abstract class NavbarRendererBase extends DivPanelRenderer {
     // A workaround for RF-11668
     public AbstractNavbar castComponent(UIComponent component) {
         return (AbstractNavbar) component;
+    }
+    
+    public void renderBrandFacet(FacesContext context, UIComponent component) throws IOException {
+        UIComponent brandFacet = component.getFacet("brand");
+        brandFacet.encodeAll(context);
     }
 }

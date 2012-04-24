@@ -10,7 +10,25 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
+    
+        <h1>Using "brand" attribute</h1>
+    
         <bootstrap:navbar brand="Nav Bar">
+            <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
+            <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
+            <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
+            <h:link outcome="/samples/navbar.xhtml" value="navbar"/>
+        </bootstrap:navbar>
+        
+        <h1>Using "brand" facet</h1>
+        
+        <p>Don't forget to put <code>styleClass="brand"</code> in your brand content!</p>
+        
+        <bootstrap:navbar>
+            <f:facet name="brand">
+                <h:link outcome="/index.xhtml" value="Nav bar" styleClass="brand"/>
+            </f:facet>
+        
             <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
             <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
             <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>

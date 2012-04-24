@@ -6,7 +6,11 @@
              xmlns:rich="http://richfaces.org/rich"
              xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <div>
-        <bootstrap:navbar brand="Richfaces">
+        <bootstrap:navbar>
+            <f:facet name="brand">
+                <h:link outcome="/index.xhtml" value="Richfaces" styleClass="brand"/>
+            </f:facet>
+            
             <h:link outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
             <h:link outcome="/samples/tabbable.xhtml" value="tabbable"/>
             <h:link outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
