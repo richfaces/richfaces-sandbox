@@ -3,7 +3,8 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
 <h:head>
     <h:outputStylesheet library="css" name="demo.css"/>
 </h:head>
@@ -11,11 +12,11 @@
     <ui:include src="/resources/menu.xhtml"/>
     
     <div class="container">
-        <div class="row">
-            <div class="span12">
+        <bootstrap:gridRow>
+            <bootstrap:gridColumn span="12">
                 <ui:insert name="body">Body</ui:insert>
-            </div>
-        </div>
+            </bootstrap:gridColumn>
+        </bootstrap:gridRow>
     </div>
 </h:body>
 </html>

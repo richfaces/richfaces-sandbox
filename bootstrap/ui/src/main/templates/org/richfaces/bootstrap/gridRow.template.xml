@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.GridRowRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.GridRowRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.GridRowRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="row">
+            <cdk:body />
+        </div>
+    </cc:implementation>
+
+</cdk:root>
