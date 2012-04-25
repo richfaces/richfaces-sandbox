@@ -37,7 +37,8 @@ import javax.faces.component.UIPanel;
         type = AbstractGridRow.COMPONENT_TYPE,
         family = AbstractGridRow.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GridRowRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="gridRow"))
+        tag = @Tag(name="gridRow"),
+        attributes = "core-props.xml")
 abstract public class AbstractGridRow extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridRow";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridRow";

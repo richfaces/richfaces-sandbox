@@ -11,7 +11,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="row">
+        <div id="#{clientId}" class="row #{component.attributes['styleClass']}" cdk:passThrough="style title">
             <cdk:body />
         </div>
     </cc:implementation>
