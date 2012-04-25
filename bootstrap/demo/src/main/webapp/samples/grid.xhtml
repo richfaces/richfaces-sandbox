@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h:outputStylesheet>
+            /* Special grid styles
+-------------------------------------------------- */
+            .show-grid {
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+            .show-grid [class*="span"] {
+                background-color: #eee;
+                text-align: center;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                min-height: 30px;
+                line-height: 30px;
+            }
+            .show-grid:hover [class*="span"] {
+                background: #ddd;
+            }
+            .show-grid .show-grid {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            .show-grid .show-grid [class*="span"] {
+                background-color: #ccc;
+            }
+
+        </h:outputStylesheet>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="1">1</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="4">4</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="4">4</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="4">4</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="4">4</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="8">8</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="6">6</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="6">6</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="12">12</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+
+        <h2>Offsetting columns</h2>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="4">4</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="4" offset="4">4 offset 4</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="3" offset="3">3 offset 3</bootstrap:gridColumn>
+            <bootstrap:gridColumn span="3" offset="3">3 offset 3</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+        <bootstrap:gridRow styleClass="show-grid">
+            <bootstrap:gridColumn span="8" offset="4">8 offset 4</bootstrap:gridColumn>
+        </bootstrap:gridRow>
+
+    </ui:define>
+</ui:composition>
+</html>
