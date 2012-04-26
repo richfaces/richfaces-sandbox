@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.BadgeRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.BadgeRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.BadgeRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractBadge" name="badge"
+            value="#{castComponent(component)}"/>
+        <span id="#{clientId}"
+            class="badge #{badge.severity != null ? badge.severity.badgeClass : ''} #{component.attributes['styleClass']}"
+            cdk:passThrough="style">
+            
+            <c:if test="#{badge.value != null and !badge.value.equals('')}">#{badge.value}</c:if>
+        
+            <cdk:body />
+        </span>
+    </cc:implementation>
+
+</cdk:root>
