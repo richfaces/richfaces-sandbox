@@ -12,9 +12,12 @@
     <ui:define name="body">
     <h:form id="myform">
         <h:panelGrid columns="3">
-            <bootstrap:button value="Click" action="#{bean.setValue('Button clicked')}" icon="tint" render="out"/>
-            <h:outputText value="#{bean.value}" id="out"/>
+            <bootstrap:commandButton value="button/ajax" action="#{bean.setValue('button/ajax clicked')}" icon="tint" render="out"/>
+            <bootstrap:commandButton value="button/server" mode="server" action="#{bean.setValue('button/server clicked')}" icon="tint" render="out"/>
+            <bootstrap:commandButton value="button/client" mode="client" onclick="$('#myform\\:out').html('button/client clicked')" icon="tint" render="out"/>
         </h:panelGrid>
+        <br />
+        <h:outputText value="#{bean.value}" id="out"/>
     </h:form>
     </ui:define>
 </ui:composition>

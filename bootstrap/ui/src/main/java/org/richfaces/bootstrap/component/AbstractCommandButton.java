@@ -21,26 +21,25 @@
  */
 package org.richfaces.bootstrap.component;
 
-import org.richfaces.bootstrap.renderkit.ButtonRendererBase;
+import org.richfaces.bootstrap.renderkit.CommandButtonRendererBase;
 import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractActionComponent;
 import org.richfaces.component.Mode;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the button component
+ * Base class for the commandButton component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        type = AbstractButton.COMPONENT_TYPE, family = AbstractButton.COMPONENT_FAMILY,
-        facets = {@Facet(name = "icon", generate = false)},
-        renderer = @JsfRenderer(type = ButtonRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="button"),
-        attributes = {"events-mouse-props.xml", "core-props.xml", "ajax-props.xml"})
-abstract public class AbstractButton extends AbstractActionComponent implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Button";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Button";
+        type = AbstractCommandButton.COMPONENT_TYPE, family = AbstractCommandButton.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="commandButton"),
+        attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
+abstract public class AbstractCommandButton extends AbstractActionComponent implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
 
     /**
      * <p>Determines how the menu item requests are submitted.  Valid values:</p>
@@ -57,13 +56,21 @@ abstract public class AbstractButton extends AbstractActionComponent implements 
     public abstract Mode getMode();
 
     /**
-     * The icon to be displayed with the button
+     * The icon to be displayed with the CommandButton
      */
     @Attribute
     public abstract String getIcon();
 
     /**
-     * Disables the button component, so it will not be clickable
+     * HMTL tag used to create the button. Can be either "button" or "input".  If not specified, the default value is
+     * "button".
+     */
+    @Attribute(defaultValue = "button")
+    public abstract String getTag();
+
+
+    /**
+     * Disables the CommandButton component, so it will not be clickable
      */
     @Attribute
     public abstract boolean isDisabled();
