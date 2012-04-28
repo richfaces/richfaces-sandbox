@@ -11,14 +11,16 @@
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
     <h:form id="myform">
+
+        Use the <code>codeblock</code> component to display code sample in your page.
+        <br />
+        <br />
+        <ui:include src="/samples/codeblock/samples/codeblock.xhtml" />
+
+        Sample Code:
         <bootstrap:codeblock styleClass="lang-html">
-&lt;h1&gt;help&lt;/h1&gt;
-&lt;h1&gt;help&lt;/h1&gt;
-&lt;h1&gt;help&lt;/h1&gt;
-&lt;h1&gt;help&lt;/h1&gt;
-&lt;h1&gt;help&lt;/h1&gt;
-&lt;h1&gt;help&lt;/h1&gt;
-</bootstrap:codeblock>
+            <h:outputText value="/samples/codeblock/samples/codeblock.xhtml" escape="true" converter="FileConverter" />
+        </bootstrap:codeblock>
     </h:form>
     </ui:define>
 </ui:composition>
