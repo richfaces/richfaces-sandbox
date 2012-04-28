@@ -11,13 +11,17 @@
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
     <h:form id="myform">
-
-        Use the <code>codeblock</code> component to display code sample in your page.
+        <h3><code>bootstrap:codeblock</code></h3>
+        <br />
+        Use the <code>bootstrap:codeblock</code> component to display a code sample in your page.  The component uses
+        the <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a> library to provide syntax
+        highlighting.
         <br />
         <br />
+        <h3>Sample Output:</h3>
         <ui:include src="/samples/codeblock/samples/codeblock.xhtml" />
 
-        Sample Code:
+        <h3>Sample Code:</h3>
         <bootstrap:codeblock styleClass="lang-html">
             <h:outputText value="/samples/codeblock/samples/codeblock.xhtml" escape="true" converter="FileConverter" />
         </bootstrap:codeblock>
