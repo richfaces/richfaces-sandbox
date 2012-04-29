@@ -1,3 +1,24 @@
+/**
+ * JBoss, Home of Professional Open Source
+ * Copyright , Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.richfaces.bootstrap.renderkit;
 
 import org.richfaces.bootstrap.component.AbstractHeroUnit;
@@ -6,6 +27,8 @@ import org.richfaces.renderkit.RendererBase;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 /**
  * Base class for the heroUnit renderer
@@ -23,4 +46,10 @@ public abstract class HeroUnitRendererBase extends RendererBase {
     public AbstractHeroUnit castComponent(UIComponent component) {
         return (AbstractHeroUnit) component;
     }
+
+    public void renderTaglineFacet(FacesContext context, UIComponent component) throws IOException {
+        UIComponent brandFacet = component.getFacet("tagline");
+        brandFacet.encodeAll(context);
+    }
+
 }
