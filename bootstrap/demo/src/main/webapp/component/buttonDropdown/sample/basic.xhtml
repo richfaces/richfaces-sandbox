@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <h:form>
+        <h:panelGrid columns="3">
+            <bootstrap:buttonDropdown title="Action">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+            </bootstrap:buttonDropdown>
+            <bootstrap:buttonDropdown title="Primary" buttonStyle="btn-primary">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+            </bootstrap:buttonDropdown>
+            <bootstrap:buttonDropdown title="Danger" buttonStyle="btn-danger">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+            </bootstrap:buttonDropdown>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

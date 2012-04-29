@@ -10,14 +10,13 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
-        <bootstrap:tabbable>
-            <bootstrap:tabPane title="Section 1">
-                <p>I'm in Section 1.</p>
-            </bootstrap:tabPane>
-            <bootstrap:tabPane title="Section 2">
-                <p>Howdy, I'm in Section 2.</p>
-            </bootstrap:tabPane>
-        </bootstrap:tabbable>
+        <h1><code>bootstrap:accordion</code></h1>
+        <p>The <code>bootstrap:accordion</code> component can be used to collapse panels on a page.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="accordion"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
     </ui:define>
 </ui:composition>
 </html>

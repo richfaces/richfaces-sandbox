@@ -10,16 +10,14 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
-    <h:form>
-        <h:panelGrid columns="3">
-            <bootstrap:buttonGroup>
-                <h:link styleClass="btn" outcome="/samples/heroUnit.xhtml" value="heroUnit"/>
-                <h:link styleClass="btn" outcome="/samples/tabbable.xhtml" value="tabbable"/>
-                <h:link styleClass="btn" outcome="/samples/buttonGroup.xhtml" value="buttonGroup"/>
-                <h:link styleClass="btn" outcome="/samples/navbar.xhtml" value="navbar"/>
-            </bootstrap:buttonGroup>
-        </h:panelGrid>
-    </h:form>
+        <h1><code>bootstrap:heroUnit</code></h1>
+        <p>The <code>bootstrap:heroUnit</code> simple jumbotron-style component for calling extra attention to featured
+            content or information.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="heroUnit"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
     </ui:define>
 </ui:composition>
-</html>
+</html>	

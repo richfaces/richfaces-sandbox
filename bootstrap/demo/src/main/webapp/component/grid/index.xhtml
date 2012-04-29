@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h:outputStylesheet>
+            /* Special grid styles
+-------------------------------------------------- */
+            .show-grid {
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+            .show-grid [class*="span"] {
+                background-color: #eee;
+                text-align: center;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                min-height: 30px;
+                line-height: 30px;
+            }
+            .show-grid:hover [class*="span"] {
+                background: #ddd;
+            }
+            .show-grid .show-grid {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            .show-grid .show-grid [class*="span"] {
+                background-color: #ccc;
+            }
+
+        </h:outputStylesheet>
+
+        <h1><code>bootstrap:gridRow</code></h1>
+        <p>The <code>bootstrap:gridRow</code> component can be used to position elements on a page.</p>
+
+        <h2>Basic Usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="grid"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Offsetting columns</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="grid"/>
+            <ui:param name="sample" value="offset"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

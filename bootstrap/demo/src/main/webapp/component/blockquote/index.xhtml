@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:blockquote</code></h1>
+        The <code>bootstrap:blockquote</code> component is used to highlight some area of text.
+
+        <h2>Basic usage</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="blockquote" />
+            <ui:param name="sample" value="basic" />
+        </ui:include>
+
+
+        <h2>With author and cite</h2>
+        <h6>Let your mouse over the author a few seconds</h6>
+
+        <h2>Basic usage</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="blockquote" />
+            <ui:param name="sample" value="cite" />
+        </ui:include>
+
+        <h2>To the right!</h2>
+        <h6>Without cite</h6>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="blockquote" />
+            <ui:param name="sample" value="right" />
+        </ui:include>
+
+
+        <h2>Show your style and your class</h2>
+        <h6>Using "styleClass" attribute and not "position" for the float right</h6>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="blockquote" />
+            <ui:param name="sample" value="class" />
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>
