@@ -3,20 +3,26 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
     <h:form>
-        <h:panelGrid columns="3" cellpadding="10">
-            <bootstrap:buttonDropdown title="Action">
+        <h:panelGrid columns="4" cellpadding="10">
+            <bootstrap:buttonDropdown title="mini" scale="mini">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
                 <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
                 <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
             </bootstrap:buttonDropdown>
-            <bootstrap:buttonDropdown title="Primary" severity="primary">
+            <bootstrap:buttonDropdown title="small" scale="small">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
                 <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
                 <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
             </bootstrap:buttonDropdown>
-            <bootstrap:buttonDropdown title="Error" severity="error">
+            <bootstrap:buttonDropdown title="default">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+            </bootstrap:buttonDropdown>
+            <bootstrap:buttonDropdown title="large" scale="large">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
                 <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>

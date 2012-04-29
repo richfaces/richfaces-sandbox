@@ -52,11 +52,11 @@
         
         <c:choose>
             <c:when test="#{input.isReadOnly()}">
-                <span class="uneditable-input #{input.scale != null ? input.scale.inputSizeClass : ''}">#{input.value}</span>
+                <span class="uneditable-input #{input.scale != null ? input.scale.inputStyleClass : ''}">#{input.value}</span>
             </c:when>
             <c:otherwise>
                 <input id="#{clientId}" cdk:passThrough="style value placeholder"
-                    class="#{input.scale != null ? input.scale.inputSizeClass : ''} #{input.isDisabled() ? 'disabled' : ''} #{input.styleClass}">
+                    class="#{input.scale != null ? input.scale.inputStyleClass : ''} #{input.isDisabled() ? 'disabled' : ''} #{input.styleClass}">
                     <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
                 </input>
             </c:otherwise>

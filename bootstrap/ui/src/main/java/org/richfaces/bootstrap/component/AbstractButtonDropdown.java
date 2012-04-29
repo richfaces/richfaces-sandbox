@@ -26,6 +26,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.Positioning;
 
 import javax.faces.component.UIPanel;
 
@@ -48,5 +49,33 @@ abstract public class AbstractButtonDropdown extends UIPanel {
 
     @Attribute
     abstract public String getButtonStyle();
-
+    
+    @Attribute
+    abstract public BootstrapSeverity getSeverity();
+    
+    @Attribute
+    abstract public BootstrapSize getScale();
+    
+    @Attribute
+    abstract public Positioning getPosition();
+    
+    public String getVerticalPositionStyleClass() {
+        if(Positioning.topAuto.equals(getPosition())
+                || Positioning.topLeft.equals(getPosition())
+                || Positioning.topRight.equals(getPosition())) {
+            return "dropup";
+        } else {
+            return "";
+        }
+    }
+    
+    public String getHorizontalPositionStyleClass() {
+        if(Positioning.autoRight.equals(getPosition())
+                || Positioning.bottomRight.equals(getPosition())
+                || Positioning.topRight.equals(getPosition())) {
+            return "pull-right";
+        } else {
+            return "";
+        }
+    }
 }

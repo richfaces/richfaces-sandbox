@@ -35,31 +35,31 @@ public enum BootstrapSize {
     xlarge(null, ""),
     xxlarge(null, "");
     
-    private BootstrapSize(String buttonSizeClass, String inputSizeClass) {
-        if(buttonSizeClass == null) {
-            this.buttonSizeClass = "";
-        } else if(buttonSizeClass.equals("")) {
-            this.buttonSizeClass = BootstrapSeverity.BUTTON_PREFIX + this.toString();
+    private BootstrapSize(String buttonStyleClass, String inputStyleClass) {
+        if(buttonStyleClass == null) {
+            this.buttonStyleClass = "";
+        } else if(buttonStyleClass.equals("")) {
+            this.buttonStyleClass = BootstrapSeverity.BUTTON_PREFIX + this.toString();
         } else {
-            this.buttonSizeClass = BootstrapSeverity.BUTTON_PREFIX + buttonSizeClass;
+            this.buttonStyleClass = BootstrapSeverity.BUTTON_PREFIX + buttonStyleClass;
         }
         
-        if(inputSizeClass == null) {
-            this.inputSizeClass = "";
-        } else if(inputSizeClass.equals("")) {
-            this.inputSizeClass = "input-" + this.toString();
+        if(inputStyleClass == null) {
+            this.inputStyleClass = "";
+        } else if(inputStyleClass.equals("")) {
+            this.inputStyleClass = "input-" + this.toString();
         } else {
-            this.inputSizeClass = "input-" + inputSizeClass;
+            this.inputStyleClass = "input-" + inputStyleClass;
         }
     }
     
-    private String buttonSizeClass;
-    private String inputSizeClass;
+    private String buttonStyleClass;
+    private String inputStyleClass;
     
-    public String getButtonSizeClass() {
-        return buttonSizeClass;
+    public String getButtonStyleClass() {
+        return buttonStyleClass;
     }
-    public String getInputSizeClass() {
-        return inputSizeClass;
+    public String getInputStyleClass() {
+        return inputStyleClass;
     }
 }

@@ -69,7 +69,7 @@ public enum BootstrapSeverity {
         }
         
         if(labelClass == null) {
-            this.buttonClass = "";
+            this.labelClass = "";
         } else if(labelClass.equals("")) {
             this.labelClass = LABEL_PREFIX + this.toString();
         } else {
