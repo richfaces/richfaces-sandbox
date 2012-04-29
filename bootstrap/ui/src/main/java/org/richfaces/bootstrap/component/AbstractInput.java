@@ -53,7 +53,7 @@ abstract public class AbstractInput extends UIInput implements CoreProps {
     abstract public String getPlaceholder();
     
     @Attribute
-    abstract public boolean isReadOnly();
+    abstract public boolean isReadonly();
     
     @Attribute
     abstract public boolean isDisabled();
