@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.GridContainerRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.GridContainerRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.GridContainerRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridContainer" name="gridContainer" value="#{castComponent(component)}"/>
+        <div id="#{clientId}" class="container#{gridContainer.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}" cdk:passThrough="style title">
+            <cdk:body />
+        </div>
+    </cc:implementation>
+
+</cdk:root>

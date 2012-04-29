@@ -37,7 +37,7 @@ import javax.faces.component.UIComponent;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
-        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
+        @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css")})
 public abstract class GridColumnRendererBase extends DivPanelRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GridColumnRenderer";
 

@@ -21,28 +21,28 @@
  */
 package org.richfaces.bootstrap.component;
 
-import org.richfaces.bootstrap.renderkit.GridRowRendererBase;
+import javax.faces.component.UIPanel;
+
+import org.richfaces.bootstrap.renderkit.GridContainerRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-import javax.faces.component.UIPanel;
-
 /**
- * Base class for the gridRow component
+ * Base class for the gridContainer component
  *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  */
 @JsfComponent(
-        type = AbstractGridRow.COMPONENT_TYPE,
-        family = AbstractGridRow.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = GridRowRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="gridRow"),
+        type = AbstractGridContainer.COMPONENT_TYPE,
+        family = AbstractGridContainer.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = GridContainerRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="gridContainer"),
         attributes = "core-props.xml")
-abstract public class AbstractGridRow extends UIPanel {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridRow";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridRow";
+abstract public class AbstractGridContainer extends UIPanel {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridContainer";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridContainer";
     
     @Attribute
     abstract public boolean isFluid();

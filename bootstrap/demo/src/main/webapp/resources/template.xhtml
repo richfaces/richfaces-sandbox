@@ -11,12 +11,12 @@
 <h:body styleClass="rich-container">
     <ui:include src="/resources/menu.xhtml"/>
     
-    <div class="container">
-        <bootstrap:gridRow>
+    <bootstrap:gridContainer fluid="#{sessionBean.fluid}">
+        <bootstrap:gridRow fluid="#{sessionBean.fluid}">
             <bootstrap:gridColumn span="12">
                 <ui:insert name="body">Body</ui:insert>
             </bootstrap:gridColumn>
         </bootstrap:gridRow>
-    </div>
+    </bootstrap:gridContainer>
 </h:body>
 </html>

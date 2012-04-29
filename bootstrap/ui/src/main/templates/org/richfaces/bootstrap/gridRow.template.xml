@@ -11,7 +11,8 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="row #{component.attributes['styleClass']}" cdk:passThrough="style title">
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridRow" name="gridRow" value="#{castComponent(component)}"/>
+        <div id="#{clientId}" class="row#{gridRow.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}" cdk:passThrough="style title">
             <cdk:body />
         </div>
     </cc:implementation>

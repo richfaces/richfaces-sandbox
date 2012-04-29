@@ -21,28 +21,28 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractGridRow;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 
+import org.richfaces.bootstrap.component.AbstractGridContainer;
+import org.richfaces.renderkit.html.DivPanelRenderer;
+
 /**
- * Base class for the gridRow renderer
+ * Base class for the gridContainer renderer
  *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  */
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css")})
-public abstract class GridRowRendererBase extends DivPanelRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GridRowRenderer";
-
+public abstract class GridContainerRendererBase extends DivPanelRenderer {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GridContainerRenderer";
+    
     // A workaround for RF-11668
-    public AbstractGridRow castComponent(UIComponent component) {
-        return (AbstractGridRow) component;
+    public AbstractGridContainer castComponent(UIComponent component) {
+        return (AbstractGridContainer) component;
     }
 }
