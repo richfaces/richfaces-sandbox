@@ -35,13 +35,13 @@ import javax.faces.component.UIComponentBase;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        type = HeroUnit.COMPONENT_TYPE,
-        family = HeroUnit.COMPONENT_FAMILY,
+        type = AbstractHeroUnit.COMPONENT_TYPE,
+        family = AbstractHeroUnit.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = HeroUnitRendererBase.RENDERER_TYPE),
         tag = @Tag(name="heroUnit"))
-public abstract class HeroUnit extends UIComponentBase {
+public abstract class AbstractHeroUnit extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Typography";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.HeroUnit";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.AbstractHeroUnit";
 
     @Attribute
     abstract public String getHeading();

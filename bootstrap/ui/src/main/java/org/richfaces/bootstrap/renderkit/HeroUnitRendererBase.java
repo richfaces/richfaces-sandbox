@@ -1,6 +1,6 @@
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.HeroUnit;
+import org.richfaces.bootstrap.component.AbstractHeroUnit;
 import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.application.ResourceDependencies;
@@ -20,7 +20,7 @@ public abstract class HeroUnitRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.HeroUnitRenderer";
 
     // A workaround for RF-11668
-    public HeroUnit castComponent(UIComponent component) {
-        return (HeroUnit) component;
+    public AbstractHeroUnit castComponent(UIComponent component) {
+        return (AbstractHeroUnit) component;
     }
 }
