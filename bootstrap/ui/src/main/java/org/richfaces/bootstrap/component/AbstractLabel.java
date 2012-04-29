@@ -31,6 +31,8 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * Base class for the label component
+ * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
  */
 @JsfComponent(

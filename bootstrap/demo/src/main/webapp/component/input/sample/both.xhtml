@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <bootstrap:input>
+        <f:facet name="prepend">
+            <h:outputText value="$" />
+        </f:facet>
+
+        <f:facet name="append">
+            <h:outputText value=".00" />
+            <h:link styleClass="btn btn-success" value="Buy" />
+            <h:link styleClass="btn btn-danger" value="Cancel" />
+        </f:facet>
+    </bootstrap:input>
+</ui:composition>

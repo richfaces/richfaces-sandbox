@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:input</code></h1>
+        <p>The <code>bootstrap:input</code> is a classic with design enhancements like having text or button 
+        prefix or suffix, color border depending on the severity, ...</p>
+    
+        <h1>Basic usage</h1>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="input"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+        
+        <h1>Scale</h1>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="input"/>
+            <ui:param name="sample" value="scale"/>
+        </ui:include>
+        
+        <h1>With prepend</h1>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="input"/>
+            <ui:param name="sample" value="prepend"/>
+        </ui:include>
+        
+        <h1>With append</h1>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="input"/>
+            <ui:param name="sample" value="append"/>
+        </ui:include>
+        
+        <h1>With both</h1>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="input"/>
+            <ui:param name="sample" value="both"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

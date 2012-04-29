@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:badge</code></h1>
+        <p><code>bootstrap:badge</code>'s are small, simple components for displaying an indicator or count of some sort.
+        They're commonly found in email clients like Mail.app or on mobile apps for push notifications.</p>
+    
+        <h2>Basic usage</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="badge" />
+            <ui:param name="sample" value="basic" />
+        </ui:include>
+
+        <h1>Severity usage</h1>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="badge" />
+            <ui:param name="sample" value="severity" />
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

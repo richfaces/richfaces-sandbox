@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.CommandButtonRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.CommandButtonRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.CommandButtonRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractCommandButton" name="commandButton" value="#{castComponent(component)}"/>
+        <cdk:object type="java.lang.String" name="type" value="#{'client' eq component.attributes['mode'].toString() ? 'button' : component.attributes['type'].toString()}"/>
+
+        <c:choose>
+            <c:when test="#{commandButton.tag eq 'button'}">
+                <button id="#{clientId}" name="#{clientId}" class="btn #{commandButton.styleClass}" value="#{commandButton.value}"
+                        onclick="#{this.getOnClick(facesContext, component)}"
+                        cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
+                        type="#{type}">
+
+                    <c:if test="#{! empty commandButton.icon}">
+                        <i class="icon-#{commandButton.icon}"></i>
+                    </c:if>
+                    #{commandButton.value}
+                    <cdk:call expression="renderChildren(facesContext, component);" />
+                </button>
+            </c:when>
+            <c:when test="#{commandButton.tag eq 'input'}">
+                <input id="#{clientId}" name="#{clientId}" class="btn #{commandButton.styleClass}" value="#{commandButton.value}"
+                        onclick="#{this.getOnClick(facesContext, component)}"
+                        cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
+                    <cdk:call expression="encodeTypeAndImage(facesContext, commandButton);"/>
+                </input>
+            </c:when>
+        </c:choose>
+
+    </cc:implementation>
+</cdk:root>

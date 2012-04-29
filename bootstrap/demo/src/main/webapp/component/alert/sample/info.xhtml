@@ -1,0 +1,12 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <bootstrap:alert severity="info">
+        <p>Here is a tip for you : just press "F5" or the following button to revive all closed alerts.</p>
+        <p>
+            <h:link outcome="/component/alert/index.xhtml" styleClass="btn" value="Refresh" />
+        </p>
+        <h6>Yeah, there is no problem with having link or button inside an alert. Anything is fine.</h6>
+    </bootstrap:alert>
+</ui:composition>

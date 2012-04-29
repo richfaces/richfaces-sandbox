@@ -32,6 +32,8 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * Base class for the alert component
  * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * 
  */
 @JsfComponent(
         type = AbstractAlert.COMPONENT_TYPE,

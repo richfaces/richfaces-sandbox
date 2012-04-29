@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.InputRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.InputRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.InputRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractInput" name="input"
+            value="#{castComponent(component)}"/>
+            
+        <cdk:call expression="encodeBeginWrapper(facesContext, component)"/>
+        
+        <c:if test="#{input.hasFacet('prepend')}">
+            <cdk:object type="javax.faces.component.UIComponent" name="prependFacet"
+                value="#{component.getFacet('prepend')}"/>
+            <c:choose>
+                <c:when test="#{prependFacet.getChildren() eq null or prependFacet.getChildCount() eq 0}">
+                    <c:choose>
+                        <c:when test="#{input.containsStyleClass(prependFacet.attributes['styleClass'], 'btn')}">
+                            <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="add-on">
+                                <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="child" items="#{component.getFacet('prepend').getChildren()}">
+                        <c:choose>
+                            <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
+                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="add-on">
+                                    <cdk:call expression="child.encodeAll(facesContext)"/>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+        
+        <c:choose>
+            <c:when test="#{input.isReadOnly()}">
+                <span class="uneditable-input #{input.scale != null ? input.scale.inputSizeClass : ''}">#{input.value}</span>
+            </c:when>
+            <c:otherwise>
+                <input id="#{clientId}" cdk:passThrough="style value placeholder"
+                    class="#{input.scale != null ? input.scale.inputSizeClass : ''} #{input.isDisabled() ? 'disabled' : ''} #{input.styleClass}">
+                    <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
+                </input>
+            </c:otherwise>
+        </c:choose>
+        
+        <c:if test="#{input.hasFacet('append')}">
+            <c:forEach var="child" items="#{component.getFacet('append').getChildren()}">
+                <c:choose>
+                    <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="add-on">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </c:if>
+        
+        <cdk:call expression="encodeEndWrapper(facesContext, component)"/>
+    </cc:implementation>
+
+</cdk:root>

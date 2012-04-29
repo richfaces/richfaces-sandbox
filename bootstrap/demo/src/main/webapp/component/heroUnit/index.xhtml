@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:heroUnit</code></h1>
+        <p>The <code>bootstrap:heroUnit</code> simple jumbotron-style component for calling extra attention to featured
+            content or information.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="heroUnit"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>	

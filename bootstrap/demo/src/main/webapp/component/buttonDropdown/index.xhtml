@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:buttonDropdown</code></h1>
+        <p>The <code>bootstrap:buttonDropdown</code> component can be used to group buttons together.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="buttonDropdown"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

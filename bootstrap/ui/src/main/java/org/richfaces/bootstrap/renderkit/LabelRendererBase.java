@@ -30,6 +30,8 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * Base class for the label renderer
+ * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
  */
 @ResourceDependencies({

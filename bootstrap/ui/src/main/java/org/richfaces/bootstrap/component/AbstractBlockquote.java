@@ -32,6 +32,8 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * Base class for the blockquote component
  * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * 
  */
 @JsfComponent(
         type = AbstractBlockquote.COMPONENT_TYPE,

@@ -12,10 +12,19 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.HeroUnit" name="heroUnit" value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractHeroUnit" name="heroUnit" value="#{castComponent(component)}"/>
         <div id="#{clientId}" class="hero-unit #{heroUnit.styleClass}">
             <h1>#{heroUnit.heading}</h1>
-            <p>#{heroUnit.tagline}</p>
+            <c:choose>
+                <c:when test="#{component.getFacet('tagline') != null and component.getFacet('tagline').rendered}">
+                    <p>
+                        <cdk:call expression="renderTaglineFacet(facesContext, component)" />
+                    </p>
+                </c:when>
+                <c:when test="#{component.attributes['tagline']!= null and not component.attributes['tagline'].equals('')}">
+                    <p>#{heroUnit.tagline}</p>
+                </c:when>
+            </c:choose>
             <p>
                 <cdk:body />
             </p>

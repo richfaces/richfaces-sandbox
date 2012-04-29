@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h1><code>bootstrap:codeblock</code></h1>
+        <p>Use the <code>bootstrap:codeblock</code> component to display a code sample in your page.  The component uses
+            the <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a> library to provide syntax
+            highlighting.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="codeblock"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

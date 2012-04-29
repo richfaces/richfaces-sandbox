@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <h:form styleClass="form-horizontal">
+            <h1>Basic usage</h1>
+            
+            <bootstrap:input scale="mini" />
+            
+            <h1>With prepend</h1>
+            
+            <bootstrap:input>
+                <f:facet name="prepend">
+                    <h:outputText value="Test" />
+                    <h:outputText value="Test2" />
+                    <h:link styleClass="btn" value="Button"/>
+                </f:facet>
+            </bootstrap:input>
+            
+            <h1>With append</h1>
+            
+            <bootstrap:input>
+                <f:facet name="append">
+                    <h:outputText value=".00" />
+                    <h:link styleClass="btn btn-primary" value="Buy"/>
+                </f:facet>
+            </bootstrap:input>
+            
+            <h1>With both</h1>
+            
+            <bootstrap:input>
+                <f:facet name="prepend">
+                    <h:outputText value="aze" />
+                </f:facet>
+                
+                <f:facet name="append">
+                    <h:outputText value=".00" />
+                    <h:link styleClass="btn btn-success" value="Buy"/>
+                    <h:link styleClass="btn btn-danger" value="Cancel"/>
+                </f:facet>
+            </bootstrap:input>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

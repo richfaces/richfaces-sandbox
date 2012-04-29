@@ -31,6 +31,8 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
 /**
  * Base class for the blockquote renderer
  * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * 
  */
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
