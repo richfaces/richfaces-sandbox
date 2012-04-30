@@ -4,13 +4,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h3>Sample Output:</h3>
     <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
 
     <h3>Sample Code:</h3>
-    <bootstrap:codeblock styleClass="lang-html">
+    <b:codeblock styleClass="lang-html">
         <h:outputText value="/component/#{tag}/sample/#{sample}.xhtml" escape="true" converter="FileConverter" />
-    </bootstrap:codeblock>
+    </b:codeblock>
 </ui:composition>
 </html>

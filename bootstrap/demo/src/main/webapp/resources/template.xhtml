@@ -4,19 +4,19 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+      xmlns:b="http://richfaces.org/sandbox/bootstrap">
 <h:head>
     <h:outputStylesheet library="css" name="demo.css"/>
 </h:head>
 <h:body styleClass="rich-container">
     <ui:include src="/resources/menu.xhtml"/>
     
-    <bootstrap:gridContainer fluid="#{sessionBean.fluid}">
-        <bootstrap:gridRow fluid="#{sessionBean.fluid}">
-            <bootstrap:gridColumn span="12">
+    <b:gridContainer fluid="#{sessionBean.fluid}">
+        <b:gridRow fluid="#{sessionBean.fluid}">
+            <b:gridColumn span="12">
                 <ui:insert name="body">Body</ui:insert>
-            </bootstrap:gridColumn>
-        </bootstrap:gridRow>
-    </bootstrap:gridContainer>
+            </b:gridColumn>
+        </b:gridRow>
+    </b:gridContainer>
 </h:body>
 </html>

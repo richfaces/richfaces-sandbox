@@ -8,7 +8,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
         <h:outputStylesheet>
             /* Special grid styles
@@ -39,12 +39,12 @@
 
         </h:outputStylesheet>
 
-        <h1><code>bootstrap:gridContainer</code> <code>bootstrap:gridRow</code> <code>bootstrap:gridColumn</code></h1>
+        <h1><code>b:gridContainer</code> <code>b:gridRow</code> <code>b:gridColumn</code></h1>
         <p>The Bootstrap grid is a responsive layout that adapts to the width of your screen. Its composed by three components :</p>
         <ul>
-            <li><code>bootstrap:gridContainer</code> is a wrapper around your page / content.</li>
-            <li><code>bootstrap:gridRow</code> is a section of your page and will occupied full width availabled.</li>
-            <li><code>bootstrap:gridColumn</code> is a part of a gridRow. There is maximum 12 gridColumns in one gridRow.</li>
+            <li><code>b:gridContainer</code> is a wrapper around your page / content.</li>
+            <li><code>b:gridRow</code> is a section of your page and will occupied full width availabled.</li>
+            <li><code>b:gridColumn</code> is a part of a gridRow. There is maximum 12 gridColumns in one gridRow.</li>
         </ul>
 
         <p>
@@ -63,9 +63,9 @@
         </ui:include>
 
         <h2>Offsetting columns</h2>
-        <bootstrap:alert rendered="#{sessionBean.fluid}" severity="error">
+        <b:alert rendered="#{sessionBean.fluid}" severity="error">
             <h:outputText value="Offsetting doesn't work with fluid layout." />
-        </bootstrap:alert>
+        </b:alert>
         
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="grid"/>

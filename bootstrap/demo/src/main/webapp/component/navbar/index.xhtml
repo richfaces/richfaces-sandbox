@@ -8,10 +8,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:bootstrap="http://richfaces.org/sandbox/bootstrap">
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
-        <h1><code>bootstrap:navbar</code></h1>
-        <p>The <code>bootstrap:brand</code> is used to provide a navigation bar accross the top of the page.</p>
+        <h1><code>b:navbar</code></h1>
+        <p>The <code>b:brand</code> is used to provide a navigation bar accross the top of the page.</p>
 
         
         <h2>Using "brand" attribute</h2>
@@ -33,9 +33,9 @@
         
         <h2>Custom collapsed menu label</h2>
         
-        <bootstrap:alert severity="info">
+        <b:alert severity="info">
             <h:outputText value="To see collapsed effects, you need to rezise your browser window with less than 768 pixels width." />
-        </bootstrap:alert>
+        </b:alert>
 
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="navbar"/>
@@ -45,9 +45,9 @@
         
         <h2>Non-collapsible</h2>
         
-        <bootstrap:alert severity="info">
+        <b:alert severity="info">
             <h:outputText value="To see collapsed effects, you need to rezise your browser window with less than 768 pixels width." />
-        </bootstrap:alert>
+        </b:alert>
 
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="navbar"/>
