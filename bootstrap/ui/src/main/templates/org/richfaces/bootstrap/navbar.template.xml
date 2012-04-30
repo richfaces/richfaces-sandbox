@@ -15,9 +15,24 @@
     <cc:implementation>
         <cdk:object type="org.richfaces.bootstrap.component.AbstractNavbar" name="navbar"
                     value="#{castComponent(component)}"/>
-        <div id="#{clientId}" class="navbar">
+        <div id="#{clientId}" class="navbar #{navbar.fixed ne null and !navbar.fixed.equals('') ? 'navbar-fixed-'.concat(navbar.fixed) : ''}">
             <div class="navbar-inner">
                 <div class="container">
+                    <c:if test="#{navbar.isCollapsible()}">
+                        <a class="btn btn-inverse btn-navbar" data-toggle="collapse" data-target="##{clientId}_collapse">
+                            <c:choose>
+                                <c:when test="#{component.getFacet('collapsedMenu') != null and component.getFacet('collapsedMenu').rendered}">
+                                    <cdk:call expression="renderCollapsedMenuFacet(facesContext, component)" />
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </c:otherwise>
+                            </c:choose>
+                        </a>
+                    </c:if>
+                
                     <c:choose>
                         <c:when test="#{component.getFacet('brand') != null and component.getFacet('brand').rendered}">
                             <cdk:call expression="renderBrandFacet(facesContext, component)" />
@@ -28,13 +43,29 @@
                         <c:otherwise>
                         </c:otherwise>
                     </c:choose>
-                    <ul class="nav">
-                        <c:forEach var="child" items="#{component.getChildren()}">
-                            <li>
-                                <cdk:call expression="child.encodeAll(facesContext)"/>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    
+                    <c:choose>
+                        <c:when test="#{navbar.isCollapsible()}">
+                            <div id="#{clientId}_collapse" class="nav-collapse">
+                                <ul class="nav">
+                                    <c:forEach var="child" items="#{component.getChildren()}">
+                                        <li>
+                                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="nav">
+                                <c:forEach var="child" items="#{component.getChildren()}">
+                                    <li>
+                                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

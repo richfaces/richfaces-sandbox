@@ -51,7 +51,7 @@
         </c:if>
         
         <c:choose>
-            <c:when test="#{input.isReadOnly()}">
+            <c:when test="#{input.isReadonly()}">
                 <span class="uneditable-input #{input.scale != null ? input.scale.inputStyleClass : ''}">#{input.value}</span>
             </c:when>
             <c:otherwise>

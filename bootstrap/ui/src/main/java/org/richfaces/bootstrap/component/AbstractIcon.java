@@ -21,36 +21,29 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
+import javax.faces.component.UIOutput;
 
-import org.richfaces.bootstrap.renderkit.NavbarRendererBase;
+import org.richfaces.bootstrap.renderkit.IconRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * Base class for the navbar component
+ * Base class for the icon component
+ * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        type = AbstractNavbar.COMPONENT_TYPE,
-        family = AbstractNavbar.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = NavbarRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="navbar"))
-abstract public class AbstractNavbar extends UIPanel {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Navbar";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Navbar";
-
-    @Attribute
-    abstract public String getBrand();
+        type = AbstractIcon.COMPONENT_TYPE,
+        family = AbstractIcon.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = IconRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="icon"))
+abstract public class AbstractIcon extends UIOutput {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Icon";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Icon";
     
     @Attribute
-    abstract public String getFixed();
-    
-    @Attribute(defaultValue = "true")
-    abstract public boolean isCollapsible();
-    
-    
+    abstract public String getColor();
 }

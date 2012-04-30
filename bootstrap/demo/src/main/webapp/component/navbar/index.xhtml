@@ -13,6 +13,7 @@
         <h1><code>bootstrap:navbar</code></h1>
         <p>The <code>bootstrap:brand</code> is used to provide a navigation bar accross the top of the page.</p>
 
+        
         <h2>Using "brand" attribute</h2>
 
         <ui:include src="/resources/sample.xhtml">
@@ -20,12 +21,37 @@
             <ui:param name="sample" value="basic"/>
         </ui:include>
     
+        
         <h2>Using "brand" facet</h2>
         <p>Don't forget to put <code>styleClass="brand"</code> in your brand content!</p>
 
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="navbar"/>
             <ui:param name="sample" value="facet"/>
+        </ui:include>
+        
+        
+        <h2>Custom collapsed menu label</h2>
+        
+        <bootstrap:alert severity="info">
+            <h:outputText value="To see collapsed effects, you need to rezise your browser window with less than 768 pixels width." />
+        </bootstrap:alert>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="navbar"/>
+            <ui:param name="sample" value="collapse"/>
+        </ui:include>
+        
+        
+        <h2>Non-collapsible</h2>
+        
+        <bootstrap:alert severity="info">
+            <h:outputText value="To see collapsed effects, you need to rezise your browser window with less than 768 pixels width." />
+        </bootstrap:alert>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="navbar"/>
+            <ui:param name="sample" value="notCollapsed"/>
         </ui:include>
 
 

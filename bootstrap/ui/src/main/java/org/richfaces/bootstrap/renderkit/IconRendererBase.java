@@ -21,45 +21,28 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
-import org.richfaces.bootstrap.component.AbstractNavbar;
+import org.richfaces.bootstrap.component.AbstractIcon;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
- * Base class for the navbar renderer
+ * Base class for the icon renderer
+ * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css"),
-        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
-public abstract class NavbarRendererBase extends DivPanelRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.NavbarRenderer";
+        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
+public abstract class IconRendererBase extends DivPanelRenderer {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.IconRenderer";
 
     // A workaround for RF-11668
-    public AbstractNavbar castComponent(UIComponent component) {
-        return (AbstractNavbar) component;
-    }
-    
-    public void renderFacet(String facetName, FacesContext context, UIComponent component) throws IOException {
-        UIComponent facet = component.getFacet(facetName);
-        facet.encodeAll(context);
-    }
-    
-    public void renderBrandFacet(FacesContext context, UIComponent component) throws IOException {
-        renderFacet("brand", context, component);
-    }
-    
-    public void renderCollapsedMenuFacet(FacesContext context, UIComponent component) throws IOException {
-        renderFacet("collapsedMenu", context, component);
+    public AbstractIcon castComponent(UIComponent component) {
+        return (AbstractIcon) component;
     }
 }
