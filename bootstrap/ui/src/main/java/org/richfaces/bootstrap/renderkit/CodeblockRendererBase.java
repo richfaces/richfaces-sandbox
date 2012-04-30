@@ -21,12 +21,12 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractCodeblock;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+
+import org.richfaces.bootstrap.component.AbstractCodeblock;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the codeblock renderer
@@ -40,7 +40,7 @@ import javax.faces.component.UIComponent;
         @ResourceDependency(library = "com.googlecode/prettify", name = "prettify.css"),
         @ResourceDependency(library = "com.googlecode/prettify", name = "prettify.js"),
         @ResourceDependency(library = "org.richfaces", name = "codeblock.js")})
-public abstract class CodeblockRendererBase extends DivPanelRenderer {
+public abstract class CodeblockRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.CodeblockRenderer";
 
     // A workaround for RF-11668

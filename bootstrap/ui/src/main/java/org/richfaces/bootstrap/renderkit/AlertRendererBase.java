@@ -26,7 +26,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.bootstrap.component.AbstractAlert;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the alert renderer
@@ -39,7 +39,7 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
-public abstract class AlertRendererBase extends DivPanelRenderer {
+public abstract class AlertRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AlertRenderer";
 
     // A workaround for RF-11668

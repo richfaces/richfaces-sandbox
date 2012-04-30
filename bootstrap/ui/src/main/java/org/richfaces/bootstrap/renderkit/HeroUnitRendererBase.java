@@ -21,14 +21,15 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractHeroUnit;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+
+import org.richfaces.bootstrap.component.AbstractHeroUnit;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the heroUnit renderer

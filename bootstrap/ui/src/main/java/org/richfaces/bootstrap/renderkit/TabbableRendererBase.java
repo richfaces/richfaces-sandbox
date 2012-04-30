@@ -21,12 +21,12 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractTabbable;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+
+import org.richfaces.bootstrap.component.AbstractTabbable;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the tabbable renderer
@@ -38,7 +38,7 @@ import javax.faces.component.UIComponent;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
-public abstract class TabbableRendererBase extends DivPanelRenderer {
+public abstract class TabbableRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabbableRenderer";
 
     // A workaround for RF-11668

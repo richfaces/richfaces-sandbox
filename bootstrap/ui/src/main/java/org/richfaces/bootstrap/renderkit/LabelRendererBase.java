@@ -26,7 +26,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.bootstrap.component.AbstractLabel;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the label renderer
@@ -38,7 +38,7 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
-public abstract class LabelRendererBase extends DivPanelRenderer {
+public abstract class LabelRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.LabelRenderer";
 
     // A workaround for RF-11668

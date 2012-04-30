@@ -26,7 +26,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.bootstrap.component.AbstractGridContainer;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the gridContainer renderer
@@ -38,7 +38,7 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css")})
-public abstract class GridContainerRendererBase extends DivPanelRenderer {
+public abstract class GridContainerRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GridContainerRenderer";
     
     // A workaround for RF-11668

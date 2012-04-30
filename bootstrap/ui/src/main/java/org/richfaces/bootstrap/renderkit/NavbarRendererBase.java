@@ -29,7 +29,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.bootstrap.component.AbstractNavbar;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * Base class for the navbar renderer
@@ -42,7 +42,7 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css"),
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
-public abstract class NavbarRendererBase extends DivPanelRenderer {
+public abstract class NavbarRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.NavbarRenderer";
 
     // A workaround for RF-11668
