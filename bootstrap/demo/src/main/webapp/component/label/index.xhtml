@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-<ui:composition template="/resources/template.xhtml"
+<ui:composition template="/resources/component.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -10,6 +10,7 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
+        <ui:param name="tag" value="label"/>
         <h1><code>b:label</code></h1>
         <p>The <code>b:label</code> displays message serverity.</p>
 

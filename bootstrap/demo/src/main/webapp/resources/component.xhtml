@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://richfaces.org/sandbox/bootstrap">
+<h:head>
+    <h:outputStylesheet library="css" name="demo.css"/>
+</h:head>
+<h:body styleClass="rich-container">
+    <ui:include src="/resources/menu.xhtml"/>
+    
+    <b:gridContainer fluid="#{sessionBean.fluid}">
+        <b:gridRow fluid="#{sessionBean.fluid}">
+            <b:gridColumn span="6">
+                <ui:insert name="body">Body</ui:insert>
+            </b:gridColumn>
+            <b:gridColumn span="6">
+                <ui:include src="/resources/taglib.xhtml">
+                    <ui:param name="tag" value="#{tag}" />
+                        </ui:include>
+            </b:gridColumn>
+        </b:gridRow>
+    </b:gridContainer>
+</h:body>
+</html>

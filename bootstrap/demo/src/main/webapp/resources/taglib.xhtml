@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <h:outputStylesheet >
+        .attributes tr {
+            vertical-align: top;
+        }
+    </h:outputStylesheet>
+    <h:dataTable value="#{taglibReader.tagMap[tag].attribute}" var="attribute" styleClass="attributes">
+        <h:column>
+            <f:facet name="header">Attribute name</f:facet>
+            #{attribute.name.value}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Description</f:facet>
+            <ui:repeat value="#{attribute.description}" var="description">
+                #{description.value}
+            </ui:repeat>
+        </h:column>
+    </h:dataTable>
+</ui:composition>
+</html>
