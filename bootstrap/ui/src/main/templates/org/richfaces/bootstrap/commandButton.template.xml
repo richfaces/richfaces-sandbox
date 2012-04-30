@@ -24,7 +24,7 @@
                         type="#{type}">
 
                     <c:if test="#{! empty commandButton.icon}">
-                        <i class="icon-#{commandButton.icon}"></i>
+                        <i class="icon-#{commandButton.icon}"></i>#{" "}
                     </c:if>
                     #{commandButton.value}
                     <cdk:call expression="renderChildren(facesContext, component);" />

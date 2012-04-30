@@ -4,9 +4,9 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h:form id="myform">
         <h:panelGrid columns="3">
-            <b:commandButton value="button/ajax" action="#{bean.setValue('button/ajax clicked')}" icon="tint" render="out"/>
-            <b:commandButton value="button/server" mode="server" action="#{bean.setValue('button/server clicked')}" icon="tint" render="out"/>
-            <b:commandButton value="button/client" mode="client" onclick="$('#myform\\:out').html('button/client clicked')" icon="tint" render="out"/>
+            <b:commandButton value="button/ajax" action="#{bean.setValue('button/ajax clicked')}" icon="refresh" render="out"/>
+            <b:commandButton value="button/server" mode="server" action="#{bean.setValue('button/server clicked')}" icon="refresh" render="out"/>
+            <b:commandButton value="button/client" mode="client" onclick="$('#myform\\:out').html('button/client clicked')" icon="refresh" render="out"/>
         </h:panelGrid>
         <br />
         <h:outputText value="#{bean.value}" id="out"/>
