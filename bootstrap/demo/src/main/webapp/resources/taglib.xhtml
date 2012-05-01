@@ -11,17 +11,60 @@
             vertical-align: top;
         }
     </h:outputStylesheet>
-    <h:dataTable value="#{taglibReader.tagMap[tag].attribute}" var="attribute" styleClass="attributes">
-        <h:column>
-            <f:facet name="header">Attribute name</f:facet>
-            #{attribute.name.value}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Description</f:facet>
-            <ui:repeat value="#{attribute.description}" var="description">
-                #{description.value}
-            </ui:repeat>
-        </h:column>
-    </h:dataTable>
+    
+    <b:tabbable>
+        <b:tabPane title="VDL" default="true">
+            <h:dataTable value="#{taglibReader.getNonOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
+                <h:column>
+                    <f:facet name="header">Attribute</f:facet>
+                    <h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    <h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <ui:repeat value="#{attribute.description}" var="description">
+                        <h:outputText value="#{description.value}" escape="false"/>
+                    </ui:repeat>
+                </h:column>
+            </h:dataTable>
+            
+            <div class="well">
+                <h6>Legend</h6>
+                <p>
+                    <span class="required">Underline attributes</span> are required.
+                </p>
+            </div>
+        </b:tabPane>
+        
+        <b:tabPane title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
+            <h:dataTable value="#{taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
+                <h:column>
+                    <f:facet name="header">Attribute</f:facet>
+                    <h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    <h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <ui:repeat value="#{attribute.description}" var="description">
+                        <h:outputText value="#{description.value}" escape="false"/>
+                    </ui:repeat>
+                </h:column>
+            </h:dataTable>
+            
+            <div class="well">
+                <h6>Legend</h6>
+                <p>
+                    <span class="required">Underline attributes</span> are required.
+                </p>
+            </div>
+        </b:tabPane>
+    </b:tabbable>
+    
 </ui:composition>
 </html>

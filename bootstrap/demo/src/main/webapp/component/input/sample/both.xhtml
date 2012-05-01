@@ -7,9 +7,11 @@
         </f:facet>
 
         <f:facet name="append">
-            <h:outputText value=".00" />
-            <h:link styleClass="btn btn-success" value="Buy" />
-            <h:link styleClass="btn btn-danger" value="Cancel" />
+            <h:panelGroup>
+                <h:outputText value=".00" />
+                <h:link styleClass="btn btn-success" value="Buy" />
+                <h:link styleClass="btn btn-danger" value="Cancel" />
+            </h:panelGroup>
         </f:facet>
     </b:input>
 </ui:composition>

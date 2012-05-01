@@ -49,9 +49,28 @@
                             <div id="#{clientId}_collapse" class="nav-collapse">
                                 <ul class="nav">
                                     <c:forEach var="child" items="#{component.getChildren()}">
-                                        <li>
-                                            <cdk:call expression="child.encodeAll(facesContext)"/>
-                                        </li>
+                                        <c:choose>
+                                            <c:when test="#{child.getChildCount() gt 0}">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        #{child.attributes['style']}
+                                                        <b class="caret"></b>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <c:forEach var="subchild" items="#{child.getChildren()}">
+                                                            <li>
+                                                                <cdk:call expression="subchild.encodeAll(facesContext)"/>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <cdk:call expression="child.encodeAll(facesContext)"/>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -59,9 +78,28 @@
                         <c:otherwise>
                             <ul class="nav">
                                 <c:forEach var="child" items="#{component.getChildren()}">
-                                    <li>
-                                        <cdk:call expression="child.encodeAll(facesContext)"/>
-                                    </li>
+                                    <c:choose>
+                                        <c:when test="#{child.getChildCount() gt 0}">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    #{child.attributes['style']}
+                                                    <b class="caret"></b>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach var="subchild" items="#{child.getChildren()}">
+                                                        <li>
+                                                            <cdk:call expression="subchild.encodeAll(facesContext)"/>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </ul>
                         </c:otherwise>

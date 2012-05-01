@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 @SuppressWarnings("serial")
 public class SessionBean implements Serializable {
-    private boolean fluid = false;
+    private boolean fluid = true;
 
     public boolean isFluid() {
         return fluid;

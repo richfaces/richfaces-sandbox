@@ -11,21 +11,32 @@
                 <h:link outcome="/index.xhtml" value="Richfaces" styleClass="brand"/>
             </f:facet>
             
-            <h:link outcome="/component/accordion/index.xhtml" value="accordion"/>
-            <h:link outcome="/component/alert/index.xhtml" value="alert"/>
-            <h:link outcome="/component/badge/index.xhtml" value="badge"/>
-            <h:link outcome="/component/blockquote/index.xhtml" value="blockquote"/>
-            <h:link outcome="/component/buttonDropdown/index.xhtml" value="buttonDropdown"/>
-            <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
-            <h:link outcome="/component/codeblock/index.html" value="codeblock"/>
-            <h:link outcome="/component/commandButton/index.xhtml" value="commandButton"/>
-            <h:link outcome="/component/grid/index.xhtml" value="grid"/>
-            <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
-            <h:link outcome="/component/icon/index.xhtml" value="icon"/>
-            <h:link outcome="/component/input/index.xhtml" value="input"/>
-            <h:link outcome="/component/label/index.xhtml" value="label"/>
-            <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
-            <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+            <h:panelGroup style="Button">
+                <h:link outcome="/component/buttonDropdown/index.xhtml" value="buttonDropdown"/>
+                <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                <h:link outcome="/component/commandButton/index.xhtml" value="commandButton"/>
+            </h:panelGroup>
+            
+            <h:panelGroup style="Grid">
+                <h:link outcome="/component/grid/index.xhtml" value="grid"/>
+            </h:panelGroup>
+            
+            <h:panelGroup style="Output">
+                <h:link outcome="/component/alert/index.xhtml" value="alert"/>
+                <h:link outcome="/component/badge/index.xhtml" value="badge"/>
+                <h:link outcome="/component/blockquote/index.xhtml" value="blockquote"/>
+                <h:link outcome="/component/codeblock/index.html" value="codeblock"/>
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/icon/index.xhtml" value="icon"/>
+                <h:link outcome="/component/label/index.xhtml" value="label"/>
+            </h:panelGroup>
+            
+            <h:panelGroup style="Misc">
+                <h:link outcome="/component/accordion/index.xhtml" value="accordion"/>
+                <h:link outcome="/component/input/index.xhtml" value="input"/>
+                <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+            </h:panelGroup>
         </b:navbar>
     </div>
 </ui:fragment>

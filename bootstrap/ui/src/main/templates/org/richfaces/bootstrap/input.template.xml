@@ -21,19 +21,7 @@
             <cdk:object type="javax.faces.component.UIComponent" name="prependFacet"
                 value="#{component.getFacet('prepend')}"/>
             <c:choose>
-                <c:when test="#{prependFacet.getChildren() eq null or prependFacet.getChildCount() eq 0}">
-                    <c:choose>
-                        <c:when test="#{input.containsStyleClass(prependFacet.attributes['styleClass'], 'btn')}">
-                            <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="add-on">
-                                <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
-                            </span>
-                        </c:otherwise>
-                    </c:choose>
-                </c:when>
-                <c:otherwise>
+                <c:when test="#{prependFacet.family eq 'javax.faces.Panel'}">
                     <c:forEach var="child" items="#{component.getFacet('prepend').getChildren()}">
                         <c:choose>
                             <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
@@ -46,6 +34,18 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="#{input.containsStyleClass(prependFacet.attributes['styleClass'], 'btn')}">
+                            <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="add-on">
+                                <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
         </c:if>
@@ -63,18 +63,36 @@
         </c:choose>
         
         <c:if test="#{input.hasFacet('append')}">
-            <c:forEach var="child" items="#{component.getFacet('append').getChildren()}">
-                <c:choose>
-                    <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
-                        <cdk:call expression="child.encodeAll(facesContext)"/>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="add-on">
-                            <cdk:call expression="child.encodeAll(facesContext)"/>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
+            <cdk:object type="javax.faces.component.UIComponent" name="appendFacet"
+                value="#{component.getFacet('append')}"/>
+            <c:choose>
+                <c:when test="#{appendFacet.family eq 'javax.faces.Panel'}">
+                    <c:forEach var="child" items="#{component.getFacet('append').getChildren()}">
+                        <c:choose>
+                            <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
+                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="add-on">
+                                    <cdk:call expression="child.encodeAll(facesContext)"/>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="#{input.containsStyleClass(appendFacet.attributes['styleClass'], 'btn')}">
+                            <cdk:call expression="appendFacet.encodeAll(facesContext)"/>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="add-on">
+                                <cdk:call expression="appendFacet.encodeAll(facesContext)"/>
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
         </c:if>
         
         <cdk:call expression="encodeEndWrapper(facesContext, component)"/>

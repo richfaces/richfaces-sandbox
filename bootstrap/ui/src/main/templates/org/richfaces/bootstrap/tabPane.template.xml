@@ -12,7 +12,9 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="tab-pane">
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractTabPane" name="tab"
+            value="#{castComponent(component)}"/>
+        <div id="#{clientId}" class="tab-pane #{tab.isDefault() ? 'active' : ''}">
             <cdk:body />
         </div>
     </cc:implementation>

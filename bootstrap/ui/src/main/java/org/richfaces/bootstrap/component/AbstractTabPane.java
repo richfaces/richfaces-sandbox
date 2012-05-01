@@ -45,4 +45,7 @@ abstract public class AbstractTabPane extends UIPanel {
 
     @Attribute
     public abstract String getTitle();
+    
+    @Attribute
+    abstract public boolean isDefault();
 }

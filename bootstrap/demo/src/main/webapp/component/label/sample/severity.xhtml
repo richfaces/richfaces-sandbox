@@ -1,12 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ul class="unstyled">
-        <li><b:label value="Default"/></li>
-        <li><b:label value="Success" severity="success"/></li>
-        <li><b:label value="Warning" severity="warning"/></li>
-        <li><b:label value="Error" severity="error"/></li>
-        <li><b:label value="Info" severity="info"/></li>
-        <li><b:label value="Inverse" severity="inverse"/></li>
-    </ul>
+    <h:panelGrid columns="1" cellpadding="5">
+        <b:label value="Default"/>
+        <b:label value="Success" severity="success"/>
+        <b:label value="Warning" severity="warning"/>
+        <b:label value="Error" severity="error"/>
+        <b:label value="Info" severity="info"/>
+        <b:label value="Inverse" severity="inverse"/>
+    </h:panelGrid>
 </ui:composition>

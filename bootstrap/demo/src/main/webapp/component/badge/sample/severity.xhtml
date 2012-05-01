@@ -1,12 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ul class="unstyled">
-        <li><b:badge value="1" /></li>
-        <li><b:badge value="2" severity="success" /></li>
-        <li><b:badge value="4" severity="warning" /></li>
-        <li><b:badge value="6" severity="error" /></li>
-        <li><b:badge value="8" severity="info" /></li>
-        <li><b:badge value="10" severity="inverse" /></li>
-    </ul>
+    <h:panelGrid columns="1" cellpadding="5">
+        <b:badge value="1" />
+        <b:badge value="2" severity="success" />
+        <b:badge value="4" severity="warning" />
+        <b:badge value="6" severity="error" />
+        <b:badge value="8" severity="info" />
+        <b:badge value="10" severity="inverse" />
+    </h:panelGrid>
 </ui:composition>

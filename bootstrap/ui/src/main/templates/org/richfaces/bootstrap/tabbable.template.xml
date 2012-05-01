@@ -15,7 +15,9 @@
         <div id="#{clientId}" class="tabbable">
             <ul class="nav nav-tabs">
                 <c:forEach items="#{component.children}" var="child">
-                    <li><a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a></li>
+                    <c:if test="#{child.rendered}">
+                        <li><a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a></li>
+                    </c:if>
                 </c:forEach>
             </ul>
             <div class="tab-content">

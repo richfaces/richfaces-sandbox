@@ -3,8 +3,10 @@
     xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <b:input>
         <f:facet name="append">
-            <h:outputText value=".00" />
-            <h:link styleClass="btn btn-primary" value="Buy" />
+            <h:panelGroup>
+                <h:outputText value=".00" />
+                <h:link styleClass="btn btn-primary" value="Buy" />
+            </h:panelGroup>
         </f:facet>
     </b:input>
 </ui:composition>

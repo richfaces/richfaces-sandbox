@@ -21,8 +21,10 @@
  **/
 package org.richfaces.bootstrap.demo;
 
-import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibTagType;
-import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibType;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
@@ -31,10 +33,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibTagAttributeType;
+import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibTagType;
+import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibType;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -80,5 +82,39 @@ public class TaglibReader {
 
     InputStream getStream() {
         return this.getClass().getResourceAsStream("/META-INF/bootstrap.taglib.xml");
+    }
+    
+    public List<FaceletTaglibTagAttributeType> getOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
+        List<FaceletTaglibTagAttributeType> onEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
+        
+        for(FaceletTaglibTagAttributeType attribute : allAttributes) {
+            if(attribute.getName().getValue().startsWith("on")) {
+                onEventAttributes.add(attribute);
+            }
+        }
+        
+        return onEventAttributes;
+    }
+    
+    public List<FaceletTaglibTagAttributeType> getNonOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
+        List<FaceletTaglibTagAttributeType> nonOnEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
+        
+        for(FaceletTaglibTagAttributeType attribute : allAttributes) {
+            if(!attribute.getName().getValue().startsWith("on")) {
+                nonOnEventAttributes.add(attribute);
+            }
+        }
+        
+        return nonOnEventAttributes;
+    }
+    
+    public String getMainType(String fullType) {
+        int index = fullType.lastIndexOf(".");
+        
+        if(index > 1) {
+            return fullType.substring(index+1);
+        } else {
+            return fullType;
+        }
     }
 }

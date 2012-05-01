@@ -34,7 +34,7 @@ public enum BootstrapSeverity {
     success("", "", "", "", "", ""),
     info("", "", "", "", "", ""),
     warning("", "", "", "", "", ""),
-    error("danger", "", "important", "", "danger", ""),
+    error("danger", "", "important", "important", "danger", ""),
     inverse("", null, "", "", null, null);
 
     /**

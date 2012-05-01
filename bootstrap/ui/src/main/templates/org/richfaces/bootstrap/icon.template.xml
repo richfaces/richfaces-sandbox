@@ -14,7 +14,7 @@
     <cc:implementation>
         <cdk:object type="org.richfaces.bootstrap.component.AbstractIcon" name="icon"
             value="#{castComponent(component)}"/>
-        <i id="#{clientId}" class="icon-#{icon.value} #{icon.color ne null and !icon.color.equals('') ? 'icon-'.concat(icon.color) : ''}"/>
+        <i id="#{clientId}" class="icon-#{icon.value}" style="#{icon.color ne null and !icon.color.equals('') ? 'color:'.concat(icon.color) : ''}"/>
     </cc:implementation>
 
 </cdk:root>

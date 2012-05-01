@@ -1,22 +1,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <b:buttonGroup>
-        <a href="#" class="btn">
-            <b:icon value="align-left" />
-        </a>
-        <a href="#" class="btn">
-            <b:icon value="align-center" />
-        </a>
-        <a href="#" class="btn">
-            <b:icon value="align-right" />
-        </a>
-        <a href="#" class="btn">
-            <b:icon value="align-justify" />
-        </a>
-    </b:buttonGroup>
-    
-    <a href="#" class="btn btn-inverse">
-        <b:icon value="star" color="white" />
-    </a>
+    <h:panelGrid columns="2" cellpadding="10">
+        <b:buttonGroup>
+            <a class="btn"><b:icon value="align-left" /></a>
+            <a class="btn"><b:icon value="align-center" /></a>
+            <a class="btn"><b:icon value="align-right" /></a>
+            <a class="btn"><b:icon value="align-justify" /></a>
+        </b:buttonGroup>
+        
+        <h:panelGroup>
+            <a class="btn btn-inverse"><b:icon value="star" /></a>
+        </h:panelGroup>
+    </h:panelGrid>
 </ui:composition>

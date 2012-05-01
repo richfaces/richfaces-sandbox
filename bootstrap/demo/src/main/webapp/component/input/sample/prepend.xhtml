@@ -5,9 +5,11 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <b:input>
         <f:facet name="prepend">
-            <h:outputText value="Test" />
-            <h:outputText value="Test2" />
-            <h:link styleClass="btn" value="Button"/>
+            <h:panelGroup>
+                <h:outputText value="Test" />
+                <h:outputText value="Test2" />
+                <h:link styleClass="btn" value="Button"/>
+            </h:panelGroup>
         </f:facet>
     </b:input>
 </ui:composition>
