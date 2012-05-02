@@ -26,6 +26,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.EventsMouseProps;
 
 import javax.faces.component.UIPanel;
 
@@ -38,8 +39,9 @@ import javax.faces.component.UIPanel;
         type = AbstractGridColumn.COMPONENT_TYPE,
         family = AbstractGridColumn.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GridColumnRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="gridColumn"))
-abstract public class AbstractGridColumn extends UIPanel {
+        tag = @Tag(name="gridColumn"),
+        attributes = "events-mouse-props.xml")
+abstract public class AbstractGridColumn extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridColumn";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridColumn";
 
