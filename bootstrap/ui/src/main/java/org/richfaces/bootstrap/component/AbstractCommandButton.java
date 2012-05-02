@@ -25,6 +25,7 @@ import org.richfaces.bootstrap.renderkit.CommandButtonRendererBase;
 import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractActionComponent;
 import org.richfaces.component.Mode;
+import org.richfaces.component.attribute.CommandButtonProps;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
@@ -37,7 +38,7 @@ import org.richfaces.component.attribute.CoreProps;
         renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
         tag = @Tag(name="commandButton"),
         attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
-abstract public class AbstractCommandButton extends AbstractActionComponent implements CoreProps {
+abstract public class AbstractCommandButton extends AbstractActionComponent implements CoreProps, CommandButtonProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
 
@@ -67,14 +68,6 @@ abstract public class AbstractCommandButton extends AbstractActionComponent impl
      */
     @Attribute(defaultValue = "button")
     public abstract String getTag();
-
-
-    /**
-     * Disables the CommandButton component, so it will not be clickable
-     */
-    @Attribute
-    public abstract boolean isDisabled();
-
 
     @Attribute(hidden = true)
     public abstract Object getValue();
