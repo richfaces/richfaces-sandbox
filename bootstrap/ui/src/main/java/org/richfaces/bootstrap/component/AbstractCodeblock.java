@@ -41,10 +41,10 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = CodeblockRendererBase.RENDERER_TYPE),
         tag = @Tag(name="codeblock"),
         attributes = "core-props.xml")
-abstract public class AbstractCodeblock extends UIPanel implements CoreProps {
+public abstract class AbstractCodeblock extends UIPanel implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Codeblock";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Codeblock";
 
     @Attribute(defaultValue = "true")
-    abstract public boolean isLinenums();
+    public abstract boolean isLinenums();
 }

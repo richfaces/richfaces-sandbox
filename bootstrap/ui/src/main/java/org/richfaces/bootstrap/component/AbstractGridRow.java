@@ -41,10 +41,10 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = GridRowRendererBase.RENDERER_TYPE),
         tag = @Tag(name="gridRow"),
         attributes = {"core-props.xml", "events-mouse-props.xml"})
-abstract public class AbstractGridRow extends UIPanel implements EventsMouseProps {
+public abstract class AbstractGridRow extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridRow";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridRow";
     
     @Attribute
-    abstract public boolean isFluid();
+    public abstract boolean isFluid();
 }

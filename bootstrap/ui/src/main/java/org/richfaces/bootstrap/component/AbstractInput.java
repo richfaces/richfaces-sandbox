@@ -45,24 +45,24 @@ import org.richfaces.component.attribute.CoreProps;
         renderer = @JsfRenderer(type = InputRendererBase.RENDERER_TYPE),
         tag = @Tag(name="input"),
         attributes = "core-props.xml")
-abstract public class AbstractInput extends UIInput implements CoreProps {
+public abstract class AbstractInput extends UIInput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Input";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Input";
     
     @Attribute
-    abstract public String getPlaceholder();
+    public abstract String getPlaceholder();
     
     @Attribute
-    abstract public boolean isReadonly();
+    public abstract boolean isReadonly();
     
     @Attribute
-    abstract public boolean isDisabled();
+    public abstract boolean isDisabled();
     
     @Attribute
-    abstract public BootstrapSize getScale();
+    public abstract BootstrapSize getScale();
     
     @Attribute
-    abstract public BootstrapSeverity getSeverity();
+    public abstract BootstrapSeverity getSeverity();
     
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();

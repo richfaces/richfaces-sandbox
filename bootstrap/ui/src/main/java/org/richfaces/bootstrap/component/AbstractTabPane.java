@@ -39,7 +39,7 @@ import javax.faces.component.UIPanel;
         family = AbstractTabPane.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = TabPaneRendererBase.RENDERER_TYPE),
         tag = @Tag(name="tabPane"))
-abstract public class AbstractTabPane extends UIPanel {
+public abstract class AbstractTabPane extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tab";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tab";
 
@@ -47,5 +47,5 @@ abstract public class AbstractTabPane extends UIPanel {
     public abstract String getTitle();
     
     @Attribute
-    abstract public boolean isDefault();
+    public abstract boolean isDefault();
 }

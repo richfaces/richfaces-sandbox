@@ -41,7 +41,7 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = ButtonGroupRendererBase.RENDERER_TYPE),
         tag = @Tag(name="buttonGroup"),
         attributes = "events-mouse-props.xml")
-abstract public class AbstractButtonGroup extends UIPanel implements EventsMouseProps {
+public abstract class AbstractButtonGroup extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonGroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonGroup";
 }

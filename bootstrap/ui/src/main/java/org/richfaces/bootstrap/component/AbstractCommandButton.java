@@ -38,7 +38,7 @@ import org.richfaces.component.attribute.CoreProps;
         renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
         tag = @Tag(name="commandButton"),
         attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
-abstract public class AbstractCommandButton extends AbstractActionComponent implements CoreProps, CommandButtonProps {
+public abstract class AbstractCommandButton extends AbstractActionComponent implements CoreProps, CommandButtonProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
 

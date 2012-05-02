@@ -41,10 +41,10 @@ import org.richfaces.cdk.annotations.Tag;
         renderer = @JsfRenderer(type = LabelRendererBase.RENDERER_TYPE),
         tag = @Tag(name="label"),
         attributes = "core-props.xml")
-abstract public class AbstractLabel extends UIOutput {
+public abstract class AbstractLabel extends UIOutput {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Label";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Label";
     
     @Attribute
-    abstract public BootstrapSeverity getSeverity();
+    public abstract BootstrapSeverity getSeverity();
 }

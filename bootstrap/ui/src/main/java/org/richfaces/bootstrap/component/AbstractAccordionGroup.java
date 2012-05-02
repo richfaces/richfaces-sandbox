@@ -40,11 +40,11 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = AccordionGroupRendererBase.RENDERER_TYPE),
         tag = @Tag(name="accordionGroup"),
         attributes = "events-mouse-props.xml")
-abstract public class AbstractAccordionGroup extends UIPanel {
+public abstract class AbstractAccordionGroup extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordiongroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.AccordionGroup";
 
     @Attribute
-    abstract public String getHeading();
+    public abstract String getHeading();
 
 }

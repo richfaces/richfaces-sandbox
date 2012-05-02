@@ -38,7 +38,7 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = AccordionRendererBase.RENDERER_TYPE),
         tag = @Tag(name="accordion"),
         attributes = "events-mouse-props.xml")
-abstract public class AbstractAccordion extends UIPanel implements EventsMouseProps {
+public abstract class AbstractAccordion extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordion";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Accordion";
 
@@ -46,13 +46,13 @@ abstract public class AbstractAccordion extends UIPanel implements EventsMousePr
      * Javascript code executed when a pointer button is pressed down over this element.
      */
     @Attribute(events = @EventName(value = "show"))
-    abstract public String getOnshow();
+    public abstract String getOnshow();
 
     /**
      * Javascript code executed when this component is hidden.
      */
     @Attribute(events = @EventName(value = "hide"))
-    abstract public String getOnhide();
+    public abstract String getOnhide();
 
 
 }

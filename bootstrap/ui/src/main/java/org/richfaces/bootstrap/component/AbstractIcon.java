@@ -40,10 +40,10 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractIcon.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = IconRendererBase.RENDERER_TYPE),
         tag = @Tag(name="icon"))
-abstract public class AbstractIcon extends UIOutput {
+public abstract class AbstractIcon extends UIOutput {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Icon";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Icon";
     
     @Attribute
-    abstract public String getColor();
+    public abstract String getColor();
 }

@@ -41,10 +41,10 @@ import org.richfaces.component.attribute.EventsMouseProps;
         renderer = @JsfRenderer(type = GridContainerRendererBase.RENDERER_TYPE),
         tag = @Tag(name="gridContainer"),
         attributes = {"core-props.xml", "events-mouse-props.xml"})
-abstract public class AbstractGridContainer extends UIPanel implements EventsMouseProps {
+public abstract class AbstractGridContainer extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridContainer";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridContainer";
     
     @Attribute
-    abstract public boolean isFluid();
+    public abstract boolean isFluid();
 }

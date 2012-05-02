@@ -40,7 +40,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractBlockquote.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = BlockquoteRendererBase.RENDERER_TYPE),
         tag = @Tag(name="blockquote"))
-abstract public class AbstractBlockquote extends UIPanel {
+public abstract class AbstractBlockquote extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Blockquote";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Blockquote";
     
@@ -48,18 +48,18 @@ abstract public class AbstractBlockquote extends UIPanel {
     public static final String POSITION_RIGHT = "right";
 
     @Attribute
-    abstract public String getCite();
+    public abstract String getCite();
     
     @Attribute
-    abstract public String getAuthor();
+    public abstract String getAuthor();
     
     @Attribute(suggestedValue = POSITION_LEFT+","+POSITION_RIGHT)
-    abstract public String getPosition();
+    public abstract String getPosition();
     
     @Attribute
-    abstract public String getStyle();
+    public abstract String getStyle();
     
     @Attribute
-    abstract public String getStyleClass();
+    public abstract String getStyleClass();
 
 }

@@ -42,7 +42,7 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
         tag = @Tag(name = "buttonDropdown"),
         attributes = "events-mouse-props.xml")
-abstract public class AbstractButtonDropdown extends UIPanel implements EventsMouseProps {
+public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";
 
@@ -50,16 +50,16 @@ abstract public class AbstractButtonDropdown extends UIPanel implements EventsMo
     public abstract String getTitle();
 
     @Attribute
-    abstract public String getButtonStyle();
+    public abstract String getButtonStyle();
     
     @Attribute
-    abstract public BootstrapSeverity getSeverity();
+    public abstract BootstrapSeverity getSeverity();
     
     @Attribute
-    abstract public BootstrapSize getScale();
+    public abstract BootstrapSize getScale();
     
     @Attribute
-    abstract public Positioning getPosition();
+    public abstract Positioning getPosition();
     
     public String getVerticalPositionStyleClass() {
         if(Positioning.topAuto.equals(getPosition())

@@ -38,7 +38,7 @@ import javax.faces.component.UIPanel;
         family = AbstractTabbable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = TabbableRendererBase.RENDERER_TYPE),
         tag = @Tag(name="tabbable"))
-abstract public class AbstractTabbable extends UIPanel {
+public abstract class AbstractTabbable extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tabs";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tabs";
 

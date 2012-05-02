@@ -44,12 +44,12 @@ public abstract class AbstractHeroUnit extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.AbstractHeroUnit";
 
     @Attribute
-    abstract public String getHeading();
+    public abstract String getHeading();
 
     @Attribute
-    abstract public String getTagline();
+    public abstract String getTagline();
 
     @Attribute
-    abstract public String getStyleClass();
+    public abstract String getStyleClass();
 
 }
