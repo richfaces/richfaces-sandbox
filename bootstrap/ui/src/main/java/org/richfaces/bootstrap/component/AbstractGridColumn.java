@@ -41,15 +41,15 @@ import javax.faces.component.UIPanel;
         renderer = @JsfRenderer(type = GridColumnRendererBase.RENDERER_TYPE),
         tag = @Tag(name="gridColumn"),
         attributes = "events-mouse-props.xml")
-abstract public class AbstractGridColumn extends UIPanel implements EventsMouseProps {
+public abstract class AbstractGridColumn extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridColumn";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridColumn";
 
     @Attribute(defaultValue = "1")
-    abstract public Integer getSpan();
+    public abstract Integer getSpan();
 
     @Attribute
-    abstract public Integer getOffset();
+    public abstract Integer getOffset();
 
     public String getSpanClass() {
         return getSpan() == null ? "" : String.format("span%d", getSpan());

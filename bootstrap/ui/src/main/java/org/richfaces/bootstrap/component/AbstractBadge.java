@@ -41,10 +41,10 @@ import org.richfaces.cdk.annotations.Tag;
         renderer = @JsfRenderer(type = BadgeRendererBase.RENDERER_TYPE),
         tag = @Tag(name="badge"),
         attributes = "core-props.xml")
-abstract public class AbstractBadge extends UIOutput {
+public abstract class AbstractBadge extends UIOutput {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Badge";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Badge";
     
     @Attribute
-    abstract public BootstrapSeverity getSeverity();
+    public abstract BootstrapSeverity getSeverity();
 }

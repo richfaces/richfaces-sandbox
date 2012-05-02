@@ -38,12 +38,13 @@ import javax.faces.component.UIPanel;
         type = AbstractAccordionGroup.COMPONENT_TYPE,
         family = AbstractAccordionGroup.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AccordionGroupRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="accordionGroup"))
-abstract public class AbstractAccordionGroup extends UIPanel {
+        tag = @Tag(name="accordionGroup"),
+        attributes = "events-mouse-props.xml")
+public abstract class AbstractAccordionGroup extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordiongroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.AccordionGroup";
 
     @Attribute
-    abstract public String getHeading();
+    public abstract String getHeading();
 
 }

@@ -15,7 +15,7 @@ body {
 	display: block;
 }
 
-.dropdown-menu {
+.navbar ul.nav ul.dropdown-menu {
 	top: 96% !important;
 }
 

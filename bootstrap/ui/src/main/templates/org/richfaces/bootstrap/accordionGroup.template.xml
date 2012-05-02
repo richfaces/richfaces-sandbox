@@ -13,7 +13,7 @@
 
     <cc:implementation>
         <cdk:object type="org.richfaces.bootstrap.component.AbstractAccordionGroup" name="accordionGroup" value="#{castComponent(component)}"/>
-        <div id="#{clientId}" class="accordion-group">
+        <div id="#{clientId}" class="accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <div class="accordion-heading">
                 <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">
                     #{accordionGroup.heading}

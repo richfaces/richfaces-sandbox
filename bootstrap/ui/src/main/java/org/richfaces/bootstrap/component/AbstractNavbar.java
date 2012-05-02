@@ -39,18 +39,18 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractNavbar.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = NavbarRendererBase.RENDERER_TYPE),
         tag = @Tag(name="navbar"))
-abstract public class AbstractNavbar extends UIPanel {
+public abstract class AbstractNavbar extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Navbar";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Navbar";
 
     @Attribute
-    abstract public String getBrand();
+    public abstract String getBrand();
     
     @Attribute
-    abstract public String getFixed();
+    public abstract String getFixed();
     
     @Attribute(defaultValue = "true")
-    abstract public boolean isCollapsible();
+    public abstract boolean isCollapsible();
     
     
 }

@@ -22,9 +22,8 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.renderkit.AccordionRendererBase;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
+import org.richfaces.component.attribute.EventsMouseProps;
 
 import javax.faces.component.UIPanel;
 
@@ -37,9 +36,23 @@ import javax.faces.component.UIPanel;
         type = AbstractAccordion.COMPONENT_TYPE,
         family = AbstractAccordion.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AccordionRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="accordion"))
-abstract public class AbstractAccordion extends UIPanel {
+        tag = @Tag(name="accordion"),
+        attributes = "events-mouse-props.xml")
+public abstract class AbstractAccordion extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordion";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Accordion";
+
+    /**
+     * Javascript code executed when a pointer button is pressed down over this element.
+     */
+    @Attribute(events = @EventName(value = "show"))
+    public abstract String getOnshow();
+
+    /**
+     * Javascript code executed when this component is hidden.
+     */
+    @Attribute(events = @EventName(value = "hide"))
+    public abstract String getOnhide();
+
 
 }

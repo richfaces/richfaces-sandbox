@@ -40,19 +40,19 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractAlert.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AlertRendererBase.RENDERER_TYPE),
         tag = @Tag(name="alert"))
-abstract public class AbstractAlert extends UIPanel {
+public abstract class AbstractAlert extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Alert";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Alert";
     
     @Attribute
-    abstract public BootstrapSeverity getSeverity();
+    public abstract BootstrapSeverity getSeverity();
     
     @Attribute
-    abstract public String getLayout();
+    public abstract String getLayout();
     
     @Attribute
-    abstract public String getHeader();
+    public abstract String getHeader();
     
     @Attribute
-    abstract public boolean isClosable();
+    public abstract boolean isClosable();
 }
