@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.Positioning;
+import org.richfaces.component.attribute.EventsMouseProps;
 
 import javax.faces.component.UIPanel;
 
@@ -39,8 +40,9 @@ import javax.faces.component.UIPanel;
         type = AbstractButtonDropdown.COMPONENT_TYPE,
         family = AbstractButtonDropdown.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
-        tag = @Tag(name = "buttonDropdown"))
-abstract public class AbstractButtonDropdown extends UIPanel {
+        tag = @Tag(name = "buttonDropdown"),
+        attributes = "events-mouse-props.xml")
+abstract public class AbstractButtonDropdown extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";
 

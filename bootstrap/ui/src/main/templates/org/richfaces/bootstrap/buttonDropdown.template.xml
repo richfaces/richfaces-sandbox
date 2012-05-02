@@ -15,7 +15,8 @@
     <cc:implementation>
         <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonDropdown" name="buttonDropdown" value="#{castComponent(component)}"/>
         <div class="btn-group #{buttonDropdown.verticalPositionStyleClass}">
-            <a class="btn #{buttonDropdown.severity ne null ? buttonDropdown.severity.buttonClass : ''} #{buttonDropdown.scale ne null ? buttonDropdown.scale.buttonStyleClass : ''} #{buttonDropdown.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#">
+            <a class="btn #{buttonDropdown.severity ne null ? buttonDropdown.severity.buttonClass : ''} #{buttonDropdown.scale ne null ? buttonDropdown.scale.buttonStyleClass : ''} #{buttonDropdown.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
+               cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
                 #{buttonDropdown.title.concat(' ')}
                 <span class="caret"></span>
             </a>
