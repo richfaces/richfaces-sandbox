@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="groupMenu"/>
+        <h1><code>b:group</code></h1>
+        <p>The <code>b:group</code> is used by other components in order to group their children and render then
+        grouped instead of each one individually. If you try to use the <code>b:group</code> outside of a component
+        that support it, it will do nothing, just rendering its body.</p>
+
+        <h2>Navbar</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="groupMenu"/>
+            <ui:param name="sample" value="navbar"/>
+        </ui:include>
+        
+        <h2>Tabbable</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="groupMenu"/>
+            <ui:param name="sample" value="tab"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>	

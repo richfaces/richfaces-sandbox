@@ -3,47 +3,42 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h:form>
-        <h:panelGrid columns="2" cellpadding="10">
+        <h:panelGrid columns="1" cellpadding="10">
             <b:buttonDropdown title="default">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
             </b:buttonDropdown>
+        </h:panelGrid>
+        
+        <h:panelGrid columns="3" cellpadding="10">
+            <b:buttonDropdown title="bottom" vertical="bottom">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+            </b:buttonDropdown>
             
-            <b:buttonDropdown title="auto" position="auto">
+            <b:buttonDropdown title="bottom-left" vertical="bottom" horizontal="left">
+                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+            </b:buttonDropdown>
+            
+            <b:buttonDropdown title="bottom-right" vertical="bottom" horizontal="right">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
             </b:buttonDropdown>
         </h:panelGrid>
         
         <h:panelGrid columns="3" cellpadding="10">
-            <b:buttonDropdown title="bottomAuto" position="bottomAuto">
+            <b:buttonDropdown title="top" vertical="top">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
             </b:buttonDropdown>
             
-            <b:buttonDropdown title="bottomLeft" position="bottomLeft">
+            <b:buttonDropdown title="top-right" vertical="top" horizontal="right">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
             </b:buttonDropdown>
             
-            <b:buttonDropdown title="bottomRight" position="bottomRight">
-                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
-                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
-            </b:buttonDropdown>
-        </h:panelGrid>
-        
-        <h:panelGrid columns="3" cellpadding="10">
-            <b:buttonDropdown title="topAuto" position="topAuto">
-                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
-                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
-            </b:buttonDropdown>
-            
-            <b:buttonDropdown title="topRight" position="topRight">
-                <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
-                <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
-            </b:buttonDropdown>
-            
-            <b:buttonDropdown title="topLeft" position="topLeft">
+            <b:buttonDropdown title="top-left" vertical="top" horizontal="left">
                 <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
                 <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
             </b:buttonDropdown>
