@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="groupPosition"/>
+        <h1><code>b:groupPosition</code></h1>
+        <p>The <code>b:groupPosition</code> is used by other components. TODO</p>
+
+        <h2>Navbar</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="groupPosition"/>
+            <ui:param name="sample" value="navbar"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>	

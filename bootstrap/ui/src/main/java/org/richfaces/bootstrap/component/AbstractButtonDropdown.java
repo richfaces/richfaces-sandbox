@@ -21,15 +21,14 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.bootstrap.renderkit.ButtonDropdownRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.Positioning;
 import org.richfaces.component.attribute.EventsMouseProps;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Base class for the buttonDropdown component
@@ -59,12 +58,13 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
     public abstract BootstrapSize getScale();
     
     @Attribute
-    public abstract Positioning getPosition();
+    public abstract HorizontalPosition getHorizontal();
+    
+    @Attribute
+    public abstract VerticalPosition getVertical();
     
     public String getVerticalPositionStyleClass() {
-        if(Positioning.topAuto.equals(getPosition())
-                || Positioning.topLeft.equals(getPosition())
-                || Positioning.topRight.equals(getPosition())) {
+        if(VerticalPosition.top.equals(getVertical())) {
             return "dropup";
         } else {
             return "";
@@ -72,9 +72,7 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
     }
     
     public String getHorizontalPositionStyleClass() {
-        if(Positioning.autoRight.equals(getPosition())
-                || Positioning.bottomRight.equals(getPosition())
-                || Positioning.topRight.equals(getPosition())) {
+        if(HorizontalPosition.right.equals(getHorizontal())) {
             return "pull-right";
         } else {
             return "";

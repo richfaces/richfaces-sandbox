@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:navbar brand="Group" collapsible="true">
+        <h:link outcome="/index.xhtml" value="Default1"/>
+        <b:groupMenu label="Default2">
+            <h:link outcome="/index.xhtml" value="Default2.1"/>
+            <h:link outcome="/index.xhtml" value="Default2.2"/>
+            <b:groupMenu label="Default2.3">
+                <h:link outcome="/index.xhtml" value="Default2.3.1"/>
+                <b:groupMenu label="Default2.3.2">
+                    <h:link outcome="/index.xhtml" value="Default2.3.2.1"/>
+                    <h:link outcome="/index.xhtml" value="Default2.3.2.2"/>
+                    <h:link outcome="/index.xhtml" value="Default2.3.2.3"/>
+                </b:groupMenu>
+                <h:link outcome="/index.xhtml" value="Default2.3.3"/>
+            </b:groupMenu>
+        </b:groupMenu>
+        
+        <b:groupPosition horizontal="right">
+            <h:link outcome="/index.xhtml" value="Right2"/>
+            <b:groupMenu label="Right3">
+                <h:link outcome="/index.xhtml" value="Right3.1"/>
+                <h:link outcome="/index.xhtml" value="Right3.2"/>
+            </b:groupMenu>
+        </b:groupPosition>
+        
+        <b:groupPosition horizontal="right">
+            <h:link outcome="/index.xhtml" value="Right1"/>
+        </b:groupPosition>
+        
+        <b:groupPosition horizontal="left">
+            <h:link outcome="/index.xhtml" value="Left1"/>
+            <b:groupMenu label="Left2">
+                <h:link outcome="/index.xhtml" value="Left2.1"/>
+                <h:link outcome="/index.xhtml" value="Left2.2"/>
+                <h:link outcome="/index.xhtml" value="Left2.3"/>
+            </b:groupMenu>
+        </b:groupPosition>
+    </b:navbar>
+</ui:composition>

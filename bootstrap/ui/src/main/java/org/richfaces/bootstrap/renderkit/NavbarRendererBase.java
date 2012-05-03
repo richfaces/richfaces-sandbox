@@ -22,13 +22,19 @@
 package org.richfaces.bootstrap.renderkit;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
+import org.richfaces.bootstrap.component.AbstractGroupMenu;
+import org.richfaces.bootstrap.component.AbstractGroupPosition;
 import org.richfaces.bootstrap.component.AbstractNavbar;
+import org.richfaces.bootstrap.component.HorizontalPosition;
 import org.richfaces.renderkit.RendererBase;
 
 /**
@@ -61,5 +67,125 @@ public abstract class NavbarRendererBase extends RendererBase {
     
     public void renderCollapsedMenuFacet(FacesContext context, UIComponent component) throws IOException {
         renderFacet("collapsedMenu", context, component);
+    }
+    
+    @Override
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        AbstractNavbar navbar = castComponent(component);
+        
+        if(navbar.isCollapsible()) {
+            writer.startElement("div", component);
+            writer.writeAttribute("id", component.getId()+"_collapse", null);
+            writer.writeAttribute("class", "nav-collapse", null);
+        }
+        
+        List<UIComponent> defaultChildren = new ArrayList<UIComponent>();
+        List<AbstractGroupPosition> leftGroups = new ArrayList<AbstractGroupPosition>();
+        List<AbstractGroupPosition> rightGroups = new ArrayList<AbstractGroupPosition>();
+        
+        for(UIComponent child : component.getChildren()) {
+            if(child.isRendered()) {
+                if(child instanceof AbstractGroupPosition) {
+                    AbstractGroupPosition group = (AbstractGroupPosition) child;
+                    
+                    if(HorizontalPosition.left.equals(group.getHorizontal())) {
+                        leftGroups.add(group);
+                    } else if(HorizontalPosition.right.equals(group.getHorizontal())) {
+                        rightGroups.add(group);
+                    } else {
+                        for(UIComponent groupChild : group.getChildren()) {
+                            defaultChildren.add(groupChild);
+                        }
+                    }
+                } else {
+                    defaultChildren.add(child);
+                }
+            }
+        }
+        
+        if(!leftGroups.isEmpty()) {
+            for(AbstractGroupPosition group : leftGroups) {
+                writer.startElement("ul", component);
+                writer.writeAttribute("class", "nav pull-left", null);
+                
+                for(UIComponent child : group.getChildren()) {
+                    encodeChild(writer, context, child);
+                }
+                
+                writer.endElement("ul");
+            }
+        }
+        
+        if(!defaultChildren.isEmpty()) {
+            writer.startElement("ul", component);
+            writer.writeAttribute("class", "nav", null);
+            
+            for(UIComponent child : defaultChildren) {
+                encodeChild(writer, context, child);
+            }
+            
+            writer.endElement("ul");
+        }
+        
+        if(!rightGroups.isEmpty()) {
+            for(AbstractGroupPosition group : rightGroups) {
+                writer.startElement("ul", component);
+                writer.writeAttribute("class", "nav pull-right", null);
+                
+                for(UIComponent child : group.getChildren()) {
+                    encodeChild(writer, context, child);
+                }
+                
+                writer.endElement("ul");
+            }
+        }
+        
+        if(navbar.isCollapsible()) {
+            writer.endElement("div");
+        }
+    }
+    
+    protected void encodeChild(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        encodeChild(writer, context, component, 0);
+    }
+    
+    protected void encodeChild(ResponseWriter writer, FacesContext context, UIComponent component, int level) throws IOException {
+        if(component.isRendered()) {
+            if(component instanceof AbstractGroupMenu) {
+                AbstractGroupMenu group = (AbstractGroupMenu) component;
+                encodeGroupMenu(writer, context, group, level);
+            } else {
+                writer.startElement("li", component);
+                component.encodeAll(context);
+                writer.endElement("li");
+            }
+        }
+    }
+    
+    protected void encodeGroupMenu(ResponseWriter writer, FacesContext context, AbstractGroupMenu groupMenu, int level) throws IOException {
+        ResponseWriter response = context.getResponseWriter();
+        response.startElement("li" , groupMenu);
+        response.writeAttribute("class", "dropdown", null);
+        
+        response.startElement("a", groupMenu);
+        response.writeAttribute("href", "#", null);
+        response.writeAttribute("class", "dropdown-toggle", null);
+        response.writeAttribute("data-toggle", "dropdown", null);
+        response.write(groupMenu.getLabel()+" ");
+        response.startElement("b", groupMenu);
+        response.writeAttribute("class", "caret", null);
+        response.endElement("b");
+        response.endElement("a");
+        
+        response.startElement("ul", groupMenu);
+        response.writeAttribute("class", level > 0 ? "subdropdown-menu" : "dropdown-menu", null);
+        
+        for(UIComponent child : groupMenu.getChildren()) {
+            encodeChild(writer, context, child, level+1);
+        }
+        
+        response.endElement("ul");
+        
+        response.endElement("li");
     }
 }
