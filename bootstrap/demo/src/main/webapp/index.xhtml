@@ -9,15 +9,19 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ui:define name="body">
-        <b:heroUnit heading="RichFaces Bootstrap">
-            <f:facet name="tagline">
-                Build JSF applications with the amazing <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> components.
-            </f:facet>
-            <p>
-                Click one of the menu links above to see some Bootstrap components in action!
-            </p>
-        </b:heroUnit>
+    <ui:define name="content">
+        <b:gridRow fluid="#{sessionBean.fluid}">
+            <b:gridColumn span="12">
+                <b:heroUnit heading="RichFaces Bootstrap">
+                    <f:facet name="tagline">
+                        Build JSF applications with the amazing <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> components.
+                    </f:facet>
+                    <p>
+                        Click one of the menu links above to see some Bootstrap components in action!
+                    </p>
+                </b:heroUnit>
+            </b:gridColumn>
+        </b:gridRow>
     </ui:define>
 </ui:composition>
 

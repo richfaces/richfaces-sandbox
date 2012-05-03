@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-<ui:composition template="/resources/demo.xhtml"
+<ui:composition template="/resources/component.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -10,6 +10,7 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
+        <ui:param name="tag" value="gridContainer"/>
         <h:outputStylesheet>
             /* Special grid styles
 -------------------------------------------------- */
@@ -39,13 +40,8 @@
 
         </h:outputStylesheet>
 
-        <h1><code>b:gridContainer</code> <code>b:gridRow</code> <code>b:gridColumn</code></h1>
-        <p>The Bootstrap grid is a responsive layout that adapts to the width of your screen. Its composed by three components :</p>
-        <ul>
-            <li><code>b:gridContainer</code> is a wrapper around your page / content.</li>
-            <li><code>b:gridRow</code> is a section of your page and will occupied full width availabled.</li>
-            <li><code>b:gridColumn</code> is a part of a gridRow. There is maximum 12 gridColumns in one gridRow.</li>
-        </ul>
+        <h1><code>b:gridContainer</code></h1>
+        <p>TODO</p>
 
         <p>
             <h:form>

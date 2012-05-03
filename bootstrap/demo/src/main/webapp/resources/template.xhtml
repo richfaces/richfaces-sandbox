@@ -12,11 +12,7 @@
     <ui:include src="/resources/menu.xhtml"/>
     
     <b:gridContainer fluid="#{sessionBean.fluid}">
-        <b:gridRow fluid="#{sessionBean.fluid}">
-            <b:gridColumn span="12">
-                <ui:insert name="body">Body</ui:insert>
-            </b:gridColumn>
-        </b:gridRow>
+        <ui:insert name="content">Content</ui:insert>
     </b:gridContainer>
 </h:body>
 </html>
