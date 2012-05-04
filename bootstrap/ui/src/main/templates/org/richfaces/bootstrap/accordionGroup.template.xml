@@ -24,12 +24,15 @@
                     <cdk:body />
                 </div>
             </div>
-            <script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="onshow onhide" wrapper="eventHandler" />
                 </cdk:scriptObject>
-                jQuery(document.getElementById('#{clientId}')).accordionGroup(#{toScriptArgs(options)});
-            </script>
+                <cdk:object type="java.lang.String" name="scriptArg" value="#{toScriptArgs(options)}"/>
+                <c:if test="#{! empty scriptArg}">
+                    <script type="text/javascript">
+                        jQuery(document.getElementById('#{clientId}')).data('richfaces', #{scriptArg});
+                    </script>
+                </c:if>
         </div>
     </cc:implementation>
 

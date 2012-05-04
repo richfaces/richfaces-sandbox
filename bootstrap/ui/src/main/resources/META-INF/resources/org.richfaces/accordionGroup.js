@@ -48,4 +48,15 @@
     $.fn.accordionGroup.defaults = {
     }
 
+    /* AccordionGroup DATA-API
+     * ==================== */
+
+    $(function () {
+        $('.accordion-group').each(function () {
+            var $accordionGroup = $(this);
+            var options = $accordionGroup.data('richfaces');
+            $accordionGroup.accordionGroup(options);
+        });
+    });
+
 })(jQuery, window.RichFaces);
