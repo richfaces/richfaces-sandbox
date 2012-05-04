@@ -10,9 +10,26 @@ body {
 	text-decoration: underline;
 }
 
+.navbar ul.nav li.dropdown > ul.dropdown-menu,
+.navbar ul.nav li.dropdown > ul.subdropdown-menu {
+	display: block !important;
+	visibility: hidden;
+	opacity:0;
+	transition:visibility 0s linear 0.6s,opacity 0.2s linear 0.4s;
+	-moz-transition: visibility 0s linear 0.6s,opacity 0.2s linear 0.4s;
+	-webkit-transition: visibility 0s linear 0.6s,opacity 0.2s linear 0.4s;
+	-o-transition: visibility 0s linear 0.6s,opacity 0.2s linear 0.4s;
+}
+
 .navbar ul.nav li.dropdown:hover > ul.dropdown-menu,
 .navbar ul.nav li.dropdown:hover > ul.subdropdown-menu {
-	display: block;
+	display: block !important;
+	visibility: visible;
+	opacity:1;
+	transition-delay:0s,0.2s;
+	-moz-transition-delay:0s,0.2s;
+	-webkit-transition-delay:0s,0.2s;
+	-o-transition-delay:0s,0.2s;
 }
 
 .navbar ul.nav ul.dropdown-menu {
@@ -27,7 +44,7 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     display: none;
     float: left;
-    left: 90%;
+    left: 95%;
     list-style: none outside none;
     margin: 1px 0 0;
     min-width: 160px;
