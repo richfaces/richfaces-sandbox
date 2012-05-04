@@ -37,7 +37,9 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
-        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
+        @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js"),
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "accordionGroup.js")})
 public abstract class AccordionGroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AccordionGroupRenderer";
 

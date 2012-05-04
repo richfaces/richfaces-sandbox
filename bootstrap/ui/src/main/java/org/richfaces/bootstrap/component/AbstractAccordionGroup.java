@@ -22,10 +22,7 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.renderkit.AccordionGroupRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 
 import javax.faces.component.UIPanel;
 
@@ -46,5 +43,17 @@ public abstract class AbstractAccordionGroup extends UIPanel {
 
     @Attribute
     public abstract String getHeading();
+
+    /**
+     * Javascript code executed when a pointer button is pressed down over this element.
+     */
+    @Attribute(events = @EventName(value = "show"))
+    public abstract String getOnshow();
+
+    /**
+     * Javascript code executed when this component is hidden.
+     */
+    @Attribute(events = @EventName(value = "hide"))
+    public abstract String getOnhide();
 
 }

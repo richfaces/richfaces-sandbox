@@ -24,6 +24,12 @@
                     <cdk:body />
                 </div>
             </div>
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="onshow onhide" wrapper="eventHandler" />
+                </cdk:scriptObject>
+                jQuery(document.getElementById('#{clientId}')).accordionGroup(#{toScriptArgs(options)});
+            </script>
         </div>
     </cc:implementation>
 

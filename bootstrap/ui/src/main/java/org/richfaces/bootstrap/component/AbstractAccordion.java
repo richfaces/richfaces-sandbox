@@ -42,17 +42,4 @@ public abstract class AbstractAccordion extends UIPanel implements EventsMousePr
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordion";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Accordion";
 
-    /**
-     * Javascript code executed when a pointer button is pressed down over this element.
-     */
-    @Attribute(events = @EventName(value = "show"))
-    public abstract String getOnshow();
-
-    /**
-     * Javascript code executed when this component is hidden.
-     */
-    @Attribute(events = @EventName(value = "hide"))
-    public abstract String getOnhide();
-
-
 }
