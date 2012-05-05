@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 
-<ui:composition template="/resources/template.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+<ui:composition template="/resources/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="content">
         <b:gridRow fluid="#{sessionBean.fluid}">
             <b:gridColumn span="6">
@@ -13,7 +11,7 @@
             <b:gridColumn span="6">
                 <ui:include src="/resources/taglib.xhtml">
                     <ui:param name="tag" value="#{tag}" />
-                        </ui:include>
+                </ui:include>
             </b:gridColumn>
         </b:gridRow>
     </ui:define>

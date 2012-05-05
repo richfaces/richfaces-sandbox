@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <header id="overview" class="jumbotron subhead">
+        <div class="subnav">
+            <ul class="nav nav-pills">
+                <li><a class="brand"><h:outputText value="#{brand}" /></a></li>
+                <ui:repeat var="_tag" value="#{tags.split(',')}">
+                    <li>
+                        <h:link outcome="/component/#{_tag}/index.xhtml" value="#{_tag}"/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+    </header>
+    
+    <h:outputScript name="subnav.js" library="js" />
+</ui:composition>
+</html>

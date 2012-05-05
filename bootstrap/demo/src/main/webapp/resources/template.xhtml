@@ -6,9 +6,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://richfaces.org/sandbox/bootstrap">
 <h:head>
+    <title>RichFaces Bootstrap</title>
     <h:outputStylesheet library="css" name="demo.css"/>
 </h:head>
 <h:body styleClass="rich-container">
+    <ui:insert name="params" />
+
     <ui:include src="/resources/menu.xhtml"/>
     
     <b:gridContainer fluid="#{sessionBean.fluid}">
