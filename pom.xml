@@ -18,7 +18,7 @@
     http://www.fsf.org.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
@@ -51,13 +51,14 @@
         <module>layout</module>
         <module>lightbox</module>
         <module>outputFile</module>
+        <module>radio</module>
         <module>rating</module>
         <module>schedule</module>
         <module>syntaxhighlighter</module>
         <module>visualsearch</module>
         <module>watermark</module>
     </modules>
-    
+
     <profiles>
         <profile>
             <id>showcase</id>

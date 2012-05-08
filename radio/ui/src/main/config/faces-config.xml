@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <component>
+        <component-type>javax.faces.HtmlSelectOneRadio</component-type>
+        <component-class>javax.faces.component.html.HtmlSelectOneRadio</component-class>
+
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+                    href="urn:attributes:javax.faces.component.UIInput.xml"/>
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+                    href="urn:attributes:base-props.xml"/>
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+                    href="urn:attributes:input-props.xml"/>
+
+        <component-extension>
+            <tag>selectOneRadio</tag>
+            <cdk:generate>false</cdk:generate>
+            <cdk:component-family>javax.faces.SelectOne</cdk:component-family>
+            <cdk:renderer-type>javax.faces.renderkit.SelectOne</cdk:renderer-type>
+            <cdk:base-class>javax.faces.component.html.HtmlSelectOneRadio</cdk:base-class>
+            <cdk:tag>
+                <cdk:tag-name>selectOneRadio</cdk:tag-name>
+                <cdk:tag-type>Facelets</cdk:tag-type>
+            </cdk:tag>
+        </component-extension>
+
+
+    </component>
+
+    <render-kit>
+        <render-kit-id>HTML_BASIC</render-kit-id>
+        <renderer>
+            <component-family>javax.faces.SelectOne</component-family>
+            <renderer-type>org.richfaces.renderkit.html.SelectOneRadioRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.SelectOneRadioRenderer</renderer-class>
+        </renderer>
+
+
+    </render-kit>
+
+
+</faces-config>

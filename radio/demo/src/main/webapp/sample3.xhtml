@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:radio="http://richfaces.org/sandbox/radio"
+      xmlns:outputfile="http://richfaces.org/sandbox/outputfile"
+      xmlns:syntaxhighlighter="http://richfaces.org/sandbox/syntaxhighlighter">
+<h:head>
+    <title>Radio sample</title>
+</h:head>
+
+<h:body class="rich-container">
+    <ui:include src="menu.xhtml"/>
+    Selected option:#{radioBean.selectedOption}
+    <h:form>
+        <radio:selectOneRadio id="radio" value="#{radioBean.selectedOption}" readonly="true">
+            <f:selectItem itemValue="January" itemLabel="January"/>
+            <f:selectItem itemValue="February" itemLabel="February"/>
+            <f:selectItem itemValue="March" itemLabel="March"/>
+        </radio:selectOneRadio>
+        <radio:radio for="radio" index="0"/>
+        Some other thing.
+        <radio:radio for="radio" index="2"/>
+        <h:commandButton value="Submit"/>
+    </h:form>
+    <syntaxhighlighter:syntaxhighlighter language="xml">
+        <outputfile:outputFile value="/sample3.xhtml"/>
+    </syntaxhighlighter:syntaxhighlighter>
+
+</h:body>
+</html>
+
