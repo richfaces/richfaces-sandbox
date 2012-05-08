@@ -197,6 +197,15 @@ public abstract class AbstractTogglePanel extends UIRepeat implements AbstractDi
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
+        if (context == null) {
+            throw new NullPointerException();
+        }
+
+        pushComponentToEL(context, null);
+
+        if (!isRendered()) {
+            return;
+        }
         AbstractTogglePanelItemInterface item = null;
         String activeItem = getActiveItem();
 
