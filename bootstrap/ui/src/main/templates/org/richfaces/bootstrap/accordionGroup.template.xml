@@ -9,30 +9,31 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.AccordionGroupRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.AccordionGroupRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.AccordionGroupRenderer</cdk:renderer-type>
+        
+        <cdk:import package="org.richfaces.bootstrap" names="BootstrapRenderKitUtils" />
     </cc:interface>
 
     <cc:implementation>
         <cdk:object type="org.richfaces.bootstrap.component.AbstractAccordionGroup" name="accordionGroup" value="#{castComponent(component)}"/>
-        <div id="#{clientId}" class="accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
+        <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <div class="accordion-heading">
                 <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">
                     #{accordionGroup.heading}
                 </a>
             </div>
-            <div id="#{clientId}_body" class="accordion-body collapse">
+            <div id="#{clientId}_body" class="accordion-body collapse rf-bs-event-target">
                 <div class="accordion-inner">
                     <cdk:body />
                 </div>
             </div>
-                <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="onshow onhide" wrapper="eventHandler" />
-                </cdk:scriptObject>
-                <cdk:object type="java.lang.String" name="scriptArg" value="#{toScriptArgs(options)}"/>
-                <c:if test="#{! empty scriptArg}">
-                    <script type="text/javascript">
-                        jQuery(document.getElementById('#{clientId}')).data('richfaces', #{scriptArg});
-                    </script>
-                </c:if>
+            <cdk:scriptObject name="eventHandlers">
+                <cdk:scriptOption attributes="onhide onshow" wrapper="eventHandler" />
+            </cdk:scriptObject>
+            <c:if test="#{! empty eventHandlers}">
+                <script type="text/javascript">
+                    $(document.getElementById('#{clientId}_body')).on(#{BootstrapRenderKitUtils.toEventMap(eventHandlers)});
+                </script>
+            </c:if>
         </div>
     </cc:implementation>
 

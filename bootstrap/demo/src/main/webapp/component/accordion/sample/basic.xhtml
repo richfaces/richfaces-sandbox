@@ -1,14 +1,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <b:accordion id="accordion2">
-        <b:accordionGroup heading="Layout Components" id="collpaseOne">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin varius volutpat interdum. Sed lobortis semper urna eu feugiat. Nam placerat lacus ultrices eros adipiscing congue. Cras venenatis laoreet pellentesque.
-        </b:accordionGroup>
-        <b:accordionGroup heading="Button Components">
-            Aenean enim dolor, consectetur vel sodales eget, consectetur ut tellus. Praesent consectetur ornare nisi gravida volutpat. Quisque malesuada orci non magna fermentum convallis. In hac habitasse platea dictumst.
-        </b:accordionGroup>
-        <b:accordionGroup heading="Navigation components" onshow="console.log('show')" onhide="console.log('hide')">
-            Proin vitae ante enim. Duis egestas nisl in neque tristique luctus et quis ligula. Sed ac rutrum tellus. Aenean sed ipsum quis libero aliquet aliquam tincidunt sed elit. Maecenas at magna tortor.
-        </b:accordionGroup>
-    </b:accordion>
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form prependId="false">
+        <b:accordion id="accordion2">
+            <b:accordionGroup heading="Layout Components" id="collpaseOne">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin varius volutpat interdum. Sed lobortis semper urna eu feugiat. Nam placerat lacus ultrices eros adipiscing congue. Cras venenatis laoreet pellentesque.
+            </b:accordionGroup>
+            <b:accordionGroup heading="Button Components">
+                Aenean enim dolor, consectetur vel sodales eget, consectetur ut tellus. Praesent consectetur ornare nisi gravida volutpat. Quisque malesuada orci non magna fermentum convallis. In hac habitasse platea dictumst.
+            </b:accordionGroup>
+            <b:accordionGroup id="lastGroup" heading="Navigation components" onshow="console.log('show')" onhide="console.log('hide')">
+                <f:ajax event="show" />
+                Proin vitae ante enim. Duis egestas nisl in neque tristique luctus et quis ligula. Sed ac rutrum tellus. Aenean sed ipsum quis libero aliquet aliquam tincidunt sed elit. Maecenas at magna tortor.
+            </b:accordionGroup>
+        </b:accordion>
+        
+        <h:commandButton value="Render last group">
+            <f:ajax render="lastGroup" />
+        </h:commandButton>
+    </h:form>
 </ui:composition>
