@@ -17,17 +17,10 @@ Note: The reference versions in brackets.
 Check out [CDK](https://github.com/richfaces/cdk) and [Sandbox](https://github.com/richfaces/sandbox) projects
 ----------------------------------
 
-1. clone sources
+Clone sources
 
         git clone git://github.com/richfaces/cdk.git
         git clone git://github.com/richfaces/sandbox.git
-
-2. checkout feature branches
-
-        cd ~/cdk/	
-        git checkout -b feature/cmdline-generator origin/feature/cmdline-generator
-        cd ~/sandbox/
-        git checkout -b feature/hot-deployment origin/feature/hot-deployment
 
 
 Build CDK
