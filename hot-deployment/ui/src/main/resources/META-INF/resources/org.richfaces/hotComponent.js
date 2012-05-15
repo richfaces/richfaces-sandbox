@@ -1,0 +1,1 @@
+document.title = 'The title is provided from script';
