@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>componentName-demo</artifactId>
-    <name>Richfaces UI Components: componentName demo</name>
+    <name>Richfaces UI Sandbox Components: componentName demo</name>
     <packaging>war</packaging>
 
     <dependencies>
