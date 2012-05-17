@@ -51,12 +51,12 @@
         <dependency>
             <groupId>org.richfaces.sandbox.ui.outputFile</groupId>
             <artifactId>outputFile-ui</artifactId>
-            <version>4.1.0.Final</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.sandbox.ui.syntaxhighlighter</groupId>
             <artifactId>syntaxhighlighter-ui</artifactId>
-            <version>4.1.0.Final</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>

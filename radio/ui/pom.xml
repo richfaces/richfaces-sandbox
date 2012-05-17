@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
-                <version>4.1.0.Final</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>cdk-generate-sources</id>
