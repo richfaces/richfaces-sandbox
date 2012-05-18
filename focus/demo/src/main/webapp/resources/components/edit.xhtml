@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+        >
+<head>
+    <title>This will not be present in rendered output</title>
+</head>
+
+<body>
+
+<cc:interface>
+    <cc:attribute name="label" required="true"/>
+</cc:interface>
+<cc:implementation>
+
+    <div id="#{cc.clientId}">
+        <h:outputLabel id="label" for="" value="#{cc.attrs.label}:" styleClass="label"/>
+         <span class="input">
+             <f:validateBean>
+                 <h:panelGroup>
+                     <cc:insertChildren/>
+                 </h:panelGroup>
+             </f:validateBean>
+         </span>
+    </div>
+
+</cc:implementation>
+
+</body>
+
+</html>
