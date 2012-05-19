@@ -1,6 +1,12 @@
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
 import org.richfaces.renderkit.html.HtmlFocusRenderer;
 
 import javax.faces.component.UIComponent;
@@ -8,10 +14,14 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 @JsfComponent(tag = @Tag(name = "focus", type = TagType.Facelets),
-        renderer = @JsfRenderer(family = AbstractFocus.COMPONENT_FAMILY, type = HtmlFocusRenderer.RENDERER_TYPE))
+    renderer = @JsfRenderer(family = AbstractFocus.COMPONENT_FAMILY, type = HtmlFocusRenderer.RENDERER_TYPE))
 public abstract class AbstractFocus extends UIComponentBase {
 // ------------------------------ FIELDS ------------------------------
 
@@ -24,6 +34,8 @@ public abstract class AbstractFocus extends UIComponentBase {
     public static final String FOCUS_MODIFIER_FACET_NAME = "focusModifier";
 
     public static final String TIMING_ON_LOAD = "onload";
+
+    private static final Logger LOG = LogFactory.getLogger(AbstractFocus.class);
 
 // -------------------------- STATIC METHODS --------------------------
 
@@ -114,6 +126,14 @@ public abstract class AbstractFocus extends UIComponentBase {
 
     private void getInputs(UIComponent parent, Set<String> allowedClientIds, List<UIInput> inputs) {
         FacesContext facesContext = getFacesContext();
+        if (isCompositeComponent(parent)) {
+            String parentId = parent.getId();
+            parent = parent.getFacet(UIComponent.COMPOSITE_FACET_NAME);
+            if (parent == null) {
+                LOG.warn("Composite component " + parentId + " doesn't have facet " + UIComponent.COMPOSITE_FACET_NAME);
+                return;
+            }
+        }
         for (UIComponent child : parent.getChildren()) {
             if (child instanceof UIInput && (allowedClientIds.size() == 0 || allowedClientIds.contains(child.getClientId(facesContext)))) {
                 final AbstractFocusModifier modifier = findModifier(child);
@@ -155,7 +175,9 @@ public abstract class AbstractFocus extends UIComponentBase {
                     childrenCount.value++;
                 }
             } else {
-                if (getUIInputChildrenCount(child, breakOnId, childrenCount)) return true;
+                if (getUIInputChildrenCount(child, breakOnId, childrenCount)) {
+                    return true;
+                }
             }
         }
         return false;
