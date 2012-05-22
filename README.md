@@ -7,10 +7,10 @@ Prerequsities
 * Maven 3.0.3+
 * settings for [JBoss Maven Repository](https://community.jboss.org/wiki/MavenGettingStarted-Developers)
 
-Building Sandbox Components
----------------------------
+Building the Sandbox Components
+-------------------------------
 
-You can build all the components modules using Maven:
+You can build all the Sandbox component modules using Maven:
 
     mvn clean install
 
@@ -18,8 +18,8 @@ You can build all the components modules using Maven:
 Building Sandbox Showcase
 -------------------------
 
-You can build Showcase and all components with following command:
+After having built the individual Sandbox components (see the above), you can build the Sandbox Showcase and with following command:
 
-    mvn clean install -Pshowcase
+    mvn install -Pshowcase
 
-Once built, Showcase is available at `showcase-sandbox/target/showcase.war`.
+Once built, the Sandbox Showcase is available at `showcase-sandbox/target/showcase.war`.
