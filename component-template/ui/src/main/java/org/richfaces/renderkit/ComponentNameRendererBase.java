@@ -13,9 +13,4 @@ import javax.faces.component.UIComponent;
         @ResourceDependency(library = "org.richfaces", name = "componentName.css")})
 public abstract class ComponentNameRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ComponentNameRenderer";
-
-    // A workaround for RF-11668
-    public ComponentName castComponent(UIComponent component) {
-        return (ComponentName) component;
-    }
 }

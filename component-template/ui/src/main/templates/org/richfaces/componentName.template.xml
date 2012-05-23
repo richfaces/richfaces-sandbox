@@ -13,7 +13,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.component.ComponentName" name="componentName" value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.component.ComponentName" cast="true" name="componentName" value="#{component}"/>
         <div id="#{clientId}" class="rich-componentName #{component.attributes['styleClass']}">
             <span>Let's output the attribute value: #{componentName.attr}</span>
             <script type="text/javascript">
