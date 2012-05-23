@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
 public abstract class LabelRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.LabelRenderer";
-
-    // A workaround for RF-11668
-    public AbstractLabel castComponent(UIComponent component) {
-        return (AbstractLabel) component;
-    }
 }

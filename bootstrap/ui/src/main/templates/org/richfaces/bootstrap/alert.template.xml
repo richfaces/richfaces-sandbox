@@ -12,8 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractAlert" name="alert"
-                    value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractAlert" cast="true" name="alert" value="#{component}"/>
         <div id="#{clientId}" class="alert #{alert.layout eq 'block' ? 'alert-block' : ''} #{alert.severity != null ? alert.severity.alertClass : ''}">
             <c:if test="#{alert.isClosable()}">
                 <a class="close" data-dismiss="alert">×</a>

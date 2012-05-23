@@ -41,9 +41,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "font-awesome/css", name = "font-awesome.css")})
 public abstract class IconRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.IconRenderer";
-
-    // A workaround for RF-11668
-    public AbstractIcon castComponent(UIComponent component) {
-        return (AbstractIcon) component;
-    }
 }

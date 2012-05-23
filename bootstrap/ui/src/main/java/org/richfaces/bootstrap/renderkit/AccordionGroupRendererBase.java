@@ -42,9 +42,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "accordionGroup.js")})
 public abstract class AccordionGroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AccordionGroupRenderer";
-
-    // A workaround for RF-11668
-    public AbstractAccordionGroup castComponent(UIComponent component) {
-        return (AbstractAccordionGroup) component;
-    }
 }

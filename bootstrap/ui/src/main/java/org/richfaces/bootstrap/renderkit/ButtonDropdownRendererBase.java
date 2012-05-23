@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class ButtonDropdownRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.ButtonDropdownRenderer";
-
-    // A workaround for RF-11668
-    public AbstractButtonDropdown castComponent(UIComponent component) {
-        return (AbstractButtonDropdown) component;
-    }
 }

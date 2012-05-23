@@ -23,11 +23,6 @@ import javax.faces.context.FacesContext;
 public class CommandButtonRendererBase extends org.richfaces.renderkit.html.CommandButtonRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.CommandButtonRenderer";
 
-    // A workaround for RF-11668
-    public AbstractCommandButton castComponent(UIComponent component) {
-        return (AbstractCommandButton) component;
-    }
-
     @Override
     public void doDecode(FacesContext context, UIComponent component) {
         AbstractCommandButton commandButton = (AbstractCommandButton) component;

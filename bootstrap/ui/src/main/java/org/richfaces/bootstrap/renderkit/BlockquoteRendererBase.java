@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
 public abstract class BlockquoteRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.BlockquoteRenderer";
-
-    // A workaround for RF-11668
-    public AbstractBlockquote castComponent(UIComponent component) {
-        return (AbstractBlockquote) component;
-    }
 }

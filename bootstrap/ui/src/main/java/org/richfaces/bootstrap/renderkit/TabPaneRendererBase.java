@@ -39,9 +39,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
 public abstract class TabPaneRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabPaneRenderer";
-
-    // A workaround for RF-11668
-    public AbstractTabPane castComponent(UIComponent component) {
-        return (AbstractTabPane) component;
-    }
 }

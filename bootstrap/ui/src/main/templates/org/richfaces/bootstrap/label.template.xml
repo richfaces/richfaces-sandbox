@@ -12,8 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractLabel" name="label"
-            value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractLabel" cast="true" name="label" value="#{component}"/>
         <span id="#{clientId}"
             class="label #{label.severity != null ? label.severity.labelClass : ''} #{component.attributes['styleClass']}"
             cdk:passThrough="style">

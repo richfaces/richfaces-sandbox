@@ -11,7 +11,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridRow" name="gridRow" value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridRow" cast="true" name="gridRow" value="#{component}"/>
         <div id="#{clientId}" class="row#{gridRow.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
              cdk:passThrough="style title onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <cdk:body />

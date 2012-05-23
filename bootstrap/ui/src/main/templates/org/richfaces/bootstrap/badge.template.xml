@@ -12,8 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractBadge" name="badge"
-            value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractBadge" cast="true" name="badge" value="#{component}"/>
         <span id="#{clientId}"
             class="badge #{badge.severity != null ? badge.severity.badgeClass : ''} #{component.attributes['styleClass']}"
             cdk:passThrough="style">

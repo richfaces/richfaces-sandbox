@@ -12,8 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractInput" name="input"
-            value="#{castComponent(component)}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractInput" cast="true" name="input" value="#{component}"/>
             
         <cdk:call expression="encodeBeginWrapper(facesContext, component)"/>
         

@@ -49,13 +49,8 @@ public abstract class InputRendererBase extends org.richfaces.renderkit.InputRen
     
     private String wrapperClass = "";
     
-    // A workaround for RF-11668
-    public AbstractInput castComponent(UIComponent component) {
-        return (AbstractInput) component;
-    }
-    
     public void encodeBeginWrapper(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractInput input = castComponent(component);
+        AbstractInput input = (AbstractInput) component;
         
         wrapperClass = "";
         
@@ -82,7 +77,7 @@ public abstract class InputRendererBase extends org.richfaces.renderkit.InputRen
     }
     
     public void addDisabledAttribute(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractInput input = castComponent(component);
+        AbstractInput input = (AbstractInput) component;
         
         if(input.isDisabled()) {
             ResponseWriter responseWriter = facesContext.getResponseWriter(); 

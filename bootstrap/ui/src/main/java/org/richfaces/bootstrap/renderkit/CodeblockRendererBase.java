@@ -42,9 +42,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "codeblock.js")})
 public abstract class CodeblockRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.CodeblockRenderer";
-
-    // A workaround for RF-11668
-    public AbstractCodeblock castComponent(UIComponent component) {
-        return (AbstractCodeblock) component;
-    }
 }

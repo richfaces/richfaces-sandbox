@@ -41,9 +41,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class AlertRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AlertRenderer";
-
-    // A workaround for RF-11668
-    public AbstractAlert castComponent(UIComponent component) {
-        return (AbstractAlert) component;
-    }
 }

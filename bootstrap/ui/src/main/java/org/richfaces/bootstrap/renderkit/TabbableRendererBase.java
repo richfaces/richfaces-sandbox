@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class TabbableRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabbableRenderer";
-
-    // A workaround for RF-11668
-    public AbstractTabbable castComponent(UIComponent component) {
-        return (AbstractTabbable) component;
-    }
 }

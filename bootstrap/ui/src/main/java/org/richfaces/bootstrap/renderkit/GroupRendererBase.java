@@ -38,10 +38,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib")})
 public abstract class GroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GroupRenderer";
-
-    // A workaround for RF-11668
-    public AbstractGroup castComponent(UIComponent component) {
-        return (AbstractGroup) component;
-    }
-
 }

@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap-responsive.css")})
 public abstract class GridRowRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.GridRowRenderer";
-
-    // A workaround for RF-11668
-    public AbstractGridRow castComponent(UIComponent component) {
-        return (AbstractGridRow) component;
-    }
 }

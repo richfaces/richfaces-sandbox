@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class ButtonGroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.ButtonGroupRenderer";
-
-    // A workaround for RF-11668
-    public AbstractButtonGroup castComponent(UIComponent component) {
-        return (AbstractButtonGroup) component;
-    }
 }

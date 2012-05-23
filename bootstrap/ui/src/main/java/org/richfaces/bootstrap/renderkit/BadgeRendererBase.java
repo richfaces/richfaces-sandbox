@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
 public abstract class BadgeRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.BadgeRenderer";
-
-    // A workaround for RF-11668
-    public AbstractBadge castComponent(UIComponent component) {
-        return (AbstractBadge) component;
-    }
 }

@@ -51,11 +51,6 @@ import org.richfaces.renderkit.RendererBase;
 public abstract class NavbarRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.NavbarRenderer";
 
-    // A workaround for RF-11668
-    public AbstractNavbar castComponent(UIComponent component) {
-        return (AbstractNavbar) component;
-    }
-    
     public void renderFacet(String facetName, FacesContext context, UIComponent component) throws IOException {
         UIComponent facet = component.getFacet(facetName);
         facet.encodeAll(context);
@@ -71,7 +66,7 @@ public abstract class NavbarRendererBase extends RendererBase {
     
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        AbstractNavbar navbar = castComponent(component);
+        AbstractNavbar navbar = (AbstractNavbar) component;
         
         if(navbar.isCollapsible()) {
             writer.startElement("div", component);

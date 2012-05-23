@@ -43,11 +43,6 @@ import org.richfaces.renderkit.RendererBase;
 public abstract class HeroUnitRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.HeroUnitRenderer";
 
-    // A workaround for RF-11668
-    public AbstractHeroUnit castComponent(UIComponent component) {
-        return (AbstractHeroUnit) component;
-    }
-
     public void renderTaglineFacet(FacesContext context, UIComponent component) throws IOException {
         UIComponent brandFacet = component.getFacet("tagline");
         brandFacet.encodeAll(context);

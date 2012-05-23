@@ -40,9 +40,4 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class AccordionRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AccordionRenderer";
-
-    // A workaround for RF-11668
-    public AbstractAccordion castComponent(UIComponent component) {
-        return (AbstractAccordion) component;
-    }
 }
