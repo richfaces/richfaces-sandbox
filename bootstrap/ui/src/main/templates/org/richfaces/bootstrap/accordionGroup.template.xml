@@ -14,7 +14,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractAccordionGroup" cast="true" name="accordionGroup" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractAccordionGroup" name="accordionGroup" value="#{component}"/>
         <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <div class="accordion-heading">
                 <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">

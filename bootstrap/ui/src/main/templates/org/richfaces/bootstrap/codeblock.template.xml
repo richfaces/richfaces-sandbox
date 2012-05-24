@@ -12,7 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractCodeblock" cast="true" name="codeblock" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractCodeblock" name="codeblock" value="#{component}"/>
         <pre id="#{clientId}" class="prettyprint #{codeblock.isLinenums() ? 'linenums' : ''} #{codeblock.styleClass}"><cdk:body /></pre>
     </cc:implementation>
 

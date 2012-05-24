@@ -13,7 +13,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonDropdown" cast="true" name="buttonDropdown" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonDropdown" name="buttonDropdown" value="#{component}"/>
         <div class="btn-group #{buttonDropdown.verticalPositionStyleClass}">
             <a class="btn #{buttonDropdown.severity ne null ? buttonDropdown.severity.buttonClass : ''} #{buttonDropdown.scale ne null ? buttonDropdown.scale.buttonStyleClass : ''} #{buttonDropdown.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
                cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">

@@ -11,7 +11,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridColumn" cast="true" name="gridColumn" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridColumn" name="gridColumn" value="#{component}"/>
         <div id="#{clientId}" class="#{gridColumn.spanClass} #{gridColumn.offsetClass}"
              cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <cdk:body />

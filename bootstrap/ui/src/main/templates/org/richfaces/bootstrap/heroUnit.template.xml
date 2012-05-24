@@ -12,7 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractHeroUnit" cast="true" name="heroUnit" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractHeroUnit" name="heroUnit" value="#{component}"/>
         <div id="#{clientId}" class="hero-unit #{heroUnit.styleClass}">
             <h1>#{heroUnit.heading}</h1>
             <c:choose>

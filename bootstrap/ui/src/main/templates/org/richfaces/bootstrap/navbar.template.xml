@@ -13,7 +13,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractNavbar" cast="true" name="navbar" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractNavbar" name="navbar" value="#{component}"/>
         <div id="#{clientId}" class="navbar #{navbar.fixed ne null and !navbar.fixed.equals('') ? 'navbar-fixed-'.concat(navbar.fixed) : ''}">
             <div class="navbar-inner">
                 <div class="container">

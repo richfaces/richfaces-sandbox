@@ -12,14 +12,14 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" cast="true" name="blockquote" value="#{component}"/>
+        <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" name="blockquote" value="#{component}"/>
         <blockquote id="#{clientId}" cite="#{blockquote.cite}"
             style="#{blockquote.style}"
             class="#{blockquote.styleClass} #{blockquote.position != null and !blockquote.position.equals('') ? 'pull-'.concat(blockquote.position) : ''}">
             
             <cdk:body />
             
-            <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" cast="true" name="blockquote" value="#{component}"/>
+            <cdk:object type="org.richfaces.bootstrap.component.AbstractBlockquote" name="blockquote" value="#{component}"/>
             
             <c:if test="#{blockquote.author != null and !blockquote.author.equals('')}">
                 <small>
