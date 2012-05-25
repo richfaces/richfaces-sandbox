@@ -9,16 +9,16 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.AccordionGroupRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.AccordionGroupRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.AccordionGroupRenderer</cdk:renderer-type>
-        
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractAccordionGroup</cdk:component-base-class>
+
         <cdk:import package="org.richfaces.bootstrap" names="BootstrapRenderKitUtils" />
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractAccordionGroup" name="accordionGroup" value="#{component}"/>
         <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <div class="accordion-heading">
                 <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">
-                    #{accordionGroup.heading}
+                    #{component.heading}
                 </a>
             </div>
             <div id="#{clientId}_body" class="accordion-body collapse rf-bs-event-target">

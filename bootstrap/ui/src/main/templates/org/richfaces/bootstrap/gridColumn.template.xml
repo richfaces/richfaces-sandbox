@@ -8,11 +8,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.GridColumnRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.GridColumnRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.GridColumnRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractGridColumn</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridColumn" name="gridColumn" value="#{component}"/>
-        <div id="#{clientId}" class="#{gridColumn.spanClass} #{gridColumn.offsetClass}"
+        <div id="#{clientId}" class="#{component.spanClass} #{component.offsetClass}"
              cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <cdk:body />
         </div>

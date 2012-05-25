@@ -9,11 +9,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.IconRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.IconRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.IconRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractIcon</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractIcon" name="icon" value="#{component}"/>
-        <i id="#{clientId}" class="icon-#{icon.value}" style="#{icon.color ne null and !icon.color.equals('') ? 'color:'.concat(icon.color) : ''}"/>
+        <i id="#{clientId}" class="icon-#{component.value}" style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color) : ''}"/>
     </cc:implementation>
 
 </cdk:root>

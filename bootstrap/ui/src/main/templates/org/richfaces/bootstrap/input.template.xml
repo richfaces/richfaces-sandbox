@@ -9,21 +9,20 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.InputRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.InputRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.InputRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractInput</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractInput" name="input" value="#{component}"/>
-            
         <cdk:call expression="encodeBeginWrapper(facesContext, component)"/>
         
-        <c:if test="#{input.hasFacet('prepend')}">
+        <c:if test="#{component.hasFacet('prepend')}">
             <cdk:object type="javax.faces.component.UIComponent" name="prependFacet"
                 value="#{component.getFacet('prepend')}"/>
             <c:choose>
                 <c:when test="#{prependFacet.family eq 'javax.faces.Panel'}">
                     <c:forEach var="child" items="#{component.getFacet('prepend').getChildren()}">
                         <c:choose>
-                            <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
+                            <c:when test="#{component.containsStyleClass(child.attributes['styleClass'], 'btn')}">
                                 <cdk:call expression="child.encodeAll(facesContext)"/>
                             </c:when>
                             <c:otherwise>
@@ -36,7 +35,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="#{input.containsStyleClass(prependFacet.attributes['styleClass'], 'btn')}">
+                        <c:when test="#{component.containsStyleClass(prependFacet.attributes['styleClass'], 'btn')}">
                             <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
                         </c:when>
                         <c:otherwise>
@@ -50,25 +49,25 @@
         </c:if>
         
         <c:choose>
-            <c:when test="#{input.isReadonly()}">
-                <span class="uneditable-input #{input.scale != null ? input.scale.inputStyleClass : ''}">#{input.value}</span>
+            <c:when test="#{component.isReadonly()}">
+                <span class="uneditable-input #{component.scale != null ? component.scale.inputStyleClass : ''}">#{component.value}</span>
             </c:when>
             <c:otherwise>
                 <input id="#{clientId}" cdk:passThrough="style value placeholder"
-                    class="#{input.scale != null ? input.scale.inputStyleClass : ''} #{input.isDisabled() ? 'disabled' : ''} #{input.styleClass}">
+                    class="#{component.scale != null ? component.scale.inputStyleClass : ''} #{component.isDisabled() ? 'disabled' : ''} #{component.styleClass}">
                     <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
                 </input>
             </c:otherwise>
         </c:choose>
         
-        <c:if test="#{input.hasFacet('append')}">
+        <c:if test="#{component.hasFacet('append')}">
             <cdk:object type="javax.faces.component.UIComponent" name="appendFacet"
                 value="#{component.getFacet('append')}"/>
             <c:choose>
                 <c:when test="#{appendFacet.family eq 'javax.faces.Panel'}">
                     <c:forEach var="child" items="#{component.getFacet('append').getChildren()}">
                         <c:choose>
-                            <c:when test="#{input.containsStyleClass(child.attributes['styleClass'], 'btn')}">
+                            <c:when test="#{component.containsStyleClass(child.attributes['styleClass'], 'btn')}">
                                 <cdk:call expression="child.encodeAll(facesContext)"/>
                             </c:when>
                             <c:otherwise>
@@ -81,7 +80,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="#{input.containsStyleClass(appendFacet.attributes['styleClass'], 'btn')}">
+                        <c:when test="#{component.containsStyleClass(appendFacet.attributes['styleClass'], 'btn')}">
                             <cdk:call expression="appendFacet.encodeAll(facesContext)"/>
                         </c:when>
                         <c:otherwise>

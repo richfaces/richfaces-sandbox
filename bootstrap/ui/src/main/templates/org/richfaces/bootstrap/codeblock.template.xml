@@ -9,11 +9,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.CodeblockRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.CodeblockRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.CodeblockRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractCodeblock</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractCodeblock" name="codeblock" value="#{component}"/>
-        <pre id="#{clientId}" class="prettyprint #{codeblock.isLinenums() ? 'linenums' : ''} #{codeblock.styleClass}"><cdk:body /></pre>
+        <pre id="#{clientId}" class="prettyprint #{component.isLinenums() ? 'linenums' : ''} #{component.styleClass}"><cdk:body /></pre>
     </cc:implementation>
 
 </cdk:root>

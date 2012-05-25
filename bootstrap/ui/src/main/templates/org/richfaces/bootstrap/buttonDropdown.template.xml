@@ -10,17 +10,17 @@
         <cdk:superclass>org.richfaces.bootstrap.renderkit.ButtonDropdownRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.ButtonDropdownRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractButtonDropdown</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractButtonDropdown" name="buttonDropdown" value="#{component}"/>
-        <div class="btn-group #{buttonDropdown.verticalPositionStyleClass}">
-            <a class="btn #{buttonDropdown.severity ne null ? buttonDropdown.severity.buttonClass : ''} #{buttonDropdown.scale ne null ? buttonDropdown.scale.buttonStyleClass : ''} #{buttonDropdown.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
+        <div class="btn-group #{component.verticalPositionStyleClass}">
+            <a class="btn #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''} #{component.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
                cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
-                #{buttonDropdown.title.concat(' ')}
+                #{component.title.concat(' ')}
                 <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu #{buttonDropdown.horizontalPositionStyleClass}">
+            <ul class="dropdown-menu #{component.horizontalPositionStyleClass}">
                 <c:forEach var="child" items="#{component.getChildren()}">
                     <li>
                         <cdk:call expression="child.encodeAll(facesContext)" />

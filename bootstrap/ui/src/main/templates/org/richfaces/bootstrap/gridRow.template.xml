@@ -8,11 +8,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.GridRowRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.GridRowRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.GridRowRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractGridRow</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridRow" name="gridRow" value="#{component}"/>
-        <div id="#{clientId}" class="row#{gridRow.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
+        <div id="#{clientId}" class="row#{component.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
              cdk:passThrough="style title onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <cdk:body />
         </div>

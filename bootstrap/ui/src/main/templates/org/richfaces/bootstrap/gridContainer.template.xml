@@ -8,11 +8,11 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.GridContainerRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.GridContainerRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.GridContainerRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractGridContainer</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractGridContainer" name="gridContainer" value="#{component}"/>
-        <div id="#{clientId}" class="container#{gridContainer.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
+        <div id="#{clientId}" class="container#{component.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
              cdk:passThrough="style title onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
             <cdk:body />
         </div>

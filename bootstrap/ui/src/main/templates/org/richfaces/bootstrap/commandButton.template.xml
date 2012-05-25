@@ -10,31 +10,31 @@
         <cdk:superclass>org.richfaces.bootstrap.renderkit.CommandButtonRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.CommandButtonRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractCommandButton</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractCommandButton" name="commandButton" value="#{component}"/>
         <cdk:object type="java.lang.String" name="type" value="#{'client' eq component.attributes['mode'].toString() ? 'button' : component.attributes['type'].toString()}"/>
 
         <c:choose>
-            <c:when test="#{commandButton.tag eq 'button'}">
-                <button id="#{clientId}" name="#{clientId}" class="btn #{commandButton.styleClass}" value="#{commandButton.value}"
+            <c:when test="#{component.tag eq 'button'}">
+                <button id="#{clientId}" name="#{clientId}" class="btn #{component.styleClass}" value="#{component.value}"
                         onclick="#{this.getOnClick(facesContext, component)}"
                         cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
                         type="#{type}">
 
-                    <c:if test="#{! empty commandButton.icon}">
-                        <i class="icon-#{commandButton.icon}"></i>#{" "}
+                    <c:if test="#{! empty component.icon}">
+                        <i class="icon-#{component.icon}"></i>#{" "}
                     </c:if>
-                    #{commandButton.value}
+                    #{component.value}
                     <cdk:call expression="renderChildren(facesContext, component);" />
                 </button>
             </c:when>
-            <c:when test="#{commandButton.tag eq 'input'}">
-                <input id="#{clientId}" name="#{clientId}" class="btn #{commandButton.styleClass}" value="#{commandButton.value}"
+            <c:when test="#{component.tag eq 'input'}">
+                <input id="#{clientId}" name="#{clientId}" class="btn #{component.styleClass}" value="#{component.value}"
                         onclick="#{this.getOnClick(facesContext, component)}"
                         cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
-                    <cdk:call expression="encodeTypeAndImage(facesContext, commandButton);"/>
+                    <cdk:call expression="encodeTypeAndImage(facesContext, component);"/>
                 </input>
             </c:when>
         </c:choose>

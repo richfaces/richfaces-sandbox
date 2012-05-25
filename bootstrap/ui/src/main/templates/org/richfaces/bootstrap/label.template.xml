@@ -9,15 +9,15 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.LabelRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.LabelRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.LabelRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractLabel</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractLabel" name="label" value="#{component}"/>
         <span id="#{clientId}"
-            class="label #{label.severity != null ? label.severity.labelClass : ''} #{component.attributes['styleClass']}"
+            class="label #{component.severity != null ? component.severity.labelClass : ''} #{component.attributes['styleClass']}"
             cdk:passThrough="style">
             
-            <c:if test="#{label.value != null and !label.value.equals('')}">#{label.value}</c:if>
+            <c:if test="#{component.value != null and !component.value.equals('')}">#{component.value}</c:if>
         
             <cdk:body />
         </span>

@@ -9,15 +9,15 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.BadgeRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.BadgeRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.BadgeRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractBadge</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.bootstrap.component.AbstractBadge" name="badge" value="#{component}"/>
         <span id="#{clientId}"
-            class="badge #{badge.severity != null ? badge.severity.badgeClass : ''} #{component.attributes['styleClass']}"
+            class="badge #{component.severity != null ? component.severity.badgeClass : ''} #{component.attributes['styleClass']}"
             cdk:passThrough="style">
             
-            <c:if test="#{badge.value != null and !badge.value.equals('')}">#{badge.value}</c:if>
+            <c:if test="#{component.value != null and !component.value.equals('')}">#{component.value}</c:if>
         
             <cdk:body />
         </span>
