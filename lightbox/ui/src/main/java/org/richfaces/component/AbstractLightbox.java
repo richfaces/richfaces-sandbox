@@ -49,7 +49,7 @@ public abstract class AbstractLightbox extends UIComponentBase {
     public abstract Double getOverlayOpacity();
 
     @Attribute
-    public abstract Boolean isFixedNavigation();
+    public abstract Boolean getFixedNavigation();
 
     @Attribute
     public abstract Integer getContainerBorderSize();

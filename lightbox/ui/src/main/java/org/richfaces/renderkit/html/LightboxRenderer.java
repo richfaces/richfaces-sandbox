@@ -64,7 +64,7 @@ public class LightboxRenderer extends RendererBase {
         addOptionIfSetAndOrDefault("imageBtnClose", lightbox.getImageBtnClose(), getURL(context, "/lightbox-btn-close.gif"), options);
         addOptionIfSetAndNotDefault("containerBorderSize", lightbox.getContainerBorderSize(), options);
         addOptionIfSetAndNotDefault("containerResizeSpeed", lightbox.getContainerResizeSpeed(), options);
-        addOptionIfSetAndNotDefault("fixedNavigation", lightbox.isFixedNavigation(), options);
+        addOptionIfSetAndNotDefault("fixedNavigation", lightbox.getFixedNavigation(), options);
         addOptionIfSetAndNotDefault("keyToClose", lightbox.getKeyToClose(), options);
         addOptionIfSetAndNotDefault("keyToNext", lightbox.getKeyToNext(), options);
         addOptionIfSetAndNotDefault("keyToPrev", lightbox.getKeyToPrev(), options);

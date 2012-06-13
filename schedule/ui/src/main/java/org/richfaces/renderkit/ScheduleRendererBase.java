@@ -314,13 +314,13 @@ public abstract class ScheduleRendererBase extends RendererBase {
         if (firstDay != null) {
             addOptionIfSetAndNotDefault("firstDay", firstDay - 1, options);
         }
-        addOptionIfSetAndNotDefault("isRTL", schedule.isRTL(), options);
-        addOptionIfSetAndNotDefault("weekends", schedule.isShowWeekends(), options);
+        addOptionIfSetAndNotDefault("isRTL", schedule.getRTL(), options);
+        addOptionIfSetAndNotDefault("weekends", schedule.getShowWeekends(), options);
         addOptionIfSetAndNotDefault("weekMode", schedule.getWeekMode(), options);
         addOptionIfSetAndNotDefault("height", schedule.getHeight(), options);
         addOptionIfSetAndNotDefault("contentHeight", schedule.getContentHeight(), options);
         addOptionIfSetAndNotDefault("aspectRatio", schedule.getAspectRatio(), options);
-        addOptionIfSetAndNotDefault("allDaySlot", schedule.isAllDaySlot(), options);
+        addOptionIfSetAndNotDefault("allDaySlot", schedule.getAllDaySlot(), options);
         addOptionIfSetAndNotDefault("allDayText", schedule.getAllDayText(), options);
         addOptionIfSetAndNotDefault("axisFormat", schedule.getAxisFormat(), options);
         addOptionIfSetAndNotDefault("slotMinutes", schedule.getSlotMinutes(), options);
@@ -328,13 +328,13 @@ public abstract class ScheduleRendererBase extends RendererBase {
         addOptionIfSetAndNotDefault("firstHour", schedule.getFirstHour(), options);
         addOptionIfSetAndNotDefault("minTime", schedule.getMinTime(), options);
         addOptionIfSetAndNotDefault("maxTime", schedule.getMaxTime(), options);
-        addOptionIfSetAndNotDefault("editable", schedule.isEditable(), options);
-        addOptionIfSetAndNotDefault("selectable", schedule.isSelectable(), options);
-        addOptionIfSetAndNotDefault("selectHelper", schedule.isSelectHelper(), options);
-        addOptionIfSetAndNotDefault("unselectAuto", schedule.isUnselectAuto(), options);
+        addOptionIfSetAndNotDefault("editable", schedule.getEditable(), options);
+        addOptionIfSetAndNotDefault("selectable", schedule.getSelectable(), options);
+        addOptionIfSetAndNotDefault("selectHelper", schedule.getSelectHelper(), options);
+        addOptionIfSetAndNotDefault("unselectAuto", schedule.getUnselectAuto(), options);
         addOptionIfSetAndNotDefault("unselectCancel", schedule.getUnselectCancel(), options);
-        addOptionIfSetAndNotDefault("disableDragging", schedule.isDisableDragging(), options);
-        addOptionIfSetAndNotDefault("disableResizing", schedule.isDisableResizing(), options);
+        addOptionIfSetAndNotDefault("disableDragging", schedule.getDisableDragging(), options);
+        addOptionIfSetAndNotDefault("disableResizing", schedule.getDisableResizing(), options);
         addOptionIfSetAndNotDefault("dragRevertDuration", schedule.getDragRevertDuration(), options);
         addOptionIfSetAndNotDefault("eventColor", schedule.getEventColor(), options);
         addOptionIfSetAndNotDefault("eventBackgroundColor", schedule.getEventBackgroundColor(), options);
@@ -351,7 +351,7 @@ public abstract class ScheduleRendererBase extends RendererBase {
         if (headerOptions.size() > 0) {
             options.put("header", headerOptions);
         }
-        addOptionIfSetAndNotDefault("allDayDefault", schedule.isAllDayByDefault(), options);
+        addOptionIfSetAndNotDefault("allDayDefault", schedule.getAllDayByDefault(), options);
         addOptionIfSetAndNotDefault("autoRefreshOnDateRangeSelect", schedule.isAutoRefreshOnDateRangeSelect(), options);
 
         addOptionIfSetAndNotDefault("onbeforeitemselect", schedule.getOnbeforeitemselect(), options);

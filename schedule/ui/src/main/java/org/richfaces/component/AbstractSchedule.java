@@ -351,8 +351,8 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
      * @return value of showWeekends
      */
     public static boolean isShowWeekends(AbstractSchedule schedule) {
-        Boolean showWeekends = schedule.isShowWeekends();
-        return showWeekends == null ? AbstractSchedule.DEFAULT_SHOW_WEEKENDS : schedule.isShowWeekends();
+        Boolean showWeekends = schedule.getShowWeekends();
+        return showWeekends == null ? AbstractSchedule.DEFAULT_SHOW_WEEKENDS : schedule.getShowWeekends();
     }
 
 // ------------------------ INTERFACE METHODS ------------------------
@@ -614,8 +614,8 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
                     }
                     firstDataElement.put("id", item.getEventId());
                     firstDataElement.put("title", item.getTitle());
-                    if (item.isAllDay() != null) {
-                        firstDataElement.put("allDay", item.isAllDay());
+                    if (item.getAllDay() != null) {
+                        firstDataElement.put("allDay", item.getAllDay());
                     }
                     firstDataElement.put("start", format.format(item.getStartDate()));
                     if (item.getEndDate() != null) {
@@ -627,8 +627,8 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
                     if (item.getStyleClass() != null) {
                         firstDataElement.put("className", item.getStyleClass());
                     }
-                    if (item.isEditable() != null) {
-                        firstDataElement.put("editable", item.isEditable());
+                    if (item.getEditable() != null) {
+                        firstDataElement.put("editable", item.getEditable());
                     }
                     if (item.getData() != null) {
                         firstDataElement.put("data", item.getData());
@@ -690,10 +690,10 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
     public abstract String getWidgetVar();
 
     @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_DEFAULT)
-    public abstract Boolean isAllDayByDefault();
+    public abstract Boolean getAllDayByDefault();
 
     @Attribute(defaultValue = "" + DEFAULT_ALL_DAY_SLOT)
-    public abstract Boolean isAllDaySlot();
+    public abstract Boolean getAllDaySlot();
 
     /**
      * Tells if schedule should be automatically refreshed when date range is selected.
@@ -704,28 +704,28 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
     public abstract boolean isAutoRefreshOnDateRangeSelect();
 
     @Attribute(defaultValue = "" + DEFAULT_DISABLE_DRAGGING)
-    public abstract Boolean isDisableDragging();
+    public abstract Boolean getDisableDragging();
 
     @Attribute(defaultValue = "" + DEFAULT_DISABLE_RESIZING)
-    public abstract Boolean isDisableResizing();
+    public abstract Boolean getDisableResizing();
 
     @Attribute(defaultValue = "" + DEFAULT_EDITABLE)
-    public abstract Boolean isEditable();
+    public abstract Boolean getEditable();
 
     @Attribute(defaultValue = "" + DEFAULT_RTL)
-    public abstract Boolean isRTL();
+    public abstract Boolean getRTL();
 
     @Attribute(defaultValue = "" + DEFAULT_SELECT_HELPER)
-    public abstract Boolean isSelectHelper();
+    public abstract Boolean getSelectHelper();
 
     @Attribute(defaultValue = "" + DEFAULT_SELECTABLE)
-    public abstract Boolean isSelectable();
+    public abstract Boolean getSelectable();
 
     @Attribute(defaultValue = "" + DEFAULT_SHOW_WEEKENDS)
-    public abstract Boolean isShowWeekends();
+    public abstract Boolean getShowWeekends();
 
     @Attribute(defaultValue = "" + DEFAULT_UNSELECT_AUTO)
-    public abstract Boolean isUnselectAuto();
+    public abstract Boolean getUnselectAuto();
 
     @Attribute
     public abstract String getEventColor();

@@ -56,13 +56,13 @@ public abstract class AbstractScheduleItem extends UIComponentBase {
     public abstract String getEventId();
 
     @Attribute(defaultValue = "DEFAULT_ALL_DAY")
-    public abstract Boolean isAllDay();
+    public abstract Boolean getAllDay();
 
     @Attribute
     public abstract String getUrl();
 
     @Attribute
-    public abstract Boolean isEditable();
+    public abstract Boolean getEditable();
 
     @Attribute
     public abstract Object getData();
