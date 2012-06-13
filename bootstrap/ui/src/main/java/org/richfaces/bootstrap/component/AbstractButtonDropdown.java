@@ -39,8 +39,7 @@ import org.richfaces.component.attribute.EventsMouseProps;
         type = AbstractButtonDropdown.COMPONENT_TYPE,
         family = AbstractButtonDropdown.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
-        tag = @Tag(name = "buttonDropdown"),
-        attributes = "events-mouse-props.xml")
+        tag = @Tag(name = "buttonDropdown"))
 public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";

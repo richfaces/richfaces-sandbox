@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 
 /**
  * Base class for the badge component
@@ -39,9 +40,8 @@ import org.richfaces.cdk.annotations.Tag;
         type = AbstractBadge.COMPONENT_TYPE,
         family = AbstractBadge.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = BadgeRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="badge"),
-        attributes = "core-props.xml")
-public abstract class AbstractBadge extends UIOutput {
+        tag = @Tag(name="badge"))
+public abstract class AbstractBadge extends UIOutput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Badge";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Badge";
     

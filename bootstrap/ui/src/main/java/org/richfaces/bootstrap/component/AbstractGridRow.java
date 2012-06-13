@@ -21,14 +21,15 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.bootstrap.renderkit.GridRowRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Base class for the gridRow component
@@ -39,9 +40,8 @@ import javax.faces.component.UIPanel;
         type = AbstractGridRow.COMPONENT_TYPE,
         family = AbstractGridRow.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GridRowRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="gridRow"),
-        attributes = {"core-props.xml", "events-mouse-props.xml"})
-public abstract class AbstractGridRow extends UIPanel implements EventsMouseProps {
+        tag = @Tag(name="gridRow"))
+public abstract class AbstractGridRow extends UIPanel implements CoreProps, EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridRow";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridRow";
     

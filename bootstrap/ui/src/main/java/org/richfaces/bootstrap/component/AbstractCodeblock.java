@@ -21,14 +21,14 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.bootstrap.renderkit.CodeblockRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Base class for the codeblock component
@@ -39,8 +39,7 @@ import javax.faces.component.UIPanel;
         type = AbstractCodeblock.COMPONENT_TYPE,
         family = AbstractCodeblock.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = CodeblockRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="codeblock"),
-        attributes = "core-props.xml")
+        tag = @Tag(name="codeblock"))
 public abstract class AbstractCodeblock extends UIPanel implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Codeblock";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Codeblock";

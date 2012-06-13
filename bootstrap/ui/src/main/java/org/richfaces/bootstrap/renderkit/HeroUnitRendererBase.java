@@ -28,7 +28,6 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.bootstrap.component.AbstractHeroUnit;
 import org.richfaces.renderkit.RendererBase;
 
 /**

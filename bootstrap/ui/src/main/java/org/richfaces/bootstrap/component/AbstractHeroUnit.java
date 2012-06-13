@@ -21,13 +21,13 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.bootstrap.renderkit.HeroUnitRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-
-import javax.faces.component.UIComponentBase;
 
 /**
  * Base class for the heroUnit component.

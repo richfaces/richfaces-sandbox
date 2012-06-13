@@ -43,8 +43,7 @@ import org.richfaces.component.attribute.CoreProps;
         type = AbstractInput.COMPONENT_TYPE,
         family = AbstractInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = InputRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="input"),
-        attributes = "core-props.xml")
+        tag = @Tag(name="input"))
 public abstract class AbstractInput extends UIInput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Input";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Input";

@@ -21,11 +21,13 @@
  */
 package org.richfaces.bootstrap.component;
 
-import org.richfaces.bootstrap.renderkit.AccordionRendererBase;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.component.attribute.EventsMouseProps;
-
 import javax.faces.component.UIPanel;
+
+import org.richfaces.bootstrap.renderkit.AccordionRendererBase;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.EventsMouseProps;
 
 /**
  * Base class for the accordion component
@@ -36,8 +38,7 @@ import javax.faces.component.UIPanel;
         type = AbstractAccordion.COMPONENT_TYPE,
         family = AbstractAccordion.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AccordionRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="accordion"),
-        attributes = "events-mouse-props.xml")
+        tag = @Tag(name="accordion"))
 public abstract class AbstractAccordion extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Accordion";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Accordion";

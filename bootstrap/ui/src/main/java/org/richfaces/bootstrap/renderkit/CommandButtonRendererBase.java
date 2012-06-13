@@ -1,14 +1,13 @@
 package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.component.AbstractCommandButton;
-import org.richfaces.component.Mode;
-import org.richfaces.renderkit.AjaxCommandRendererBase;
-import org.richfaces.renderkit.util.HandlersChain;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.bootstrap.component.AbstractCommandButton;
+import org.richfaces.component.Mode;
+import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * Base class for the commandButton renderer

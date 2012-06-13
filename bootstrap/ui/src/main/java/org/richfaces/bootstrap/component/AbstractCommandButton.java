@@ -22,9 +22,13 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.renderkit.CommandButtonRendererBase;
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.AbstractActionComponent;
 import org.richfaces.component.Mode;
+import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.CommandButtonProps;
 import org.richfaces.component.attribute.CoreProps;
 
@@ -36,9 +40,8 @@ import org.richfaces.component.attribute.CoreProps;
 @JsfComponent(
         type = AbstractCommandButton.COMPONENT_TYPE, family = AbstractCommandButton.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="commandButton"),
-        attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
-public abstract class AbstractCommandButton extends AbstractActionComponent implements CoreProps, CommandButtonProps {
+        tag = @Tag(name="commandButton"))
+public abstract class AbstractCommandButton extends AbstractActionComponent implements AjaxProps, CoreProps, CommandButtonProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
 

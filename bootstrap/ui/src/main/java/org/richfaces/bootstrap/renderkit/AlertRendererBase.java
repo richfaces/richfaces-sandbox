@@ -23,9 +23,7 @@ package org.richfaces.bootstrap.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
 
-import org.richfaces.bootstrap.component.AbstractAlert;
 import org.richfaces.renderkit.RendererBase;
 
 /**

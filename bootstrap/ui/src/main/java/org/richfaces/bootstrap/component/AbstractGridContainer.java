@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 
 /**
@@ -39,9 +40,8 @@ import org.richfaces.component.attribute.EventsMouseProps;
         type = AbstractGridContainer.COMPONENT_TYPE,
         family = AbstractGridContainer.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GridContainerRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="gridContainer"),
-        attributes = {"core-props.xml", "events-mouse-props.xml"})
-public abstract class AbstractGridContainer extends UIPanel implements EventsMouseProps {
+        tag = @Tag(name="gridContainer"))
+public abstract class AbstractGridContainer extends UIPanel implements CoreProps, EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GridContainer";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GridContainer";
     

@@ -21,14 +21,13 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.bootstrap.renderkit.ButtonGroupRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.EventsMouseProps;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Base class for the buttonGroup component
@@ -39,8 +38,7 @@ import javax.faces.component.UIPanel;
         type = AbstractButtonGroup.COMPONENT_TYPE,
         family = AbstractButtonGroup.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ButtonGroupRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="buttonGroup"),
-        attributes = "events-mouse-props.xml")
+        tag = @Tag(name="buttonGroup"))
 public abstract class AbstractButtonGroup extends UIPanel implements EventsMouseProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonGroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonGroup";
