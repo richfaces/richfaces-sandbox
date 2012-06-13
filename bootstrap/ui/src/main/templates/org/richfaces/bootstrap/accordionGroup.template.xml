@@ -15,7 +15,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
+        <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="on*">
             <div class="accordion-heading">
                 <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">
                     #{component.heading}

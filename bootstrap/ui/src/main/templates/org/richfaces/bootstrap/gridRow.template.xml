@@ -13,7 +13,7 @@
 
     <cc:implementation>
         <div id="#{clientId}" class="row#{component.isFluid() ? '-fluid' : ''} #{component.attributes['styleClass']}"
-             cdk:passThrough="style title onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
+             cdk:passThrough="style title on*">
             <cdk:body />
         </div>
     </cc:implementation>

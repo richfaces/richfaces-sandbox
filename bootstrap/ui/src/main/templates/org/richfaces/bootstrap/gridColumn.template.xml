@@ -13,7 +13,7 @@
 
     <cc:implementation>
         <div id="#{clientId}" class="#{component.spanClass} #{component.offsetClass}"
-             cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
+             cdk:passThrough="on*">
             <cdk:body />
         </div>
     </cc:implementation>

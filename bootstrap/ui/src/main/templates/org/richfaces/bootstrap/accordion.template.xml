@@ -12,7 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="accordion" cdk:passThrough="onclick ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout">
+        <div id="#{clientId}" class="accordion" cdk:passThrough="on*">
             <cdk:body />
         </div>
     </cc:implementation>
