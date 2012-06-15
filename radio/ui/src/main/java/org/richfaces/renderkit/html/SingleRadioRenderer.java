@@ -1,16 +1,16 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractRadio;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractRadio;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 @JsfRenderer(family = AbstractRadio.COMPONENT_FAMILY, type = SingleRadioRenderer.RENDERER_TYPE)
 public class SingleRadioRenderer extends RendererBase {
@@ -39,7 +39,7 @@ public class SingleRadioRenderer extends RendererBase {
         writer.writeAttribute("id", clientId, "id");
         writer.writeAttribute("name", getUtils().clientId(context, targetComponent), "name");
         writer.writeAttribute("type", "radio", "type");
-        writer.writeAttribute("value", item.getValue(), "value");
+        writer.writeAttribute("value", InputUtils.getConvertedStringValue(context, targetComponent, item.getValue()), "value");
         if (checked) {
             writer.writeAttribute("checked", "checked", "checked");
         }
@@ -50,10 +50,10 @@ public class SingleRadioRenderer extends RendererBase {
         String targetOnchange = null;
         if (targetComponent != null) {
             targetOnchange = convertToString(RenderKitUtils.getAttributeAndBehaviorsValue(context, targetComponent,
-                    RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()));
+                RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()));
         }
         String onchange = convertToString(RenderKitUtils.getAttributeAndBehaviorsValue(context, component,
-                RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()));
+            RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()));
         if (targetOnchange != null && !targetOnchange.trim().isEmpty()) {
             onchange = onchange == null ? targetOnchange : targetOnchange + ";" + onchange;
         }
@@ -61,17 +61,17 @@ public class SingleRadioRenderer extends RendererBase {
             writer.writeAttribute("onchange", onchange, "onchange");
         }
         getUtils().encodeAttributesFromArray(context, component,
-                new String[]{"accept", "accesskey", "align", "alt", "checked", "dir", "disabled", "lang", "maxlength", "onblur", "onclick", "ondblclick", "onfocus",
-                        "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "readonly", "size",
-                        "src", "style", "tabindex", "title", "usemap", "xml:lang"});
+            new String[]{"accept", "accesskey", "align", "alt", "checked", "dir", "disabled", "lang", "maxlength", "onblur", "onclick", "ondblclick", "onfocus",
+                "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "readonly", "size",
+                "src", "style", "tabindex", "title", "usemap", "xml:lang"});
 
         writer.endElement("input");
-        writer.startElement("label", component);
-        writer.writeAttribute("for", clientId, "for");
-
-        writer.writeText(convertToString(item.getLabel()), null);
-
-        writer.endElement("label");
+        if (component.isLabelVisible()) {
+            writer.startElement("label", component);
+            writer.writeAttribute("for", clientId, "for");
+            writer.writeText(convertToString(item.getLabel()), null);
+            writer.endElement("label");
+        }
     }
 
     @Override
