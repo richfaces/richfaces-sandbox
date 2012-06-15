@@ -74,8 +74,25 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
 
     @Attribute(hidden = true)
     public abstract Object getValue();
+    
+    @Attribute
+    public abstract BootstrapSeverity getSeverity();
+    
+    @Attribute
+    public abstract BootstrapSize getScale();
+    
+    @Attribute
+    public abstract HorizontalPosition getHorizontal();
+    
+    @Attribute
+    public abstract VerticalPosition getVertical();
+    
+    public boolean hasFacet(String facetName) {
+        return getFacet(facetName) != null && getFacet(facetName).isRendered();
+    }
 
     public enum Facets {
-        icon
+        icon,
+        split
     }
 }

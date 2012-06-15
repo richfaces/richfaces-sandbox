@@ -28,5 +28,16 @@ package org.richfaces.bootstrap.component;
  *
  */
 public enum VerticalPosition {
-    top, bottom;
+    top("dropup"),
+    bottom("");
+    
+    private VerticalPosition(String buttonClass) {
+        this.buttonClass = buttonClass;
+    }
+    
+    private String buttonClass;
+
+    public String getButtonClass() {
+        return buttonClass;
+    }
 }

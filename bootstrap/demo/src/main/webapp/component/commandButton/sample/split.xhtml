@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+            <b:commandButton value="Default split">
+                <f:facet name="split">
+                    <h:panelGroup>
+                        <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                        <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                        <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                        <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+                    </h:panelGroup>
+                </f:facet>
+            </b:commandButton>
+            
+            <b:commandButton value="Primary small split" severity="primary" scale="small">
+                <f:facet name="split">
+                    <h:panelGroup>
+                        <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                        <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                        <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                        <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+                    </h:panelGroup>
+                </f:facet>
+            </b:commandButton>
+            
+            <b:commandButton value="Error large right split" severity="error" scale="large" horizontal="right">
+                <f:facet name="split">
+                    <h:panelGroup>
+                        <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                        <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                        <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                        <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+                    </h:panelGroup>
+                </f:facet>
+            </b:commandButton>
+            
+            <b:commandButton value="Warning top split" severity="warning" vertical="top">
+                <f:facet name="split">
+                    <h:panelGroup>
+                        <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+                        <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+                        <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+                        <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+                    </h:panelGroup>
+                </f:facet>
+            </b:commandButton>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

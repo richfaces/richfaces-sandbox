@@ -14,13 +14,13 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="btn-group #{component.verticalPositionStyleClass}">
+        <div class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
             <a class="btn #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''} #{component.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
                cdk:passThrough="on*">
                 #{component.title.concat(' ')}
                 <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu #{component.horizontalPositionStyleClass}">
+            <ul class="dropdown-menu #{component.horizontal ne null ? component.horizontal.buttonClass : ''}">
                 <c:forEach var="child" items="#{component.getChildren()}">
                     <li>
                         <cdk:call expression="child.encodeAll(facesContext)" />

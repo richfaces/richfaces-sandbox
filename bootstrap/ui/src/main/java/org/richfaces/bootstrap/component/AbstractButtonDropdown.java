@@ -61,20 +61,4 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
     
     @Attribute
     public abstract VerticalPosition getVertical();
-    
-    public String getVerticalPositionStyleClass() {
-        if(VerticalPosition.top.equals(getVertical())) {
-            return "dropup";
-        } else {
-            return "";
-        }
-    }
-    
-    public String getHorizontalPositionStyleClass() {
-        if(HorizontalPosition.right.equals(getHorizontal())) {
-            return "pull-right";
-        } else {
-            return "";
-        }
-    }
 }

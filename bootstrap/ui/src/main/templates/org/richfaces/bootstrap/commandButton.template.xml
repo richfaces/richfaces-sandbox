@@ -15,29 +15,90 @@
 
     <cc:implementation>
         <cdk:object type="java.lang.String" name="type" value="#{'client' eq component.attributes['mode'].toString() ? 'button' : component.attributes['type'].toString()}"/>
-
         <c:choose>
-            <c:when test="#{component.tag eq 'button'}">
-                <button id="#{clientId}" name="#{clientId}" class="btn #{component.styleClass}" value="#{component.value}"
-                        onclick="#{this.getOnClick(facesContext, component)}"
-                        cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
-                        type="#{type}">
-
-                    <c:if test="#{! empty component.icon}">
-                        <i class="icon-#{component.icon}"></i>#{" "}
-                    </c:if>
-                    #{component.value}
-                    <cdk:call expression="renderChildren(facesContext, component);" />
-                </button>
+            <c:when test="#{component.hasFacet('split')}">
+                <div class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
+                    <cdk:renderFragment name="renderCommandButton" type="#{type}" />
+                    
+                    <button class="btn dropdown-toggle #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    
+                    <ul class="dropdown-menu #{component.horizontal ne null ? component.horizontal.buttonClass : ''}">
+                        <c:forEach var="child" items="#{component.getFacet('split').getChildren()}">
+                            <li>
+                                <cdk:call expression="child.encodeAll(facesContext)" />
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </c:when>
-            <c:when test="#{component.tag eq 'input'}">
-                <input id="#{clientId}" name="#{clientId}" class="btn #{component.styleClass}" value="#{component.value}"
-                        onclick="#{this.getOnClick(facesContext, component)}"
-                        cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
-                    <cdk:call expression="encodeTypeAndImage(facesContext, component);"/>
-                </input>
-            </c:when>
+            
+            <c:otherwise>
+                <cdk:renderFragment name="renderCommandButton" type="#{type}" />
+            </c:otherwise>
         </c:choose>
-
     </cc:implementation>
+    
+    <cdk:fragment name="renderButton">
+        <cc:interface>
+            <cc:attribute name="type" type="java.lang.String" required="true" />
+        </cc:interface>
+        
+        <cc:implementation>
+            <button id="#{clientId}"
+                name="#{clientId}" class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                value="#{component.value}"
+                onclick="#{this.getOnClick(facesContext, component)}"
+                cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
+                type="#{cc.attrs.type}">
+
+                <c:if test="#{!empty(component.icon)}">
+                    <i class="icon-#{component.icon}"></i>#{" "}
+                </c:if>
+                
+                #{component.value}
+                
+                <cdk:call expression="renderChildren(facesContext, component);" />
+            
+            </button>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderInput">
+        <cc:interface>
+            <cc:attribute name="type" type="java.lang.String" />
+        </cc:interface>
+        
+        <cc:implementation>
+            <input id="#{clientId}"
+                name="#{clientId}"
+                type="submit"
+                class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                value="#{component.value}"
+                onclick="#{this.getOnClick(facesContext, component)}"
+                cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
+                
+                <cdk:call expression="encodeTypeAndImage(facesContext, component);"/>
+            
+            </input>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderCommandButton">
+        <cc:interface>
+            <cc:attribute name="type" type="java.lang.String" />
+        </cc:interface>
+        
+        <cc:implementation>
+            <c:choose>
+                <c:when test="#{component.tag eq 'button'}">
+                    <cdk:renderFragment name="renderButton" type="#{cc.attrs.type}" />
+                </c:when>
+                <c:when test="#{component.tag eq 'input'}">
+                    <cdk:renderFragment name="renderInput"  type="#{cc.attrs.type}" />
+                </c:when>
+            </c:choose>
+        </cc:implementation>
+    </cdk:fragment>
 </cdk:root>
