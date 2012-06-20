@@ -17,8 +17,9 @@
         <cdk:object type="java.lang.String" name="type" value="#{'client' eq component.attributes['mode'].toString() ? 'button' : component.attributes['type'].toString()}"/>
         <c:choose>
             <c:when test="#{component.hasFacet('split')}">
-                <div class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
-                    <cdk:renderFragment name="renderCommandButton" type="#{type}" />
+                <div id="#{clientId}" class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
+                    
+                    <cdk:renderFragment name="renderCommandButton" type="#{type}" renderId="false" />
                     
                     <button class="btn dropdown-toggle #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -43,15 +44,18 @@
     <cdk:fragment name="renderButton">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" required="true" />
+            <cc:attribute name="renderId" type="boolean" default="true" />
         </cc:interface>
         
         <cc:implementation>
-            <button id="#{clientId}"
-                name="#{clientId}" class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+            <button name="#{clientId}"
                 value="#{component.value}"
+                class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
                 onclick="#{this.getOnClick(facesContext, component)}"
                 cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
                 type="#{cc.attrs.type}">
+                
+                <cdk:call expression="encodeId(facesContext, component, renderId, clientId);"/>
 
                 <c:if test="#{!empty(component.icon)}">
                     <i class="icon-#{component.icon}"></i>#{" "}
@@ -68,17 +72,18 @@
     <cdk:fragment name="renderInput">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" />
+            <cc:attribute name="renderId" type="boolean" default="true" />
         </cc:interface>
         
         <cc:implementation>
-            <input id="#{clientId}"
+            <input type="submit"
                 name="#{clientId}"
-                type="submit"
                 class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
                 value="#{component.value}"
                 onclick="#{this.getOnClick(facesContext, component)}"
                 cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
                 
+                <cdk:call expression="encodeId(facesContext, component, renderId, clientId);"/>
                 <cdk:call expression="encodeTypeAndImage(facesContext, component);"/>
             
             </input>
@@ -88,15 +93,16 @@
     <cdk:fragment name="renderCommandButton">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" />
+            <cc:attribute name="renderId" type="boolean" default="true" />
         </cc:interface>
         
         <cc:implementation>
             <c:choose>
                 <c:when test="#{component.tag eq 'button'}">
-                    <cdk:renderFragment name="renderButton" type="#{cc.attrs.type}" />
+                    <cdk:renderFragment name="renderButton" type="#{cc.attrs.type}" renderId="#{cc.attrs.renderId}" />
                 </c:when>
                 <c:when test="#{component.tag eq 'input'}">
-                    <cdk:renderFragment name="renderInput"  type="#{cc.attrs.type}" />
+                    <cdk:renderFragment name="renderInput"  type="#{cc.attrs.type}" renderId="#{cc.attrs.renderId}" />
                 </c:when>
             </c:choose>
         </cc:implementation>
