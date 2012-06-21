@@ -7,10 +7,23 @@
       xmlns:cc="http://java.sun.com/jsf/composite">
 
 <cc:interface>
+    <cc:attribute name="value" />
 </cc:interface>
 
 <cc:implementation>
-    Hello world!
+    <h:inputText id="input" value="#{cc.attrs.value}" />
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="composite/com.jquery" name="jquery-1.7.2.min.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.core.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.widget.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.datepicker.js"/>
+    <h:outputStylesheet library="composite/com.jqueryui/css/ui-lightness" name="jquery-ui.custom.css"/>
+    <h:outputScript>
+        jQuery(function() {
+        $(document.getElementById('#{cc.clientId}:input')).datepicker();
+        });
+
+    </h:outputScript>
 </cc:implementation>
 
 </html>
