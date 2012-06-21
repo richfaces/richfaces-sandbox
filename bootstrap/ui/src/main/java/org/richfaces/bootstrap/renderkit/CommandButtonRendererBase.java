@@ -1,12 +1,12 @@
 package org.richfaces.bootstrap.renderkit;
 
 import java.io.IOException;
+import java.util.List;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
 import org.richfaces.bootstrap.component.AbstractCommandButton;
 import org.richfaces.component.Mode;
 import org.richfaces.renderkit.util.HandlersChain;
@@ -70,8 +70,8 @@ public class CommandButtonRendererBase extends org.richfaces.renderkit.html.Comm
         return onClick.toString();
     }
     
-    protected void encodeId(FacesContext context, UIComponent uiComponent, boolean renderId, String clientId) throws IOException {
-        if(renderId) {
+    protected void encodeId(FacesContext context, UIComponent uiComponent, boolean split, String clientId) throws IOException {
+        if(!split) {
             ResponseWriter writer = context.getResponseWriter();
             writer.writeAttribute("id", clientId, "id");
         }

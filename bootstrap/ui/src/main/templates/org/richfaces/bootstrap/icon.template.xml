@@ -13,7 +13,10 @@
     </cc:interface>
 
     <cc:implementation>
-        <i id="#{clientId}" class="icon-#{component.value}" style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color) : ''}"/>
+        <i id="#{clientId}"
+            class="icon-#{component.value} #{component.styleClass}"
+            style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color).concat(';') : ''}#{component.style}"
+            cdk:passThrough="title"/>
     </cc:implementation>
 
 </cdk:root>

@@ -6,6 +6,10 @@ body {
 	text-decoration: underline;
 }
 
+.btn-group {
+	display: inline-block !important;
+}
+
 .navbar ul.nav li.dropdown>ul.dropdown-menu,.navbar ul.nav li.dropdown>ul.subdropdown-menu
 	{
 	display: block !important;
@@ -210,4 +214,40 @@ body {
 		width: 1168px;
 		/* 2px less to account for left/right borders being removed when in fixed mode */
 	}
+}
+
+.bs-docs-example {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    position: relative;
+}
+.bs-docs-example:after {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #9DA0A4;
+    content: "Example";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+.bs-docs-example + .prettyprint {
+    margin-top: -20px;
+    padding-top: 15px;
+}
+.bs-docs-example, .bs-docs-example > p {
+    font-size: 13px;
+    line-height: 18px;
+}
+.bs-docs-example p {
+    margin-bottom: 9px;
+}
+.bs-docs-example p:last-child {
+    margin-bottom: 0;
 }

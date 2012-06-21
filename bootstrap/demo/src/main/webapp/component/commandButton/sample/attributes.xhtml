@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form>
+        <b:commandButton value="A fine action"
+            action="none"
+            icon="play"
+            color="red"
+            styleClass="pull-right"
+            style="font-size:20px;"
+            title="Even if I don't do anything, please, click me!"/>
+            
+        <b:commandButton value="A fine action"
+            action="none"
+            icon="play"
+            color="orange"
+            styleClass="uselessCssClass"
+            style="margin-top:20px;"
+            title="Even if I don't do anything neither, please, click me too!">
+            <f:facet name="split">
+                <h:link outcome="/index" value="Home"/>
+            </f:facet>
+        </b:commandButton>
+    </h:form>
+</ui:composition>

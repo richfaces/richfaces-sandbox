@@ -5,10 +5,11 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <h3>Sample Output:</h3>
-    <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
-
-    <h3>Sample Code:</h3>
+    
+    <div class="bs-docs-example">
+        <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
+    </div>
+    
     <b:codeblock styleClass="lang-html">
         <h:outputText value="/component/#{tag}/sample/#{sample}.xhtml" escape="true" converter="FileConverter" />
     </b:codeblock>

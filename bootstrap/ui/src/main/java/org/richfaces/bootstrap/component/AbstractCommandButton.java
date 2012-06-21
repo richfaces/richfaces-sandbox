@@ -21,6 +21,9 @@
  */
 package org.richfaces.bootstrap.component;
 
+import java.util.List;
+import java.util.ArrayList;
+import javax.faces.component.UIComponent;
 import org.richfaces.bootstrap.renderkit.CommandButtonRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -87,8 +90,27 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
     @Attribute
     public abstract VerticalPosition getVertical();
     
+    @Attribute
+    public abstract String getColor();
+    
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();
+    }
+    
+
+    public List<UIComponent> getFacetChildren(String facetName) {
+        UIComponent facet = getFacet(facetName);
+        if(facet != null && facet.isRendered()) {
+            if("javax.faces.component.UIPanel".equals(facet.getFamily())
+                    || "javax.faces.component.html.HtmlPanelGroup".equals(facet.getFamily())) {
+                return facet.getChildren();
+            } else {
+                List<UIComponent> children = new ArrayList<UIComponent>();
+                children.add(facet);
+                return children;
+            }
+        }
+        return null;
     }
 
     public enum Facets {

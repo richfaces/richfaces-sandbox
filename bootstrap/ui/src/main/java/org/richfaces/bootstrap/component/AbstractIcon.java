@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 
 /**
  * Base class for the icon component
@@ -40,7 +41,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractIcon.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = IconRendererBase.RENDERER_TYPE),
         tag = @Tag(name="icon"))
-public abstract class AbstractIcon extends UIOutput {
+public abstract class AbstractIcon extends UIOutput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Icon";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Icon";
     

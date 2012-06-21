@@ -17,16 +17,18 @@
         <cdk:object type="java.lang.String" name="type" value="#{'client' eq component.attributes['mode'].toString() ? 'button' : component.attributes['type'].toString()}"/>
         <c:choose>
             <c:when test="#{component.hasFacet('split')}">
-                <div id="#{clientId}" class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
+                <div id="#{clientId}"
+                    cdk:passThrough="style"
+                    class="btn-group #{component.styleClass} #{component.vertical ne null ? component.vertical.buttonClass : ''}">
                     
-                    <cdk:renderFragment name="renderCommandButton" type="#{type}" renderId="false" />
+                    <cdk:renderFragment name="renderCommandButton" type="#{type}" split="true" />
                     
-                    <button class="btn dropdown-toggle #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}" data-toggle="dropdown">
-                        <span class="caret"></span>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}">
+                        <span class="caret" style="#{component.color ne null and !component.color.equals('') ? 'border-top-color:'.concat(component.color).concat(';border-bottom-color:').concat(component.color).concat(';') : ''}"></span>
                     </button>
                     
                     <ul class="dropdown-menu #{component.horizontal ne null ? component.horizontal.buttonClass : ''}">
-                        <c:forEach var="child" items="#{component.getFacet('split').getChildren()}">
+                        <c:forEach var="child" items="#{component.getFacetChildren('split')}">
                             <li>
                                 <cdk:call expression="child.encodeAll(facesContext)" />
                             </li>
@@ -44,18 +46,19 @@
     <cdk:fragment name="renderButton">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" required="true" />
-            <cc:attribute name="renderId" type="boolean" default="true" />
+            <cc:attribute name="split" type="boolean" default="false" />
         </cc:interface>
         
         <cc:implementation>
             <button name="#{clientId}"
                 value="#{component.value}"
-                class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                class="btn #{!cc.attrs.split ? component.styleClass : ''} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color).concat(';') : ''}#{!cc.attrs.split ? component.style : ''}"
                 onclick="#{this.getOnClick(facesContext, component)}"
-                cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
+                cdk:passThrough="title ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled"
                 type="#{cc.attrs.type}">
                 
-                <cdk:call expression="encodeId(facesContext, component, renderId, clientId);"/>
+                <cdk:call expression="encodeId(facesContext, component, split, clientId);"/>
 
                 <c:if test="#{!empty(component.icon)}">
                     <i class="icon-#{component.icon}"></i>#{" "}
@@ -72,18 +75,19 @@
     <cdk:fragment name="renderInput">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" />
-            <cc:attribute name="renderId" type="boolean" default="true" />
+            <cc:attribute name="split" type="boolean" default="false" />
         </cc:interface>
         
         <cc:implementation>
             <input type="submit"
                 name="#{clientId}"
-                class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                class="btn #{!cc.attrs.split ? component.styleClass : ''} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+                style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color).concat(';') : ''}#{!cc.attrs.split ? component.style : ''}"
                 value="#{component.value}"
                 onclick="#{this.getOnClick(facesContext, component)}"
-                cdk:passThrough="style ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
+                cdk:passThrough="title ondblclick onmousedown onmouseup onmouseover onmousemove onmouseout disabled">
                 
-                <cdk:call expression="encodeId(facesContext, component, renderId, clientId);"/>
+                <cdk:call expression="encodeId(facesContext, component, split, clientId);"/>
                 <cdk:call expression="encodeTypeAndImage(facesContext, component);"/>
             
             </input>
@@ -93,16 +97,16 @@
     <cdk:fragment name="renderCommandButton">
         <cc:interface>
             <cc:attribute name="type" type="java.lang.String" />
-            <cc:attribute name="renderId" type="boolean" default="true" />
+            <cc:attribute name="split" type="boolean" default="false" />
         </cc:interface>
         
         <cc:implementation>
             <c:choose>
                 <c:when test="#{component.tag eq 'button'}">
-                    <cdk:renderFragment name="renderButton" type="#{cc.attrs.type}" renderId="#{cc.attrs.renderId}" />
+                    <cdk:renderFragment name="renderButton" type="#{cc.attrs.type}" split="#{cc.attrs.split}" />
                 </c:when>
                 <c:when test="#{component.tag eq 'input'}">
-                    <cdk:renderFragment name="renderInput"  type="#{cc.attrs.type}" renderId="#{cc.attrs.renderId}" />
+                    <cdk:renderFragment name="renderInput"  type="#{cc.attrs.type}" split="#{cc.attrs.split}" />
                 </c:when>
             </c:choose>
         </cc:implementation>
