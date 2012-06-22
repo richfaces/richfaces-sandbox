@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.ModalCancelButtonRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.ModalCancelButtonRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.ModalCancelButtonRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractModalCancelButton</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <a id="#{clientId}"
+            href="#"
+            data-dismiss="modal"
+            class="btn #{component.styleClass} #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''}"
+            cdk:passThrough="style title">
+            #{empty(component.value) and empty(component.children) ? 'Cancel' : component.value}
+            <cdk:body />    
+        </a>
+    </cc:implementation>
+</cdk:root>

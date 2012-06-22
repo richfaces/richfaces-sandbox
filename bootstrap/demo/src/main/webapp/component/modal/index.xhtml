@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="modal" />
+        
+        <h1><code>b:modal</code></h1>
+        <p>The <code>b:modal</code> is used to display a modal panel in top of the current page.</p>
+        
+        <p>There is two ways to use the modal component : the <code>basic</code> one and the <code>custom</code> one. Learn in the two following examples.</p>
+        
+        <p></p>
+        
+        <h2>Basic usage</h2>
+        
+        <p>The basic usage of the modal suppose that your modal will be divided in 3 parts :</p>
+        <ol>
+            <li>the header : only containing the title of the modal, a h3 title by default. Can be set using the <code>header</code> attribute or the <code>header</code> facet.</li>
+            <li>the body : it will be composed of the children of your modal component.</li>
+            <li>the footer : should contains buttons or links in order to allow the user to interact with your modal. Can be set using the <code>footer</code> facet.</li>
+        </ol>
+        
+        <p>Each part will be surrounded by a <code>div</code> tag with a specific CSS class (<code>modal-header</code>, <code>modal-body</code>, <code>modal-footer</code>). Those <code>div</code> will be generated for you.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="modal" />
+            <ui:param name="sample" value="basic" />
+        </ui:include>
+        
+        <h2>Custom usage</h2>
+
+        <p>If the default structure doesn't correspond to your needs, you will probably to customize with no restriction. You can do that of course. Just turn the <code>custom</code> attribute to <code>true</code> and that's it! No more auto-generated <code>div</code>, you can put whatever you want inside your modal componant.</p>
+        
+        <p>It's safe to say that even if you want to customize freely the content of your modal, you might still need the <code>div</code> with specific CSS classes. In order to no bother you by learning them, you can use 3 corresponding JSF components:</p>
+        
+        <ol>
+            <li><code>modalHeader</code></li>
+            <li><code>modalBody</code></li>
+            <li><code>modalFooter</code></li>
+        </ol>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="modal" />
+            <ui:param name="sample" value="custom" />
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

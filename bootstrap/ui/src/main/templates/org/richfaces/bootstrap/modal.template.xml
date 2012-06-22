@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.ModalRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.ModalRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.ModalRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractModal</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="modal hide #{component.effect} #{component.styleClass}" cdk:passThrough="style title">
+            <div id="#{clientId}Content">
+                <c:choose>
+                    <c:when test="#{!empty(component.header) or component.hasFacet('header')}">
+                        <div class="modal-header">
+                            <cdk:renderFragment name="renderCloseButton" />
+                            
+                            <cc:renderFacet name="header">
+                                <h3>#{component.header}</h3>
+                            </cc:renderFacet>
+                        </div>
+                    </c:when>
+                    
+                    <c:otherwise>
+                        <cdk:renderFragment name="renderCloseButton" />
+                    </c:otherwise>
+                </c:choose>
+                
+                <cdk:call expression="encodeBeginBody(facesContext, component)"/>
+                
+                <cdk:body />
+                
+                <cdk:call expression="encodeEndBody(facesContext, component)"/>
+                
+                <c:if test="#{component.hasFacet('footer')}">
+                    <div id="#{clientId}" class="modal-footer">
+                        <c:if test="#{component.hasLeftCancelButton()}">
+                            <cdk:renderFragment name="renderCancelButton" />
+                        </c:if>
+                        
+                        <cc:renderFacet name="footer" />
+                        
+                        <c:if test="#{component.hasRightCancelButton()}">
+                            <cdk:renderFragment name="renderCancelButton" />
+                        </c:if>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </cc:implementation>
+    
+    <cdk:fragment name="renderCancelButton">
+        <cc:interface>
+        </cc:interface>
+        
+        <cc:implementation>
+            <a id="#{clientId}" href="#" class="modal-cancel btn" data-dismiss="modal">Cancel</a>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderCloseButton">
+        <cc:interface>
+        </cc:interface>
+        
+        <cc:implementation>
+            <c:if test="#{component.closable}">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </c:if>
+        </cc:implementation>
+    </cdk:fragment>
+
+</cdk:root>

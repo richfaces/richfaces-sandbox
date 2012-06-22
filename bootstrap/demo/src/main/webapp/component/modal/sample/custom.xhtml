@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    
+    <a class="btn" data-toggle="modal" href="#customModal" >Launch Custom Modal</a>
+    
+    <b:modal id="customModal" custom="true" closable="false">
+        <b:modalHeader>A custom header</b:modalHeader>
+        
+        <b:modalBody>A custom body</b:modalBody>
+        
+        <b:modalFooter>
+            <b:commandButton value="Custome Save" />
+            <b:modalCancelButton />
+        </b:modalFooter>
+    </b:modal>
+</ui:composition>
