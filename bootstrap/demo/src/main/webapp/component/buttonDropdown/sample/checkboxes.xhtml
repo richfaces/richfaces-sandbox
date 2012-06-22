@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form>
+        <b:buttonDropdown title="Select">
+            <h:panelGroup>
+                <h:selectManyCheckbox value="#{sessionBean.selectedValues}">
+                    <f:selectItems value="#{sessionBean.availableValues}"
+                        var="_value"
+                        itemValue="#{_value}"
+                        itemLabel="#{_value}"/>
+                </h:selectManyCheckbox>
+            </h:panelGroup>
+        </b:buttonDropdown>
+    </h:form>
+</ui:composition>
