@@ -23,6 +23,9 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
+import org.richfaces.bootstrap.RenderBodyCapable;
+import org.richfaces.bootstrap.RenderFooterCapable;
+import org.richfaces.bootstrap.RenderHeaderCapable;
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.ModalRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
@@ -43,7 +46,8 @@ import org.richfaces.component.attribute.CoreProps;
         family = AbstractModal.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ModalRendererBase.RENDERER_TYPE),
         tag = @Tag(name="modal"))
-public abstract class AbstractModal extends UIPanel implements CoreProps {
+public abstract class AbstractModal extends UIPanel implements CoreProps, RenderHeaderCapable, RenderBodyCapable,
+        RenderFooterCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Modal";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Modal";
 
@@ -57,8 +61,10 @@ public abstract class AbstractModal extends UIPanel implements CoreProps {
     @Attribute(defaultValue = "true")
     public abstract boolean isCloseable();
 
-    @Attribute(defaultValue = "false")
+    @Attribute(defaultValue = "false", hidden = true)
     public abstract boolean isCustom();
+    
+    public abstract void setCustom(boolean custom);
 
     @Attribute(defaultValue = "", suggestedValue = "fade")
     public abstract String getEffect();
@@ -81,5 +87,36 @@ public abstract class AbstractModal extends UIPanel implements CoreProps {
     public enum Facets {
         header,
         footer
+    }
+    
+    @Override
+    public String getHeaderRendererType() {
+        return "org.richfaces.bootstrap.ModalHeaderRenderer";
+    }
+    
+    @Override
+    public String getBodyRendererType() {
+        return "org.richfaces.bootstrap.ModalBodyRenderer";
+    }
+    
+    @Override
+    public String getFooterRendererType() {
+        return "org.richfaces.bootstrap.ModalFooterRenderer";
+    }
+    
+    @Override
+    public void setCustomHeader(boolean custom) {
+        setCustom(custom);
+    }
+    
+    @Override
+    public void setCustomBody(boolean custom) {
+        setCustom(custom);
+        
+    }
+    
+    @Override
+    public void setCustomFooter(boolean custom) {
+        setCustom(custom);
     }
 }

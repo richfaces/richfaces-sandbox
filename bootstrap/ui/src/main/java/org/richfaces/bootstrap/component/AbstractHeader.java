@@ -22,34 +22,37 @@
 package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
-import org.richfaces.bootstrap.renderkit.ModalCancelButtonRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
+
+import org.richfaces.bootstrap.RenderHeaderCapable;
+import org.richfaces.bootstrap.renderkit.HeaderRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the modalCancelButton component
+ * Base class for the header component
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
  */
 @JsfComponent(
-        type = AbstractModalCancelButton.COMPONENT_TYPE,
-        family = AbstractModalCancelButton.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ModalCancelButtonRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="modalCancelButton"))
-public abstract class AbstractModalCancelButton extends UIPanel implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ModalCancelButton";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ModalCancelButton";
+        type = AbstractHeader.COMPONENT_TYPE,
+        family = AbstractHeader.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = HeaderRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="header"))
+public abstract class AbstractHeader extends AbstractSemanticComponent<RenderHeaderCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Header";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Header";
     
-    @Attribute
-    public abstract BootstrapSeverity getSeverity();
+    @Override
+    public Class<RenderHeaderCapable> getRendererCapability() {
+        return RenderHeaderCapable.class;
+    }
     
-    @Attribute
-    public abstract BootstrapSize getScale();
-    
-    @Attribute
-    public abstract String getValue();
+    @Override
+    public String getRendererType(RenderHeaderCapable container) {
+        container.setCustomHeader(true);
+        return container.getHeaderRendererType();
+    }
 }

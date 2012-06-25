@@ -5,16 +5,60 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
     <b:commandButton value="Launch Custom Modal" type="client" onclick="#{b:show('customModal')}" />
-    
+
     <b:modal id="customModal" closeable="false">
-        <b:modalHeader>A custom header</b:modalHeader>
-        
-        <b:modalBody>A custom body</b:modalBody>
-        
-        <b:modalFooter>
-            <b:commandButton value="Save" severity="primary" onclick="#{b:hide('customModal')}" />
-            
-            <b:commandButton value="Cancel" onclick="#{b:hide('customModal')}" /> 
-        </b:modalFooter>
+        <b:header>
+            <h3>A custom header</h3>
+        </b:header>
+
+        <b:body style="padding: 0">
+            <div class="modal-body">
+                <p>This modal can be closed only with Save or Cancel buttons.</p>
+                
+                <p>Clicking on shadow or using Escape key won't close the modal.</p>
+                
+                <h:form>
+                    <b:input placeholder="123-456">
+                        <f:facet name="prepend">
+                            <h:outputText value="Promo Code" />
+                        </f:facet>
+                        <f:facet name="append">
+                            <b:commandButton value="Check Promo" severity="success" />
+                        </f:facet>
+                    </b:input>
+                </h:form>
+            </div>
+
+            <h:form style="margin: 0">
+                <div class="modal-body">
+                    <h:panelGrid columns="1">
+                        <b:input placeholder="John">
+                            <f:facet name="prepend">
+                                <h:outputText value="Name" />
+                            </f:facet>
+                        </b:input>
+                        
+                        <b:input placeholder="Doe">
+                            <f:facet name="prepend">
+                                <h:outputText value="Surname" />
+                            </f:facet>
+                        </b:input>
+                        
+                        <b:input placeholder="john@doe.com">
+                            <f:facet name="prepend">
+                                <h:outputText value="E-mail" />
+                            </f:facet>
+                        </b:input>
+                    </h:panelGrid>
+                </div>
+                
+                <b:footer>
+                    <b:commandButton value="Save" severity="primary" onclick="#{b:hide('customModal')}" />
+
+                    <b:commandButton value="Cancel" onclick="#{b:hide('customModal')}" />
+                </b:footer>
+            </h:form>
+        </b:body>
+
     </b:modal>
 </ui:composition>

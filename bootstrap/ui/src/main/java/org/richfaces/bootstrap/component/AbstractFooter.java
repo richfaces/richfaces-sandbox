@@ -21,26 +21,39 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
-import org.richfaces.bootstrap.renderkit.ModalFooterRendererBase;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
+
+import org.richfaces.bootstrap.RenderFooterCapable;
+import org.richfaces.bootstrap.renderkit.FooterRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the modalFooter component
+ * Base class for the footer component
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
  */
 @JsfComponent(
-        type = AbstractModalFooter.COMPONENT_TYPE,
-        family = AbstractModalFooter.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ModalFooterRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="modalFooter"))
-public abstract class AbstractModalFooter extends UIPanel implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ModalFooter";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ModalFooter";
+        type = AbstractFooter.COMPONENT_TYPE,
+        family = AbstractFooter.COMPONENT_FAMILY,
+                renderer = @JsfRenderer(type = FooterRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="footer"))
+public abstract class AbstractFooter extends AbstractSemanticComponent<RenderFooterCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Footer";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Footer";
     
+    @Override
+    public Class<RenderFooterCapable> getRendererCapability() {
+        return RenderFooterCapable.class;
+    }
+    
+    @Override
+    public String getRendererType(RenderFooterCapable container) {
+        container.setCustomFooter(true);
+        return container.getFooterRendererType();
+    }
 }

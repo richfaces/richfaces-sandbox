@@ -22,28 +22,38 @@
 package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
-import org.richfaces.bootstrap.renderkit.ModalHeaderRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
+
+import org.richfaces.bootstrap.RenderBodyCapable;
+import org.richfaces.bootstrap.renderkit.BodyRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the modalHeader component
+ * Base class for the body component
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
  */
 @JsfComponent(
-        type = AbstractModalHeader.COMPONENT_TYPE,
-        family = AbstractModalHeader.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ModalHeaderRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="modalHeader"))
-public abstract class AbstractModalHeader extends UIPanel implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ModalHeader";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ModalHeader";
+        type = AbstractBody.COMPONENT_TYPE,
+        family = AbstractBody.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = BodyRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="body"))
+public abstract class AbstractBody extends AbstractSemanticComponent<RenderBodyCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Body";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Body";
     
-    @Attribute(defaultValue = "true")
-    public abstract boolean isClosable();
+    @Override
+    public Class<RenderBodyCapable> getRendererCapability() {
+        return RenderBodyCapable.class;
+    }
+    
+    @Override
+    public String getRendererType(RenderBodyCapable container) {
+        container.setCustomBody(true);
+        return container.getBodyRendererType();
+    }
+    
 }

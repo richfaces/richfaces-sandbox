@@ -27,7 +27,7 @@ import javax.faces.application.ResourceDependency;
 import org.richfaces.renderkit.RendererBase;
 
 /**
- * Base class for the modalBody renderer
+ * Base class for the modalHeader renderer
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
@@ -36,6 +36,6 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
-public abstract class ModalBodyRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.ModalBodyRenderer";
+public abstract class HeaderRendererBase extends RendererBase {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.HeaderRenderer";
 }
