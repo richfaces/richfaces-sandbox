@@ -5,10 +5,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:cc="http://java.sun.com/jsf/composite">
 
-<cc:interface componentType="org.richfaces.sandbox.composite.UIImagegallery">
+<cc:interface>
     <cc:attribute name="photos" />
 
-    <!-- comopnent attributes -->
+    <!-- plugin configuration -->
     <cc:attribute name="selector" />
     <cc:attribute name="namespace" />
     <cc:attribute name="slideshow" />
@@ -46,23 +46,23 @@
     <h:outputStylesheet library="composite/com.github.blueimp/css" name="jquery.image-gallery.css"/>
     <h:outputScript>
         var pluginOptions = {};
-        ! '#{cc.selector}' || (pluginOptions.selector = '#{cc.selector}');
-        ! '#{cc.namespace}' || (pluginOptions.namespace = '#{cc.namespace}');
-        ! '#{cc.slideshow}' || (pluginOptions.slideshow = '#{cc.slideshow}');
-        ! '#{cc.offsetWidth}' || (pluginOptions.offsetWidth = '#{cc.offsetWidth}');
-        ! '#{cc.offsetHeight}' || (pluginOptions.offsetHeight = '#{cc.offsetHeight}');
-        ! '#{cc.fullscreen}' || (pluginOptions.fullscreen = '#{cc.fullscreen}');
-        ! '#{cc.canvas}' || (pluginOptions.canvas = '#{cc.canvas}');
-        ! '#{cc.bodyClass}' || (pluginOptions.bodyClass = '#{cc.bodyClass}');
-        ! '#{cc.loaderId}' || (pluginOptions.loaderId = '#{cc.loaderId}');
-        ! '#{cc.effects}' || (pluginOptions.effects = '#{cc.effects}');
-        ! '#{cc.modal}' || (pluginOptions.modal = '#{cc.modal}');
-        ! '#{cc.resizable}' || (pluginOptions.resizable = '#{cc.resizable}');
-        ! '#{cc.width}' || (pluginOptions.width = '#{cc.width}');
-        ! '#{cc.height}' || (pluginOptions.height = '#{cc.height}');
-        ! '#{cc.show}' || (pluginOptions.show = '#{cc.show}');
-        ! '#{cc.hide}' || (pluginOptions.hide = '#{cc.hide}');
-        ! '#{cc.dialogClass}' || (pluginOptions.dialogClass = '#{cc.dialogClass}');
+        ! '#{cc.attrs.selector}' || (pluginOptions.selector = '#{cc.attrs.selector}');
+        ! '#{cc.attrs.namespace}' || (pluginOptions.namespace = '#{cc.attrs.namespace}');
+        ! '#{cc.attrs.slideshow}' || (pluginOptions.slideshow = '#{cc.attrs.slideshow}');
+        ! '#{cc.attrs.offsetWidth}' || (pluginOptions.offsetWidth = '#{cc.attrs.offsetWidth}');
+        ! '#{cc.attrs.offsetHeight}' || (pluginOptions.offsetHeight = '#{cc.attrs.offsetHeight}');
+        ! '#{cc.attrs.fullscreen}' || (pluginOptions.fullscreen = '#{cc.attrs.fullscreen}');
+        ! '#{cc.attrs.canvas}' || (pluginOptions.canvas = '#{cc.attrs.canvas}');
+        ! '#{cc.attrs.bodyClass}' || (pluginOptions.bodyClass = '#{cc.attrs.bodyClass}');
+        ! '#{cc.attrs.loaderId}' || (pluginOptions.loaderId = '#{cc.attrs.loaderId}');
+        ! '#{cc.attrs.effects}' || (pluginOptions.effects = '#{cc.attrs.effects}');
+        ! '#{cc.attrs.modal}' || (pluginOptions.modal = '#{cc.attrs.modal}');
+        ! '#{cc.attrs.resizable}' || (pluginOptions.resizable = '#{cc.attrs.resizable}');
+        ! '#{cc.attrs.width}' || (pluginOptions.width = '#{cc.attrs.width}');
+        ! '#{cc.attrs.height}' || (pluginOptions.height = '#{cc.attrs.height}');
+        ! '#{cc.attrs.show}' || (pluginOptions.show = '#{cc.attrs.show}');
+        ! '#{cc.attrs.hide}' || (pluginOptions.hide = '#{cc.attrs.hide}');
+        ! '#{cc.attrs.dialogClass}' || (pluginOptions.dialogClass = '#{cc.attrs.dialogClass}');
 
         jQuery(function() {
             $(document.getElementById('#{cc.clientId}:div')).imagegallery(pluginOptions);

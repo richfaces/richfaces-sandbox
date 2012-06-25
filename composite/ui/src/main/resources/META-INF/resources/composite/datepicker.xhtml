@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:cc="http://java.sun.com/jsf/composite">
 
-<cc:interface componentType="org.richfaces.sandbox.composite.UIDatepicker">
+<cc:interface>
     <cc:attribute name="value" />
     <cc:attribute name="showOn" />
     <cc:attribute name="dateFormat" />
@@ -24,10 +24,10 @@
     <h:outputScript>
         var pluginOptions = {
             buttonImage: "#{request.contextPath}/javax.faces.resource/calendar.gif.jsf?ln=composite/org.richfaces",
-            buttonImageOnly: "#{"true" eq cc.buttonImageOnly}"
+            buttonImageOnly: "#{"true" eq cc.attrs.buttonImageOnly}"
         }
-        ! '#{cc.showOn}' || (pluginOptions.showOn = '#{cc.showOn}');
-        ! '#{cc.dateFormat}' || (pluginOptions.dateFormat = '#{cc.dateFormat}');
+        ! '#{cc.attrs.showOn}' || (pluginOptions.showOn = '#{cc.attrs.showOn}');
+        ! '#{cc.attrs.dateFormat}' || (pluginOptions.dateFormat = '#{cc.attrs.dateFormat}');
 
         jQuery(function() {
             $(document.getElementById('#{cc.clientId}:input')).datepicker(pluginOptions);
