@@ -3,17 +3,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <b:commandButton value="Launch Custom Modal" type="client" onclick="#{b:show('customModal')}" />
     
-    <a class="btn" data-toggle="modal" href="#customModal" >Launch Custom Modal</a>
-    
-    <b:modal id="customModal" custom="true" closable="false">
+    <b:modal id="customModal" closeable="false">
         <b:modalHeader>A custom header</b:modalHeader>
         
         <b:modalBody>A custom body</b:modalBody>
         
         <b:modalFooter>
-            <b:commandButton value="Custome Save" />
-            <b:modalCancelButton />
+            <b:commandButton value="Save" severity="primary" onclick="#{b:hide('customModal')}" />
+            
+            <b:commandButton value="Cancel" onclick="#{b:hide('customModal')}" /> 
         </b:modalFooter>
     </b:modal>
 </ui:composition>

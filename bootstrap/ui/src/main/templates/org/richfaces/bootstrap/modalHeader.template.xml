@@ -14,10 +14,6 @@
 
     <cc:implementation>
         <div id="#{clientId}" class="modal-header #{component.styleClass}" cdk:passThrough="style title">
-            <c:if test="#{component.closable}">
-                <button type="button" data-dismiss="modal" class="close">×</button>
-            </c:if>
-            
             <cdk:body />
         </div>
     </cc:implementation>

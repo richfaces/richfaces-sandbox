@@ -23,6 +23,7 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
+import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.ModalRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -36,6 +37,7 @@ import org.richfaces.component.attribute.CoreProps;
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
  */
+@BootstrapJSPlugin(name = "modal")
 @JsfComponent(
         type = AbstractModal.COMPONENT_TYPE,
         family = AbstractModal.COMPONENT_FAMILY,
@@ -44,30 +46,34 @@ import org.richfaces.component.attribute.CoreProps;
 public abstract class AbstractModal extends UIPanel implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Modal";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Modal";
-    
+
     @Attribute
     public abstract String getHeader();
-    
+
+    /**
+     * Defines whenever the modal should be closeable (sets whenever the X button should be available).
+     * @return
+     */
     @Attribute(defaultValue = "true")
-    public abstract boolean isClosable();
-    
+    public abstract boolean isCloseable();
+
     @Attribute(defaultValue = "false")
     public abstract boolean isCustom();
-    
+
     @Attribute(defaultValue = "", suggestedValue = "fade")
     public abstract String getEffect();
-    
+
     @Attribute
     public abstract HorizontalPosition getCancelPosition();
-    
+
     public boolean hasLeftCancelButton() {
         return HorizontalPosition.left.equals(getCancelPosition());
     }
-    
+
     public boolean hasRightCancelButton() {
         return HorizontalPosition.right.equals(getCancelPosition());
     }
-    
+
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();
     }

@@ -3,8 +3,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    
-    <a class="btn" data-toggle="modal" href="#basicModal" >Launch Basic Modal</a>
+
+    <b:commandButton value="Show Modal" type="client" onclick="#{b:show('basicModal')}" />
     
     <b:modal id="basicModal" header="A fine header">
         
@@ -13,7 +13,8 @@
         <f:facet name="footer">
             <b:commandButton mode="client"
                 value="Save"
-                action="none"/>
+                action="none"
+                onclick="#{b:hide('basicModal')}" />
         </f:facet>
     </b:modal>
 </ui:composition>
