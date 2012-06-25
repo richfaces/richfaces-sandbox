@@ -19,49 +19,43 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.sandbox.composite;
-
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UINamingContainer;
+package org.richfaces.sandbox.composite.demo;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@FacesComponent("org.richfaces.sandbox.composite.UIDatepicker")
-public class UIDatepicker extends UINamingContainer {
+public class FlickrPhoto {
+    private String full;
+    private String thumb;
+    private String title;
 
-    protected enum Properties {
-        buttonImageOnly,
-        dateFormat,
-        showOn
+    public FlickrPhoto(String title, String full, String thumb) {
+        this.full = full;
+        this.thumb = thumb;
+        this.title = title;
     }
 
-    public String getButtonImageOnly() {
-        String value = (String) getStateHelper().eval(Properties.buttonImageOnly);
-        return value;
+    public String getFull() {
+        return full;
     }
 
-    public void setButtonImageOnly(String buttonImageOnly) {
-        getStateHelper().put(Properties.buttonImageOnly, buttonImageOnly);
+    public void setFull(String full) {
+        this.full = full;
     }
 
-
-    public String getDateFormat() {
-        String value = (String) getStateHelper().eval(Properties.dateFormat);
-        return value;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setDateFormat(String dateFormat) {
-        getStateHelper().put(Properties.dateFormat, dateFormat);
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
-
-    public String getShowOn() {
-        String value = (String) getStateHelper().eval(Properties.showOn);
-        return value;
+    public String getTitle() {
+        return title;
     }
 
-    public void setShowOn(String showOn) {
-        getStateHelper().put(Properties.showOn, showOn);
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
