@@ -21,35 +21,36 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
-import org.richfaces.bootstrap.renderkit.TabbableRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.bootstrap.RenderFooterGroupCapable;
+import org.richfaces.bootstrap.renderkit.FooterGroupRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the tabbable component
- *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * Base class for the footer component
+ * 
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * 
  */
 @JsfComponent(
-        type = AbstractTabbable.COMPONENT_TYPE,
-        family = AbstractTabbable.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = TabbableRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="tabbable"))
-public abstract class AbstractTabbable extends UIPanel {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tabs";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tabs";
-    public static final String ACTIVE_INDEX_DEFAULT = "1";
-    public static final String INDEX_SEPARATOR_DEFAULT = ".";
-
-    @Attribute
-    public abstract String getActiveName();
+        type = AbstractFooterGroup.COMPONENT_TYPE,
+        family = AbstractFooterGroup.COMPONENT_FAMILY,
+                renderer = @JsfRenderer(type = FooterGroupRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="footerGroup"))
+public abstract class AbstractFooterGroup extends AbstractSemanticComponent<RenderFooterGroupCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.FooterGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.FooterGroup";
     
-    @Attribute(defaultValue = ACTIVE_INDEX_DEFAULT)
-    public abstract String getActiveIndex();
+    @Override
+    public Class<RenderFooterGroupCapable> getRendererCapability() {
+        return RenderFooterGroupCapable.class;
+    }
     
-    @Attribute(defaultValue = INDEX_SEPARATOR_DEFAULT)
-    public abstract String getIndexSeparator();
+    @Override
+    public String getRendererType(RenderFooterGroupCapable container) {
+        container.setCustomFooterGroup(true);
+        return container.getFooterGroupRendererType();
+    }
 }

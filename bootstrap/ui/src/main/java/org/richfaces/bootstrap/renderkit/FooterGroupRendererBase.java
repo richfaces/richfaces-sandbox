@@ -21,19 +21,12 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
-
 import org.richfaces.renderkit.RendererBase;
 
 /**
- * Base class for the footer renderer
+ * Base class for the footerGroup renderer
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
@@ -42,6 +35,6 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
-public abstract class FooterRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.FooterRenderer";
+public abstract class FooterGroupRendererBase extends RendererBase {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.FooterGroupRenderer";
 }

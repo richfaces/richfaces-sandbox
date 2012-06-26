@@ -87,9 +87,11 @@ public class TaglibReader {
     public List<FaceletTaglibTagAttributeType> getOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
         List<FaceletTaglibTagAttributeType> onEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
         
-        for(FaceletTaglibTagAttributeType attribute : allAttributes) {
-            if(attribute.getName().getValue().startsWith("on")) {
-                onEventAttributes.add(attribute);
+        if(allAttributes != null) {
+            for(FaceletTaglibTagAttributeType attribute : allAttributes) {
+                if(attribute.getName().getValue().startsWith("on")) {
+                    onEventAttributes.add(attribute);
+                }
             }
         }
         
@@ -99,9 +101,11 @@ public class TaglibReader {
     public List<FaceletTaglibTagAttributeType> getNonOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
         List<FaceletTaglibTagAttributeType> nonOnEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
         
-        for(FaceletTaglibTagAttributeType attribute : allAttributes) {
-            if(!attribute.getName().getValue().startsWith("on")) {
-                nonOnEventAttributes.add(attribute);
+        if(allAttributes != null) {
+            for(FaceletTaglibTagAttributeType attribute : allAttributes) {
+                if(!attribute.getName().getValue().startsWith("on")) {
+                    nonOnEventAttributes.add(attribute);
+                }
             }
         }
         

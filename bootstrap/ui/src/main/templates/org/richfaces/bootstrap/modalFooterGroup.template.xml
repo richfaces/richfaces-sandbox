@@ -6,11 +6,11 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.bootstrap.renderkit.ModalFooterRenderer</cdk:class>
-        <cdk:component-family>org.richfaces.bootstrap.Footer</cdk:component-family>
+        <cdk:class>org.richfaces.bootstrap.renderkit.ModalFooterGroupRenderer</cdk:class>
+        <cdk:component-family>org.richfaces.bootstrap.FooterGroup</cdk:component-family>
         <cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
-        <cdk:renderer-type>org.richfaces.bootstrap.ModalFooterRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractFooter</cdk:component-base-class>
+        <cdk:renderer-type>org.richfaces.bootstrap.ModalFooterGroupRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractFooterGroup</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>

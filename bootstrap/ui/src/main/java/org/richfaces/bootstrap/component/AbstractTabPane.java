@@ -42,10 +42,14 @@ import org.richfaces.cdk.annotations.Tag;
 public abstract class AbstractTabPane extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tab";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tab";
+    public static final String DEFAULT_ATTRIBUTE_NAME = "default";
 
     @Attribute
     public abstract String getTitle();
     
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isDefault();
+    
+    @Attribute
+    public abstract String getName();
 }
