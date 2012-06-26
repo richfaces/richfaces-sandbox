@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://richfaces.org/sandbox/bootstrap">
+<h:head>
+    <title>RichFaces Bootstrap</title>
+    <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/less/richfaces/richfaces.less"/>
+    <h:outputScript name="less-1.3.0.min.js" library="js"/>
+</h:head>
+
+<h:body styleClass="rich-container">
+    <ui:insert name="params" />
+
+    <ui:include src="/resources/menu.xhtml"/>
+    
+    <ui:insert name="headContent">Content</ui:insert>
+</h:body>
+
+<h:outputStylesheet library="css" name="demo.css"/>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/demo.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="params">
+        <ui:param name="brand" value="List demo" />
+    </ui:define>
+
+    <ui:define name="body">
+        <h2>Unordered</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="list" />
+            <ui:param name="sample" value="unordered" />
+        </ui:include>
+    
+        <h2>Ordered</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="list" />
+            <ui:param name="sample" value="ordered" />
+        </ui:include>
+    
+        <h2>Unstyled</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="list" />
+            <ui:param name="sample" value="unstyled" />
+        </ui:include>
+    
+        <h2>Description</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="list" />
+            <ui:param name="sample" value="description" />
+        </ui:include>
+        
+        <h2>Horizontal Description</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="list" />
+            <ui:param name="sample" value="description-horizontal" />
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>
