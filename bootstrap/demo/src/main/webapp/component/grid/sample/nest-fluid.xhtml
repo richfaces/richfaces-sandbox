@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:gridRow styleClass="show-grid" fluid="true">
+        <b:gridColumn span="12">
+            <h:outputText value="Level 1 of column" />
+            <b:gridRow styleClass="show-grid" fluid="true">
+                <b:gridColumn span="6">
+                    <h:outputText value="Level 2" />
+                </b:gridColumn>
+                
+                <b:gridColumn span="6">
+                    <h:outputText value="Level 2" />
+                </b:gridColumn>
+            </b:gridRow>
+        </b:gridColumn>
+    </b:gridRow>
+</ui:composition>

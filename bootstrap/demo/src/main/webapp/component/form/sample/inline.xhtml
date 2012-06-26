@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form styleClass="form-inline">
+        <b:input scale="small" placeholder="Email"/>
+        <b:input type="password" scale="small" placeholder="Password"/>
+        <h:outputLabel styleClass="checkbox">
+            <h:selectBooleanCheckbox /> Remember me
+        </h:outputLabel>
+        <b:commandButton value="Sign in"/>
+    </h:form>
+</ui:composition>
