@@ -4,14 +4,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
-    <b:commandButton value="Launch Custom Modal" type="client" onclick="#{b:show('customModal')}" />
+    <b:commandButton value="Launch Custom Modal" mode="client" onclick="#{b:show('customModal')}" />
 
     <b:modal id="customModal" closeable="false">
-        <b:header>
+        <b:headerGroup>
             <h3>A custom header</h3>
-        </b:header>
+        </b:headerGroup>
 
-        <b:body style="padding: 0">
+        <b:bodyGroup style="padding: 0">
             <div class="modal-body">
                 <p>This modal can be closed only with Save or Cancel buttons.</p>
                 
@@ -52,13 +52,13 @@
                     </h:panelGrid>
                 </div>
                 
-                <b:footer>
-                    <b:commandButton value="Save" severity="primary" onclick="#{b:hide('customModal')}" />
+                <b:footerGroup>
+                    <b:commandButton value="Save" severity="primary" mode="client" onclick="#{b:hide('customModal')}" />
 
-                    <b:commandButton value="Cancel" onclick="#{b:hide('customModal')}" />
-                </b:footer>
+                    <b:commandButton value="Cancel" mode="client" onclick="#{b:hide('customModal')}" />
+                </b:footerGroup>
             </h:form>
-        </b:body>
+        </b:bodyGroup>
 
     </b:modal>
 </ui:composition>
