@@ -23,9 +23,9 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.RenderBodyCapable;
-import org.richfaces.bootstrap.RenderFooterCapable;
-import org.richfaces.bootstrap.RenderHeaderCapable;
+import org.richfaces.bootstrap.RenderBodyGroupCapable;
+import org.richfaces.bootstrap.RenderFooterGroupCapable;
+import org.richfaces.bootstrap.RenderHeaderGroupCapable;
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.ModalRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
@@ -46,8 +46,8 @@ import org.richfaces.component.attribute.CoreProps;
         family = AbstractModal.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ModalRendererBase.RENDERER_TYPE),
         tag = @Tag(name="modal"))
-public abstract class AbstractModal extends UIPanel implements CoreProps, RenderHeaderCapable, RenderBodyCapable,
-        RenderFooterCapable {
+public abstract class AbstractModal extends UIPanel implements CoreProps, RenderHeaderGroupCapable, RenderBodyGroupCapable,
+        RenderFooterGroupCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Modal";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Modal";
 
@@ -90,33 +90,33 @@ public abstract class AbstractModal extends UIPanel implements CoreProps, Render
     }
     
     @Override
-    public String getHeaderRendererType() {
-        return "org.richfaces.bootstrap.ModalHeaderRenderer";
+    public String getHeaderGroupRendererType() {
+        return "org.richfaces.bootstrap.ModalHeaderGroupRenderer";
     }
     
     @Override
-    public String getBodyRendererType() {
-        return "org.richfaces.bootstrap.ModalBodyRenderer";
+    public String getBodyGroupRendererType() {
+        return "org.richfaces.bootstrap.ModalBodyGroupRenderer";
     }
     
     @Override
-    public String getFooterRendererType() {
-        return "org.richfaces.bootstrap.ModalFooterRenderer";
+    public String getFooterGroupRendererType() {
+        return "org.richfaces.bootstrap.ModalFooterGroupRenderer";
     }
     
     @Override
-    public void setCustomHeader(boolean custom) {
+    public void setCustomHeaderGroup(boolean custom) {
         setCustom(custom);
     }
     
     @Override
-    public void setCustomBody(boolean custom) {
+    public void setCustomBodyGroup(boolean custom) {
         setCustom(custom);
         
     }
     
     @Override
-    public void setCustomFooter(boolean custom) {
+    public void setCustomFooterGroup(boolean custom) {
         setCustom(custom);
     }
 }

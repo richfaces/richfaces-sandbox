@@ -6,15 +6,15 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.bootstrap.renderkit.ModalBodyRenderer</cdk:class>
-        <cdk:component-family>org.richfaces.bootstrap.Body</cdk:component-family>
+        <cdk:class>org.richfaces.bootstrap.renderkit.ModalHeaderGroupRenderer</cdk:class>
+        <cdk:component-family>org.richfaces.bootstrap.HeaderGroup</cdk:component-family>
         <cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
-        <cdk:renderer-type>org.richfaces.bootstrap.ModalBodyRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractBody</cdk:component-base-class>
+        <cdk:renderer-type>org.richfaces.bootstrap.ModalHeaderGroupRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractHeaderGroup</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="modal-body #{component.styleClass}" cdk:passThrough="style title">
+        <div id="#{clientId}" class="modal-header #{component.styleClass}" cdk:passThrough="style title">
             <cdk:body />
         </div>
     </cc:implementation>

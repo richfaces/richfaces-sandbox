@@ -19,31 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.bootstrap.component;
+package org.richfaces.bootstrap.renderkit;
 
-import org.richfaces.bootstrap.renderkit.GroupRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+
+import org.richfaces.renderkit.RendererBase;
 
 /**
- * Base class for the groupPosition component.
- *
+ * Base class for the bodyGroup renderer
+ * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * 
  */
-@JsfComponent(
-        type = AbstractGroupPosition.COMPONENT_TYPE,
-        family = AbstractGroupPosition.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = GroupRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="groupPosition"))
-public abstract class AbstractGroupPosition extends AbstractGroup {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.GroupPosition";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.GroupPosition";
-
-    @Attribute
-    public abstract HorizontalPosition getHorizontal();
-    
-    @Attribute
-    public abstract VerticalPosition getVertical();
+@ResourceDependencies({
+        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
+public abstract class BodyGroupRendererBase extends RendererBase {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.BodyGroupRenderer";
 }

@@ -31,8 +31,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.bootstrap.component.AbstractGroupMenu;
-import org.richfaces.bootstrap.component.AbstractGroupPosition;
+import org.richfaces.bootstrap.component.AbstractMenuGroup;
+import org.richfaces.bootstrap.component.AbstractPositionGroup;
 import org.richfaces.bootstrap.component.AbstractNavbar;
 import org.richfaces.bootstrap.component.HorizontalPosition;
 import org.richfaces.renderkit.RendererBase;
@@ -75,13 +75,13 @@ public abstract class NavbarRendererBase extends RendererBase {
         }
         
         List<UIComponent> defaultChildren = new ArrayList<UIComponent>();
-        List<AbstractGroupPosition> leftGroups = new ArrayList<AbstractGroupPosition>();
-        List<AbstractGroupPosition> rightGroups = new ArrayList<AbstractGroupPosition>();
+        List<AbstractPositionGroup> leftGroups = new ArrayList<AbstractPositionGroup>();
+        List<AbstractPositionGroup> rightGroups = new ArrayList<AbstractPositionGroup>();
         
         for(UIComponent child : component.getChildren()) {
             if(child.isRendered()) {
-                if(child instanceof AbstractGroupPosition) {
-                    AbstractGroupPosition group = (AbstractGroupPosition) child;
+                if(child instanceof AbstractPositionGroup) {
+                    AbstractPositionGroup group = (AbstractPositionGroup) child;
                     
                     if(HorizontalPosition.left.equals(group.getHorizontal())) {
                         leftGroups.add(group);
@@ -99,7 +99,7 @@ public abstract class NavbarRendererBase extends RendererBase {
         }
         
         if(!leftGroups.isEmpty()) {
-            for(AbstractGroupPosition group : leftGroups) {
+            for(AbstractPositionGroup group : leftGroups) {
                 writer.startElement("ul", component);
                 writer.writeAttribute("class", "nav pull-left", null);
                 
@@ -123,7 +123,7 @@ public abstract class NavbarRendererBase extends RendererBase {
         }
         
         if(!rightGroups.isEmpty()) {
-            for(AbstractGroupPosition group : rightGroups) {
+            for(AbstractPositionGroup group : rightGroups) {
                 writer.startElement("ul", component);
                 writer.writeAttribute("class", "nav pull-right", null);
                 
@@ -146,8 +146,8 @@ public abstract class NavbarRendererBase extends RendererBase {
     
     protected void encodeChild(ResponseWriter writer, FacesContext context, UIComponent component, int level) throws IOException {
         if(component.isRendered()) {
-            if(component instanceof AbstractGroupMenu) {
-                AbstractGroupMenu group = (AbstractGroupMenu) component;
+            if(component instanceof AbstractMenuGroup) {
+                AbstractMenuGroup group = (AbstractMenuGroup) component;
                 encodeGroupMenu(writer, context, group, level);
             } else {
                 writer.startElement("li", component);
@@ -157,7 +157,7 @@ public abstract class NavbarRendererBase extends RendererBase {
         }
     }
     
-    protected void encodeGroupMenu(ResponseWriter writer, FacesContext context, AbstractGroupMenu groupMenu, int level) throws IOException {
+    protected void encodeGroupMenu(ResponseWriter writer, FacesContext context, AbstractMenuGroup groupMenu, int level) throws IOException {
         ResponseWriter response = context.getResponseWriter();
         response.startElement("li" , groupMenu);
         response.writeAttribute("class", "dropdown", null);

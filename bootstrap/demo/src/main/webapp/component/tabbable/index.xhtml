@@ -14,9 +14,48 @@
         <h1><code>b:tabbable</code></h1>
         <p>The <code>b:tabbable</code> component can be used to provide a set of tab panels.</p>
 
+        <h2>Basic usage</h2>
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="tabbable"/>
             <ui:param name="sample" value="basic"/>
+        </ui:include>
+        
+        <h2>Setting default tab...</h2>
+        
+        <ol>
+            <li>First, it will search for a tab with <code>default="true"</code></li>
+            <li>Next, it will use <code>activeName</code></li>
+            <li>Finally, it will go with <code>activeIndex</code> (defaultValue = "1")</li>
+        </ol>
+        
+        <h3>Using index</h3>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="tabbable"/>
+            <ui:param name="sample" value="index"/>
+        </ui:include>
+        
+        <h3>Using index and group</h3>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="tabbable"/>
+            <ui:param name="sample" value="indexGroup"/>
+        </ui:include>
+        
+        <h3>Using index, group and custom separator</h3>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="tabbable"/>
+            <ui:param name="sample" value="indexGroupSeparator"/>
+        </ui:include>
+        
+        <h3>Using name</h3>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="tabbable"/>
+            <ui:param name="sample" value="name"/>
+        </ui:include>
+        
+        <h3>Using default attribute</h3>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="tabbable"/>
+            <ui:param name="sample" value="default"/>
         </ui:include>
     </ui:define>
 </ui:composition>

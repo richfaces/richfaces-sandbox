@@ -21,10 +21,8 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
-
-import org.richfaces.bootstrap.RenderBodyCapable;
-import org.richfaces.bootstrap.renderkit.BodyRendererBase;
+import org.richfaces.bootstrap.RenderBodyGroupCapable;
+import org.richfaces.bootstrap.renderkit.BodyGroupRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -37,23 +35,23 @@ import org.richfaces.component.attribute.CoreProps;
  * 
  */
 @JsfComponent(
-        type = AbstractBody.COMPONENT_TYPE,
-        family = AbstractBody.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = BodyRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="body"))
-public abstract class AbstractBody extends AbstractSemanticComponent<RenderBodyCapable> implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Body";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Body";
+        type = AbstractBodyGroup.COMPONENT_TYPE,
+        family = AbstractBodyGroup.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = BodyGroupRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="bodyGroup"))
+public abstract class AbstractBodyGroup extends AbstractSemanticComponent<RenderBodyGroupCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.BodyGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.BodyGroup";
     
     @Override
-    public Class<RenderBodyCapable> getRendererCapability() {
-        return RenderBodyCapable.class;
+    public Class<RenderBodyGroupCapable> getRendererCapability() {
+        return RenderBodyGroupCapable.class;
     }
     
     @Override
-    public String getRendererType(RenderBodyCapable container) {
-        container.setCustomBody(true);
-        return container.getBodyRendererType();
+    public String getRendererType(RenderBodyGroupCapable container) {
+        container.setCustomBodyGroup(true);
+        return container.getBodyGroupRendererType();
     }
     
 }

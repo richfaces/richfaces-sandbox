@@ -21,10 +21,8 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
-
-import org.richfaces.bootstrap.RenderHeaderCapable;
-import org.richfaces.bootstrap.renderkit.HeaderRendererBase;
+import org.richfaces.bootstrap.RenderHeaderGroupCapable;
+import org.richfaces.bootstrap.renderkit.HeaderGroupRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -37,22 +35,22 @@ import org.richfaces.component.attribute.CoreProps;
  * 
  */
 @JsfComponent(
-        type = AbstractHeader.COMPONENT_TYPE,
-        family = AbstractHeader.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = HeaderRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="header"))
-public abstract class AbstractHeader extends AbstractSemanticComponent<RenderHeaderCapable> implements CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Header";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Header";
+        type = AbstractHeaderGroup.COMPONENT_TYPE,
+        family = AbstractHeaderGroup.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = HeaderGroupRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="headerGroup"))
+public abstract class AbstractHeaderGroup extends AbstractSemanticComponent<RenderHeaderGroupCapable> implements CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.HeaderGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.HeaderGroup";
     
     @Override
-    public Class<RenderHeaderCapable> getRendererCapability() {
-        return RenderHeaderCapable.class;
+    public Class<RenderHeaderGroupCapable> getRendererCapability() {
+        return RenderHeaderGroupCapable.class;
     }
     
     @Override
-    public String getRendererType(RenderHeaderCapable container) {
-        container.setCustomHeader(true);
-        return container.getHeaderRendererType();
+    public String getRendererType(RenderHeaderGroupCapable container) {
+        container.setCustomHeaderGroup(true);
+        return container.getHeaderGroupRendererType();
     }
 }

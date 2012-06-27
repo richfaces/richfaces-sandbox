@@ -21,9 +21,13 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
+import java.util.List;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
-
+import javax.faces.component.UIComponent;
+import org.richfaces.bootstrap.component.AbstractMenuGroup;
+import org.richfaces.bootstrap.component.AbstractTabPane;
+import org.richfaces.bootstrap.component.AbstractTabbable;
 import org.richfaces.renderkit.RendererBase;
 
 /**
@@ -38,4 +42,117 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "bootstrap/js", name = "bootstrap.js")})
 public abstract class TabbableRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabbableRenderer";
+    
+    private String indexSeparator;
+    
+    public void setDefaultChild(UIComponent component) {
+        AbstractTabbable tabbable = (AbstractTabbable) component;
+        
+        // First, check is there is no tabPane with "default" attribute to "true"
+        boolean hasDefaultChild = hasDefaultChild(tabbable.getChildren(), false);
+        
+        // Next, if not, let's use names
+        if(!hasDefaultChild && tabbable.getActiveName() != null && !"".equals(tabbable.getActiveName())) {
+            hasDefaultChild = setDefaultChildByName(tabbable.getChildren(), tabbable.getActiveName(), false);
+        }
+        
+        // Finally, if still nothing, let's use index
+        if(!hasDefaultChild) {
+            indexSeparator = tabbable.getIndexSeparator();
+            setDefaultChildByIndex(tabbable.getChildren(), tabbable.getActiveIndex(), "", false);
+        }
+    }
+    
+    private boolean hasDefaultChild(List<UIComponent> children, boolean hasDefaultChildSoFar) {
+        for(UIComponent child : children) {
+            if(child instanceof AbstractTabPane) {
+                AbstractTabPane tabPane = (AbstractTabPane) child;
+                
+                // If we already find a child so far, we need to disable any other tabPane#isDefault()
+                if(hasDefaultChildSoFar) {
+                    tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, false);
+                } 
+                // If not, we can take the value of the current tabPane
+                else {
+                    hasDefaultChildSoFar = tabPane.isDefault();
+                }
+                
+            } else if(child instanceof AbstractMenuGroup) {
+                boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
+                hasDefaultChildSoFar = hasDefaultChild(child.getChildren(), hasDefaultChildSoFar);
+                
+                // If the value has changed, it means this menuGroup contains the current tabPane
+                // so it's the active one!
+                if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
+                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
+                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                }
+            }
+        }
+        
+        return hasDefaultChildSoFar;
+    }
+    
+    private boolean setDefaultChildByName(List<UIComponent> children, String tabName, boolean hasDefaultChildSoFar) {
+        for(UIComponent child : children) {
+            if(child instanceof AbstractTabPane) {
+                AbstractTabPane tabPane = (AbstractTabPane) child;
+                
+                // If we didn't found a corresponding name so far and the current one match,
+                // then it's the default one!
+                if(!hasDefaultChildSoFar && tabName.equals(tabPane.getName())) {
+                    tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, true);
+                    hasDefaultChildSoFar = true;
+                }
+                
+            } else if(child instanceof AbstractMenuGroup) {
+                boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
+                hasDefaultChildSoFar = setDefaultChildByName(child.getChildren(), tabName, hasDefaultChildSoFar);
+                
+                // If the value has changed, it means this menuGroup contains the current tabPane
+                // so it's the active one!
+                if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
+                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
+                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                }
+            }
+        }
+        
+        return hasDefaultChildSoFar;
+    }
+    
+    private boolean setDefaultChildByIndex(List<UIComponent> children, String index, String currentIndex, boolean hasDefaultChildSoFar) {
+        int intLocalIndex = Integer.valueOf(AbstractTabbable.ACTIVE_INDEX_DEFAULT);
+        
+        for(UIComponent child : children) {
+            String localIndex;
+            
+            if(currentIndex.length() > 0) {
+                localIndex = currentIndex + indexSeparator + intLocalIndex;
+            } else {
+                localIndex = ""+intLocalIndex;
+            }
+            
+            if(child instanceof AbstractTabPane && localIndex.equals(index)) {
+                AbstractTabPane tabPane = (AbstractTabPane) child;
+                tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, true);
+                hasDefaultChildSoFar = true;
+                
+            } else if(child instanceof AbstractMenuGroup) {
+                boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
+                hasDefaultChildSoFar = setDefaultChildByIndex(child.getChildren(), index, localIndex, hasDefaultChildSoFar);
+                
+                // If the value has changed, it means this menuGroup contains the current tabPane
+                // so it's the active one!
+                if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
+                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
+                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                }
+            }
+            
+            ++intLocalIndex;
+        }
+        
+        return hasDefaultChildSoFar;
+    }
 }

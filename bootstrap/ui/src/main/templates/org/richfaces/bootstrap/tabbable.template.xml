@@ -9,16 +9,19 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.TabbableRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.TabbableRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.TabbableRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractTabbable</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
+        <cdk:call expression="setDefaultChild(component)" />
         <div id="#{clientId}" class="tabbable">
             <ul class="nav nav-tabs">
-                <c:forEach items="#{component.children}" var="child">
+                <c:forEach items="#{component.children}" var="child" varStatus="status">
                     <c:if test="#{child.rendered}">
                         <c:choose>
-                            <c:when test="#{child.family eq 'org.richfaces.bootstrap.GroupMenu'}">
-                                <li class="dropdown">
+                            <c:when test="#{child.family eq 'org.richfaces.bootstrap.MenuGroup'}">
+                                <cdk:object name="menuGroup" type="org.richfaces.bootstrap.component.AbstractMenuGroup" value="#{child}"/>
+                                <li class="dropdown #{menuGroup.isActive() ? 'active' : ''}">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         #{child.attributes['label'].toString().concat(' ')}
                                         <b class="caret"></b>
@@ -26,14 +29,18 @@
                                     <ul class="dropdown-menu">
                                         <c:forEach var="subchild" items="#{child.getChildren()}">
                                             <c:if test="#{subchild.rendered}">
-                                                <li><a href="##{subchild.clientId}" data-toggle="tab">#{subchild.attributes['title']}</a></li>
+                                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTabPane" value="#{subchild}"/>
+                                                <li class="#{tab.isDefault() ? 'active' : ''}"><a href="##{subchild.clientId}" data-toggle="tab">#{subchild.attributes['title']}</a></li>
                                             </c:if>
                                         </c:forEach>
                                     </ul>
                                 </li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a></li>
+                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTabPane" value="#{child}"/>
+                                <li class="#{tab.isDefault() ? 'active' : ''}">
+                                    <a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
                     </c:if>
