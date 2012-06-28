@@ -28,6 +28,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
         <version>4.3.0-SNAPSHOT</version>
+        <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.accesskeyhelper</groupId>
