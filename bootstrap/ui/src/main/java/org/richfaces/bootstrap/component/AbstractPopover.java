@@ -24,20 +24,31 @@ package org.richfaces.bootstrap.component;
 import javax.faces.component.UIOutput;
 
 import org.richfaces.bootstrap.component.props.TooltipProps;
-import org.richfaces.bootstrap.renderkit.TooltipRendererBase;
+import org.richfaces.bootstrap.renderkit.PopoverRendererBase;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
 /**
- * Base class for the tooltip component
+ * Base class for the popover component
  * 
  * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractTooltip.COMPONENT_TYPE, family = AbstractTooltip.COMPONENT_FAMILY, renderer = @JsfRenderer(type = TooltipRendererBase.RENDERER_TYPE), tag = @Tag(name = "tooltip"))
-public abstract class AbstractTooltip extends UIOutput implements TooltipProps, CoreProps {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tooltip";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tooltip";
+@JsfComponent(
+        type = AbstractPopover.COMPONENT_TYPE,
+        family = AbstractPopover.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = PopoverRendererBase.RENDERER_TYPE),
+        tag = @Tag(name = "popover"))
+public abstract class AbstractPopover extends UIOutput implements TooltipProps, CoreProps {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Popover";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Popover";
+
+    /**
+     * Default content value
+     */
+    @Attribute
+    public abstract String getContent();
 
 }
