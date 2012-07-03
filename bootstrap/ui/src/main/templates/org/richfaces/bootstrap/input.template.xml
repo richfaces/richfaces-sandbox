@@ -16,36 +16,18 @@
         <cdk:call expression="encodeBeginWrapper(facesContext, component)"/>
         
         <c:if test="#{component.hasFacet('prepend')}">
-            <cdk:object type="javax.faces.component.UIComponent" name="prependFacet"
-                value="#{component.getFacet('prepend')}"/>
-            <c:choose>
-                <c:when test="#{prependFacet.family eq 'javax.faces.Panel'}">
-                    <c:forEach var="child" items="#{component.getFacet('prepend').getChildren()}">
-                        <c:choose>
-                            <c:when test="#{component.isChildBtn(child)}">
-                                <cdk:call expression="child.encodeAll(facesContext)"/>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="add-on">
-                                    <cdk:call expression="child.encodeAll(facesContext)"/>
-                                </span>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="#{component.isChildBtn(prependFacet)}">
-                            <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="add-on">
-                                <cdk:call expression="prependFacet.encodeAll(facesContext)"/>
-                            </span>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+            <c:forEach var="child" items="#{component.getFacetChildren('prepend')}">
+                <c:choose>
+                    <c:when test="#{component.isChildBtn(child)}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="add-on">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </c:if>
         
         <c:choose>
@@ -61,36 +43,18 @@
         </c:choose>
         
         <c:if test="#{component.hasFacet('append')}">
-            <cdk:object type="javax.faces.component.UIComponent" name="appendFacet"
-                value="#{component.getFacet('append')}"/>
-            <c:choose>
-                <c:when test="#{appendFacet.family eq 'javax.faces.Panel'}">
-                    <c:forEach var="child" items="#{component.getFacet('append').getChildren()}">
-                        <c:choose>
-                            <c:when test="#{component.isChildBtn(child)}">
-                                <cdk:call expression="child.encodeAll(facesContext)"/>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="add-on">
-                                    <cdk:call expression="child.encodeAll(facesContext)"/>
-                                </span>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="#{component.isChildBtn(appendFacet)}">
-                            <cdk:call expression="appendFacet.encodeAll(facesContext)"/>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="add-on">
-                                <cdk:call expression="appendFacet.encodeAll(facesContext)"/>
-                            </span>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+            <c:forEach var="child" items="#{component.getFacetChildren('append')}">
+                <c:choose>
+                    <c:when test="#{component.isChildBtn(child)}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="add-on">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </c:if>
         
         <cdk:call expression="encodeEndWrapper(facesContext, component)"/>

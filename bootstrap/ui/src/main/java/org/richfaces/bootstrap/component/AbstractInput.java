@@ -21,7 +21,8 @@
  */
 package org.richfaces.bootstrap.component;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.component.UIComponent;
@@ -148,5 +149,19 @@ public abstract class AbstractInput extends UIInput implements CoreProps {
         Matcher matcher = pattern.matcher(styleClassAttribute.toString());
         
         return matcher.find();
+    }
+    
+    public List<UIComponent> getFacetChildren(String facetName) {
+        UIComponent facet = getFacet(facetName);
+        if(facet != null && facet.isRendered()) {
+            if("javax.faces.Panel".equals(facet.getFamily())) {
+                return facet.getChildren();
+            } else {
+                List<UIComponent> children = new ArrayList<UIComponent>();
+                children.add(facet);
+                return children;
+            }
+        }
+        return null;
     }
 }

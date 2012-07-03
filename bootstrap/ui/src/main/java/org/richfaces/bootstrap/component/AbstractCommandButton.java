@@ -101,8 +101,7 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
     public List<UIComponent> getFacetChildren(String facetName) {
         UIComponent facet = getFacet(facetName);
         if(facet != null && facet.isRendered()) {
-            if("javax.faces.component.UIPanel".equals(facet.getFamily())
-                    || "javax.faces.component.html.HtmlPanelGroup".equals(facet.getFamily())) {
+            if("javax.faces.Panel".equals(facet.getFamily())) {
                 return facet.getChildren();
             } else {
                 List<UIComponent> children = new ArrayList<UIComponent>();

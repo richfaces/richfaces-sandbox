@@ -20,7 +20,7 @@ public abstract class AbstractSemanticComponent<T> extends UIComponentBase imple
         Class<T> rendererCapability = getRendererCapability();
         T container = findParentImplementing(rendererCapability);
         if (container == null) {
-            throw new IllegalArgumentException("Footer must be nested within the top-level component");
+            throw new IllegalArgumentException("Semantic component must be nested within the top-level component");
         }
         String rendererType = getRendererType(container);
         if (rendererType != null) {
@@ -28,6 +28,7 @@ public abstract class AbstractSemanticComponent<T> extends UIComponentBase imple
         }
     }
     
+    @SuppressWarnings("unchecked")
     private T findParentImplementing(Class<T> type) {
         UIComponent current = this;
         

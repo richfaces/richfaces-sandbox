@@ -3,24 +3,27 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <b:navbar brand="Group" collapsible="true">
-        <h:link outcome="/index.xhtml" value="Default1"/>
-        <b:menuGroup label="Default2">
-            <h:link outcome="/index.xhtml" value="Default2.1"/>
-            <b:menuGroup label="Default2.2">
-                <h:link outcome="/index.xhtml" value="Default2.2.1"/>
-                <h:link outcome="/index.xhtml" value="Default2.2.2"/>
-                <h:link outcome="/index.xhtml" value="Default2.2.3"/>
-            </b:menuGroup>
-            <b:menuGroup label="Default2.3">
-                <h:link outcome="/index.xhtml" value="Default2.3.1"/>
-                <b:menuGroup label="Default2.3.2">
-                    <h:link outcome="/index.xhtml" value="Default2.3.2.1"/>
-                    <h:link outcome="/index.xhtml" value="Default2.3.2.2"/>
-                    <h:link outcome="/index.xhtml" value="Default2.3.2.3"/>
+    
+        <b:positionGroup>
+            <h:link outcome="/index.xhtml" value="Default1"/>
+            <b:menuGroup label="Default2">
+                <h:link outcome="/index.xhtml" value="Default2.1"/>
+                <b:menuGroup label="Default2.2">
+                    <h:link outcome="/index.xhtml" value="Default2.2.1"/>
+                    <h:link outcome="/index.xhtml" value="Default2.2.2"/>
+                    <h:link outcome="/index.xhtml" value="Default2.2.3"/>
                 </b:menuGroup>
-                <h:link outcome="/index.xhtml" value="Default2.3.3"/>
+                <b:menuGroup label="Default2.3">
+                    <h:link outcome="/index.xhtml" value="Default2.3.1"/>
+                    <b:menuGroup label="Default2.3.2">
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.1"/>
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.2"/>
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.3"/>
+                    </b:menuGroup>
+                    <h:link outcome="/index.xhtml" value="Default2.3.3"/>
+                </b:menuGroup>
             </b:menuGroup>
-        </b:menuGroup>
+        </b:positionGroup>
         
         <b:positionGroup horizontal="right">
             <h:link outcome="/index.xhtml" value="Right2"/>
