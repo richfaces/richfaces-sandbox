@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form styleClass="form-horizontal">
+        <div class="control-group">
+            <h:outputLabel value="Email" styleClass="control-label" />
+            <div class="controls">
+                <b:input placeholder="Email"/>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <h:outputLabel value="Password" styleClass="control-label" />
+            <div class="controls">
+                <b:input type="password" placeholder="Password"/>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <h:outputLabel styleClass="checkbox">
+                    <h:selectBooleanCheckbox /> Remember me
+                </h:outputLabel>
+                
+                <b:commandButton value="Sign in"/>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

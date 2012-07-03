@@ -21,6 +21,8 @@
  */
 package org.richfaces.bootstrap.component;
 
+import javax.faces.component.UIComponent;
+import org.richfaces.bootstrap.RenderMenuGroupCapable;
 import org.richfaces.bootstrap.renderkit.GroupRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -37,7 +39,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractMenuGroup.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GroupRendererBase.RENDERER_TYPE),
         tag = @Tag(name="menuGroup"))
-public abstract class AbstractMenuGroup extends AbstractGroup {
+public abstract class AbstractMenuGroup extends AbstractSemanticComponent<RenderMenuGroupCapable> {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.MenuGroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.MenuGroup";
     public static final String ACTIVE_ATTRIBUTE_NAME = "active";
@@ -47,4 +49,38 @@ public abstract class AbstractMenuGroup extends AbstractGroup {
     
     @Attribute
     public abstract boolean isActive();
+    
+    public int getLevel() {
+        return getLevel(null);
+    }
+    
+    public int getLevel(String stopParentFamily) {
+        UIComponent parent = this.getParent();
+        int level = 0;
+        
+        while(parent != null) {
+            if(parent instanceof AbstractMenuGroup) {
+                ++level;
+            }
+            
+            if(stopParentFamily != null && stopParentFamily.equals(parent.getFamily())) {
+                parent = null;
+            }
+            else {
+                parent = parent.getParent();
+            }
+        }
+        
+        return level;
+    }
+    
+    @Override
+    public Class<RenderMenuGroupCapable> getRendererCapability() {
+        return RenderMenuGroupCapable.class;
+    }
+    
+    @Override
+    public String getRendererType(RenderMenuGroupCapable container) {
+        return container.getMenuGroupRendererType();
+    }
 }

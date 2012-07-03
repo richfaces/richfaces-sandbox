@@ -9,8 +9,8 @@
         <cdk:class>org.richfaces.bootstrap.renderkit.NavbarRenderer</cdk:class>
         <cdk:superclass>org.richfaces.bootstrap.renderkit.NavbarRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.NavbarRenderer</cdk:renderer-type>
-        <cdk:renders-children>true</cdk:renders-children>
         <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractNavbar</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
     <cc:implementation>
@@ -19,29 +19,19 @@
                 <div class="container">
                     <c:if test="#{component.isCollapsible()}">
                         <a class="btn btn-inverse btn-navbar" data-toggle="collapse" data-target="##{clientId}_collapse">
-                            <c:choose>
-                                <c:when test="#{component.getFacet('collapsedMenu') != null and component.getFacet('collapsedMenu').rendered}">
-                                    <cdk:call expression="renderCollapsedMenuFacet(facesContext, component)" />
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </c:otherwise>
-                            </c:choose>
+                            <cc:renderFacet name="collapsedMenu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </cc:renderFacet>
                         </a>
                     </c:if>
-                
-                    <c:choose>
-                        <c:when test="#{component.getFacet('brand') != null and component.getFacet('brand').rendered}">
-                            <cdk:call expression="renderBrandFacet(facesContext, component)" />
-                        </c:when>
-                        <c:when test="#{component.attributes['brand']!= null and not component.attributes['brand'].equals('')}">
+                    
+                    <cc:renderFacet name="brand">
+                        <c:if test="#{component.attributes['brand']!= null and not component.attributes['brand'].equals('')}">
                             <span class="brand">#{component.brand}</span>
-                        </c:when>
-                        <c:otherwise>
-                        </c:otherwise>
-                    </c:choose>
+                        </c:if>
+                    </cc:renderFacet>
                     
                     <cdk:body />
                 </div>

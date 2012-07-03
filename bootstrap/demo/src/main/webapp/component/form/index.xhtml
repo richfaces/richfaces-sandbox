@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/demo.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="params">
+        <ui:param name="brand" value="Form demo" />
+        <ui:param name="tags" value="input" />
+    </ui:define>
+    
+    <ui:define name="body">
+        <h2>Default</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="form"/>
+            <ui:param name="sample" value="default"/>
+        </ui:include>
+        
+        <h2>Inline</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="form"/>
+            <ui:param name="sample" value="inline"/>
+        </ui:include>
+        
+        <h2>Horizontal</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="form"/>
+            <ui:param name="sample" value="horizontal"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

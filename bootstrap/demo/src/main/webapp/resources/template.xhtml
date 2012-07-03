@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-US"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://richfaces.org/sandbox/bootstrap">
-<h:head>
-    <title>RichFaces Bootstrap</title>
-</h:head>
-<h:body styleClass="rich-container">
-    <ui:insert name="params" />
 
-    <ui:include src="/resources/menu.xhtml"/>
-    
-    <b:gridContainer fluid="#{sessionBean.fluid}">
-        <ui:insert name="content">Content</ui:insert>
-    </b:gridContainer>
-</h:body>
-
-<h:outputStylesheet library="css" name="demo.css"/>
-
-</html>
+<ui:composition template="/resources/head.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="headContent">
+        <b:gridContainer fluid="#{sessionBean.fluid}">
+            <ui:insert name="content">Content</ui:insert>
+        </b:gridContainer>
+    </ui:define>
+</ui:composition>

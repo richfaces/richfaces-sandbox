@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<ui:composition template="/resources/head.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="headContent">
+        <b:gridContainer styleClass="bs-docs-container">
+            <ui:insert name="content">Content</ui:insert>
+        </b:gridContainer>
+        
+        <h:outputScript name="application.js" library="js"/>
+        
+        <h:outputStylesheet library="css" name="docs.css"/>
+    </ui:define>
+</ui:composition>

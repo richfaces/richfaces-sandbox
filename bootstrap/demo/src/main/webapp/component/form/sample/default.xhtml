@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form>
+        <h:outputLabel value="Label name" />
+        <b:input placeholder="Type something..."/>
+        <h:panelGroup styleClass="help-block">Example block-level help text here.</h:panelGroup>
+        <h:outputLabel styleClass="checkbox">
+            <h:selectBooleanCheckbox />
+            <h:outputText value=" Check me out" />
+        </h:outputLabel>
+        <b:commandButton value="Submit" type="submit"/>
+    </h:form>
+</ui:composition>

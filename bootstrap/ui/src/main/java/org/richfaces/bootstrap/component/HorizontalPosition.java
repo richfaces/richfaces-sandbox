@@ -28,16 +28,22 @@ package org.richfaces.bootstrap.component;
  *
  */
 public enum HorizontalPosition {
-    right("pull-right"),
-    left("");
+    right("pull-right", "pull-right"),
+    left("", "pull-left");
     
-    private HorizontalPosition(String buttonClass) {
+    private HorizontalPosition(String buttonClass, String navbarClass) {
         this.buttonClass = buttonClass;
+        this.navbarClass = navbarClass;
     }
     
     private String buttonClass;
+    private String navbarClass;
 
     public String getButtonClass() {
         return buttonClass;
+    }
+
+    public String getNavbarClass() {
+        return navbarClass;
     }
 }

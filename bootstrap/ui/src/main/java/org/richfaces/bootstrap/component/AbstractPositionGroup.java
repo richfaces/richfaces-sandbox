@@ -21,6 +21,7 @@
  */
 package org.richfaces.bootstrap.component;
 
+import org.richfaces.bootstrap.RenderPositionGroupCapable;
 import org.richfaces.bootstrap.renderkit.GroupRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -37,7 +38,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractPositionGroup.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = GroupRendererBase.RENDERER_TYPE),
         tag = @Tag(name="positionGroup"))
-public abstract class AbstractPositionGroup extends AbstractGroup {
+public abstract class AbstractPositionGroup extends AbstractSemanticComponent<RenderPositionGroupCapable> {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.PositionGroup";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.PositionGroup";
 
@@ -46,4 +47,14 @@ public abstract class AbstractPositionGroup extends AbstractGroup {
     
     @Attribute
     public abstract VerticalPosition getVertical();
+    
+    @Override
+    public Class<RenderPositionGroupCapable> getRendererCapability() {
+        return RenderPositionGroupCapable.class;
+    }
+    
+    @Override
+    public String getRendererType(RenderPositionGroupCapable container) {
+        return container.getPositionGroupRendererType();
+    }
 }

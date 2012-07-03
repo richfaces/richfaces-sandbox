@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <h:form >
+        <h:outputLabel styleClass="checkbox">
+            <h:selectBooleanCheckbox />
+            Option one is this and that-be sure to include why it's great
+        </h:outputLabel>
+        
+        <h:selectOneRadio layout="pageDirection">
+            <f:selectItem itemValue="option1" itemLabel="Option one is this and that-be sure to include why it's great" />
+            <f:selectItem itemValue="option2" itemLabel="Option two can be something else and selecting it will deselect option one" />
+        </h:selectOneRadio>
+    </h:form>
+</ui:composition>
