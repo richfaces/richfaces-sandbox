@@ -21,7 +21,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -41,5 +41,43 @@
         <module>ui</module>
         <module>demo</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>jboss-public-repository</id>
+            <repositories>
+                <repository>
+                    <id>jboss-public-repository-group</id>
+                    <name>JBoss Public Maven Repository Group</name>
+                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jboss-public-repository-group</id>
+                    <name>JBoss Public Maven Repository Group</name>
+                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
 
 </project>
