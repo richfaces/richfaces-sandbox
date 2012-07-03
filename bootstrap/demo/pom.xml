@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>2.0.0.Final</version>
+            <version>3.0.1.Final</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -71,6 +71,20 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
