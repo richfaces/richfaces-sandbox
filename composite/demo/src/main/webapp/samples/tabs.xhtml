@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:jqueryui="http://richfaces.org/sandbox/composite">
+    <ui:define name="body">
+      <jqueryui:tabs>
+        <jqueryui:tab title="Tab 1">
+          Hello <b>Tab</b>!!
+        </jqueryui:tab>
+        <jqueryui:tab title="Tab 2">
+          With nested components:
+          <br/>
+          <jqueryui:datepicker dateFormat="yy-mm-dd"
+                               showOn="both"
+                               buttonImageOnly="true"/>
+          <br/>
+        </jqueryui:tab>
+      </jqueryui:tabs>
+    </ui:define>
+</ui:composition>
+</html>	
