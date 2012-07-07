@@ -24,6 +24,7 @@ package org.richfaces.sandbox.composite;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import java.lang.Integer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,15 @@ import java.util.List;
  */
 @FacesComponent("org.richfaces.sandbox.composite.UITabs")
 public class UITabs extends UINamingContainer {
+    enum PropertyKeys {selected}
+
+    public int getSelected() {
+        return (Integer) getStateHelper().eval(PropertyKeys.selected, 0);
+    }
+
+    public void setSelected(int selected) {
+        getStateHelper().put(PropertyKeys.selected, selected);
+    }
 
     public List<UIComponent> getTabChildren() {
         List<UIComponent> children = this.getFacet("javax.faces.component.COMPOSITE_FACET_NAME").getChildren();

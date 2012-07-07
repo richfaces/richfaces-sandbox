@@ -10,6 +10,7 @@
 
 <cc:implementation>
     <div id="#{cc.clientId}">
+      <h:inputHidden id="selected" value="#{cc.selected}" />
       <ul>
         <ui:repeat var="tab" value="#{cc.tabChildren}"> <!-- #{cc.children} broken see: JAVASERVERFACES-2099 -->
           <li>
@@ -26,10 +27,22 @@
     <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.tabs.js"/>
     <h:outputStylesheet library="composite/com.jqueryui/css/ui-lightness" name="jquery-ui.custom.css"/>
     <h:outputScript>
-        var pluginOptions = {
-        }
+        var pluginOptions = { selected: '#{cc.selected}' }
+
         $(function() {
-          $(document.getElementById('#{cc.clientId}')).tabs(pluginOptions);
+            var widget = $(document.getElementById('#{cc.clientId}'));
+
+            // initialize the plugin
+            widget.tabs(pluginOptions);
+
+            // register a tabselect change listener
+            widget.bind("tabsselect", function(event, ui) {
+                var selected_input = '#{cc.clientId}' + ':selected';
+                $(document.getElementById(selected_input)).val(ui.index);
+                // trigger an ajax update, executing the hiddn input element to update the component state
+                var options = { execute: selected_input }
+                jsf.ajax.request(selected_input, null, options);
+            });
         });
     </h:outputScript>
 </cc:implementation>
