@@ -6,22 +6,22 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:jqueryui="http://richfaces.org/sandbox/composite">
+                xmlns:s="http://richfaces.org/sandbox/composite">
     <ui:define name="body">
       <h:form>
-        <jqueryui:tabs id="tabs">
-          <jqueryui:tab title="Tab 1">
+        <s:tabs id="tabs">
+          <s:tab title="Tab 1">
             Hello <b>Tab</b>!!
-          </jqueryui:tab>
-          <jqueryui:tab title="Tab 2">
+          </s:tab>
+          <s:tab title="Tab 2">
             With nested components:
             <br/>
-            <jqueryui:datepicker dateFormat="yy-mm-dd"
+            <s:datepicker dateFormat="yy-mm-dd"
                                  showOn="both"
                                  buttonImageOnly="true"/>
             <br/>
-          </jqueryui:tab>
-        </jqueryui:tabs>
+          </s:tab>
+        </s:tabs>
         <h:commandButton value="Re-render tabs">
           <f:ajax render="tabs"/>
         </h:commandButton>
