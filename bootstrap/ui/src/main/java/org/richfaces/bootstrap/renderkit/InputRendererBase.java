@@ -40,7 +40,7 @@ import org.richfaces.bootstrap.component.AbstractInput;
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css")})
+        @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib")})
 public abstract class InputRendererBase extends org.richfaces.renderkit.InputRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.InputRenderer";
 

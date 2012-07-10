@@ -1,0 +1,7 @@
+<groups xmlns="http://www.isdc.ro/wro">
+
+    <group name="rf-bootstrap-css">
+        <css>/bootstrap/less/bootstrap.less</css>
+    </group>
+
+</groups>

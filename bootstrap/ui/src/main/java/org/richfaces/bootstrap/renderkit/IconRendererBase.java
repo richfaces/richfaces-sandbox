@@ -35,7 +35,7 @@ import org.richfaces.renderkit.RendererBase;
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
+        @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
         @ResourceDependency(library = "font-awesome/css", name = "font-awesome.css")})
 public abstract class IconRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.IconRenderer";

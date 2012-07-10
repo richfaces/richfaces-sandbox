@@ -34,7 +34,7 @@ import org.richfaces.renderkit.RendererBase;
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "bootstrap/css", name = "bootstrap.css"),
+        @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
         @ResourceDependency(library = "com.googlecode/prettify", name = "prettify.css"),
         @ResourceDependency(library = "com.googlecode/prettify", name = "prettify.js"),
         @ResourceDependency(library = "org.richfaces", name = "codeblock.js")})
