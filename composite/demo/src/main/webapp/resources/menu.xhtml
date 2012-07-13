@@ -1,0 +1,16 @@
+<ui:fragment template="/resources/template.xhtml"
+             xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:rich="http://richfaces.org/rich">
+    <div>
+        <h:panelGrid columns="10" style="width:100%;">
+            <h:link outcome="/samples/datepicker.xhtml" value="Datepicker Basic"/>
+            <h:link outcome="/samples/datepicker_parms.xhtml" value="Datepicker parameters"/>
+            <h:link outcome="/samples/tabs.xhtml" value="Tabs"/>
+            <h:link outcome="/samples/imagegallery.xhtml" value="Image Gallery"/>
+        </h:panelGrid>
+    </div>
+    <rich:notifyMessages id="notifyMessages"/>
+</ui:fragment>

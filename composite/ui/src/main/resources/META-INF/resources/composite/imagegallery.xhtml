@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+<cc:interface>
+    <cc:attribute name="photos" />
+
+    <!-- plugin configuration -->
+    <cc:attribute name="selector" />
+    <cc:attribute name="namespace" />
+    <cc:attribute name="slideshow" />
+    <cc:attribute name="offsetWidth" />
+    <cc:attribute name="offsetHeight" />
+    <cc:attribute name="fullscreen" />
+    <cc:attribute name="canvas" />
+    <cc:attribute name="bodyClass" />
+    <cc:attribute name="loaderId" />
+    <cc:attribute name="effects" />
+    <cc:attribute name="modal" />
+    <cc:attribute name="resizable" />
+    <cc:attribute name="width" />
+    <cc:attribute name="height" />
+    <cc:attribute name="show" />
+    <cc:attribute name="hide" />
+    <cc:attribute name="dialogClass" />
+</cc:interface>
+
+<cc:implementation>
+    <div id="#{cc.clientId}:div">
+        <ui:repeat value="#{cc.attrs.photos}" var="photo">
+            <a rel="gallery" href="#{photo.full}" title="#{photo.title}">
+                <img src="#{photo.thumb}" alt="#{photo.title}" />
+            </a>
+        </ui:repeat>
+    </div>
+
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="composite/com.jquery" name="jquery-1.7.2.min.js"/>
+    <h:outputScript library="composite/com.jqueryui/js" name="jquery-ui-1.8.19.custom.min.js"/>
+    <h:outputScript library="composite/com.github.blueimp/js" name="load-image.js"/>
+    <h:outputScript library="composite/com.github.blueimp/js" name="jquery.image-gallery.js"/>
+    <h:outputStylesheet library="composite/com.jqueryui/css/ui-lightness" name="jquery-ui.custom.css"/>
+    <h:outputStylesheet library="composite/com.github.blueimp/css" name="jquery.image-gallery.css"/>
+    <h:outputScript>
+        var pluginOptions = {};
+        ! '#{cc.attrs.selector}' || (pluginOptions.selector = '#{cc.attrs.selector}');
+        ! '#{cc.attrs.namespace}' || (pluginOptions.namespace = '#{cc.attrs.namespace}');
+        ! '#{cc.attrs.slideshow}' || (pluginOptions.slideshow = '#{cc.attrs.slideshow}');
+        ! '#{cc.attrs.offsetWidth}' || (pluginOptions.offsetWidth = '#{cc.attrs.offsetWidth}');
+        ! '#{cc.attrs.offsetHeight}' || (pluginOptions.offsetHeight = '#{cc.attrs.offsetHeight}');
+        ! '#{cc.attrs.fullscreen}' || (pluginOptions.fullscreen = '#{cc.attrs.fullscreen}');
+        ! '#{cc.attrs.canvas}' || (pluginOptions.canvas = '#{cc.attrs.canvas}');
+        ! '#{cc.attrs.bodyClass}' || (pluginOptions.bodyClass = '#{cc.attrs.bodyClass}');
+        ! '#{cc.attrs.loaderId}' || (pluginOptions.loaderId = '#{cc.attrs.loaderId}');
+        ! '#{cc.attrs.effects}' || (pluginOptions.effects = '#{cc.attrs.effects}');
+        ! '#{cc.attrs.modal}' || (pluginOptions.modal = '#{cc.attrs.modal}');
+        ! '#{cc.attrs.resizable}' || (pluginOptions.resizable = '#{cc.attrs.resizable}');
+        ! '#{cc.attrs.width}' || (pluginOptions.width = '#{cc.attrs.width}');
+        ! '#{cc.attrs.height}' || (pluginOptions.height = '#{cc.attrs.height}');
+        ! '#{cc.attrs.show}' || (pluginOptions.show = '#{cc.attrs.show}');
+        ! '#{cc.attrs.hide}' || (pluginOptions.hide = '#{cc.attrs.hide}');
+        ! '#{cc.attrs.dialogClass}' || (pluginOptions.dialogClass = '#{cc.attrs.dialogClass}');
+
+        jQuery(function() {
+            $(document.getElementById('#{cc.clientId}:div')).imagegallery(pluginOptions);
+        });
+    </h:outputScript>
+</cc:implementation>
+
+</html>

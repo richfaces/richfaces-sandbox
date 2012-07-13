@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
           xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
@@ -29,5 +28,4 @@
             </ul>
         </div>
     </cc:implementation>
-
 </cdk:root>

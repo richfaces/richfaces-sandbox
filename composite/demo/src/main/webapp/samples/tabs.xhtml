@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://richfaces.org/sandbox/composite">
+    <ui:define name="body">
+      <h:form>
+        <s:tabs id="tabs">
+          <s:tab title="Tab 1">
+            Hello <b>Tab</b>!!
+          </s:tab>
+          <s:tab title="Tab 2">
+            With nested components:
+            <br/>
+            <s:datepicker dateFormat="yy-mm-dd"
+                          showOn="both"
+                          buttonImageOnly="true"/>
+            <br/>
+          </s:tab>
+        </s:tabs>
+        <h:commandButton value="Re-render tabs">
+          <f:ajax render="tabs"/>
+        </h:commandButton>
+      </h:form>
+    </ui:define>
+</ui:composition>
+</html>	

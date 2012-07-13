@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+<cc:interface>
+    <cc:attribute name="value" />
+    <cc:attribute name="showOn" />
+    <cc:attribute name="dateFormat" />
+    <cc:attribute name="buttonImageOnly" />
+</cc:interface>
+
+<cc:implementation>
+    <h:inputText id="input" value="#{cc.attrs.value}" />
+    <h:outputScript library="javax.faces" name="jsf.js"/>
+    <h:outputScript library="composite/com.jquery" name="jquery-1.7.2.min.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.core.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.widget.js"/>
+    <h:outputScript library="composite/com.jqueryui/development-bundle/ui" name="jquery.ui.datepicker.js"/>
+    <h:outputStylesheet library="composite/com.jqueryui/css/ui-lightness" name="jquery-ui.custom.css"/>
+    <h:outputScript>
+        var pluginOptions = {
+            buttonImage: "#{request.contextPath}/javax.faces.resource/calendar.gif.jsf?ln=composite/org.richfaces",
+            buttonImageOnly: "#{"true" eq cc.attrs.buttonImageOnly}"
+        }
+        ! '#{cc.attrs.showOn}' || (pluginOptions.showOn = '#{cc.attrs.showOn}');
+        ! '#{cc.attrs.dateFormat}' || (pluginOptions.dateFormat = '#{cc.attrs.dateFormat}');
+
+        jQuery(function() {
+            $(document.getElementById('#{cc.clientId}:input')).datepicker(pluginOptions);
+        });
+
+    </h:outputScript>
+</cc:implementation>
+
+</html>

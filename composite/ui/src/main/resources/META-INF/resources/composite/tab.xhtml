@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+<cc:interface componentType="org.richfaces.sandbox.composite.UITab">
+  <cc:attribute name="title" />
+</cc:interface>
+
+<cc:implementation>
+    <div id="#{cc.clientId}">
+      <cc:insertChildren />
+    </div>
+</cc:implementation>
+
+</html>
