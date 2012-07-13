@@ -4,13 +4,9 @@
 <ui:composition template="/resources/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:s="http://richfaces.org/sandbox/composite">
     <ui:define name="body">
-        <p>
-            The sample description
-        </p>
         <h:form id="form">
             Some sample of the component:
             <s:imagegallery photos="#{galleryBean.photos}"/>
