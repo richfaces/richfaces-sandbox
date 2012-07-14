@@ -11,3 +11,4 @@ dependency-reduced-pom.xml
 .idea
 *.iml
 rebel.xml
+*.faces-config.xml.jsfdia

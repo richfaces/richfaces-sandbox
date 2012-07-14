@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <display-name>Bootstrap Demo</display-name>
     <welcome-file-list>
@@ -14,5 +14,14 @@
         <param-name>org.richfaces.skin</param-name>
         <param-value>plain</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <mime-mapping>
+        <extension>less</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
 
 </web-app>
