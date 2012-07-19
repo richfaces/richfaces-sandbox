@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>Static html for developing the OrderingList widget</title>
+  <link rel="stylesheet/less" type="text/css" href="../../../main/resources/META-INF/resources/org.richfaces/less/orderingList.less"/>
+
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/less/less.min.js"></script>
+  <script type="text/javascript" src="../lib/jquery/jquery.js"></script> <!-- stored locally for development, as jquery is provided by richfaces core -->
+
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.position.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.core.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.mouse.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.button.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.selectable.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.sortable.js"></script>
+
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/common-orderingList.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/widget-orderingList.js"></script>
+  <script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/jqueryui-orderingList.js"></script>
+
+
+</head>
+<body>
+
+<h2>Example orderingList</h2>
+
+<p>Using the orderingList plugin, we built a simple orderingList widget:</p>
+
+
+<div style="margin-left: 10px">
+  <!--<button onclick="$('#orderingListDemo').orderingList($('#orderingListWidget').hasClass('orderingList') ? 'destroy' : undefined)">-->
+  <!--Toggle-->
+  <!--</button>-->
+  <hr/>
+  <ol id="orderingListDemo">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+    <li>Item 6</li>
+    <li>Item 7</li>
+    <li>Item 8</li>
+  </ol>
+  <!--<div class="span4">-->
+  <!--<button onclick="$('#orderingListDemo2').orderingList($('#orderingListJqueryui').hasClass('orderingList') ? 'destroy' : undefined)">-->
+  <!--Toggle-->
+  <!--</button>-->
+  <hr/>
+  <ol id="orderingListDemo2">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+    <li>Item 6</li>
+    <li>Item 7</li>
+    <li>Item 8</li>
+  </ol>
+</div>
+
+</body>
+</html>
+<script>
+  $("#orderingListDemo").orderingListWidget({headerText:"jQuery UI widget Factory"});
+  $("#orderingListDemo2").orderingListJqueryui({headerText:"jQuery UI plugins"});
+</script>

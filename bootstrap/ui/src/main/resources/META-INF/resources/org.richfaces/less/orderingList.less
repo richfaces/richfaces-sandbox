@@ -1,0 +1,101 @@
+// OrderingList
+// ---------
+
+@import "../../../../../../test/resources/lib/bootstrap/less/bootstrap.less";
+@import "button-group-vertical.less";
+
+// Parent container
+.orderingList {
+  margin-bottom: @baseLineHeight;
+  display: inline-block;
+}
+
+// Group == heading + body
+.orderingList .group {
+  margin-bottom: 2px;
+  border: 1px solid #e5e5e5;
+  .border-radius(4px);
+}
+
+.orderingList .heading {
+  border-bottom: 0;
+}
+.orderingList .list {
+  margin-left: 0;
+  list-style: none;
+}
+
+.orderingList li {
+  display: block;
+  cursor: pointer;
+  padding: 0px 12px;
+  margin: 2px;
+  line-height: 24px; // keeps the overall height an even number
+  .border-radius(5px);
+}
+
+.orderingList li:hover {
+  text-decoration: none;
+  background-color: @grayLighter;
+}
+
+.orderingList li.ui-selected {
+  background-color: @linkColor;
+  color: @white;
+}
+
+.orderingList .ui-selecting {
+  background: @linkColor;
+}
+
+.orderingList .list > li.ui-selected:hover {
+  background-color: @linkColorHover;
+}
+
+.disabled .list > li {
+  cursor: default;
+}
+
+.orderingList .btn-group-vertical {
+  position: absolute;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.orderingList .btn-group-vertical button {
+  text-align: left;
+  padding: 6px;
+}
+
+.orderingList ol {
+  margin-right: 50px;
+}
+
+.orderingList .btn-group-vertical .first i {
+  border-top: #000000 solid 1px;
+}
+
+.orderingList .btn-group-vertical .last i {
+  border-bottom: #000000 solid 1px;
+}
+
+.with-handle .selectable li {
+//  cursor: pointer;
+  position:relative;
+  padding-left: 28px;
+//  background-color: white
+}
+
+.orderingList .handle:hover {
+    background: @linkColor;
+}
+
+.orderingList .handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding:2px 4px;
+    .border-radius(5px);
+}
+
