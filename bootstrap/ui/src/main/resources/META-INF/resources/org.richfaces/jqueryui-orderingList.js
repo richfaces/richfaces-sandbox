@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.widget('rf.orderingListJqueryui', $.rf.orderingListCommon, {
+    $.widget('rf.orderingList', $.rf.orderingListCommon, {
 
         options: {
             cssClass: "with-handle"
