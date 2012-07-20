@@ -25,7 +25,7 @@
         unSelectAll: function() {
             var that = this;
             this._removeDomElements();
-            $('li', this.element).each(function() {
+            $(this.element).children().each(function() {
                 that.unSelectItem(this);
             });
         },
@@ -63,12 +63,15 @@
         /** Initialisation methods **/
 
         _addDomElements: function() {
-            $(this.element).addClass("list selectable").wrap(
-                "<div class='orderingList " + this.options.cssClass + "'><div class='group row-fluid'></div></div>"
+            $(this.element).addClass("list").wrap(
+                "<div class='orderingList " + this.options.cssClass + "'><div class='group'></div></div>"
             )
             this.container = $(this.element).parents(".orderingList").first();
             this.container.prepend(jQuery("<div class='header'></div>").html("<h3>" + this.options.headerText + "</h3>"));
             this.group = this.container.find(".group");
+            this.group.find("tr").each(function() {
+                $(this).find("td").last().addClass('last');
+            });
             this._addButtons();
         },
 
@@ -103,7 +106,7 @@
                         .html("<i class='icon-arrow-down'></i>")
                         .bind('click.orderingList', $.proxy(this._lastHandler, this))
             );
-            this.group.append(buttonStack);
+            this.group.prepend(buttonStack);
             this.group.find('.btn-group-vertical').position({of: this.group, my: "right center", at: "right center", offset: "-10 0" })
         },
 
@@ -116,19 +119,19 @@
         /** Event Handlers **/
 
         _topHandler: function (event) {
-            this.moveTop($('li.ui-selected', this.element));
+            this.moveTop($('.ui-selected', this.element));
         },
 
         _upHandler: function (event) {
-            this.moveUp($('li.ui-selected', this.element));
+            this.moveUp($('.ui-selected', this.element));
         },
 
         _downHandler: function (event) {
-            this.moveDown($('li.ui-selected', this.element));
+            this.moveDown($('.ui-selected', this.element));
         },
 
         _lastHandler: function (event) {
-            this.moveLast($('li.ui-selected', this.element));
+            this.moveLast($('.ui-selected', this.element));
         }
 
     });

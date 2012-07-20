@@ -48,21 +48,21 @@
   <!--Toggle-->
   <!--</button>-->
   <hr/>
-  <ol id="orderingListDemo2">
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-    <li>Item 4</li>
-    <li>Item 5</li>
-    <li>Item 6</li>
-    <li>Item 7</li>
-    <li>Item 8</li>
-  </ol>
+  <table id="orderingListDemo2">
+    <tr><td>Item 1</td></tr>
+    <tr><td>Item 2</td></tr>
+    <tr><td>Item 3</td></tr>
+    <tr><td>Item 4</td></tr>
+    <tr><td>Item 5</td></tr>
+    <tr><td>Item 6</td></tr>
+    <tr><td>Item 7</td></tr>
+    <tr><td>Item 8</td></tr>
+  </table>
 </div>
 
 </body>
 </html>
 <script>
-  $("#orderingListDemo").orderingListWidget({headerText:"jQuery UI widget Factory"});
-  $("#orderingListDemo2").orderingListJqueryui({headerText:"jQuery UI plugins"});
+  $("#orderingListDemo").orderingList({headerText:"ordered list elements"});
+  $("#orderingListDemo2").orderingList({headerText:"table cell elements", filter: "tr"});
 </script>

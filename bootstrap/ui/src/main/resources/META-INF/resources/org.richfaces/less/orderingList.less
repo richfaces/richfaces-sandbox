@@ -12,7 +12,6 @@
 
 // Group == heading + body
 .orderingList .group {
-  margin-bottom: 2px;
   border: 1px solid #e5e5e5;
   .border-radius(4px);
 }
@@ -27,19 +26,22 @@
 
 .orderingList li {
   display: block;
-  cursor: pointer;
-  padding: 0px 12px;
-  margin: 2px;
-  line-height: 24px; // keeps the overall height an even number
   .border-radius(5px);
+  margin: 2px;
 }
 
-.orderingList li:hover {
+.orderingList li, .orderingList td {
+  cursor: pointer;
+  padding: 0px 12px;
+  line-height: 24px; // keeps the overall height an even number
+}
+
+.orderingList .ui-selectee:hover {
   text-decoration: none;
   background-color: @grayLighter;
 }
 
-.orderingList li.ui-selected {
+.orderingList .ui-selected {
   background-color: @linkColor;
   color: @white;
 }
@@ -48,11 +50,11 @@
   background: @linkColor;
 }
 
-.orderingList .list > li.ui-selected:hover {
+.orderingList .ui-selected:hover {
   background-color: @linkColorHover;
 }
 
-.disabled .list > li {
+.disabled .ui-selectee {
   cursor: default;
 }
 
@@ -68,7 +70,7 @@
 }
 
 .orderingList ol {
-  margin-right: 50px;
+  display: inline-block;
 }
 
 .orderingList .btn-group-vertical .first i {
@@ -79,7 +81,7 @@
   border-bottom: #000000 solid 1px;
 }
 
-.with-handle .selectable li {
+.with-handle li {
 //  cursor: pointer;
   position:relative;
   padding-left: 28px;
@@ -90,12 +92,36 @@
     background: @linkColor;
 }
 
-.orderingList .handle {
+.orderingList li .handle {
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    padding:0px 4px;
+  padding:0px 4px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.orderingList .handle {
     .border-radius(5px);
 }
 
+.orderingList th {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.orderingList td.last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.orderingList table.list {
+  margin-left: 2px;
+}
+
+.orderingList table tr {
+  border-bottom: #ffffff solid 2px;
+}
+
+.orderingList th .handle {
+  padding:2px 6px;
+}
