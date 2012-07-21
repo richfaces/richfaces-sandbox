@@ -10,7 +10,7 @@
   display: block;
 }
 
-.orderingList .content {
+.orderingList .content, .orderingList .rowhelper {
   border: 1px solid #e5e5e5;
   .border-radius(4px);
 }
@@ -92,12 +92,20 @@
   padding: 6px;
 }
 
+.orderingList .btn-group-vertical .first {
+  padding-top: 5px;
+}
+
 .orderingList .btn-group-vertical .first i {
-  border-top: #000000 solid 1px;
+  border-top: @grayDark solid 2px;
+}
+
+.orderingList .btn-group-vertical .last {
+  padding-bottom: 5px;
 }
 
 .orderingList .btn-group-vertical .last i {
-  border-bottom: #000000 solid 1px;
+  border-bottom: @grayDark solid 2px;
 }
 
 .orderingList table {
