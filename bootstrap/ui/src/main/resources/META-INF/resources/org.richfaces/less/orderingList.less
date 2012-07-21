@@ -7,11 +7,10 @@
 // Parent container
 .orderingList {
   margin-bottom: @baseLineHeight;
-  display: inline-block;
+  display: block;
 }
 
-// Group == heading + body
-.orderingList .group {
+.orderingList .content {
   border: 1px solid #e5e5e5;
   .border-radius(4px);
 }
@@ -22,18 +21,40 @@
 .orderingList .list {
   margin-left: 0;
   list-style: none;
+  margin-left: 2px;
 }
 
 .orderingList li {
   display: block;
   .border-radius(5px);
-  margin: 2px;
+  margin: 2px 0;
 }
 
 .orderingList li, .orderingList td {
   cursor: pointer;
-  padding: 0px 12px;
   line-height: 24px; // keeps the overall height an even number
+}
+
+.with-handle li {
+  position:relative;
+  padding-left: 28px;
+}
+
+.orderingList li .handle {
+  position: absolute;
+  padding:0px 4px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.orderingList .handle {
+  .border-radius(5px);
+  cursor: move;
+}
+
+.orderingList .handle:hover {
+  background: @linkColor;
 }
 
 .orderingList .ui-selectee:hover {
@@ -58,19 +79,17 @@
   cursor: default;
 }
 
+.orderingList .buttonColumn {
+  text-align: center;
+}
+
 .orderingList .btn-group-vertical {
-  position: absolute;
   display: inline-block;
-  margin: 0 10px;
 }
 
 .orderingList .btn-group-vertical button {
   text-align: left;
   padding: 6px;
-}
-
-.orderingList ol {
-  display: inline-block;
 }
 
 .orderingList .btn-group-vertical .first i {
@@ -81,47 +100,25 @@
   border-bottom: #000000 solid 1px;
 }
 
-.with-handle li {
-//  cursor: pointer;
-  position:relative;
-  padding-left: 28px;
-//  background-color: white
-}
-
-.orderingList .handle:hover {
-    background: @linkColor;
-}
-
-.orderingList li .handle {
-    position: absolute;
-  padding:0px 4px;
-  left: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.orderingList .handle {
-    .border-radius(5px);
-}
-
-.orderingList th {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.orderingList td.last {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.orderingList table.list {
-  margin-left: 2px;
+.orderingList table {
+  width: 100%;
 }
 
 .orderingList table tr {
   border-bottom: #ffffff solid 2px;
 }
 
+.orderingList th {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 16px;
+}
+
 .orderingList th .handle {
   padding:2px 6px;
+}
+
+.orderingList td.last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }

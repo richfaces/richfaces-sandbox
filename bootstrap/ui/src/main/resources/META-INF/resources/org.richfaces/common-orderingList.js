@@ -64,12 +64,22 @@
 
         _addDomElements: function() {
             $(this.element).addClass("list").wrap(
-                "<div class='orderingList " + this.options.cssClass + "'><div class='group'></div></div>"
-            )
-            this.container = $(this.element).parents(".orderingList").first();
-            this.container.prepend(jQuery("<div class='header'></div>").html("<h3>" + this.options.headerText + "</h3>"));
-            this.group = this.container.find(".group");
-            this.group.find("tr").each(function() {
+                jQuery("<div />").addClass('orderingList container-fluid').addClass(this.options.cssClass).append(
+                    jQuery('<div />').addClass('content row-fluid').append(
+                        jQuery('<div />').addClass('span10')
+                    )
+                )
+            );
+            this.outer = $(this.element).parents(".orderingList").first();
+            this.outer.prepend(
+                jQuery("<div />").addClass("row-fluid").append(
+                    jQuery("<div />").addClass('span12 header').append(
+                        jQuery("<h3/>").html(this.options.headerText)
+                    )
+                )
+            );
+            this.content = this.outer.find(".content");
+            this.content.find("tr").each(function() {
                 $(this).find("td").last().addClass('last');
             });
             this._addButtons();
@@ -106,8 +116,9 @@
                         .html("<i class='icon-arrow-down'></i>")
                         .bind('click.orderingList', $.proxy(this._lastHandler, this))
             );
-            this.group.prepend(buttonStack);
-            this.group.find('.btn-group-vertical').position({of: this.group, my: "right center", at: "right center", offset: "-10 0" })
+            this.content.append(
+                jQuery('<div />').addClass('buttonColumn span2').append(buttonStack));
+            this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
         },
 
         /** Cleanup methods **/
