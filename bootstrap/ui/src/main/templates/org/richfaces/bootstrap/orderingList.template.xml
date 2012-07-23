@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.OrderingListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.OrderingListRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.OrderingListRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractOrderingList</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+                    value="#{getClientSelectItems(facesContext, component)}" />
+
+        <div id="#{clientId}">
+            <c:choose>
+                <c:when test="#{! hasColumnChildren(facesContext, component)}">
+                    <ol id="#{clientId}List">
+                        <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
+                            <li>#{item.label}</li>
+                        </c:forEach>
+                    </ol>
+                </c:when>
+                <c:otherwise>
+                    <table id="#{clientId}List">
+                        <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
+                            <tr><td>#{item.label}</td></tr>
+                            <!-- TODO: render the column rows -->
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <script type="text/javascript">
+            jQuery(function() {
+                $(document.getElementById('#{clientId}List')).orderingList();
+            });
+        </script>
+    </cc:implementation>
+
+</cdk:root>
