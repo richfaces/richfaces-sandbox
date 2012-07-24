@@ -23,8 +23,8 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.RenderMenuGroupCapable;
-import org.richfaces.bootstrap.RenderPositionGroupCapable;
+import org.richfaces.bootstrap.RenderMenuFacetCapable;
+import org.richfaces.bootstrap.RenderPositionFacetCapable;
 import org.richfaces.bootstrap.renderkit.NavbarRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -41,7 +41,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractNavbar.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = NavbarRendererBase.RENDERER_TYPE),
         tag = @Tag(name="navbar"))
-public abstract class AbstractNavbar extends UIPanel implements RenderMenuGroupCapable, RenderPositionGroupCapable {
+public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetCapable, RenderPositionFacetCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Navbar";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Navbar";
 
@@ -55,12 +55,12 @@ public abstract class AbstractNavbar extends UIPanel implements RenderMenuGroupC
     public abstract boolean isCollapsible();
     
     @Override
-    public String getMenuGroupRendererType() {
-        return "org.richfaces.bootstrap.NavbarMenuGroupRenderer";
+    public String getMenuFacetRendererType() {
+        return "org.richfaces.bootstrap.NavbarMenuFacetRenderer";
     }
     
     @Override
-    public String getPositionGroupRendererType() {
-        return "org.richfaces.bootstrap.NavbarPositionGroupRenderer";
+    public String getPositionFacetRendererType() {
+        return "org.richfaces.bootstrap.NavbarPositionFacetRenderer";
     }
 }

@@ -21,41 +21,40 @@
  */
 package org.richfaces.bootstrap.component;
 
-import javax.faces.component.UIPanel;
-import org.richfaces.bootstrap.RenderMenuFacetCapable;
-import org.richfaces.bootstrap.renderkit.TabbableRendererBase;
+import org.richfaces.bootstrap.RenderPositionFacetCapable;
+import org.richfaces.bootstrap.renderkit.SemanticFacetRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * Base class for the tabbable component
+ * Base class for the FacetPosition component.
  *
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  */
 @JsfComponent(
-        type = AbstractTabbable.COMPONENT_TYPE,
-        family = AbstractTabbable.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = TabbableRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="tabbable"))
-public abstract class AbstractTabbable extends UIPanel implements RenderMenuFacetCapable {
-    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tabs";
-    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tabs";
-    public static final String ACTIVE_INDEX_DEFAULT = "0";
-    public static final String INDEX_SEPARATOR_DEFAULT = ".";
+        type = AbstractPositionFacet.COMPONENT_TYPE,
+        family = AbstractPositionFacet.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = SemanticFacetRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="positionFacet"))
+public abstract class AbstractPositionFacet extends AbstractSemanticComponent<RenderPositionFacetCapable> {
+    public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.PositionFacet";
+    public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.PositionFacet";
 
     @Attribute
-    public abstract String getActiveName();
+    public abstract HorizontalPosition getHorizontal();
     
-    @Attribute(defaultValue = ACTIVE_INDEX_DEFAULT)
-    public abstract String getActiveIndex();
-    
-    @Attribute(defaultValue = INDEX_SEPARATOR_DEFAULT)
-    public abstract String getIndexSeparator();
+    @Attribute
+    public abstract VerticalPosition getVertical();
     
     @Override
-    public String getMenuFacetRendererType() {
-        return "org.richfaces.bootstrap.TabbableMenuFacetRenderer";
+    public Class<RenderPositionFacetCapable> getRendererCapability() {
+        return RenderPositionFacetCapable.class;
+    }
+    
+    @Override
+    public String getRendererType(RenderPositionFacetCapable container) {
+        return container.getPositionFacetRendererType();
     }
 }

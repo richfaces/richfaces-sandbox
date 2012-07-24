@@ -27,9 +27,9 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.richfaces.bootstrap.component.AbstractMenuGroup;
+import org.richfaces.bootstrap.component.AbstractMenuFacet;
 import org.richfaces.bootstrap.component.AbstractNavbar;
-import org.richfaces.bootstrap.component.AbstractPositionGroup;
+import org.richfaces.bootstrap.component.AbstractPositionFacet;
 import org.richfaces.renderkit.RendererBase;
 
 /**
@@ -48,7 +48,7 @@ public abstract class NavbarRendererBase extends RendererBase {
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         AbstractNavbar navbar = (AbstractNavbar) component;
-        boolean hasPositionGroup = hasPositionGroup(navbar);
+        boolean hasPositionFacet = hasPositionFacet(navbar);
         
         if (navbar.isCollapsible()) {
             writer.startElement("div", component);
@@ -56,13 +56,13 @@ public abstract class NavbarRendererBase extends RendererBase {
             writer.writeAttribute("class", "nav-collapse", null);
         }
         
-        if(!hasPositionGroup) {
+        if(!hasPositionFacet) {
             writer.startElement("ul", component);
             writer.writeAttribute("class", "nav", null);
         }
         
         for(UIComponent child : navbar.getChildren()) {
-            if(child instanceof AbstractMenuGroup || child instanceof AbstractPositionGroup) {
+            if(child instanceof AbstractMenuFacet || child instanceof AbstractPositionFacet) {
                 child.encodeAll(context);
             } else {
                 writer.startElement("li", navbar);
@@ -71,7 +71,7 @@ public abstract class NavbarRendererBase extends RendererBase {
             }
         }
         
-        if(!hasPositionGroup) {
+        if(!hasPositionFacet) {
             writer.endElement("ul");
         }
         
@@ -80,9 +80,9 @@ public abstract class NavbarRendererBase extends RendererBase {
         }
     }
 
-    private boolean hasPositionGroup(UIComponent component) {
+    private boolean hasPositionFacet(UIComponent component) {
         for(UIComponent child : component.getChildren()) {
-            if(child instanceof AbstractPositionGroup) {
+            if(child instanceof AbstractPositionFacet) {
                 return true;
             }
         }

@@ -16,7 +16,7 @@ public class CssLibrary implements ResourceLibrary {
     private static final ImmutableList<ResourceKey> BOOTSTRAP_CLIENT_SIDE = ImmutableList.of(
             ResourceKey.create("bootstrap.less", "org.richfaces.develop"),
             ResourceKey.create("less.min.js", "less"),
-            ResourceKey.create("less.reload.js", "less"));
+            ResourceKey.create("less.instant.js", "less"));
 
     @Override
     public Iterable<ResourceKey> getResources() {

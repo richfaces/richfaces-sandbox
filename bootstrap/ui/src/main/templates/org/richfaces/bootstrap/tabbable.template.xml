@@ -19,9 +19,9 @@
                 <c:forEach items="#{component.children}" var="child" varStatus="status">
                     <c:if test="#{child.rendered}">
                         <c:choose>
-                            <c:when test="#{child.family eq 'org.richfaces.bootstrap.MenuGroup'}">
-                                <cdk:object name="menuGroup" type="org.richfaces.bootstrap.component.AbstractMenuGroup" value="#{child}"/>
-                                <li class="dropdown #{menuGroup.isActive() ? 'active' : ''}">
+                            <c:when test="#{child.family eq 'org.richfaces.bootstrap.MenuFacet'}">
+                                <cdk:object name="menuFacet" type="org.richfaces.bootstrap.component.AbstractMenuFacet" value="#{child}"/>
+                                <li class="dropdown #{menuFacet.isActive() ? 'active' : ''}">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         #{child.attributes['label'].toString().concat(' ')}
                                         <b class="caret"></b>

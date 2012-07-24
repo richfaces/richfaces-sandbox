@@ -7,11 +7,11 @@
     <b:commandButton value="Launch Custom Modal" mode="client" onclick="#{b:show('customModal')}" />
 
     <b:modal id="customModal" closeable="false">
-        <b:headerGroup>
+        <b:headerFacet>
             <h3>A custom header</h3>
-        </b:headerGroup>
+        </b:headerFacet>
 
-        <b:bodyGroup style="padding: 0">
+        <b:bodyFacet style="padding: 0">
             <div class="modal-body">
                 <p>This modal can be closed only with Save or Cancel buttons.</p>
                 
@@ -52,13 +52,13 @@
                     </h:panelGrid>
                 </div>
                 
-                <b:footerGroup>
+                <b:footerFacet>
                     <b:commandButton value="Save" severity="primary" mode="client" onclick="#{b:hide('customModal')}" />
 
                     <b:commandButton value="Cancel" mode="client" onclick="#{b:hide('customModal')}" />
-                </b:footerGroup>
+                </b:footerFacet>
             </h:form>
-        </b:bodyGroup>
+        </b:bodyFacet>
 
     </b:modal>
 </ui:composition>

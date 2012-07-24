@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.renderkit.FooterFacetRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.FooterFacetRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.FooterFacetRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractFooterFacet</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="#{component.styleClass}" cdk:passThrough="style title">
+            <cdk:body />
+        </div>
+    </cc:implementation>
+</cdk:root>

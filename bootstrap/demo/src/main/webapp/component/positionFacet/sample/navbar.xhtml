@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:navbar brand="Facet" collapsible="true">
+    
+        <b:positionFacet>
+            <h:link outcome="/index.xhtml" value="Default1"/>
+            <b:menuFacet label="Default2">
+                <h:link outcome="/index.xhtml" value="Default2.1"/>
+                <b:menuFacet label="Default2.2">
+                    <h:link outcome="/index.xhtml" value="Default2.2.1"/>
+                    <h:link outcome="/index.xhtml" value="Default2.2.2"/>
+                    <h:link outcome="/index.xhtml" value="Default2.2.3"/>
+                </b:menuFacet>
+                <b:menuFacet label="Default2.3">
+                    <h:link outcome="/index.xhtml" value="Default2.3.1"/>
+                    <b:menuFacet label="Default2.3.2">
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.1"/>
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.2"/>
+                        <h:link outcome="/index.xhtml" value="Default2.3.2.3"/>
+                    </b:menuFacet>
+                    <h:link outcome="/index.xhtml" value="Default2.3.3"/>
+                </b:menuFacet>
+            </b:menuFacet>
+        </b:positionFacet>
+        
+        <b:positionFacet horizontal="right">
+            <h:link outcome="/index.xhtml" value="Right2"/>
+            <b:menuFacet label="Right3">
+                <h:link outcome="/index.xhtml" value="Right3.1"/>
+                <h:link outcome="/index.xhtml" value="Right3.2"/>
+            </b:menuFacet>
+        </b:positionFacet>
+        
+        <b:positionFacet horizontal="right">
+            <h:link outcome="/index.xhtml" value="Right1"/>
+        </b:positionFacet>
+        
+        <b:positionFacet horizontal="left">
+            <h:link outcome="/index.xhtml" value="Left1"/>
+            <b:menuFacet label="Left2">
+                <h:link outcome="/index.xhtml" value="Left2.1"/>
+                <h:link outcome="/index.xhtml" value="Left2.2"/>
+                <h:link outcome="/index.xhtml" value="Left2.3"/>
+            </b:menuFacet>
+        </b:positionFacet>
+    </b:navbar>
+</ui:composition>

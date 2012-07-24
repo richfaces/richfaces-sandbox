@@ -25,7 +25,7 @@ import java.util.List;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import org.richfaces.bootstrap.component.AbstractMenuGroup;
+import org.richfaces.bootstrap.component.AbstractMenuFacet;
 import org.richfaces.bootstrap.component.AbstractTabPane;
 import org.richfaces.bootstrap.component.AbstractTabbable;
 import org.richfaces.renderkit.RendererBase;
@@ -77,15 +77,15 @@ public abstract class TabbableRendererBase extends RendererBase {
                     hasDefaultChildSoFar = tabPane.isDefault();
                 }
                 
-            } else if(child instanceof AbstractMenuGroup) {
+            } else if(child instanceof AbstractMenuFacet) {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = hasDefaultChild(child.getChildren(), hasDefaultChildSoFar);
                 
                 // If the value has changed, it means this menuGroup contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
-                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
+                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
         }
@@ -105,15 +105,15 @@ public abstract class TabbableRendererBase extends RendererBase {
                     hasDefaultChildSoFar = true;
                 }
                 
-            } else if(child instanceof AbstractMenuGroup) {
+            } else if(child instanceof AbstractMenuFacet) {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByName(child.getChildren(), tabName, hasDefaultChildSoFar);
                 
                 // If the value has changed, it means this menuGroup contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
-                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
+                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
         }
@@ -138,15 +138,15 @@ public abstract class TabbableRendererBase extends RendererBase {
                 tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, true);
                 hasDefaultChildSoFar = true;
                 
-            } else if(child instanceof AbstractMenuGroup) {
+            } else if(child instanceof AbstractMenuFacet) {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByIndex(child.getChildren(), index, localIndex, hasDefaultChildSoFar);
                 
                 // If the value has changed, it means this menuGroup contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuGroup menuGroup = (AbstractMenuGroup) child;
-                    menuGroup.getAttributes().put(AbstractMenuGroup.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
+                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
             
