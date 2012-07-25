@@ -15,7 +15,7 @@ import org.richfaces.function.RichFunction;
  */
 class BootstrapOperation {
 
-    private static String CALL = "jQuery('{0}').{1}('{2}');";
+    private static String CALL = "jQuery('{0}').{1}('{2}')";
     private static String ESCAPED_CALL = CALL.replace("'", "''");
 
     private FacesContext facesContext;

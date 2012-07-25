@@ -18,8 +18,7 @@ import org.richfaces.renderkit.util.HandlersChain;
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "bootstrap-js.reslib"),
-        @ResourceDependency(library = "font-awesome/css", name = "font-awesome.css")})
+        @ResourceDependency(library = "org.richfaces", name = "bootstrap-js.reslib")})
 public class CommandButtonRendererBase extends org.richfaces.renderkit.html.CommandButtonRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.CommandButtonRenderer";
 

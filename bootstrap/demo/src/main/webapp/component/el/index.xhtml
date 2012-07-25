@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/demo.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="params">
+        <ui:param name="brand" value="Bootstrap EL functions demo" />
+    </ui:define>
+    
+    <ui:define name="body">
+        
+        
+        <h2>Show</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="el" />
+            <ui:param name="sample" value="show" />
+        </ui:include>
+
+        <h2>Hide</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="el" />
+            <ui:param name="sample" value="hide" />
+        </ui:include>
+        
+        <h2>Toggle</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="el" />
+            <ui:param name="sample" value="toggle" />
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

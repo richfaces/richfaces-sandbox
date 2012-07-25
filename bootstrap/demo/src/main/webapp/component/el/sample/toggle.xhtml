@@ -1,0 +1,14 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:commandButton mode="client" onclick="#{b:toggle('modal')}" value="Toggle modal" />
+    
+    <b:modal id="modal" closeable="false">
+        <b:headerFacet>A modal</b:headerFacet>
+        
+        <b:bodyFacet>A nice modal</b:bodyFacet>
+        
+        <b:footerFacet>
+            <b:commandButton mode="client" onclick="#{b:toggle('modal')}" value="Toggle modal" />
+        </b:footerFacet>
+    </b:modal>
+</ui:composition>

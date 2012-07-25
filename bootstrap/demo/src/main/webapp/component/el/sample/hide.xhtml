@@ -1,0 +1,15 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:commandButton mode="client" onclick="#{b:show('modalHide')}" value="Show modal" />
+    
+    <b:modal id="modalHide" closeable="false">
+        <b:headerFacet>A modal</b:headerFacet>
+        
+        <b:bodyFacet>A nice modal you need to hide! Can you do it?</b:bodyFacet>
+        
+        <b:footerFacet>
+            <b:commandButton mode="client" onclick="#{b:hide('modalHide')}" value="Hide modal onclick" />
+            <b:commandButton mode="client" ondblclick="#{b:hide('modalHide')}" value="Hide modal ondlbclick" severity="primary" />
+        </b:footerFacet>
+    </b:modal>
+</ui:composition>

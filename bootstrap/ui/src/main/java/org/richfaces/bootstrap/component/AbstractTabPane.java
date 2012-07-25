@@ -23,6 +23,7 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
+import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.TabPaneRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -34,6 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
+@BootstrapJSPlugin(name = "tab")
 @JsfComponent(
         type = AbstractTabPane.COMPONENT_TYPE,
         family = AbstractTabPane.COMPONENT_FAMILY,

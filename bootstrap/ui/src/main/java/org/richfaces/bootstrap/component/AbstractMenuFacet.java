@@ -22,11 +22,10 @@
 package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIComponent;
+
 import org.richfaces.bootstrap.RenderMenuFacetCapable;
-import org.richfaces.bootstrap.renderkit.SemanticFacetRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
@@ -37,7 +36,6 @@ import org.richfaces.cdk.annotations.Tag;
 @JsfComponent(
         type = AbstractMenuFacet.COMPONENT_TYPE,
         family = AbstractMenuFacet.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = SemanticFacetRendererBase.RENDERER_TYPE),
         tag = @Tag(name="menuFacet"))
 public abstract class AbstractMenuFacet extends AbstractSemanticComponent<RenderMenuFacetCapable> {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.MenuFacet";

@@ -24,6 +24,7 @@ package org.richfaces.bootstrap.component;
 import javax.faces.component.UIOutput;
 
 import org.richfaces.bootstrap.component.props.TooltipProps;
+import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.PopoverRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -36,6 +37,7 @@ import org.richfaces.component.attribute.CoreProps;
  * 
  * @author Lukas Fryc
  */
+@BootstrapJSPlugin(name = "popover")
 @JsfComponent(
         type = AbstractPopover.COMPONENT_TYPE,
         family = AbstractPopover.COMPONENT_FAMILY,

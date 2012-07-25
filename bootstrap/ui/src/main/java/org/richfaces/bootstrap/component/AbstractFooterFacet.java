@@ -22,9 +22,7 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.RenderFooterFacetCapable;
-import org.richfaces.bootstrap.renderkit.FooterFacetRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
@@ -37,7 +35,6 @@ import org.richfaces.component.attribute.CoreProps;
 @JsfComponent(
         type = AbstractFooterFacet.COMPONENT_TYPE,
         family = AbstractFooterFacet.COMPONENT_FAMILY,
-                renderer = @JsfRenderer(type = FooterFacetRendererBase.RENDERER_TYPE),
         tag = @Tag(name="footerFacet"))
 public abstract class AbstractFooterFacet extends AbstractSemanticComponent<RenderFooterFacetCapable> implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.FooterFacet";

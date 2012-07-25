@@ -22,9 +22,7 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.RenderBodyFacetCapable;
-import org.richfaces.bootstrap.renderkit.BodyFacetRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
@@ -37,7 +35,6 @@ import org.richfaces.component.attribute.CoreProps;
 @JsfComponent(
         type = AbstractBodyFacet.COMPONENT_TYPE,
         family = AbstractBodyFacet.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = BodyFacetRendererBase.RENDERER_TYPE),
         tag = @Tag(name="bodyFacet"))
 public abstract class AbstractBodyFacet extends AbstractSemanticComponent<RenderBodyFacetCapable> implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.BodyFacet";

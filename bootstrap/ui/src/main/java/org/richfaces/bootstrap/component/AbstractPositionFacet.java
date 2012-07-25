@@ -22,10 +22,8 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.RenderPositionFacetCapable;
-import org.richfaces.bootstrap.renderkit.SemanticFacetRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
@@ -36,7 +34,6 @@ import org.richfaces.cdk.annotations.Tag;
 @JsfComponent(
         type = AbstractPositionFacet.COMPONENT_TYPE,
         family = AbstractPositionFacet.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = SemanticFacetRendererBase.RENDERER_TYPE),
         tag = @Tag(name="positionFacet"))
 public abstract class AbstractPositionFacet extends AbstractSemanticComponent<RenderPositionFacetCapable> {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.PositionFacet";

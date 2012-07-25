@@ -81,11 +81,11 @@ public abstract class TabbableRendererBase extends RendererBase {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = hasDefaultChild(child.getChildren(), hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuGroup contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
-                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;
+                    menuFacet.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
         }
@@ -109,11 +109,11 @@ public abstract class TabbableRendererBase extends RendererBase {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByName(child.getChildren(), tabName, hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuGroup contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
-                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;
+                    menuFacet.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
         }
@@ -142,11 +142,11 @@ public abstract class TabbableRendererBase extends RendererBase {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByIndex(child.getChildren(), index, localIndex, hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuGroup contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tabPane
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
-                    AbstractMenuFacet menuGroup = (AbstractMenuFacet) child;
-                    menuGroup.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
+                    AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;
+                    menuFacet.getAttributes().put(AbstractMenuFacet.ACTIVE_ATTRIBUTE_NAME, true);
                 }
             }
             

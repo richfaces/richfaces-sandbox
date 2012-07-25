@@ -72,14 +72,6 @@ public abstract class AbstractModal extends UIPanel implements CoreProps, Render
     @Attribute
     public abstract HorizontalPosition getCancelPosition();
 
-    public boolean hasLeftCancelButton() {
-        return HorizontalPosition.left.equals(getCancelPosition());
-    }
-
-    public boolean hasRightCancelButton() {
-        return HorizontalPosition.right.equals(getCancelPosition());
-    }
-
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();
     }

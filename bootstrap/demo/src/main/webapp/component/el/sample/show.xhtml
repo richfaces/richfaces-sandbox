@@ -1,0 +1,15 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    
+    <p>
+        <b:commandButton mode="client" onclick="#{b:show('showPopover')};setTimeout(&quot;#{b:hide('showPopover')}&quot;, 2000)" value="Click to show popover" />
+    </p>
+    
+    <p>
+        <b:popover id="showPopover" title="A title" content="ABC">
+            <b:commandButton value="hover for popover" severity="error" />
+        </b:popover>
+    </p>
+    
+    <p>The popover will fade out after 2 sec thanks to the <code>setTimeout</code> function.</p>
+</ui:composition>

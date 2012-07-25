@@ -23,6 +23,7 @@ package org.richfaces.bootstrap.component;
 
 import javax.faces.component.UIPanel;
 
+import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.AlertRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -35,6 +36,7 @@ import org.richfaces.cdk.annotations.Tag;
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  * 
  */
+@BootstrapJSPlugin(name = "alert")
 @JsfComponent(
         type = AbstractAlert.COMPONENT_TYPE,
         family = AbstractAlert.COMPONENT_FAMILY,

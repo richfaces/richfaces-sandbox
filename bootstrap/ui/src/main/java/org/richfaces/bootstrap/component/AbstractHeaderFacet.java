@@ -22,9 +22,7 @@
 package org.richfaces.bootstrap.component;
 
 import org.richfaces.bootstrap.RenderHeaderFacetCapable;
-import org.richfaces.bootstrap.renderkit.HeaderFacetRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 
@@ -37,7 +35,6 @@ import org.richfaces.component.attribute.CoreProps;
 @JsfComponent(
         type = AbstractHeaderFacet.COMPONENT_TYPE,
         family = AbstractHeaderFacet.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = HeaderFacetRendererBase.RENDERER_TYPE),
         tag = @Tag(name="headerFacet"))
 public abstract class AbstractHeaderFacet extends AbstractSemanticComponent<RenderHeaderFacetCapable> implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.HeaderFacet";

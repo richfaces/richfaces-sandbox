@@ -24,6 +24,7 @@ package org.richfaces.bootstrap.component;
 import javax.faces.component.UIOutput;
 
 import org.richfaces.bootstrap.component.props.TooltipProps;
+import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.renderkit.TooltipRendererBase;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -35,6 +36,7 @@ import org.richfaces.component.attribute.CoreProps;
  * 
  * @author Lukas Fryc
  */
+@BootstrapJSPlugin(name = "tooltip")
 @JsfComponent(type = AbstractTooltip.COMPONENT_TYPE, family = AbstractTooltip.COMPONENT_FAMILY, renderer = @JsfRenderer(type = TooltipRendererBase.RENDERER_TYPE), tag = @Tag(name = "tooltip"))
 public abstract class AbstractTooltip extends UIOutput implements TooltipProps, CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tooltip";

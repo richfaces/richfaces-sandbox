@@ -6,11 +6,11 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 
-public class LessStylesshetRenderKit extends RenderKitWrapper {
+public class LessStylesheetRenderKit extends RenderKitWrapper {
 
     private RenderKit wrapped;
 
-    public LessStylesshetRenderKit(RenderKit wrapped) {
+    public LessStylesheetRenderKit(RenderKit wrapped) {
         this.wrapped = wrapped;
     }
 

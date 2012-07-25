@@ -22,7 +22,7 @@ public class LessStylesheetRenderKitFactory extends RenderKitFactory {
     @Override
     public RenderKit getRenderKit(FacesContext context, String renderKitId) {
         RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
-        return (HTML_BASIC_RENDER_KIT.equals(renderKitId)) ? new LessStylesshetRenderKit(renderKit) : renderKit;
+        return (HTML_BASIC_RENDER_KIT.equals(renderKitId)) ? new LessStylesheetRenderKit(renderKit) : renderKit;
     }
 
     @Override
