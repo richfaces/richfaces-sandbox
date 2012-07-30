@@ -1,26 +1,26 @@
 <ui:composition template="/resources/head.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="headContent">
         <style type="text/css">
-.masthead {
-    margin-bottom: 20px;
-}
+            .masthead {
+                margin-bottom: 20px;
+            }
 
-.marketing p {
-    text-align: justify;
-}
+            .marketing p {
+                text-align: justify;
+            }
 
-.marketing p.marketing-byline {
-    text-align: center;
-}
+            .marketing p.marketing-byline {
+                text-align: center;
+            }
 
-.marketing .bs-icon {
-    font-size: 29px;
-    margin: 11px 20px 0px 0px;
-}
-</style>
+            .marketing .bs-icon {
+                font-size: 29px;
+                margin: 11px 20px 0px 0px;
+            }
+        </style>
 
         <b:gridContainer>
             <b:gridRow>
@@ -28,111 +28,166 @@
                     <header class="jumbotron masthead">
                         <div class="inner">
                             <h1>RichFaces Bootstrap</h1>
-                            <p>
-                                Brand new JSF components build on top of the amazing <a
-                                    href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.
+
+                            <p>Brand new JSF components build on top of the popular <br/>
+                                <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> set of HTML components.
                             </p>
+
                             <p class="download-info">
-                                <a href="https://github.com/richfaces/sandbox/tree/develop/bootstrap" class="btn btn-primary btn-large">View
-                                    project on GitHub</a> <a href="#" class="btn btn-large disabled">Install it <small>(coming
-                                        soon)</small></a>
+                                <a href="https://github.com/richfaces/sandbox/tree/develop/bootstrap"
+                                   class="btn btn-primary btn-large">View the project on GitHub</a>
+                                <!--<a href="#" class="btn btn-large disabled">Install it <small>(coming soon)</small></a>-->
                             </p>
                         </div>
                         <div class="bs-links">
                             <ul class="quick-links">
-                                <li><iframe class="github-btn"
-                                        src="http://markdotto.github.com/github-buttons/github-btn.html?user=richfaces&amp;repo=sandbox&amp;type=watch&amp;count=true"
-                                        allowtransparency="true" frameborder="0" scrolling="0" width="112px"
-                                        height="20px"></iframe></li>
-                                <li><iframe class="github-btn"
-                                        src="http://markdotto.github.com/github-buttons/github-btn.html?user=richfaces&amp;repo=sandbox&amp;type=fork&amp;count=true"
-                                        allowtransparency="true" frameborder="0" scrolling="0" width="98px"
-                                        height="20px"></iframe></li>
-                                <li class="follow-btn"><iframe allowtransparency="true" frameborder="0"
-                                        scrolling="no"
-                                        src="http://platform.twitter.com/widgets/follow_button.1340179658.html#_=1343167432009&amp;id=twitter-widget-2&amp;lang=en&amp;screen_name=richfaces&amp;show_count=true&amp;show_screen_name=true&amp;size=m"
-                                        class="twitter-follow-button" style="width: 240px; height: 20px;"
-                                        title="Twitter Follow Button"></iframe></li>
-                                <li class="tweet-btn"><iframe allowtransparency="true" frameborder="0"
-                                        scrolling="no"
-                                        src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1343167432006&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fbootstrap-richfaces.rhcloud.com%2F&amp;text=RichFaces%20Bootstrap&amp;url=http%3A%2F%2Fbootstrap-richfaces.rhcloud.com%2F&amp;via=richfaces"
-                                        class="twitter-share-button twitter-count-horizontal"
-                                        style="width: 109px; height: 20px;" title="Twitter Tweet Button"></iframe></li>
+                                <li>
+                                    <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0"
+                                            style="width:112px; height:20px" title="Github Watch Button"
+                                            src="http://markdotto.github.com/github-buttons/github-btn.html?user=richfaces&amp;repo=sandbox&amp;type=watch&amp;count=true">
+                                    </iframe>
+                                </li>
+                                <li>
+                                    <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0"
+                                            style="width:98px; height:20px" title="Github Fork Button"
+                                            src="http://markdotto.github.com/github-buttons/github-btn.html?user=richfaces&amp;repo=sandbox&amp;type=fork&amp;count=true">
+                                    </iframe>
+                                </li>
+                                <li class="follow-btn">
+                                    <iframe class="twitter-follow-button" allowtransparency="true" frameborder="0"
+                                            scrolling="no"
+                                            style="width: 240px; height: 20px;" title="Twitter Follow Button"
+                                            src="http://platform.twitter.com/widgets/follow_button.1340179658.html#_=1343167432009&amp;id=twitter-widget-2&amp;lang=en&amp;screen_name=richfaces&amp;show_count=true&amp;show_screen_name=true&amp;size=m">
+                                    </iframe>
+                                </li>
+                                <li class="tweet-btn">
+                                    <iframe class="twitter-share-button twitter-count-horizontal"
+                                            allowtransparency="true" frameborder="0" scrolling="no"
+                                            style="width: 109px; height: 20px;" title="Twitter Tweet Button"
+                                            src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1343167432006&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fbootstrap-richfaces.rhcloud.com%2F&amp;text=RichFaces%20Bootstrap&amp;url=http%3A%2F%2Fbootstrap-richfaces.rhcloud.com%2F&amp;via=richfaces">
+                                    </iframe>
+                                </li>
                             </ul>
                         </div>
                     </header>
                 </b:gridColumn>
             </b:gridRow>
 
-            <hr class="soften" />
+            <hr class="soften"/>
 
             <div class="marketing">
-                <h1>One ring to rule them all and in the darkness bind them.</h1>
-                <p class="marketing-byline">s/'One ring'/'RichFaces Bootstrap'; s/'them all'/'all new technologies'; s/darkness/web</p>
-            
+                <h1>One component set to rule them all and in the darkness bind them.</h1>
+
                 <b:gridRow>
                     <b:gridColumn span="4">
-                        <b:icon value="magic" styleClass="bs-icon" />
+                        <b:icon value="magic" styleClass="bs-icon"/>
+
                         <h2>All Bootstrap power</h2>
-                        <p>Do you think <a href="http://twitter.github.com/bootstrap/">Bootstrap, from Twitter</a>, is awesome? If yes, so we do. If not, we still do
-                            (sorry). All the awesomeness of Bootstrap, all its great components, all its effects, all
-                            has been (or will be) migrated as JSF components! It's nearly magic and we love it.</p>
+
+                        <p>
+                            Built on top of <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>,
+                            the RichFaces Bootstrap project is wrapping all the awesomeness of Bootstrap, all its great components,
+                            and all its effects as JSF components! It's magic and we're sure you'll love it!
+                        </p>
                     </b:gridColumn>
 
                     <b:gridColumn span="4">
-                        <b:icon value="flag" styleClass="bs-icon" />
-                        <h2>Beautiful Font-Awesome icons</h2>
-                        <p>Want icons on your applications? Want them beautiful? Want them scalable? Discover <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a> icons, a totally free collection of amazing icons. And guess what? They are Bootstrap compatible and we wrapped them in JSF too!</p>
+                        <b:icon value="flag" styleClass="bs-icon"/>
+
+                        <h2>Font-Awesome icons</h2>
+
+                        <p>
+                            Want beautiful, scalable, awesome icons in your applications? Check out and the discover
+                            <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a> icons,
+                            a totally free collection of amazing icons.
+                            These icons are also Bootstrap compatible and we've included them in our JSF too!
+                        </p>
                     </b:gridColumn>
 
                     <b:gridColumn span="4">
-                        <b:icon value="group" styleClass="bs-icon" />
+                        <b:icon value="group" styleClass="bs-icon"/>
+
                         <h2>Community project</h2>
-                        <p>RichFaces Bootstrap is not a false open-source project with read-only code, it's a true community project, so <strong>you</strong> can participate! Fork the <a href="https://github.com/richfaces/sandbox">GitHub repo</a>, fill issues on <a href="https://issues.jboss.org/browse/RFSBOX">our JIRA</a>, join <a href="https://community.jboss.org/en/richfaces/dev/teammtgs">weekly meetings</a> or just come to say hi on <strong>#richfaces</strong> IRC chan at irc.freenode.net.</p>
+
+                        <p>
+                            RichFaces Bootstrap is a true open-source community-driven project ready to accept contributions of all kinds!
+                            <strong>You</strong> can participate!
+                            Fork the <a href="https://github.com/richfaces/sandbox">GitHub repo</a>,
+                            file <a href="https://issues.jboss.org/browse/RFSBOX">our JIRA</a> issues,
+                            join <a href="https://community.jboss.org/en/richfaces/dev/teammtgs">weekly meetings</a>
+                            or just come to say hi on <strong>#richfaces</strong> IRC chan at irc.freenode.net.
+                        </p>
                     </b:gridColumn>
                 </b:gridRow>
 
                 <b:gridRow>
                     <b:gridColumn span="4">
-                        <b:icon value="bolt" styleClass="bs-icon" />
-                        <h2>Bootstrap on steroïds</h2>
-                        <p>As awesome as Bootstrap is, it's never enough... no never! So we are gonna add some new smooth features to it but also use <a href="http://jqueryui.com/">jQuery UI</a> plugins or write our own code and pimp that with Bootstrap design in order to extend the number of RichFaces Bootstrap components.</p>
+                        <b:icon value="bolt" styleClass="bs-icon"/>
+
+                        <h2>Bootstrap on steroids</h2>
+
+                        <p>
+                            As awesome as Bootstrap is, it's never enough! We are adding some new smooth features to it
+                            leveraging existing OSS jQuery plugins wherever possible, and styling the with
+                            the Bootstrap design in order to extend the number of RichFaces Bootstrap components.
+                        </p>
                     </b:gridColumn>
 
                     <b:gridColumn span="4">
-                        <b:icon value="beaker" styleClass="bs-icon" />
-                        <h2>Living on the bleeding edge</h2>
-                        <p>HTML5, CSS3, ECMAScript5, LESS... did you ear about those (new) technologies? They have started to change the face of the web and RichFaces Bootstrap supports them, providing you new components, new attributes and new effects.</p>
+                        <b:icon value="beaker" styleClass="bs-icon"/>
+
+                        <h2>Life on the bleeding edge</h2>
+
+                        <p>
+                            HTML5, CSS3, ECMAScript5, LESS... did you ear about these (new) technologies?
+                            They have started to change the face of the web and RichFaces Bootstrap supports them,
+                            providing you new components, new attributes and new effects.
+                        </p>
                     </b:gridColumn>
 
                     <b:gridColumn span="4">
-                        <b:icon value="warning-sign" styleClass="bs-icon" />
+                        <b:icon value="warning-sign" styleClass="bs-icon"/>
+
                         <h2>Sandbox project</h2>
-                        <p>Just a little warning about the fact that this project is still a sandbox project under heavy development so tag and attribute names can change at any time. Use it for fun or prototype purpose only for now. And stay tuned for the release of course!</p>
+
+                        <p>
+                            Warning! This project is currently a "sandbox" project and is under heavy development.
+                            As such both tags and attribute names are subject to change at any time.
+                            Use it for fun or prototyping purposes only!
+                            But <strong>do</strong> stay tuned for the release of course!
+                        </p>
                     </b:gridColumn>
                 </b:gridRow>
 
                 <b:gridRow>
                     <b:gridColumn span="4">
-                        <b:icon value="columns" styleClass="bs-icon" />
+                        <b:icon value="columns" styleClass="bs-icon"/>
+
                         <h2>Big demos</h2>
-                        <p>Those demos are a copy/paste of original Twitter Bootstrap demos but using JSF components
-                            instead of HTML tags. They will allow you to quickly browse over all RichFaces Bootstrap
-                            features and see nice examples. They are situated on the left of the top navbar.</p>
+
+                        <p>
+                            The demos are ports of the original Twitter Bootstrap demos built using JSF components instead of basic HTML tags.
+                            They will allow you to quickly browse all of the RichFaces Bootstrap features and see nice examples.
+                            These demos are located on the left of the top navbar.
+                        </p>
                     </b:gridColumn>
 
                     <b:gridColumn span="4">
-                        <b:icon value="table" styleClass="bs-icon" />
-                        <h2>Full documentation and VDL</h2>
-                        <p>Each RichFaces Bootstrap component has a dedicated documentation page which will provide
-                            you all informations you need to know in order to use it. The VDL will also be present on
-                            those pages. You can browse them by using the top navbar, components have been grouped by
-                            theme.</p>
+                        <b:icon value="table" styleClass="bs-icon"/>
+
+                        <h2>Fully documented</h2>
+
+                        <p>
+                            Each RichFaces Bootstrap component has a dedicated documentation page which will provide
+                            you all the information you need to know in order to use it.
+                            The VDL taglib docs are also be present on those pages.
+                            You can browse them via the top navbar, components have been grouped there by theme.
+                        </p>
                     </b:gridColumn>
                 </b:gridRow>
             </div>
         </b:gridContainer>
 
-        <h:outputStylesheet library="css" name="docs.css" />
+        <h:outputStylesheet library="css" name="docs.css"/>
     </ui:define>
 </ui:composition>
