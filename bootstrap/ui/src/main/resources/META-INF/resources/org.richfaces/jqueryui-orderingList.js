@@ -37,7 +37,12 @@
         _rowHelper: function(e, tr) {
             var $helper = tr.clone();
             $helper.addClass("ui-selected rowhelper");
-            $helper.children("td").removeClass("list-content")
+            // we lose the cell width in the clone, so we re-set it here:
+            $helper.children().each(function (index) {
+                var original_cell = tr.children().get(index);
+                var original_width = $(original_cell).css('width');
+                $(this).css('width', original_width);
+            });
             return $helper;
         },
 
@@ -114,10 +119,16 @@
             this.content = this.outer.find(".content");
             if (this.strategy === 'table') {
                 $( this.element )
-                    .find( "tr" )
-                    .prepend( "<th><div class='handle'><i class='icon-move'></i></div></th>")
-                    .append("<td class='last'></td>")
-                    .children("td").not(".last").addClass('list-content');
+                    .find( "tbody > tr" )
+                    .prepend( "<th class='handleRow'><div class='handle'><i class='icon-move'></i></div></th>");
+                $( this.element )
+                    .find("thead > tr")
+                    .prepend( "<th class='handleRow'></th>");
+                $( this.element )
+                    .find( "tr").each(function() {
+                        $(this).children().last().addClass('last');
+                        $(this).children().first().addClass('first');
+                    })
             } else if (this.strategy === 'list') {
                 $( this.element )
                     .find( "li" )
