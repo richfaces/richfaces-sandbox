@@ -97,17 +97,17 @@
 
         _addDomElements: function() {
             $(this.element).addClass("list").wrap(
-                jQuery("<div />").addClass('orderingList container-fluid with-handle').addClass(this.options.cssClass).append(
-                    jQuery('<div />').addClass('content row-fluid').append(
-                        jQuery('<div />').addClass('span10')
+                $("<div />").addClass('orderingList container-fluid with-handle').addClass(this.options.cssClass).append(
+                    $('<div />').addClass('content row-fluid').append(
+                        $('<div />').addClass('span10')
                     )
                 )
             );
             this.outer = $(this.element).parents(".orderingList").first();
             this.outer.prepend(
-                jQuery("<div />").addClass("row-fluid").append(
-                    jQuery("<div />").addClass('span12 header').append(
-                        jQuery("<h3/>").html(this.options.headerText)
+                $("<div />").addClass("row-fluid").append(
+                    $("<div />").addClass('span12 header').append(
+                        $("<h3/>").html(this.options.headerText)
                     )
                 )
             );
@@ -127,9 +127,9 @@
         },
 
         _addButtons: function() {
-            var button = jQuery("<button/>")
+            var button = $("<button/>")
                 .addClass("btn")
-            var buttonStack = jQuery("<div/>")
+            var buttonStack = $("<div/>")
                 .addClass("btn-group-vertical");
             buttonStack
                 .append(
@@ -158,7 +158,7 @@
                     .bind('click.orderingList', $.proxy(this._lastHandler, this))
             );
             this.content.append(
-                jQuery('<div />').addClass('buttonColumn span2').append(buttonStack));
+                $('<div />').addClass('buttonColumn span2').append(buttonStack));
             this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
         },
 
