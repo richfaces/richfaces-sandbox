@@ -38,6 +38,7 @@
             var $helper = tr.clone();
             $helper.addClass("ui-selected rowhelper");
             // we lose the cell width in the clone, so we re-set it here:
+            $helper.css('width', tr.css('width'));
             $helper.children().each(function (index) {
                 var original_cell = tr.children().get(index);
                 var original_width = $(original_cell).css('width');
