@@ -62,7 +62,7 @@
   background-color: @grayLighter;
 }
 
-.orderingList .ui-selected {
+.orderingList .ui-selected, .orderingList .rowhelper {
   background-color: @linkColor;
   color: @white;
 }
@@ -71,7 +71,7 @@
   background: @linkColor;
 }
 
-.orderingList .ui-selected:hover {
+.orderingList .ui-selected:hover, .orderingList .rowhelper:hover {
   background-color: @linkColorHover;
 }
 
@@ -88,7 +88,6 @@
 }
 
 .orderingList .btn-group-vertical button {
-  text-align: left;
   padding: 6px;
 }
 
@@ -120,6 +119,16 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   width: 16px;
+}
+
+.orderingList .list-content {
+    position: relative;
+    display: inline-block;
+    position: relative;
+}
+
+.orderingList .placeholder {
+    height: 28px;
 }
 
 .orderingList th .handle {

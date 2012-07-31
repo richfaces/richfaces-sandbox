@@ -9,32 +9,35 @@
         },
 
         _create: function() {
+            this.selectableOptions = {};
+            this.sortableOptions = { handle: ".handle",
+                start: function(event, ui) {
+                    $(that.element).find(".ui-selected").removeClass('ui-selected');
+                    $(ui.item).addClass('ui-selected');
+                }};
             if ($(this.element).is("table")) {
                 this.strategy = "table";
-                this.filter = "tr";
-                this.helper = $.proxy(this._rowHelper, this);
                 var $pluginRoot = $( this.element).find("tbody");
+                this.selectableOptions.filter = "tr";
+                this.sortableOptions.placeholder = "placeholder";
+                this.sortableOptions.helper = $.proxy(this._rowHelper, this);
             } else {
                 this.strategy = "list";
-                this.filter = "li";
-                this.helper = "original"
                 var $pluginRoot = $( this.element);
+                this.selectableOptions.filter = "li";
             }
             this._addDomElements();
             this.widgetEventPrefix = "orderingList_";
             var that = this;
             $pluginRoot
-                .sortable({ handle: ".handle", helper: this.helper,
-                    start: function(event, ui) {
-                        $(that.element).find(".ui-selected").removeClass('ui-selected');
-                        $(ui.item).addClass('ui-selected');
-                    }})
-                .selectable({filter: this.filter});
+                .sortable(this.sortableOptions)
+                .selectable(this.selectableOptions);
         },
 
         _rowHelper: function(e, tr) {
             var $helper = tr.clone();
             $helper.addClass("ui-selected rowhelper");
+            $helper.children("td").removeClass("list-content")
             return $helper;
         },
 
@@ -113,7 +116,8 @@
                 $( this.element )
                     .find( "tr" )
                     .prepend( "<th><div class='handle'><i class='icon-move'></i></div></th>")
-                    .append("<td class='last'></td>");
+                    .append("<td class='last'></td>")
+                    .children("td").not(".last").addClass('list-content');
             } else if (this.strategy === 'list') {
                 $( this.element )
                     .find( "li" )
