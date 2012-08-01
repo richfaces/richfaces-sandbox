@@ -16,7 +16,7 @@
     </context-param>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>${javax.faces.PROJECT_STAGE}</param-value>
     </context-param>
 
     <mime-mapping>

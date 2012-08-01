@@ -13,6 +13,10 @@
     <name>Richfaces UI Components: bootstrap demo</name>
     <packaging>war</packaging>
 
+    <properties>
+        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
@@ -50,7 +54,19 @@
     </dependencies>
 
     <build>
-        <finalName>bootstrap-demo</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
@@ -77,6 +93,9 @@
         </profile>
         <profile>
             <id>openshift</id>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
