@@ -28,6 +28,8 @@
 
     <script type="text/javascript"
             src="../../../main/resources/META-INF/resources/org.richfaces/jqueryui-orderingList.js"></script>
+    <script type="text/javascript"
+            src="../../../main/resources/META-INF/resources/org.richfaces/bridge-orderingList.js"></script>
 
 
 </head>
@@ -46,14 +48,14 @@
             <!--</button>-->
             <hr/>
             <ol id="orderingListDemo">
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                <li>Item 4</li>
-                <li>Item 5</li>
-                <li>Item 6</li>
-                <li>Item 7</li>
-                <li>Item 8</li>
+                <li data-jboss-key="1">Item 1</li>
+                <li data-jboss-key="2">Item 2</li>
+                <li data-jboss-key="3">Item 3</li>
+                <li data-jboss-key="4">Item 4</li>
+                <li data-jboss-key="5">Item 5</li>
+                <li data-jboss-key="6">Item 6</li>
+                <li data-jboss-key="7">Item 7</li>
+                <li data-jboss-key="8">Item 8</li>
             </ol>
         </div>
     </div>
@@ -72,43 +74,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-jboss-key="1">
                         <td><i class="icon-beaker"></i></td>
                         <td>Item 1</td>
                         <td>1</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-bell"></i></td>
+                    <tr data-jboss-key="2">
+                    <td><i class="icon-bell"></i></td>
                         <td>Item 2</td>
                         <td>2</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-bolt"></i></td>
+                    <tr data-jboss-key="3">
+                    <td><i class="icon-bolt"></i></td>
                         <td>Item 3</td>
                         <td>3</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-plane"></i></td>
+                    <tr data-jboss-key="4">
+                    <td><i class="icon-plane"></i></td>
                         <td>Item 4</td>
                         <td>4</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-pencil"></i></td>
+                    <tr data-jboss-key="5">
+                    <td><i class="icon-pencil"></i></td>
                         <td>Item 5</td>
                         <td>5</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-star"></i></td>
+                    <tr data-jboss-key="6">
+                    <td><i class="icon-star"></i></td>
                         <td>Item 6</td>
                         <td>6</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-trophy"></i></td>
+                    <tr data-jboss-key="7">
+                    <td><i class="icon-trophy"></i></td>
                         <td>Item 7</td>
                         <td>7</td>
                     </tr>
-                    <tr>
-                        <td><i class="icon-legal"></i></td>
+                    <tr data-jboss-key="8">
+                    <td><i class="icon-legal"></i></td>
                         <td>Item 8</td>
                         <td>8</td>
                     </tr>
@@ -121,6 +123,8 @@
 </body>
 </html>
 <script>
-    $("#orderingListDemo").orderingList({headerText:"ordered list elements"});
-    $("#orderingListDemo2").orderingList({headerText:"table cell elements", filter:"tr"});
+    $("#orderingListDemo").orderingList();
+    $("#orderingListDemo").orderingListBridge();
+    $("#orderingListDemo2").orderingList();
+    $("#orderingListDemo2").orderingListBridge();
 </script>

@@ -3,19 +3,22 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <b:orderingList value="#{listSelectBean.capitals}" var="capital"  listWidth="300px">
-        <f:converter converterId="CapitalsConverter" />
-        <h:column>
-            <f:facet name="header">Flag</f:facet>
-            <h:graphicImage library="img/capitals" name="#{capital.stateFlag}" alt="flag"  width="33" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Name</f:facet>
-            #{capital.name}
-        </h:column>
-        <h:column>
-            <f:facet name="header">State</f:facet>
-            #{capital.state}
-        </h:column>
-    </b:orderingList>
+    <h:form id="myForm">
+        <b:orderingList id="myOrderingList" value="#{listSelectBean.capitals}" var="capital">
+            <f:converter converterId="CapitalsConverter" />
+            <h:column>
+                <f:facet name="header">Flag</f:facet>
+                <h:graphicImage library="img/capitals" name="#{capital.stateFlag}" alt="flag"  width="33" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{capital.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">State</f:facet>
+                #{capital.state}
+            </h:column>
+        </b:orderingList>
+        <b:commandButton value="Submit" execute="myOrderingList" render="myOrderingList" mode="server"/>
+    </h:form>
 </ui:composition>

@@ -16,6 +16,7 @@
                     value="#{getClientSelectItems(facesContext, component)}" />
 
         <div id="#{clientId}">
+            <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
@@ -56,7 +57,7 @@
                                 <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
                                     <cdk:call expression="columns = component.columns()" />
                                     <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
-                                    <tr>
+                                    <tr data-jboss-key="#{item.convertedValue}">
                                         <c:forEach var="columnObject" items="#{columns}">
                                             <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
                                             <td>
@@ -79,6 +80,7 @@
         <script type="text/javascript">
             jQuery(function() {
                 $(document.getElementById('#{clientId}List')).orderingList();
+                $(document.getElementById('#{clientId}List')).orderingListBridge();
             });
         </script>
     </cc:implementation>

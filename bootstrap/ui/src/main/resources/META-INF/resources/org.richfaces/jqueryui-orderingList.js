@@ -9,12 +9,19 @@
         },
 
         _create: function() {
+            var self = this;
             this.selectableOptions = {};
             this.sortableOptions = { handle: ".handle",
                 start: function(event, ui) {
-                    $(that.element).find(".ui-selected").removeClass('ui-selected');
+                    $(self.element).find(".ui-selected").removeClass('ui-selected');
                     $(ui.item).addClass('ui-selected');
-                }};
+                },
+                stop: function(event, ui) {
+                    var ui = self._dumpState();
+                    ui.movement = 'drag';
+                    self._trigger("orderChanged", event, ui);
+                    }
+                };
             if ($(this.element).is("table")) {
                 this.strategy = "table";
                 var $pluginRoot = $( this.element).find("tbody");
@@ -28,7 +35,6 @@
             }
             this._addDomElements();
             this.widgetEventPrefix = "orderingList_";
-            var that = this;
             $pluginRoot
                 .sortable(this.sortableOptions)
                 .selectable(this.selectableOptions);
@@ -62,19 +68,22 @@
         },
 
         unSelectAll: function() {
-            var that = this;
+            var self = this;
             this._removeDomElements();
             $(this.element).children().each(function() {
-                that.unSelectItem(this);
+                self.unSelectItem(this);
             });
         },
 
-        moveTop: function (items) {
+        moveTop: function (items, event) {
             var first = items.prevAll().not('.ui-selected').last();
             $(items).insertBefore(first);
+            var ui = this._dumpState();
+            ui.movement = 'moveTop';
+            this._trigger("orderChanged", event, ui);
         },
 
-        moveUp: function (items) {
+        moveUp: function (items, event) {
             $(items).each( function () {
                 var $item = $(this);
                 var prev = $item.prevAll().not('.ui-selected').first();
@@ -82,9 +91,12 @@
                     $item.insertBefore(prev);
                 }
             });
+            var ui = this._dumpState();
+            ui.movement = 'moveUp';
+            this._trigger("orderChanged", event, ui);
         },
 
-        moveDown: function (items) {
+        moveDown: function (items, event) {
             $(items).sort(function() {return 1}).each( function () {
                 var $item = $(this);
                 var next = $item.nextAll().not('.ui-selected').first();
@@ -92,11 +104,32 @@
                     $item.insertAfter(next);
                 }
             });
+            var ui = this._dumpState();
+            ui.movement = 'moveDown';
+            this._trigger("orderChanged", event, ui);
         },
 
-        moveLast: function (items) {
+        moveLast: function (items, event) {
             var last = items.nextAll().not('.ui-selected').last();
             $(items).insertAfter(last);
+            var ui = this._dumpState();
+            ui.movement = 'moveLast';
+            this._trigger("orderChanged", event, ui);
+        },
+
+        getOrderedElements: function () {
+            return $(this.element).find('.ui-selectee');
+        },
+
+        getOrderedKeys: function () {
+            var keys = new Array();
+            this.getOrderedElements().each( function() {
+                var $this = $(this);
+                var jbossKey = $this.data('jbossKey');
+                var key = (jbossKey) ? jbossKey : $this.text();
+                keys.push(key);
+            })
+            return keys;
         },
 
         /** Initialisation methods **/
@@ -140,6 +173,7 @@
 
         _addButtons: function() {
             var button = $("<button/>")
+                .attr('type', 'button')
                 .addClass("btn")
             var buttonStack = $("<div/>")
                 .addClass("btn-group-vertical");
@@ -174,6 +208,13 @@
             this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
         },
 
+        _dumpState: function() {
+            var ui = {};
+            ui.orderedElements = this.getOrderedElements();
+            ui.orderedKeys = this.getOrderedKeys();
+            return ui;
+        },
+
         /** Cleanup methods **/
 
         _removeDomElements: function() {
@@ -183,19 +224,19 @@
         /** Event Handlers **/
 
         _topHandler: function (event) {
-            this.moveTop($('.ui-selected', this.element));
+            this.moveTop($('.ui-selected', this.element), event);
         },
 
         _upHandler: function (event) {
-            this.moveUp($('.ui-selected', this.element));
+            this.moveUp($('.ui-selected', this.element), event);
         },
 
         _downHandler: function (event) {
-            this.moveDown($('.ui-selected', this.element));
+            this.moveDown($('.ui-selected', this.element), event);
         },
 
         _lastHandler: function (event) {
-            this.moveLast($('.ui-selected', this.element));
+            this.moveLast($('.ui-selected', this.element), event);
         }
 
     });
