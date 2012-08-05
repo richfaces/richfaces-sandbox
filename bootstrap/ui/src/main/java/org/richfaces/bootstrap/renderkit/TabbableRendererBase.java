@@ -22,11 +22,13 @@
 package org.richfaces.bootstrap.renderkit;
 
 import java.util.List;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+
 import org.richfaces.bootstrap.component.AbstractMenuFacet;
-import org.richfaces.bootstrap.component.AbstractTabPane;
+import org.richfaces.bootstrap.component.AbstractTab;
 import org.richfaces.bootstrap.component.AbstractTabbable;
 import org.richfaces.renderkit.RendererBase;
 
@@ -48,7 +50,7 @@ public abstract class TabbableRendererBase extends RendererBase {
     public void setDefaultChild(UIComponent component) {
         AbstractTabbable tabbable = (AbstractTabbable) component;
         
-        // First, check is there is no tabPane with "default" attribute to "true"
+        // First, check is there is no tab with "default" attribute to "true"
         boolean hasDefaultChild = hasDefaultChild(tabbable.getChildren(), false);
         
         // Next, if not, let's use names
@@ -65,23 +67,23 @@ public abstract class TabbableRendererBase extends RendererBase {
     
     private boolean hasDefaultChild(List<UIComponent> children, boolean hasDefaultChildSoFar) {
         for(UIComponent child : children) {
-            if(child instanceof AbstractTabPane) {
-                AbstractTabPane tabPane = (AbstractTabPane) child;
+            if(child instanceof AbstractTab) {
+                AbstractTab tab = (AbstractTab) child;
                 
-                // If we already find a child so far, we need to disable any other tabPane#isDefault()
+                // If we already find a child so far, we need to disable any other tab#isDefault()
                 if(hasDefaultChildSoFar) {
-                    tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, false);
+                    tab.getAttributes().put(AbstractTab.DEFAULT_ATTRIBUTE_NAME, false);
                 } 
-                // If not, we can take the value of the current tabPane
+                // If not, we can take the value of the current tab
                 else {
-                    hasDefaultChildSoFar = tabPane.isDefault();
+                    hasDefaultChildSoFar = tab.isDefault();
                 }
                 
             } else if(child instanceof AbstractMenuFacet) {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = hasDefaultChild(child.getChildren(), hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuFacet contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tab
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
                     AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;
@@ -95,13 +97,13 @@ public abstract class TabbableRendererBase extends RendererBase {
     
     private boolean setDefaultChildByName(List<UIComponent> children, String tabName, boolean hasDefaultChildSoFar) {
         for(UIComponent child : children) {
-            if(child instanceof AbstractTabPane) {
-                AbstractTabPane tabPane = (AbstractTabPane) child;
+            if(child instanceof AbstractTab) {
+                AbstractTab tab = (AbstractTab) child;
                 
                 // If we didn't found a corresponding name so far and the current one match,
                 // then it's the default one!
-                if(!hasDefaultChildSoFar && tabName.equals(tabPane.getName())) {
-                    tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, true);
+                if(!hasDefaultChildSoFar && tabName.equals(tab.getName())) {
+                    tab.getAttributes().put(AbstractTab.DEFAULT_ATTRIBUTE_NAME, true);
                     hasDefaultChildSoFar = true;
                 }
                 
@@ -109,7 +111,7 @@ public abstract class TabbableRendererBase extends RendererBase {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByName(child.getChildren(), tabName, hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuFacet contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tab
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
                     AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;
@@ -133,16 +135,16 @@ public abstract class TabbableRendererBase extends RendererBase {
                 localIndex = ""+intLocalIndex;
             }
             
-            if(child instanceof AbstractTabPane && localIndex.equals(index)) {
-                AbstractTabPane tabPane = (AbstractTabPane) child;
-                tabPane.getAttributes().put(AbstractTabPane.DEFAULT_ATTRIBUTE_NAME, true);
+            if(child instanceof AbstractTab && localIndex.equals(index)) {
+                AbstractTab tab = (AbstractTab) child;
+                tab.getAttributes().put(AbstractTab.DEFAULT_ATTRIBUTE_NAME, true);
                 hasDefaultChildSoFar = true;
                 
             } else if(child instanceof AbstractMenuFacet) {
                 boolean hasDefaultChildSoFarOld = hasDefaultChildSoFar;
                 hasDefaultChildSoFar = setDefaultChildByIndex(child.getChildren(), index, localIndex, hasDefaultChildSoFar);
                 
-                // If the value has changed, it means this menuFacet contains the current tabPane
+                // If the value has changed, it means this menuFacet contains the current tab
                 // so it's the active one!
                 if(hasDefaultChildSoFarOld != hasDefaultChildSoFar) {
                     AbstractMenuFacet menuFacet = (AbstractMenuFacet) child;

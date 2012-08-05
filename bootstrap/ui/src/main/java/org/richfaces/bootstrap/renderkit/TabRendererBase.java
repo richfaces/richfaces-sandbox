@@ -35,6 +35,6 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib")})
-public abstract class TabPaneRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabPaneRenderer";
+public abstract class TabRendererBase extends RendererBase {
+    public static final String RENDERER_TYPE = "org.richfaces.bootstrap.TabRenderer";
 }

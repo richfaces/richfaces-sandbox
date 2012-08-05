@@ -6,10 +6,10 @@
         xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.bootstrap.renderkit.TabPaneRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.bootstrap.renderkit.TabPaneRendererBase</cdk:superclass>
-        <cdk:renderer-type>org.richfaces.bootstrap.TabPaneRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractTabPane</cdk:component-base-class>
+        <cdk:class>org.richfaces.bootstrap.renderkit.TabRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.renderkit.TabRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.TabRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.component.AbstractTab</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>

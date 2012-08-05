@@ -29,7 +29,7 @@
                                     <ul class="dropdown-menu">
                                         <c:forEach var="subchild" items="#{child.getChildren()}">
                                             <c:if test="#{subchild.rendered}">
-                                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTabPane" value="#{subchild}"/>
+                                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTab" value="#{subchild}"/>
                                                 <li class="#{tab.isDefault() ? 'active' : ''}"><a href="##{subchild.clientId}" data-toggle="tab">#{subchild.attributes['title']}</a></li>
                                             </c:if>
                                         </c:forEach>
@@ -37,7 +37,7 @@
                                 </li>
                             </c:when>
                             <c:otherwise>
-                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTabPane" value="#{child}"/>
+                                <cdk:object name="tab" type="org.richfaces.bootstrap.component.AbstractTab" value="#{child}"/>
                                 <li class="#{tab.isDefault() ? 'active' : ''}">
                                     <a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a>
                                 </li>

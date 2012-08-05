@@ -24,24 +24,24 @@ package org.richfaces.bootstrap.component;
 import javax.faces.component.UIPanel;
 
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
-import org.richfaces.bootstrap.renderkit.TabPaneRendererBase;
+import org.richfaces.bootstrap.renderkit.TabRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * Base class for the tabPane component
+ * Base class for the tab component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @BootstrapJSPlugin(name = "tab")
 @JsfComponent(
-        type = AbstractTabPane.COMPONENT_TYPE,
-        family = AbstractTabPane.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = TabPaneRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="tabPane"))
-public abstract class AbstractTabPane extends UIPanel {
+        type = AbstractTab.COMPONENT_TYPE,
+        family = AbstractTab.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = TabRendererBase.RENDERER_TYPE),
+        tag = @Tag(name="tab"))
+public abstract class AbstractTab extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Tab";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Tab";
     public static final String DEFAULT_ATTRIBUTE_NAME = "default";

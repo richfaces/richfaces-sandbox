@@ -14,7 +14,7 @@
     
     <div class="hidden-phone">
         <b:tabbable>
-            <b:tabPane title="VDL" default="true">
+            <b:tab title="VDL" default="true">
                 <h:dataTable value="#{taglibReader.getNonOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
                     <h:column>
                         <f:facet name="header">Attribute</f:facet>
@@ -38,9 +38,9 @@
                         <span class="required">Underline attributes</span> are required.
                     </p>
                 </div>
-            </b:tabPane>
+            </b:tab>
             
-            <b:tabPane title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
+            <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
                 <h:dataTable value="#{taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
                     <h:column>
                         <f:facet name="header">Attribute</f:facet>
@@ -64,7 +64,7 @@
                         <span class="required">Underline attributes</span> are required.
                     </p>
                 </div>
-            </b:tabPane>
+            </b:tab>
         </b:tabbable>
     </div>
     
@@ -78,7 +78,7 @@
         
         <div id="vdl" class="collapse">
             <b:tabbable>
-                <b:tabPane title="VDL" default="true">
+                <b:tab title="VDL" default="true">
                     <table class="attributes table table-bordered">
                         <tbody>
                             <ui:repeat var="attribute" value="#{taglibReader.getNonOnEventAttributes(taglibReader.tagMap[tag].attribute)}">
@@ -105,9 +105,9 @@
                             <span class="required">Underline attributes</span> are required.
                         </p>
                     </div>
-                </b:tabPane>
+                </b:tab>
                 
-                <b:tabPane title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
+                <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
                     <table class="attributes table table-bordered">
                         <tbody>
                             <ui:repeat var="attribute" value="#{taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute)}">
@@ -134,7 +134,7 @@
                             <span class="required">Underline attributes</span> are required.
                         </p>
                     </div>
-                </b:tabPane>
+                </b:tab>
             </b:tabbable>
         </div>
     </div>
