@@ -47,7 +47,6 @@ public abstract class AbstractBodyFacet extends AbstractSemanticComponent<Render
     
     @Override
     public String getRendererType(RenderBodyFacetCapable container) {
-        container.setCustomBodyFacet(true);
         return container.getBodyFacetRendererType();
     }
     

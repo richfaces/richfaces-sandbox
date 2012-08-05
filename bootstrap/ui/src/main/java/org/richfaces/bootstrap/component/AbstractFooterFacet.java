@@ -47,7 +47,6 @@ public abstract class AbstractFooterFacet extends AbstractSemanticComponent<Rend
     
     @Override
     public String getRendererType(RenderFooterFacetCapable container) {
-        container.setCustomFooterFacet(true);
         return container.getFooterFacetRendererType();
     }
 }

@@ -4,6 +4,4 @@ public interface RenderFooterFacetCapable {
     
     String getFooterFacetRendererType();
     
-    void setCustomFooterFacet(boolean customFooterFacet);
-    
 }

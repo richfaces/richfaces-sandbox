@@ -50,7 +50,12 @@ public abstract class AbstractModal extends UIPanel implements CoreProps, Render
         RenderFooterFacetCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Modal";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Modal";
-
+    
+    public enum Facets {
+        header,
+        footer
+    }
+    
     @Attribute
     public abstract String getHeader();
 
@@ -60,55 +65,42 @@ public abstract class AbstractModal extends UIPanel implements CoreProps, Render
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isCloseable();
-
-    @Attribute(defaultValue = "false", hidden = true)
-    public abstract boolean isCustom();
     
-    public abstract void setCustom(boolean custom);
-
     @Attribute(defaultValue = "", suggestedValue = "fade")
     public abstract String getEffect();
 
     @Attribute
     public abstract HorizontalPosition getCancelPosition();
-
+    
+    private boolean custom = false;
+    
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();
-    }
-
-    public enum Facets {
-        header,
-        footer
     }
     
     @Override
     public String getHeaderFacetRendererType() {
+        setCustom(true);
         return "org.richfaces.bootstrap.ModalHeaderFacetRenderer";
     }
     
     @Override
     public String getBodyFacetRendererType() {
+        setCustom(true);
         return "org.richfaces.bootstrap.ModalBodyFacetRenderer";
     }
     
     @Override
     public String getFooterFacetRendererType() {
+        setCustom(true);
         return "org.richfaces.bootstrap.ModalFooterFacetRenderer";
     }
     
-    @Override
-    public void setCustomHeaderFacet(boolean custom) {
-        setCustom(custom);
+    public boolean isCustom() {
+        return custom;
     }
     
-    @Override
-    public void setCustomBodyFacet(boolean custom) {
-        setCustom(custom);
-        
-    }
-    
-    @Override
-    public void setCustomFooterFacet(boolean custom) {
-        setCustom(custom);
+    public void setCustom(boolean custom) {
+        this.custom = custom;
     }
 }

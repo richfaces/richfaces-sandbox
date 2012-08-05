@@ -27,7 +27,7 @@
                 <cdk:call expression="encodeEndBody(facesContext, component)" />
 
                 <c:if test="#{hasFacet(component, 'footer')}">
-                    <div id="#{clientId}" class="modal-footer">
+                    <div class="modal-footer">
                         <cc:renderFacet name="footer" />
                     </div>
                 </c:if>

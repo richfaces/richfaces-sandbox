@@ -17,8 +17,6 @@
         
         <p>There is two ways to use the modal component : the <code>basic</code> one and the <code>custom</code> one. Learn in the two following examples.</p>
         
-        <p></p>
-        
         <h2>Basic usage</h2>
         
         <p>The basic usage of the modal suppose that your modal will be divided in 3 parts :</p>
@@ -37,15 +35,15 @@
         
         <h2>Custom usage</h2>
 
-        <p>If the default structure doesn't correspond to your needs, you will probably to customize with no restriction. You can do that of course. Just turn the <code>custom</code> attribute to <code>true</code> and that's it! No more auto-generated <code>div</code>, you can put whatever you want inside your modal componant.</p>
-        
-        <p>It's safe to say that even if you want to customize freely the content of your modal, you might still need the <code>div</code> with specific CSS classes. In order to no bother you by learning them, you can use 3 corresponding JSF components:</p>
+        <p>If the default structure doesn't correspond to your needs, you will probably want to customize with no restriction. You can do that of course. Just use a semantic component inside the modal and that's it! No more auto-generated <code>div</code>, you can put whatever you want inside your modal component. Here are the 3 semantic components that will make your modal custom:</p>
         
         <ol>
-            <li><code>modalHeader</code></li>
-            <li><code>modalBody</code></li>
-            <li><code>modalFooter</code></li>
+            <li><code>headerFacet</code></li>
+            <li><code>bodyFacet</code></li>
+            <li><code>footerFacet</code></li>
         </ol>
+        
+        <p>Of course, each one of those semantic components will generate its own <code>div</code> with the corresponding CSS class.</p>
 
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="modal" />

@@ -47,7 +47,6 @@ public abstract class AbstractHeaderFacet extends AbstractSemanticComponent<Rend
     
     @Override
     public String getRendererType(RenderHeaderFacetCapable container) {
-        container.setCustomHeaderFacet(true);
         return container.getHeaderFacetRendererType();
     }
 }
