@@ -59,8 +59,17 @@
     vertical-align: baseline;
 }
 
+.orderingList .disabled .handle i {
+    color: @grayLight;
+}
+
 .orderingList .handle:hover {
   background: @linkColor;
+}
+
+.orderingList .disabled .handle:hover,
+.orderingList .disabled .ui-selectee:hover {
+    background: none;
 }
 
 .orderingList .ui-selectee:hover {
@@ -85,7 +94,10 @@
   background-color: @linkColorHover;
 }
 
-.disabled .ui-selectee {
+.orderingList .disabled .ui-selectee,
+.orderingList .disabled .handle,
+.orderingList .disabled li,
+.orderingList .disabled td {
   cursor: default;
 }
 

@@ -5,7 +5,7 @@
     <link rel="stylesheet/less" type="text/css"
           href="../../../main/resources/META-INF/resources/org.richfaces/less/orderingList.less"/>
     <link rel="stylesheet/less" type="text/css"
-          href="../../../main/resources/META-INF/resources/font-awesome/less/font-awesome.less"/>
+          href="../../../main/resources/META-INF/resources/font-awesome/font-awesome.less"/>
 
     <script type="text/javascript" src="../../../main/resources/META-INF/resources/less/less.min.js"></script>
     <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
@@ -43,9 +43,12 @@
 <div class="container-fluid ">
     <div class="row-fluid ">
         <div class="span6 ">
-            <!--<button onclick="$('#orderingListDemo').orderingList($('#orderingListWidget').hasClass('orderingList') ? 'destroy' : undefined)">-->
-            <!--Toggle-->
-            <!--</button>-->
+            <button onclick="var $list = $('#orderingListDemo');
+                             var disabled = $list.orderingList('option', 'disabled');
+                             $list.orderingList('option', 'disabled', !disabled);">
+                    Toggle Disabled
+            </button>
+            <!--<button onclick="$('#orderingListDemo').orderingList($('#orderingListWidget').hasClass('orderingList') ? 'destroy' : undefined)">Toggle plugin</button>-->
             <hr/>
             <ol id="orderingListDemo">
                 <li data-jboss-key="1">Item 1</li>
@@ -61,6 +64,11 @@
     </div>
     <div class="row-fluid ">
         <div class="span6">
+            <button onclick="var $list = $('#orderingListDemo2');
+                             var disabled = $list.orderingList('option', 'disabled');
+                             $list.orderingList('option', 'disabled', !disabled);">
+                Toggle Disabled
+            </button>
             <!--<button onclick="$('#orderingListDemo2').orderingList($('#orderingListJqueryui').hasClass('orderingList') ? 'destroy' : undefined)">-->
             <!--Toggle-->
             <!--</button>-->

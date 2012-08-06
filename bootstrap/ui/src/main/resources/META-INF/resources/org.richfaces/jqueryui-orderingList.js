@@ -3,15 +3,17 @@
     $.widget('rf.orderingList', {
 
         options: {
-            cssClass: '',
             disabled: false,
             header: ''
         },
 
         _create: function() {
             var self = this;
-            this.selectableOptions = {};
+            this.selectableOptions = {
+                disabled: self.options.disabled
+            };
             this.sortableOptions = { handle: ".handle",
+                disabled: this.options.disabled,
                 start: function(event, ui) {
                     $(self.element).find(".ui-selected").removeClass('ui-selected');
                     $(ui.item).addClass('ui-selected');
@@ -24,20 +26,23 @@
                 };
             if ($(this.element).is("table")) {
                 this.strategy = "table";
-                var $pluginRoot = $( this.element).find("tbody");
+                this.$pluginRoot = $( this.element).find("tbody");
                 this.selectableOptions.filter = "tr";
                 this.sortableOptions.placeholder = "placeholder";
                 this.sortableOptions.helper = $.proxy(this._rowHelper, this);
             } else {
                 this.strategy = "list";
-                var $pluginRoot = $( this.element);
+                this.$pluginRoot = $( this.element);
                 this.selectableOptions.filter = "li";
             }
             this._addDomElements();
             this.widgetEventPrefix = "orderingList_";
-            $pluginRoot
+            this.$pluginRoot
                 .sortable(this.sortableOptions)
                 .selectable(this.selectableOptions);
+            if (this.options.disabled === true) {
+                self._disable();
+            }
         },
 
         _rowHelper: function(e, tr) {
@@ -51,6 +56,23 @@
                 $(this).css('width', original_width);
             });
             return $helper;
+        },
+
+        _setOption: function(key, value) {
+            var self = this;
+            if (this.options.key === value) {
+                return;
+            }
+            switch (key) {
+                case "disabled":
+                    if (value === true) {
+                        self._disable();
+                    } else {
+                        self._enable();
+                    }
+                    break;
+            }
+            $.Widget.prototype._setOption.apply(self, arguments);
         },
 
         /** Public API methods **/
@@ -76,6 +98,7 @@
         },
 
         moveTop: function (items, event) {
+            if (this.options.disabled) return;
             var first = items.prevAll().not('.ui-selected').last();
             $(items).insertBefore(first);
             var ui = this._dumpState();
@@ -84,6 +107,7 @@
         },
 
         moveUp: function (items, event) {
+            if (this.options.disabled) return;
             $(items).each( function () {
                 var $item = $(this);
                 var prev = $item.prevAll().not('.ui-selected').first();
@@ -97,6 +121,7 @@
         },
 
         moveDown: function (items, event) {
+            if (this.options.disabled) return;
             $(items).sort(function() {return 1}).each( function () {
                 var $item = $(this);
                 var next = $item.nextAll().not('.ui-selected').first();
@@ -110,6 +135,7 @@
         },
 
         moveLast: function (items, event) {
+            if (this.options.disabled) return;
             var last = items.nextAll().not('.ui-selected').last();
             $(items).insertAfter(last);
             var ui = this._dumpState();
@@ -136,7 +162,7 @@
 
         _addDomElements: function() {
             $(this.element).addClass("list").wrap(
-                $("<div />").addClass('orderingList container-fluid with-handle').addClass(this.options.cssClass).append(
+                $("<div />").addClass('orderingList container-fluid with-handle').append(
                     $('<div />').addClass('content row-fluid').append(
                         $('<div />').addClass('span10')
                     )
@@ -206,6 +232,24 @@
             this.content.append(
                 $('<div />').addClass('buttonColumn span2').append(buttonStack));
             this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
+        },
+
+        _disable: function() {
+            this.$pluginRoot
+                .sortable("option", "disabled", true)
+                .selectable("option", "disabled", true);
+            $(this.element)
+                .addClass('disabled')
+                .find(".ui-selected").removeClass('ui-selected');
+            $('.buttonColumn', this.content).find("button").attr("disabled", true);
+        },
+
+        _enable: function() {
+            this.$pluginRoot
+                .sortable("option", "disabled", false)
+                .selectable("option", "disabled", false);
+            $(this.element).removeClass('disabled');
+            $('.buttonColumn', this.content).find("button").attr("disabled", false);
         },
 
         _dumpState: function() {

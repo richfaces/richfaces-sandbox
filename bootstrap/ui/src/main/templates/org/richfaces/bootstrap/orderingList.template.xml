@@ -15,7 +15,7 @@
         <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
                     value="#{getClientSelectItems(facesContext, component)}" />
 
-        <div id="#{clientId}">
+        <div id="#{clientId}" class="#{component.styleClass}">
             <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
@@ -42,6 +42,7 @@
         <script type="text/javascript">
             <cdk:scriptObject name="options">
                 <cdk:scriptOption name="header" value="#{component.caption}" />
+                <cdk:scriptOption name="disabled" value="#{component.disabled}" />
             </cdk:scriptObject>
             jQuery(function() {
                 $(document.getElementById('#{clientId}List')).orderingList(#{toScriptArgs(options)});
