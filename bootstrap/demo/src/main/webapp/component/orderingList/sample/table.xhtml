@@ -4,7 +4,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h:form id="myForm">
-        <b:orderingList id="myOrderingList" value="#{listSelectBean.capitals}" var="capital">
+        <b:orderingList id="myOrderingList"
+                value="#{listSelectBean.capitals}"
+                var="capital"
+                caption="Ordering State Capitals">
             <f:converter converterId="CapitalsConverter" />
             <h:column>
                 <f:facet name="header">Flag</f:facet>
