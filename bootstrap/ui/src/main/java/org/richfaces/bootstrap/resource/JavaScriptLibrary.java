@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 public class JavaScriptLibrary implements ResourceLibrary {
 
     private static final ImmutableList<ResourceKey> BOOTSTRAP_MIN = ImmutableList.of(
-            ResourceKey.create("rf-bootstrap-js.js", "org.richfaces.min")
+            ResourceKey.create("min/rf-bootstrap-js.js", "org.richfaces")
         );
 
     @Override

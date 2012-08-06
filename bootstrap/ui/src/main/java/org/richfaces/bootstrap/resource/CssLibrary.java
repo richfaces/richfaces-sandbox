@@ -10,8 +10,8 @@ import com.google.common.collect.ImmutableList;
 
 public class CssLibrary implements ResourceLibrary {
 
-    private static final ImmutableList<ResourceKey> BOOTSTRAP_MIN = ImmutableList.of(ResourceKey.create("rf-bootstrap-css.css",
-            "org.richfaces.min"));
+    private static final ImmutableList<ResourceKey> BOOTSTRAP_MIN = ImmutableList.of(ResourceKey.create("min/rf-bootstrap-css.css",
+            "org.richfaces"));
 
     private static final ImmutableList<ResourceKey> BOOTSTRAP_CLIENT_SIDE = ImmutableList.of(
             ResourceKey.create("bootstrap.less", "org.richfaces.develop"),

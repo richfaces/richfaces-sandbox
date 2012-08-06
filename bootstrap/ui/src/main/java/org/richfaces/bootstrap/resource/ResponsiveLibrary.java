@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 public class ResponsiveLibrary implements ResourceLibrary {
 
     private static final ImmutableList<ResourceKey> BOOTSTRAP_RESPONSIVE_MIN = ImmutableList.of(
-            ResourceKey.create("rf-bootstrap-responsive.css", "org.richfaces.min")
+            ResourceKey.create("min/rf-bootstrap-responsive.css", "org.richfaces")
         );
 
     @Override

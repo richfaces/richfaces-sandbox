@@ -183,7 +183,7 @@
                         <version>1.4.5</version>
                         <configuration>
                             <contextFolder>${basedir}/src/main/resources/META-INF/resources</contextFolder>
-                            <destinationFolder>${project.build.directory}/classes/META-INF/resources/org.richfaces.min</destinationFolder>
+                            <destinationFolder>${project.build.directory}/classes/META-INF/resources/org.richfaces/min</destinationFolder>
                             <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
                         </configuration>
                         <executions>
