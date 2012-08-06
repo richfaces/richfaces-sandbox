@@ -2,7 +2,7 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     
     <p>
-        <b:commandButton mode="client" onclick="#{b:show('showPopover')};setTimeout(&quot;#{b:hide('showPopover')}&quot;, 2000)" value="Click to show popover" />
+        <b:commandButton mode="client" onclick="#{b:show('showPopover')};setTimeout(function() { #{b:hide('showPopover')}; }, 2000)" value="Click to show popover" />
     </p>
     
     <p>
