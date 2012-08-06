@@ -54,6 +54,7 @@
     </dependencies>
 
     <build>
+        <finalName>bootstrap-demo</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
