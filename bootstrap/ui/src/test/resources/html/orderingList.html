@@ -123,8 +123,12 @@
 </body>
 </html>
 <script>
-    $("#orderingListDemo").orderingList();
+    $("#orderingListDemo").orderingList({
+        header: "List layout"
+    });
     $("#orderingListDemo").orderingListBridge();
-    $("#orderingListDemo2").orderingList();
+    $("#orderingListDemo2").orderingList({
+        header: "Table layout"
+    });
     $("#orderingListDemo2").orderingListBridge();
 </script>

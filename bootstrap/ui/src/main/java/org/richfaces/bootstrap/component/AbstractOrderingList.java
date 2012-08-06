@@ -26,7 +26,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.AbstractOrderingComponent;
+import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.SelectItemsInterface;
 
 /**
@@ -40,7 +40,7 @@ import org.richfaces.component.util.SelectItemsInterface;
         renderer = @JsfRenderer(type = OrderingListRendererBase.RENDERER_TYPE),
         tag = @Tag(name="orderingList"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
-abstract public class AbstractOrderingList extends AbstractOrderingComponent implements SelectItemsInterface {
+abstract public class AbstractOrderingList extends AbstractSelectManyComponent implements SelectItemsInterface {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.OrderingList";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.OrderingList";
 

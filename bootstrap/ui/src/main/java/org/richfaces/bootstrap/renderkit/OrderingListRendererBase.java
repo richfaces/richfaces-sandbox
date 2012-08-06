@@ -21,11 +21,15 @@
  */
 package org.richfaces.bootstrap.renderkit;
 
+import org.richfaces.bootstrap.component.AbstractOrderingList;
+import org.richfaces.component.AbstractSelectManyComponent;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.SelectManyRendererBase;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIColumn;
 
 /**
  * Base class for the orderingList renderer
@@ -52,5 +56,22 @@ import javax.faces.application.ResourceDependency;
         })
 public abstract class OrderingListRendererBase extends SelectManyRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.OrderingListRenderer";
-    
+
+    protected String[] getColumnClasses(AbstractSelectManyComponent orderingList) {
+        String[] columnClasses;
+        if (orderingList.getColumnClasses() != null) {
+            columnClasses = orderingList.getColumnClasses().split(",");
+        } else {
+            columnClasses = new String[0];
+        }
+        return columnClasses;
+    }
+
+    protected String getColumnClass(UIColumn column, String[] columnClasses, int columnCount) {
+        String columnClass = (String) column.getAttributes().get("styleClass");
+        if (columnClasses != null && columnClasses.length > 0) {
+            columnClass = HtmlUtil.concatClasses(columnClasses[columnCount % columnClasses.length], columnClass);
+        }
+        return columnClass;
+    }
 }

@@ -40,8 +40,11 @@
             </c:choose>
         </div>
         <script type="text/javascript">
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption name="header" value="#{component.caption}" />
+            </cdk:scriptObject>
             jQuery(function() {
-                $(document.getElementById('#{clientId}List')).orderingList();
+                $(document.getElementById('#{clientId}List')).orderingList(#{toScriptArgs(options)});
                 $(document.getElementById('#{clientId}List')).orderingListBridge();
             });
         </script>
@@ -81,14 +84,16 @@
             <tbody>
                 <cdk:object name="requestMap" type="java.util.Map" value="#{facesContext.getExternalContext().getRequestMap()}" />
                 <cdk:object name="oldVar" type="java.lang.Object" value="#{requestMap.get(component.getVar())}" />
+                <cdk:object name="columnClasses" type="String[]"
+                            value="#{(component.getColumnClasses() != null) ? component.getColumnClasses().split(',') : null}"/>
                 <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
                     <!-- TODO: Find an elegant way of resetting the iterator -->
                     <cdk:call expression="columns = component.columns()" />
                     <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
                     <tr data-jboss-key="#{item.convertedValue}">
-                        <c:forEach var="columnObject" items="#{columns}">
+                        <c:forEach var="columnObject" items="#{columns}" varStatus="varStatus">
                             <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
-                            <td>
+                            <td class="#{getColumnClass(column, columnClasses, varStatus.index)}">
                                 <cdk:call expression="column.encodeBegin(facesContext)" />
                                 <cdk:call expression="renderChildren(facesContext, column)" />
                                 <cdk:call expression="column.encodeEnd(facesContext)" />

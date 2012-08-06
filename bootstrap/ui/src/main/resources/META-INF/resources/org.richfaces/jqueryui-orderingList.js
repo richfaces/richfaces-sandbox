@@ -5,7 +5,7 @@
         options: {
             cssClass: '',
             disabled: false,
-            headerText: ''
+            header: ''
         },
 
         _create: function() {
@@ -146,7 +146,7 @@
             this.outer.prepend(
                 $("<div />").addClass("row-fluid").append(
                     $("<div />").addClass('span12 header').append(
-                        $("<h3/>").html(this.options.headerText)
+                        $("<h3/>").html(this.options.header)
                     )
                 )
             );
