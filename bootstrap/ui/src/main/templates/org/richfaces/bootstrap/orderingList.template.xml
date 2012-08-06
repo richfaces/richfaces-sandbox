@@ -30,47 +30,9 @@
                         <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
-                                <!--encode column headers-->
-                                <thead>
-                                    <tr>
-                                        <c:forEach var="columnObject" items="#{columns}">
-                                            <!-- TODO: Add support for type casting to the cdk forEach statement -->
-                                            <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
-                                            <th>
-                                                <c:if test='#{hasFacet(column, "header")}'>
-                                                    <cdk:object name="header" type="javax.faces.component.UIComponent" value="#{column.header}" />
-                                                    <c:if test='#{header.rendered}'>
-                                                        <cdk:call expression="header.encodeBegin(facesContext)" />
-                                                        <cdk:call expression="renderChildren(facesContext, header)" />
-                                                        <cdk:call expression="header.encodeEnd(facesContext)" />
-                                                    </c:if>
-                                                </c:if>
-                                            </th>
-                                        </c:forEach>
-                                    </tr>
-                                </thead>
+                                <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
                             </c:if>
-                            <!--encode column rows-->
-                            <tbody>
-                                <cdk:object name="requestMap" type="java.util.Map" value="#{facesContext.getExternalContext().getRequestMap()}" />
-                                <cdk:object name="oldVar" type="java.lang.Object" value="#{requestMap.get(component.getVar())}" />
-                                <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
-                                    <cdk:call expression="columns = component.columns()" />
-                                    <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
-                                    <tr data-jboss-key="#{item.convertedValue}">
-                                        <c:forEach var="columnObject" items="#{columns}">
-                                            <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
-                                            <td>
-                                                <cdk:call expression="column.encodeBegin(facesContext)" />
-                                                <cdk:call expression="renderChildren(facesContext, column)" />
-                                                <cdk:call expression="column.encodeEnd(facesContext)" />
-                                            </td>
-                                        </c:forEach>
-                                    </tr>
-                                </c:forEach>
-                                <cdk:call expression="requestMap.put(component.getVar(), oldVar)" />
-                                <cdk:call expression="oldVar = null" />
-                            </tbody>
+                            <cdk:renderFragment name="renderColumns" columns="#{columns}" />
                         </c:if>
 
                     </table>
@@ -84,5 +46,60 @@
             });
         </script>
     </cc:implementation>
+
+    <cdk:fragment name="renderColumnHeaders">
+        <cc:interface>
+            <cc:attribute name="columns" type="java.util.Iterator" />
+        </cc:interface>
+        <cc:implementation>
+            <thead>
+                <tr>
+                    <c:forEach var="columnObject" items="#{columns}">
+                        <!-- TODO: Add support for type casting to the cdk forEach statement -->
+                        <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
+                        <th>
+                            <c:if test='#{hasFacet(column, "header")}'>
+                                <cdk:object name="header" type="javax.faces.component.UIComponent" value="#{column.header}" />
+                                <c:if test='#{header.rendered}'>
+                                    <cdk:call expression="header.encodeBegin(facesContext)" />
+                                    <cdk:call expression="renderChildren(facesContext, header)" />
+                                    <cdk:call expression="header.encodeEnd(facesContext)" />
+                                </c:if>
+                            </c:if>
+                        </th>
+                    </c:forEach>
+                </tr>
+            </thead>
+        </cc:implementation>
+    </cdk:fragment>
+
+    <cdk:fragment name="renderColumns">
+        <cc:interface>
+            <cc:attribute name="columns" type="java.util.Iterator" />
+        </cc:interface>
+        <cc:implementation>
+            <tbody>
+                <cdk:object name="requestMap" type="java.util.Map" value="#{facesContext.getExternalContext().getRequestMap()}" />
+                <cdk:object name="oldVar" type="java.lang.Object" value="#{requestMap.get(component.getVar())}" />
+                <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
+                    <!-- TODO: Find an elegant way of resetting the iterator -->
+                    <cdk:call expression="columns = component.columns()" />
+                    <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
+                    <tr data-jboss-key="#{item.convertedValue}">
+                        <c:forEach var="columnObject" items="#{columns}">
+                            <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
+                            <td>
+                                <cdk:call expression="column.encodeBegin(facesContext)" />
+                                <cdk:call expression="renderChildren(facesContext, column)" />
+                                <cdk:call expression="column.encodeEnd(facesContext)" />
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+                <cdk:call expression="requestMap.put(component.getVar(), oldVar)" />
+                <cdk:call expression="oldVar = null" />
+            </tbody>
+        </cc:implementation>
+    </cdk:fragment>
 
 </cdk:root>
