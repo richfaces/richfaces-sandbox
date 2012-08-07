@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="autocomplete" />
+
+        <h1><code>b:autocomplete</code></h1>
+        
+        <h2>Basic usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="autocomplete" />
+            <ui:param name="sample" value="basic" />
+        </ui:include>
+        
+        <h2>Multiple values</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="autocomplete" />
+            <ui:param name="sample" value="multiple-values" />
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>
