@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:b="http://richfaces.org/sandbox/bootstrap">
+<h:head>
+    <title>RichFaces Bootstrap</title>
+</h:head>
+
+<h:body styleClass="rich-container">
+    <h:form id="form">
+        <b:commandButton render="form" action="#{bean.setValue('show')}" value="Show" rendered="#{bean.value != 'show'}" />
+        <b:commandButton render="form" action="#{bean.setValue('noshow')}" value="Hide" rendered="#{bean.value == 'show'}" />
+        <rich:panel rendered="#{bean.value == 'show'}">
+        <b:orderingList id="myOrderingList"
+                        value="#{listSelectBean.capitals}"
+                        var="capital"
+                        caption="Ordering State Capitals">
+            <f:converter converterId="CapitalsConverter" />
+            <h:column>
+                <f:facet name="header">Flag</f:facet>
+                <h:graphicImage library="img/capitals" name="#{capital.stateFlag}" alt="flag"  width="33" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{capital.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">State</f:facet>
+                #{capital.state}
+            </h:column>
+        </b:orderingList>
+        </rich:panel>
+    </h:form>
+</h:body>
+
+<h:outputStylesheet library="css" name="demo.css"/>
+</html>

@@ -50,6 +50,7 @@ import javax.faces.component.UIColumn;
         @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.selectable.js"),
         @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.sortable.js"),
 
+        @ResourceDependency(library = "org.richfaces", name = "bridge-bootstrap.js"),
         @ResourceDependency(library = "org.richfaces", name = "jqueryui-orderingList.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge-orderingList.js")
 

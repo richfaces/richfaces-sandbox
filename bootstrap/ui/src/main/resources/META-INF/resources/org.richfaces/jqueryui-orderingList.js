@@ -45,6 +45,15 @@
             }
         },
 
+        destroy: function() {
+            $.Widget.prototype.destroy.call( this );
+            this._removeDomElements();
+            this.$pluginRoot
+                .sortable("destroy")
+                .selectable("destroy");
+            return this;
+        },
+
         _rowHelper: function(e, tr) {
             var $helper = tr.clone();
             $helper.addClass("ui-selected rowhelper");
