@@ -272,6 +272,13 @@
 
         _removeDomElements: function() {
             // TODO: impl
+            var parent = $(this.element).parents(".orderingList").get(0);
+            var list = $(this.element).detach();
+            $(parent).replaceWith(list);
+
+//                .unwrap()  // container-fluid
+//                .unwrap()  // row
+//                .unwrap(); // span
         },
 
         /** Event Handlers **/

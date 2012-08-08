@@ -33,6 +33,42 @@
 
 
 </head>
+
+<script>
+    var pluginOptions1 = {
+        header: "List layout"
+    };
+    var pluginOptions2 = {
+        header: "Table layout"
+    };
+    var toggleDisabled = function (event, id) {
+        var $list = $('#' + id);
+        var $button = $(event.target);
+        var disabled = $list.orderingList('option', 'disabled');
+        if (disabled) {
+            $list.orderingList('option', 'disabled', false);
+            $button.text('Disable Plugin');
+        } else {
+            $list.orderingList('option', 'disabled', true);
+            $button.text('Enable Plugin');
+        }
+    }
+
+    var toggleActive = function (event, id, options) {
+        var $list = $('#' + id);
+        var $button = $(event.target);
+        var active = $list.parents('.orderingList').length > 0;
+        if (active) {
+            $list.orderingList('destroy');
+            $button.text('Activate Plugin');
+        } else {
+            $list.orderingList(options);
+            $button.text('Destroy Plugin');
+        }
+    }
+
+</script>
+
 <body>
 
 <h2>Example orderingList</h2>
@@ -43,12 +79,8 @@
 <div class="container-fluid ">
     <div class="row-fluid ">
         <div class="span6 ">
-            <button onclick="var $list = $('#orderingListDemo');
-                             var disabled = $list.orderingList('option', 'disabled');
-                             $list.orderingList('option', 'disabled', !disabled);">
-                    Toggle Disabled
-            </button>
-            <!--<button onclick="$('#orderingListDemo').orderingList($('#orderingListWidget').hasClass('orderingList') ? 'destroy' : undefined)">Toggle plugin</button>-->
+            <button onclick="toggleDisabled(event, 'orderingListDemo')">Disable Plugin</button>
+            <button onclick="toggleActive(event, 'orderingListDemo', pluginOptions1)">Destroy Plugin</button>
             <hr/>
             <ol id="orderingListDemo">
                 <li data-jboss-key="1">Item 1</li>
@@ -64,14 +96,8 @@
     </div>
     <div class="row-fluid ">
         <div class="span6">
-            <button onclick="var $list = $('#orderingListDemo2');
-                             var disabled = $list.orderingList('option', 'disabled');
-                             $list.orderingList('option', 'disabled', !disabled);">
-                Toggle Disabled
-            </button>
-            <!--<button onclick="$('#orderingListDemo2').orderingList($('#orderingListJqueryui').hasClass('orderingList') ? 'destroy' : undefined)">-->
-            <!--Toggle-->
-            <!--</button>-->
+            <button onclick="toggleDisabled(event, 'orderingListDemo2')">Disable Plugin</button>
+            <button onclick="toggleActive(event, 'orderingListDemo2', pluginOptions2)">Destroy Plugin</button>
             <hr/>
             <table id="orderingListDemo2">
                 <thead>
@@ -131,12 +157,8 @@
 </body>
 </html>
 <script>
-    $("#orderingListDemo").orderingList({
-        header: "List layout"
-    });
+    $("#orderingListDemo").orderingList(pluginOptions1);
     $("#orderingListDemo").orderingListBridge();
-    $("#orderingListDemo2").orderingList({
-        header: "Table layout"
-    });
+    $("#orderingListDemo2").orderingList(pluginOptions2);
     $("#orderingListDemo2").orderingListBridge();
 </script>
