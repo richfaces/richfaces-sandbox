@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.icon.IconRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.icon.IconRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.IconRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.icon.AbstractIcon</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <i id="#{clientId}"
+            class="icon-#{component.value} #{component.styleClass}"
+            style="#{component.color ne null and !component.color.equals('') ? 'color:'.concat(component.color).concat(';') : ''}#{component.style}"
+            cdk:passThrough="title"/>
+    </cc:implementation>
+
+</cdk:root>

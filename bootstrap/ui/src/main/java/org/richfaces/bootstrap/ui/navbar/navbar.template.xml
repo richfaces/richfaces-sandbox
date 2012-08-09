@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.navbar.NavbarRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.navbar.NavbarRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.NavbarRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.navbar.AbstractNavbar</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="navbar #{component.fixed ne null and !component.fixed.equals('') ? 'navbar-fixed-'.concat(component.fixed) : ''}">
+            <div class="navbar-inner">
+                <div class="container">
+                    <c:if test="#{component.isCollapsible()}">
+                        <a class="btn btn-inverse btn-navbar" data-toggle="collapse" data-target="##{clientId}_collapse">
+                            <cc:renderFacet name="collapsedMenu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </cc:renderFacet>
+                        </a>
+                    </c:if>
+                    
+                    <cc:renderFacet name="brand">
+                        <c:if test="#{component.attributes['brand']!= null and not component.attributes['brand'].equals('')}">
+                            <span class="brand">#{component.brand}</span>
+                        </c:if>
+                    </cc:renderFacet>
+                    
+                    <cdk:body />
+                </div>
+            </div>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

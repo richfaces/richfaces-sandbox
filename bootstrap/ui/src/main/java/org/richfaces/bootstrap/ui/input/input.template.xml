@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.input.InputRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.input.InputRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.InputRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.input.AbstractInput</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:call expression="encodeBeginWrapper(facesContext, component)"/>
+        
+        <c:if test="#{component.hasFacet('prepend')}">
+            <c:forEach var="child" items="#{component.getFacetChildren('prepend')}">
+                <c:choose>
+                    <c:when test="#{component.isChildBtn(child)}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="add-on">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </c:if>
+        
+        <c:choose>
+            <c:when test="#{component.isReadonly()}">
+                <span class="uneditable-input #{component.scale != null ? component.scale.inputStyleClass : ''}">#{component.value}</span>
+            </c:when>
+            <c:otherwise>
+                <input id="#{clientId}" cdk:passThrough="style value placeholder type"
+                    class="#{component.scale != null ? component.scale.inputStyleClass : ''} #{component.isDisabled() ? 'disabled' : ''} #{component.styleClass}">
+                    <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
+                </input>
+            </c:otherwise>
+        </c:choose>
+        
+        <c:if test="#{component.hasFacet('append')}">
+            <c:forEach var="child" items="#{component.getFacetChildren('append')}">
+                <c:choose>
+                    <c:when test="#{component.isChildBtn(child)}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="add-on">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </c:if>
+        
+        <cdk:call expression="encodeEndWrapper(facesContext, component)"/>
+    </cc:implementation>
+
+</cdk:root>

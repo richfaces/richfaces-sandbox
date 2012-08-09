@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.alert.AlertRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.alert.AlertRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.AlertRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.alert.AbstractAlert</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="alert #{component.layout eq 'block' ? 'alert-block' : ''} #{component.severity != null ? component.severity.alertClass : ''}">
+            <c:if test="#{component.isClosable()}">
+                <a class="close" data-dismiss="alert">×</a>
+            </c:if>
+            
+            <c:if test="#{component.header != null and !component.header.equals('')}">
+                <h4 class="alert-heading">#{component.header}</h4>
+            </c:if>
+            
+            <cdk:body />
+        </div>
+    </cc:implementation>
+
+</cdk:root>

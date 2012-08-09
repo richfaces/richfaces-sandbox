@@ -109,12 +109,6 @@
                 <configuration>
                     <templates>
                         <fileSet>
-                            <directory>src/main/templates</directory>
-                            <includes>
-                                <include>**/*.xml</include>
-                            </includes>
-                        </fileSet>
-                        <fileSet>
                             <directory>src/main/java</directory>
                             <includes>
                                 <include>**/*.template.xml</include>

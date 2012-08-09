@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.buttonDropdown.ButtonDropdownRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.buttonDropdown.ButtonDropdownRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.ButtonDropdownRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.buttonDropdown.AbstractButtonDropdown</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
+            <a class="btn #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''} #{component.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
+               cdk:passThrough="on*">
+                #{component.title.concat(' ')}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu #{component.horizontal ne null ? component.horizontal.buttonClass : ''}">
+                <c:forEach var="child" items="#{component.getChildren()}">
+                    <li>
+                        <cdk:call expression="child.encodeAll(facesContext)" />
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </cc:implementation>
+</cdk:root>

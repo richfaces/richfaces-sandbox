@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.navbar.NavbarMenuFacetRenderer</cdk:class>
+        <cdk:component-family>org.richfaces.bootstrap.MenuFacet</cdk:component-family>
+        <cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.NavbarMenuFacetRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.semantic.AbstractMenuFacet</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="level" type="int" value="#{component.getLevel()}"/>
+        <li id="#{clientId}" class="dropdown dropdown-#{level} #{level gt 0 ? 'submenu' : ''}">
+            <cc:renderFacet name="label">
+                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                    #{component.label}
+                    <b class="caret"></b>
+                </a>
+            </cc:renderFacet>
+            
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <c:forEach var="child" items="#{component.getChildren()}">
+                    <li>
+                        <cdk:call expression="child.encodeAll(facesContext)" />
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </cc:implementation>
+</cdk:root>

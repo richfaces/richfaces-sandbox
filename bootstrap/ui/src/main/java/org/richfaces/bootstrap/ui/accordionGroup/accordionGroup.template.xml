@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.accordionGroup.AccordionGroupRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.accordionGroup.AccordionGroupRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.AccordionGroupRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.accordionGroup.AbstractAccordionGroup</cdk:component-base-class>
+
+        <cdk:import package="org.richfaces.bootstrap" names="BootstrapRenderKitUtils" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="rf-bs accordion-group" cdk:passThrough="on*">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" href="##{clientId}_body" data-toggle="collapse" data-parent="##{component.parent.clientId}">
+                    #{component.heading}
+                </a>
+            </div>
+            <div id="#{clientId}_body" class="accordion-body collapse rf-bs-event-target">
+                <div class="accordion-inner">
+                    <cdk:body />
+                </div>
+            </div>
+            <cdk:scriptObject name="eventHandlers">
+                <cdk:scriptOption attributes="onhide onshow" wrapper="eventHandler" />
+            </cdk:scriptObject>
+            <c:if test="#{! empty eventHandlers}">
+                <script type="text/javascript">
+                    $(document.getElementById('#{clientId}_body')).on(#{BootstrapRenderKitUtils.toEventMap(eventHandlers)});
+                </script>
+            </c:if>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

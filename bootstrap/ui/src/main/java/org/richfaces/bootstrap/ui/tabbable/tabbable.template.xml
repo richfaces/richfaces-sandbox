@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.tabbable.TabbableRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.tabbable.TabbableRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.TabbableRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.tabbable.AbstractTabbable</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:call expression="setDefaultChild(component)" />
+        <div id="#{clientId}" class="tabbable">
+            <ul class="nav nav-tabs">
+                <c:forEach items="#{component.children}" var="child" varStatus="status">
+                    <c:if test="#{child.rendered}">
+                        <c:choose>
+                            <c:when test="#{child.family eq 'org.richfaces.bootstrap.MenuFacet'}">
+                                <cdk:object name="menuFacet" type="org.richfaces.bootstrap.semantic.AbstractMenuFacet" value="#{child}"/>
+                                <li class="dropdown #{menuFacet.isActive() ? 'active' : ''}">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        #{child.attributes['label'].toString().concat(' ')}
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <c:forEach var="subchild" items="#{child.getChildren()}">
+                                            <c:if test="#{subchild.rendered}">
+                                                <cdk:object name="tab" type="org.richfaces.bootstrap.ui.tab.AbstractTab" value="#{subchild}"/>
+                                                <li class="#{tab.isDefault() ? 'active' : ''}"><a href="##{subchild.clientId}" data-toggle="tab">#{subchild.attributes['title']}</a></li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <cdk:object name="tab" type="org.richfaces.bootstrap.ui.tab.AbstractTab" value="#{child}"/>
+                                <li class="#{tab.isDefault() ? 'active' : ''}">
+                                    <a href="##{child.clientId}" data-toggle="tab">#{child.attributes['title']}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                </c:forEach>
+            </ul>
+            
+            <div class="tab-content">
+                <cdk:body />
+            </div>
+        </div>
+    </cc:implementation>
+
+</cdk:root>
