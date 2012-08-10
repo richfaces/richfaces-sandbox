@@ -14,7 +14,7 @@
             $element
                 .attr('data-jboss-cleanup', true)
 //                .data('jboss-cleanup', true)
-                .on('cleanup.RICH', $.proxy(this.orderingList('destroy'), $element));
+                .on('cleanup.RICH', $element.data('orderingList').destroy);
         },
 
         _registerListeners: function() {
