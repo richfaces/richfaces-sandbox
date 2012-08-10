@@ -63,10 +63,10 @@
     <script type="text/javascript">
         $(function() {
             // initial jQuery UI            
-    		$('#basic').autocomplete({
+    		$('#basic').multicomplete({
                 delay: 0,
                 minLength: 0,
-                source: window.availableTags
+                suggestions: window.availableTags
             });
     	});
     </script>
@@ -80,15 +80,15 @@
     <script type="text/javascript">
         $(function() {
             // initial jQuery UI            
-            $('#tokenizing').autocomplete({
+            $('#tokenizing').multicomplete({
                 delay: 0,
                 minLength: 0,
                 multiselect: true,
                 tokens: ' ,'
             });
 
-            $('#tokenizing').autocomplete({
-                source: window.availableTags
+            $('#tokenizing').multicomplete({
+                suggestions: window.availableTags
             });
         });
     </script>
