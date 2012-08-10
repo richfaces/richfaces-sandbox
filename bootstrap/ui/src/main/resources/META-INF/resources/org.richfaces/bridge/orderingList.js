@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.widget('rf.orderingListBridge', {
+    $.widget('rf.orderingListBridge', $.rf.bridgeBase, {
 
         options: {
             hiddenInputSuffix: 'Input',
@@ -8,6 +8,7 @@
         },
 
         _create: function() {
+            $.rf.bridgeBase.prototype._create.call( this );
             var self = this;
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
@@ -16,6 +17,7 @@
         },
 
         destroy: function() {
+            $.rf.bridgeBase.prototype.destroy.call( this );
             this._unRegisterListeners();
         },
 
@@ -25,24 +27,9 @@
                 var csvKeys = ui.orderedKeys.join(',');
                 self.hiddenInput.val(csvKeys);
             });
-            this._registerCleanDomListener(self.element, this.options.pluginNames);
         },
 
         _unRegisterListeners: function() {
-            $('body').off("cleanDom.orderingList.bootstrap.RICH");
-        },
-
-        // TODO: be refactored into a event-bridge base-widget
-        _registerCleanDomListener: function (element, pluginNames) {
-            $('body').on("cleanDom.orderingList.bootstrap.RICH", function(event, ui) {
-                if ($.contains(ui.target, element)) {
-                    $.each(pluginNames, function() {
-                        var pluginName = this;
-                        $(element).data(pluginName).destroy();
-                    })
-
-                }
-            });
         }
     });
 

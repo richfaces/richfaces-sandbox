@@ -51,6 +51,7 @@ import javax.faces.component.UIColumn;
 
         @ResourceDependency(library = "org.richfaces", name = "widget/orderingList.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge/bootstrap.js"),
+        @ResourceDependency(library = "org.richfaces", name = "bridge/bridgeBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge/orderingList.js")
 
         })
