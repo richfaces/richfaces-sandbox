@@ -7,14 +7,11 @@
         },
 
         _create: function() {
+            var self = this;
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
             this.hiddenInput = $(document.getElementById(hiddenInputId)); // getElementById workaround for JSF ":" separator
-            var $element = $(this.element);
-            $element
-                .attr('data-jboss-cleanup', true)
-//                .data('jboss-cleanup', true)
-                .on('cleanup.RICH', $element.data('orderingList').destroy);
+            this._registerCleanDomListener(self.element, 'orderingList');
         },
 
         _registerListeners: function() {
@@ -22,6 +19,14 @@
             $(this.element).orderingList('option', 'orderChanged', function(event, ui) {
                 var csvKeys = ui.orderedKeys.join(',');
                 self.hiddenInput.val(csvKeys);
+            });
+        },
+
+        _registerCleanDomListener: function (element, pluginName) {
+            $('body').on("cleanDom.bootstrap.RICH", function(event, ui) {
+                if ($.contains(ui.target, element)) {
+                    $(element).data(pluginName).destroy();
+                }
             });
         }
 

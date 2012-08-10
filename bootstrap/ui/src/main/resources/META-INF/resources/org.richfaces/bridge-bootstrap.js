@@ -1,5 +1,6 @@
 (function ($) {
     $('body').on("afterDomClean" + ".RICH", function (event) {
-        $(event.target).find("[data-jboss-cleanup='true']").triggerHandler('cleanup.RICH');
+        var ui = {target: event.target};
+        $('body').trigger('cleanDom.bootstrap.RICH', ui);
     });
 }(jQuery));
