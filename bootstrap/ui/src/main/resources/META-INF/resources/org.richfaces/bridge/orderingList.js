@@ -3,7 +3,8 @@
     $.widget('rf.orderingListBridge', {
 
         options: {
-            hiddenInputSuffix: 'Input'
+            hiddenInputSuffix: 'Input',
+            pluginNames: 'orderingList, orderingListBridge'
         },
 
         _create: function() {
@@ -11,7 +12,11 @@
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
             this.hiddenInput = $(document.getElementById(hiddenInputId)); // getElementById workaround for JSF ":" separator
-            this._registerCleanDomListener(self.element, 'orderingList');
+
+        },
+
+        destroy: function() {
+            this._unRegisterListeners();
         },
 
         _registerListeners: function() {
@@ -20,16 +25,25 @@
                 var csvKeys = ui.orderedKeys.join(',');
                 self.hiddenInput.val(csvKeys);
             });
+            this._registerCleanDomListener(self.element, this.options.pluginNames);
         },
 
-        _registerCleanDomListener: function (element, pluginName) {
-            $('body').on("cleanDom.bootstrap.RICH", function(event, ui) {
+        _unRegisterListeners: function() {
+            $('body').off("cleanDom.orderingList.bootstrap.RICH");
+        },
+
+        // TODO: be refactored into a event-bridge base-widget
+        _registerCleanDomListener: function (element, pluginNames) {
+            $('body').on("cleanDom.orderingList.bootstrap.RICH", function(event, ui) {
                 if ($.contains(ui.target, element)) {
-                    $(element).data(pluginName).destroy();
+                    $.each(pluginNames, function() {
+                        var pluginName = this;
+                        $(element).data(pluginName).destroy();
+                    })
+
                 }
             });
         }
-
     });
 
 }(jQuery));
