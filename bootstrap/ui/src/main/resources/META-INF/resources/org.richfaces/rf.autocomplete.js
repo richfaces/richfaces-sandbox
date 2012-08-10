@@ -10,8 +10,11 @@
                 var searchTerm = this._extractLastToken(request.term);
                 response( this.options.suggest.call(this, searchTerm) );
             },
-            suggest: function(searchTerm) {
-                return $.ui.autocomplete.filter( this.options.suggestions, searchTerm );
+            suggest: function(term) {
+                var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(term), "i" );
+                return $.grep( this.options.suggestions, function(value) {
+                    return matcher.test( value.label || value.value || value );
+                });
             }
         },
     
