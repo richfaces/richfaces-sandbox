@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<head>
+<title>Static html for developing the OrderingList widget</title>
+<link rel="stylesheet/less" type="text/css"
+    href="../../../main/resources/META-INF/resources/org.richfaces/less/main.less" />
+
+<script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/less/less.min.js"></script>
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/less/less.instant.js"></script>
+<!-- stored locally for development, as jquery is provided by richfaces core -->
+
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.position.js"></script>
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.widget.js"></script>
+
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.autocomplete.js"></script>
+
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/rf.autocomplete.js"></script>
+
+</head>
+
+<body>
+
+    <h2>Example autocomplete</h2>
+    
+    <h3>Basic sample</h3>
+    
+    <input id="input" />
+    
+    <script type="text/javascript">
+        $(function() {
+    		var availableTags = [
+    			"ActionScript",
+    			"AppleScript",
+    			"Asp",
+    			"BASIC",
+    			"C",
+    			"C++",
+    			"Clojure",
+    			"COBOL",
+    			"ColdFusion",
+    			"Erlang",
+    			"Fortran",
+    			"Groovy",
+    			"Haskell",
+    			"Java",
+    			"JavaScript",
+    			"Lisp",
+    			"Perl",
+    			"PHP",
+    			"Python",
+    			"Ruby",
+    			"Scala",
+    			"Scheme"
+    		];
+
+            // initial jQuery UI            
+    		$('#input').autocomplete({
+                delay: 0,
+                minLength: 0
+            });
+
+            // autocompletePlus
+            $('#input').autocomplete({
+                tokens: ', '
+            });
+            
+            // provide data
+            $('#input').autocomplete({
+                source: availableTags
+            });
+            
+            $('#input').autocomplete("search", "b");
+    	});
+    </script>
+
+</body>
+</html>
