@@ -5,46 +5,19 @@
             suggestions: [],
             uifocus: null,
             uiselect: null,
-            tokens: "",
+            multiselect: false,
+            tokens: ",",
             source: function(request, response) {
-                response( $.ui.autocomplete.filter(
-                    this.options.suggestions, this._extractLastToken(request.term) ) );
+                this._delegate()._handleSource(request, response);
             }
         },
-        
+    
         _create : function() {
+            this.options.focus = this._delegate()._handleFocus;
+            this.options.select = this._delegate()._handleSelect;
+            
             // extend jQuery UI Autocomplete
             $.ui.autocomplete.prototype._create.apply(this, arguments);
-            
-            var self = this;
-            
-            this.options.focus = function( event, ui ) {
-                if (self.options.uifocus) {
-                    if (!self.options.uifocus.apply(this, arguments)) {
-                        return false;
-                    }
-                }
-                return false;
-            };
-            
-            this.options.select = function( event, ui ) {
-                if (self.options.uiselect) {
-                    if (!self.options.uiselect.apply(this, arguments)) {
-                        return false;
-                    }
-                }
-                
-                var terms = self._tokenize( this.value );
-                // remove the current input
-                terms.pop();
-                // add the selected item
-                terms.push( ui.item.value );
-                // add placeholder to get the comma-and-space at the end
-                terms.push( "" );
-                this.value = terms.join( self.options.tokens );
-                
-                return false;
-            };
         },
         
         _setOption: function(key, value) {
@@ -62,32 +35,70 @@
                     break;
                 case 'focus':
                     // disallow to rewrite 'focus'
-                    if (this.options.source) {
+                    if (this.options.focus) {
                         this._setOption('uifocus', value);
                         return;
                     }
                     break;
                 case 'select':
-                    // disallow to rewrite 'focus'
-                    if (this.options.source) {
+                    // disallow to rewrite 'select'
+                    if (this.options.select) {
                         this._setOption('uiselect', value);
                         return;
                     }
                     break;
-                    
             }
             $.ui.autocomplete.prototype._setOption.apply(this, arguments);
         },
         
         _tokenize: function(term) {
             if (this.options.tokens) {
-                return term.split( new RegExp("\\s*" + this.options.tokens + "\\s*") );
+                return term.split( new RegExp("\\s*[" + this.options.tokens + "]\\s*") );
             }
             return [term];
         },
         
         _extractLastToken: function(term) {
             return this._tokenize(term).pop();
+        },
+        
+        _delegate: function() {
+            var autocomplete = this;
+            return {
+                _handleSource: function(request, response) {
+                    var searchTerm;
+                    if (autocomplete.options.multiselect) {
+                        searchTerm = autocomplete._extractLastToken(request.term);
+                    } else {
+                        searchTerm = request.term;
+                    }
+                    response( $.ui.autocomplete.filter(
+                        autocomplete.options.suggestions, searchTerm ) );
+                },
+                
+                _handleFocus: function( event, ui ) {
+                    if (autocomplete.options.multiselect) {
+                        // prevent focus
+                        return false;
+                    }
+                },
+                
+                _handleSelect: function( event, ui ) {
+                    if (autocomplete.options.multiselect) {
+                        var terms = autocomplete._tokenize( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push( "" );
+                        var firstToken = autocomplete.options.tokens.charAt(0);
+                        this.value = terms.join( firstToken == " " ? " " : firstToken + " " );
+                        
+                        return false;
+                    }
+                }
+            };
         }
         
     }));

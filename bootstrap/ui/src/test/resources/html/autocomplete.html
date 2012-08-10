@@ -25,56 +25,89 @@
 
     <h2>Example autocomplete</h2>
     
+    <script type="text/javascript">
+        $(function() {
+            window.availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+        });
+    </script>
+    
     <h3>Basic sample</h3>
     
-    <input id="input" />
+    <p>Simple input with single autocompletion</p>
+    
+    <input id="basic" />
     
     <script type="text/javascript">
         $(function() {
-    		var availableTags = [
-    			"ActionScript",
-    			"AppleScript",
-    			"Asp",
-    			"BASIC",
-    			"C",
-    			"C++",
-    			"Clojure",
-    			"COBOL",
-    			"ColdFusion",
-    			"Erlang",
-    			"Fortran",
-    			"Groovy",
-    			"Haskell",
-    			"Java",
-    			"JavaScript",
-    			"Lisp",
-    			"Perl",
-    			"PHP",
-    			"Python",
-    			"Ruby",
-    			"Scala",
-    			"Scheme"
-    		];
-
             // initial jQuery UI            
-    		$('#input').autocomplete({
+    		$('#basic').autocomplete({
                 delay: 0,
-                minLength: 0
+                minLength: 0,
+                source: window.availableTags
             });
-
-            // autocompletePlus
-            $('#input').autocomplete({
-                tokens: ', '
-            });
-            
-            // provide data
-            $('#input').autocomplete({
-                source: availableTags
-            });
-            
-            $('#input').autocomplete("search", "b");
     	});
     </script>
+    
+    <h3>Multiselect sample</h3>
+    
+    <p>You can select multiple choices, you can use tokens "," and ":" as separator</p>
+    
+    <input id="tokenizing" />
+    
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#tokenizing').autocomplete({
+                delay: 0,
+                minLength: 0,
+                multiselect: true,
+                tokens: ' ,'
+            });
+
+            $('#tokenizing').autocomplete({
+                source: window.availableTags
+            });
+        });
+    </script>
+    
+    <h3>Non-repeating (filtering) sample</h3>
+    
+    <p>This sample does not suggest value which is already selected</p>
+    
+    <h3>Select first</h3>
+    
+    <p>Enables auto-selection of first value once auto-completion is opened</p>
+    
+    <h3>Force input</h3>
+    
+    <p>Forces only that values which are in suggestions</p>
+    
+    <h3>Transform input</h3>
+    
+    <p>Transform terms in input to the form which is in suggestion list</p> 
 
 </body>
 </html>
