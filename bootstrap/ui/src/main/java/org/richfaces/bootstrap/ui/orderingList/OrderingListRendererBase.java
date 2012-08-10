@@ -41,17 +41,17 @@ import javax.faces.component.UIColumn;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
 
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.position.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.core.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.widget.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.mouse.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.button.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.selectable.js"),
-        @ResourceDependency(library = "com.jqueryui/js", name = "jquery.ui.sortable.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.position.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.core.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.widget.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.mouse.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.button.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.selectable.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.sortable.js"),
 
-        @ResourceDependency(library = "org.richfaces", name = "bridge-bootstrap.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jqueryui-orderingList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "bridge-orderingList.js")
+        @ResourceDependency(library = "org.richfaces", name = "widget/orderingList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "bridge/bootstrap.js"),
+        @ResourceDependency(library = "org.richfaces", name = "bridge/orderingList.js")
 
         })
 public abstract class OrderingListRendererBase extends SelectManyRendererBase {

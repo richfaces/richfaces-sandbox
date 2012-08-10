@@ -47,7 +47,7 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.widget.js"),
         @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.position.js"),
         @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.autocomplete.js"),
-        @ResourceDependency(library = "org.richfaces", name = "bridge-autocomplete.js")})
+        @ResourceDependency(library = "org.richfaces", name = "bridge/autocomplete.js")})
 public abstract class AutocompleteRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.AutocompleteRenderer";
     
