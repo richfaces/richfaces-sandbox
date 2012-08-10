@@ -28,11 +28,13 @@
                 } else {
                     var terms = self._tokenize( this.value );
                     // remove the current input
-                    terms.pop();
-                    // add the selected item
-                    terms.push( ui.item.value );
+                    var lastTerm = terms.pop();
+                    var lastTermCompletion = lastTerm + ui.item.value.substring(lastTerm.length);
+                    terms.push(lastTermCompletion);
+                    
                     var firstToken = self.options.tokens.charAt(0);
                     this.value = terms.join( firstToken == " " ? " " : firstToken + " " );
+                    this.setSelectionRange(this.value.length - ui.item.value.length + lastTerm.length, this.value.length);
                     return false;
                 }
             });
