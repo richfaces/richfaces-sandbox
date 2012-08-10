@@ -76,7 +76,6 @@
     <p>You can select multiple choices, you can use tokens "," and ":" as separator</p>
     
     <input id="tokenizing" />
-    
     <script type="text/javascript">
         $(function() {
             // initial jQuery UI            
@@ -89,6 +88,22 @@
 
             $('#tokenizing').multicomplete({
                 suggestions: window.availableTags
+            });
+        });
+    </script>
+    
+    <h3>Auto fill</h3>
+    <p>Enables auto-selection of first value once auto-completion is opened</p>
+    
+    <input id="autofill" />
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#autofill').multicomplete({
+                delay: 0,
+                minLength: 0,
+                suggestions: window.availableTags,
+                autofill: true
             });
         });
     </script>

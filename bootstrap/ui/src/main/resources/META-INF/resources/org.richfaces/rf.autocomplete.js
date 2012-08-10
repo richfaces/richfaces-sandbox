@@ -3,7 +3,9 @@
         
         options: {
             suggestions: [],
+            autofill: false,
             tokens: ",",
+            
             source: function(request, response) {
                 var searchTerm = this._extractLastToken(request.term);
                 response( this.options.suggest.call(this, searchTerm) );
@@ -20,8 +22,19 @@
             var self = this;
             
             $(this.element).on("autocompletefocus", function( event, ui ) {
-                // prevent focus
-                return false;
+                if (!self.options.autofill) {
+                    // do nothing on suggestion focus
+                    return false;
+                } else {
+                    var terms = self._tokenize( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.value );
+                    var firstToken = self.options.tokens.charAt(0);
+                    this.value = terms.join( firstToken == " " ? " " : firstToken + " " );
+                    return false;
+                }
             });
             
             $(this.element).on("autocompleteselect", function( event, ui ) {
