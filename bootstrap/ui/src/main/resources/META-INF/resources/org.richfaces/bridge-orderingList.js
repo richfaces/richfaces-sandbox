@@ -10,6 +10,11 @@
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
             this.hiddenInput = $(document.getElementById(hiddenInputId)); // getElementById workaround for JSF ":" separator
+            var $element = $(this.element);
+            $element
+                .attr('data-jboss-cleanup', true)
+//                .data('jboss-cleanup', true)
+                .on('cleanup.RICH', $.proxy(this.orderingList('destroy'), $element));
         },
 
         _registerListeners: function() {
