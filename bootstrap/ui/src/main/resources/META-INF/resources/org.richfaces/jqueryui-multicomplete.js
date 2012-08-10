@@ -3,7 +3,7 @@
         
         options: {
             suggestions: [],
-            autofill: false,
+            autoFill: false,
             tokens: ",",
             
             source: function(request, response) {
@@ -25,7 +25,7 @@
             var self = this;
             
             $(this.element).on("autocompletefocus", function( event, ui ) {
-                if (!self.options.autofill) {
+                if (!self.options.autoFill) {
                     // do nothing on suggestion focus
                     return false;
                 } else {

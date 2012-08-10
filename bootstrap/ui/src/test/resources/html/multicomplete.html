@@ -17,7 +17,7 @@
 
 <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.autocomplete.js"></script>
 
-<script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/rf.autocomplete.js"></script>
+<script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/jqueryui.multicomplete.js"></script>
 
 </head>
 
@@ -93,7 +93,7 @@
     </script>
     
     <h3>Auto fill</h3>
-    <p>Enables auto-selection of first value once auto-completion is opened</p>
+    <p>Enables auto-input of the selected item</p>
     
     <input id="autofill" />
     <script type="text/javascript">
@@ -103,26 +103,42 @@
                 delay: 0,
                 minLength: 0,
                 suggestions: window.availableTags,
-                autofill: true
+                autoFill: true
             });
         });
     </script>
     
-    <h3>Non-repeating (filtering) sample</h3>
-    
-    <p>This sample does not suggest value which is already selected</p>
-    
-    <h3>Select first</h3>
-    
+    <h3>Auto Focus</h3>
     <p>Enables auto-selection of first value once auto-completion is opened</p>
     
-    <h3>Force input</h3>
+    <input id="autoFocus" />
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#autoFocus').multicomplete({
+                delay: 0,
+                minLength: 0,
+                suggestions: window.availableTags,
+                autoFocus: true
+            });
+        });
+    </script>
     
-    <p>Forces only that values which are in suggestions</p>
+    <h3>Auto Focus+Fill</h3>
     
-    <h3>Transform input</h3>
-    
-    <p>Transform terms in input to the form which is in suggestion list</p> 
+    <input id="autoFocusFill" />
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#autoFocusFill').multicomplete({
+                delay: 0,
+                minLength: 0,
+                suggestions: window.availableTags,
+                autoFocus: true,
+                autoFill: true
+            });
+        });
+    </script> 
 
 </body>
 </html>
