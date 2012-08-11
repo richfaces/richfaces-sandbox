@@ -40,13 +40,18 @@
             </c:choose>
         </div>
         <script type="text/javascript">
-            <cdk:scriptObject name="options">
+            <cdk:scriptObject name="widgetOptions">
                 <cdk:scriptOption name="header" value="#{component.caption}" />
                 <cdk:scriptOption name="disabled" value="#{component.disabled}" />
             </cdk:scriptObject>
+            <cdk:scriptObject name="bridgeOptions">
+                <cdk:scriptOption name="componentId" value="#{clientId}" />
+                <cdk:scriptOption attributes="onOrderChanged" wrapper="eventHandler" />
+            </cdk:scriptObject>
             jQuery(function() {
-                $(document.getElementById('#{clientId}List')).orderingList(#{toScriptArgs(options)});
-                $(document.getElementById('#{clientId}List')).orderingListBridge();
+                var $list = $(document.getElementById('#{clientId}List'));
+                $list.orderingList(#{toScriptArgs(widgetOptions)});
+                $list.orderingListBridge(#{toScriptArgs(bridgeOptions)});
             });
         </script>
     </cc:implementation>

@@ -22,6 +22,7 @@
 package org.richfaces.bootstrap.ui.orderingList;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -64,5 +65,8 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
      */
     @Attribute
     public abstract String getCaption();
+
+    @Attribute(events = @EventName("orderChanged"))
+    public abstract String getOnOrderChanged();
 
 }
