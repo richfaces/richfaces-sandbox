@@ -7,19 +7,11 @@
         },
 
         _create: function () {
-          this._registerListeners();
-        },
-
-        destroy: function() {
-            this._unRegisterListeners();
-        },
-
-        _registerListeners: function() {
             this._registerCleanDomListener(this.element, this.options.pluginNames);
         },
 
-        _unRegisterListeners: function() {
-            $('body').off("cleanDom.orderingList.bootstrap.RICH");
+        destroy: function() {
+            this._unRegisterCleanDomListener();
         },
 
         _registerCleanDomListener: function (element, pluginNames) {
@@ -32,7 +24,12 @@
 
                 }
             });
+        },
+
+        _unRegisterCleanDomListener: function() {
+            $('body').off("cleanDom.orderingList.bootstrap.RICH");
         }
+
     });
 
 }(jQuery));
