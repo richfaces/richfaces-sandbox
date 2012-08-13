@@ -117,7 +117,7 @@ $.fn.getHiddenDimensions = function(includeMargin) {
                         .appendTo(a);
                 });
             } else {
-                a.html( item.label );
+                a.html( item.content || item.label );
             }
             
             li.appendTo( container );

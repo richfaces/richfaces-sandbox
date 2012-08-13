@@ -23,16 +23,17 @@
                 if ( searchTerm ) {
                     var matches = [];
                     if (layout === 'ul') {
-                        $(suggestions).children("li").each(function(i, suggestion) {
-                            var label = $(suggestion).html();
+                        $(suggestions).children("li").each(function(i, item) {
                             
-                            var value = $(suggestion).data("value");
-                            value = value ? value : $(suggestion).text();
+                            var label = $(item).data("label");
+                            label = label ? label : $(item).text();
                             
-                            if (matcher.test( $(suggestion).text() )) {
+                            var content = $(item).html();
+                            
+                            if (matcher.test( $(item).text() )) {
                                 matches.push({
-                                    value: value,
-                                    label: label
+                                    label: label,
+                                    content: content
                                 });
                             }
                         });
@@ -41,11 +42,11 @@
                         $(suggestions).show();
                         
                         $(suggestions).children("tbody").children("tr").each(function(i, tr) {
-                            var label = $(tr).html();
                             
-                            var value = $(tr).data("value");
-                            value = value ? value : $(tr).text();
+                            var label = $(tr).data("label");
+                            label = label ? label : $(tr).text();
                             
+                            var content = $(tr).html();
                              
                             $(tr).children("td").each(function(j, td) {
                                 $(td).data("width", $(td).width());
@@ -54,8 +55,8 @@
                             
                             if (matcher.test( $(tr).text() )) {
                                 matches.push({
-                                    value: value,
                                     label: label,
+                                    content: content,
                                     tr: tr
                                 });
                             }
