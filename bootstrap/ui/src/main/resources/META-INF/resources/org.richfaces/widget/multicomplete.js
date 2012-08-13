@@ -1,3 +1,42 @@
+//Optional parameter includeMargin is used when calculating outer dimensions
+(function($) {
+$.fn.getHiddenDimensions = function(includeMargin) {
+    var $item = this,
+        props = { position: 'absolute', visibility: 'hidden', display: 'block' },
+        dim = { width:0, height:0, innerWidth: 0, innerHeight: 0,outerWidth: 0,outerHeight: 0 },
+        $hiddenParents = $item.parents().andSelf().not(':visible'),
+        includeMargin = (includeMargin == null)? false : includeMargin;
+
+    var oldProps = [];
+    $hiddenParents.each(function() {
+        var old = {};
+
+        for ( var name in props ) {
+            old[ name ] = this.style[ name ];
+            this.style[ name ] = props[ name ];
+        }
+
+        oldProps.push(old);
+    });
+
+    dim.width = $item.width();
+    dim.outerWidth = $item.outerWidth(includeMargin);
+    dim.innerWidth = $item.innerWidth();
+    dim.height = $item.height();
+    dim.innerHeight = $item.innerHeight();
+    dim.outerHeight = $item.outerHeight(includeMargin);
+
+    $hiddenParents.each(function(i) {
+        var old = oldProps[i];
+        for ( var name in props ) {
+            this.style[ name ] = old[ name ];
+        }
+    });
+
+    return dim;
+}
+}(jQuery));
+
 (function($) {
     $.widget("rf.multicomplete", $.extend({}, $.ui.autocomplete.prototype, {
         
@@ -24,8 +63,6 @@
             $.ui.autocomplete.prototype._create.apply(this, arguments);
             
             var self = this;
-            
-            var html = $(this.menu.element).html();
             
             $(this.element).on("autocompletefocus", function( event, ui ) {
                 if (!self.options.autoFill) {
@@ -59,27 +96,31 @@
             });
         },
         
-        _renderMenu: function( container, items ) {
-            var self = this;
-            if (this.options.layout === 'ul') {
-                $.each( items, function( index, item ) {
-                    self._renderItem( container, item );
-                });
-            }
-            if (this.options.layout === 'table') {
-                var table = $('<table></table>');
-                $(this.menu.element).replaceWith(table);
-                var table = this.menu.element
-                    .empty()
-                    .zIndex( this.element.zIndex() + 1 );
-            }
+        _isTableLayout: function() {
+            return this.options.layout === 'table';
         },
         
         _renderItem: function( container, item) {
-            return $( "<li></li>" )
-                .data( "item.autocomplete", item )
-                .append( $( "<a></a>" ).html( item.label ) )
-                .appendTo( container );
+            var li = $( "<li></li>" )
+                .data( "item.autocomplete", item );
+            var a = $("<a></a>").appendTo(li);
+            
+            if (this._isTableLayout()) {
+                a.css("display", "block").addClass("clearfix");
+                
+                $(item.tr).children("td").each(function(i, td) {
+                    $("<span></span>")
+                        .width($(td).data("width"))
+                        .addClass("ui-menu-item-column")
+                        .css("display", "block")
+                        .html($(td).html())
+                        .appendTo(a);
+                });
+            } else {
+                a.html( item.label );
+            }
+            
+            li.appendTo( container );
         },
         
         _tokenize: function(term) {
