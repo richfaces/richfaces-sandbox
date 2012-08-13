@@ -4,7 +4,9 @@
 
         options: {
             disabled: false,
-            header: ''
+            header: '',
+            showButtons: true,
+            mouseOrderable: true
         },
 
         _create: function() {
@@ -37,9 +39,10 @@
             }
             this._addDomElements();
             this.widgetEventPrefix = "orderingList_";
-            this.$pluginRoot
-                .sortable(this.sortableOptions)
-                .selectable(this.selectableOptions);
+            if (this.options.mouseOrderable === true) {
+                this.$pluginRoot.sortable(this.sortableOptions);
+            }
+            this.$pluginRoot.selectable(this.selectableOptions);
             if (this.options.disabled === true) {
                 self._disable();
             }
@@ -170,40 +173,18 @@
         /** Initialisation methods **/
 
         _addDomElements: function() {
-            $(this.element).addClass("list").wrap(
-                $("<div />").addClass('orderingList container-fluid with-handle').append(
-                    $('<div />').addClass('content row-fluid').append(
-                        $('<div />').addClass('span10')
-                    )
-                )
-            );
-            this.outer = $(this.element).parents(".orderingList").first();
-            this.outer.prepend(
-                $("<div />").addClass("row-fluid").append(
-                    $("<div />").addClass('span12 header').append(
-                        $("<h3/>").html(this.options.header)
-                    )
-                )
-            );
-            this.content = this.outer.find(".content");
-            if (this.strategy === 'table') {
-                $( this.element )
-                    .find( "tbody > tr" )
-                    .prepend( "<th class='handleRow'><div class='handle'><i class='icon-move'></i></div></th>");
-                $( this.element )
-                    .find("thead > tr")
-                    .prepend( "<th class='handleRow'></th>");
+            this._addParents();
+            this._addMouseHandles();
+            if (this.options.showButtons === true) {
+                this._addButtons();
+            }
+            if (this.strategy === 'table') { // round the table row corners
                 $( this.element )
                     .find( "tr").each(function() {
                         $(this).children().last().addClass('last');
                         $(this).children().first().addClass('first');
                     })
-            } else if (this.strategy === 'list') {
-                $( this.element )
-                    .find( "li" )
-                    .prepend( "<div class='handle'><i class='icon-move'></i></div>" );
             }
-            this._addButtons();
         },
 
         _addButtons: function() {
@@ -241,6 +222,44 @@
             this.content.append(
                 $('<div />').addClass('buttonColumn span2').append(buttonStack));
             this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
+        },
+
+        _addMouseHandles: function () {
+            if (this.options.mouseOrderable === true) {
+                this.content.addClass('with-handle');
+                if (this.strategy === 'table') {
+                    $( this.element )
+                        .find( "tbody > tr" )
+                        .prepend( "<th class='handleRow'><div class='handle'><i class='icon-move'></i></div></th>");
+                    $( this.element )
+                        .find("thead > tr")
+                        .prepend( "<th class='handleRow'></th>");
+                } else if (this.strategy === 'list') {
+                    $( this.element )
+                        .find( "li" )
+                        .prepend( "<div class='handle'><i class='icon-move'></i></div>" );
+                }
+            }
+        },
+
+        _addParents: function() {
+            var contentSpan = (this.options.showButtons === true) ? 'span10' : 'span12';
+            $(this.element).addClass("list").wrap(
+                $("<div />").addClass('orderingList container-fluid').append(
+                    $('<div />').addClass('content row-fluid').append(
+                        $('<div />').addClass(contentSpan)
+                    )
+                )
+            );
+            this.outer = $(this.element).parents(".orderingList").first();
+            this.outer.prepend(
+                $("<div />").addClass("row-fluid").append(
+                    $("<div />").addClass('span12 header').append(
+                        $("<h3/>").html(this.options.header)
+                    )
+                )
+            );
+            this.content = this.outer.find(".content");
         },
 
         _disable: function() {
