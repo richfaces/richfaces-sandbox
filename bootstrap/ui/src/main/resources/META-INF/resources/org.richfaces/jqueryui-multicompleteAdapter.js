@@ -13,9 +13,11 @@
                 if ( searchTerm ) {
                     var matches = [];
                     $("li", suggestions).each(function(i, suggestion) {
-                        var text = $(suggestion).text();
-                        if (matcher.test( text )) {
-                            matches.push( text );
+                        if (matcher.test( $(suggestion).text() )) {
+                            matches.push({
+                                value: $(suggestion).text(),
+                                label: $(suggestion).html()
+                            });
                         }
                     });
                     return matches;
