@@ -160,8 +160,8 @@
             var keys = new Array();
             this.getOrderedElements().each( function() {
                 var $this = $(this);
-                var jbossKey = $this.data('jbossKey');
-                var key = (jbossKey) ? jbossKey : $this.text();
+                var data_key = $this.data('key');
+                var key = (data_key) ? data_key : $this.text();
                 keys.push(key);
             })
             return keys;
