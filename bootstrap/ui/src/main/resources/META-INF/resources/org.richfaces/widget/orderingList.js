@@ -26,7 +26,7 @@
                     self._trigger("orderChanged", event, ui);
                     }
                 };
-            if ($(this.element).is("table")) {
+            if (this.element.is("table")) {
                 this.strategy = "table";
                 this.$pluginRoot = $( this.element).find("tbody");
                 this.selectableOptions.filter = "tr";
@@ -104,7 +104,7 @@
         unSelectAll: function() {
             var self = this;
             this._removeDomElements();
-            $(this.element).children().each(function() {
+            this.element.children().each(function() {
                 self.unSelectItem(this);
             });
         },
@@ -156,7 +156,7 @@
         },
 
         getOrderedElements: function () {
-            return $(this.element).find('.ui-selectee');
+            return this.element.find('.ui-selectee');
         },
 
         getOrderedKeys: function () {
@@ -244,14 +244,14 @@
 
         _addParents: function() {
             var contentSpan = (this.options.showButtons === true) ? 'span10' : 'span12';
-            $(this.element).addClass("list").wrap(
+            this.element.addClass("list").wrap(
                 $("<div />").addClass('orderingList container-fluid').append(
                     $('<div />').addClass('content row-fluid').append(
                         $('<div />').addClass(contentSpan)
                     )
                 )
             );
-            this.outer = $(this.element).parents(".orderingList").first();
+            this.outer = this.element.parents(".orderingList").first();
             this.outer.prepend(
                 $("<div />").addClass("row-fluid").append(
                     $("<div />").addClass('span12 header').append(
@@ -266,7 +266,7 @@
             this.$pluginRoot
                 .sortable("option", "disabled", true)
                 .selectable("option", "disabled", true);
-            $(this.element)
+            this.element
                 .addClass('disabled')
                 .find(".ui-selected").removeClass('ui-selected');
             $('.buttonColumn', this.content).find("button").attr("disabled", true);
@@ -276,7 +276,7 @@
             this.$pluginRoot
                 .sortable("option", "disabled", false)
                 .selectable("option", "disabled", false);
-            $(this.element).removeClass('disabled');
+            this.element.removeClass('disabled');
             $('.buttonColumn', this.content).find("button").attr("disabled", false);
         },
 
@@ -291,8 +291,8 @@
 
         _removeDomElements: function() {
             // TODO: impl
-            var parent = $(this.element).parents(".orderingList").get(0);
-            var list = $(this.element).detach();
+            var parent = this.element.parents(".orderingList").get(0);
+            var list = this.element.detach();
             $(parent).replaceWith(list);
 
 //                .unwrap()  // container-fluid
