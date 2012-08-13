@@ -26,13 +26,11 @@
 
     <h2>Example autocomplete</h2>
     
-    <h3>Basic sample</h3>
+    <h3>Unordered list</h3>
+    <p>Simple input with multicompletion and adapter for ui/li</p>
     
-    <p>Simple input with single autocompletion</p>
-    
-    <input id="basic" />
-    
-    <ul id="suggestions">
+    <input id="unordered-input" />
+    <ul id="unordered-suggestions">
         <li>ActionScript</li>
         <li>AppleScript</li>
         <li>Asp</li>
@@ -60,18 +58,102 @@
     <script type="text/javascript">
         $(function() {
             // initial jQuery UI            
-    		$('#basic').multicomplete({
+    		$('#unordered-input').multicomplete({
                 delay: 0,
                 minLength: 0
             });
 
-            $('#suggestions').multicompleteBridge({
-                input: $('#basic')
+            $('#unordered-suggestions').multicompleteBridge({
+                input: $('#unordered-input')
             });
     	});
     </script>
     
+    <h3>Custom content</h3>
+    <p>Unordered list can contain custom content</p>
     
+    <input id="custom-input" />
+    <ul id="custom-suggestions">
+        <li data-value="actionscript"><b>ActionScript</b></b></li>
+        <li data-value="applescript"><b>AppleScript</b></li>
+        <li data-value="asp"><b>Asp</b></li>
+        <li data-value="basic"><b>BASIC</b></li>
+        <li data-value="c"><b>C</b></li>
+        <li data-value="cpp"><b>C++</b></li>
+        <li data-value="clojure"><b>Clojure</b></li>
+        <li data-value="cobol"><b>COBOL</b></li>
+        <li data-value="coldfuction"><b>ColdFusion</b></li>
+        <li data-value="erlang"><b>Erlang</b></li>
+        <li data-value="fortran"><b>Fortran</b></li>
+        <li data-value="groovy"><b>Groovy</b></li>
+        <li data-value="hashell"><b>Haskell</b></li>
+        <li data-value="java"><b>Java</b></li>
+        <li data-value="javascript"><b>JavaScript</b></li>
+        <li data-value="lisp"><b>Lisp</b></li>
+        <li data-value="perl"><b>Perl</b></li>
+        <li data-value="php"><b>PHP</b></li>
+        <li data-value="python"><b>Python</b></li>
+        <li data-value="ruby"><b>Ruby</b></li>
+        <li data-value="scala"><b>Scala</b></li>
+        <li data-value="scheme"><b>Scheme</b></li>
+    </ul>
+    
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#custom-input').multicomplete({
+                delay: 0,
+                minLength: 0
+            });
+
+            $('#custom-suggestions').multicompleteBridge({
+                input: $('#custom-input')
+            });
+        });
+    </script>
+    
+    <h3>Table layout</h3>
+    <p></p>
+    
+    <input id="table-input" />
+    <table id="table-suggestions">
+        <tr data-value="actionscript"><td>ActionScript</td><td>xyz</td></tr>
+        <tr data-value="applescript"><td>AppleScript</td><td>xyz</td></tr>
+        <tr data-value="asp"><td>Asp</td><td>xyz</td></tr>
+        <tr data-value="basic"><td>BASIC</td><td>xyz</td></tr>
+        <tr data-value="c"><td>C</td><td>xyz</td></tr>
+        <tr data-value="cpp"><td>C++</td><td>xyz</td></tr>
+        <tr data-value="clojure"><td>Clojure</td><td>xyz</td></tr>
+        <tr data-value="cobol"><td>COBOL</td><td>xyz</td></tr>
+        <tr data-value="coldfucison"><td>ColdFusion</td><td>xyz</td></tr>
+        <tr data-value="erlang"><td>Erlang</td><td>xyz</td></tr>
+        <tr data-value="fortran"><td>Fortran</td><td>xyz</td></tr>
+        <tr data-value="groovy"><td>Groovy</td><td>xyz</td></tr>
+        <tr data-value="haskell"><td>Haskell</td><td>xyz</td></tr>
+        <tr data-value="java"><td>Java</td><td>xyz</td></tr>
+        <tr data-value="javascript"><td>JavaScript</td><td>xyz</td></tr>
+        <tr data-value="lisp"><td>Lisp</td><td>xyz</td></tr>
+        <tr data-value="perl"><td>Perl</td><td>xyz</td></tr>
+        <tr data-value="php"><td>PHP</td><td>xyz</td></tr>
+        <tr data-value="python"><td>Python</td><td>xyz</td></tr>
+        <tr data-value="ruby"><td>Ruby</td><td>xyz</td></tr>
+        <tr data-value="scala"><td>Scala</td><td>xyz</td></tr>
+        <tr data-value="scheme"><td>Scheme</td><td>xyz</td></tr>
+    </table>
+    
+    <script type="text/javascript">
+        $(function() {
+            // initial jQuery UI            
+            $('#table-input').multicomplete({
+                delay: 0,
+                minLength: 0
+            });
+
+            $('#table-suggestions').multicompleteBridge({
+                input: $('#table-input')
+            });
+        });
+    </script>
     
     
 

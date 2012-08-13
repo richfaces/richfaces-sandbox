@@ -6,26 +6,49 @@
     
         _create : function() {
             var suggestions = $(this.element).hide(),
-                input = this.options.input;
+                input = this.options.input,
+                layout = $(this.element)[0].tagName.toLowerCase();
             
             var suggestFn = function(searchTerm) {
                 var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(searchTerm), "i" );
                 if ( searchTerm ) {
                     var matches = [];
-                    $("li", suggestions).each(function(i, suggestion) {
-                        if (matcher.test( $(suggestion).text() )) {
-                            matches.push({
-                                value: $(suggestion).text(),
-                                label: $(suggestion).html()
-                            });
-                        }
-                    });
+                    if (layout === 'ul') {
+                        $(suggestions).children("li").each(function(i, suggestion) {
+                            var label = $(suggestion).html();
+                            
+                            var value = $(suggestion).data("value");
+                            value = value ? value : $(suggestion).text();
+                            
+                            if (matcher.test( $(suggestion).text() )) {
+                                matches.push({
+                                    value: value,
+                                    label: label
+                                });
+                            }
+                        });
+                    } else if (layout === 'table') {
+                        $(suggestions).children("tbody").children("tr").each(function(i, suggestion) {
+                            var label = $(suggestion).html();
+                            
+                            var value = $(suggestion).data("value");
+                            value = value ? value : $(suggestion).text();
+                            
+                            if (matcher.test( $(suggestion).text() )) {
+                                matches.push({
+                                    value: value,
+                                    label: label
+                                });
+                            }
+                        });
+                    }
                     return matches;
                 }
                 
             };
             
             $(input).multicomplete({
+                layout: layout,
                 suggest: suggestFn
             });
         }

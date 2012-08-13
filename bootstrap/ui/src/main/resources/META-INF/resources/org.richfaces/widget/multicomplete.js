@@ -4,7 +4,8 @@
         options: {
             suggestions: [],
             autoFill: false,
-            tokens: ",",
+            tokens: ',',
+            layout: 'ul',
             
             source: function(request, response) {
                 var searchTerm = this._extractLastToken(request.term);
@@ -23,6 +24,8 @@
             $.ui.autocomplete.prototype._create.apply(this, arguments);
             
             var self = this;
+            
+            var html = $(this.menu.element).html();
             
             $(this.element).on("autocompletefocus", function( event, ui ) {
                 if (!self.options.autoFill) {
@@ -56,18 +59,27 @@
             });
         },
         
-        _renderMenu: function( ul, items ) {
+        _renderMenu: function( container, items ) {
             var self = this;
-            $.each( items, function( index, item ) {
-                self._renderItem( ul, item );
-            });
+            if (this.options.layout === 'ul') {
+                $.each( items, function( index, item ) {
+                    self._renderItem( container, item );
+                });
+            }
+            if (this.options.layout === 'table') {
+                var table = $('<table></table>');
+                $(this.menu.element).replaceWith(table);
+                var table = this.menu.element
+                    .empty()
+                    .zIndex( this.element.zIndex() + 1 );
+            }
         },
         
-        _renderItem: function( ul, item) {
+        _renderItem: function( container, item) {
             return $( "<li></li>" )
                 .data( "item.autocomplete", item )
                 .append( $( "<a></a>" ).html( item.label ) )
-                .appendTo( ul );
+                .appendTo( container );
         },
         
         _tokenize: function(term) {
