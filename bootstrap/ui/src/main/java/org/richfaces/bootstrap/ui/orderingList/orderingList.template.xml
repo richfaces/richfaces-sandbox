@@ -96,7 +96,7 @@
                     <!-- TODO: Find an elegant way of resetting the iterator -->
                     <cdk:call expression="columns = component.columns()" />
                     <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
-                    <tr data-jboss-key="#{item.convertedValue}">
+                    <tr data-key="#{item.convertedValue}">
                         <c:forEach var="columnObject" items="#{columns}" varStatus="varStatus">
                             <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
                             <td class="#{getColumnClass(column, columnClasses, varStatus.index)}">
