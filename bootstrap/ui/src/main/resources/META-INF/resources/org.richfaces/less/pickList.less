@@ -1,0 +1,51 @@
+// OrderingList
+// ---------
+
+@import "../../bootstrap/less/bootstrap.less";
+@import "button-group-vertical.less";
+@import "list-mixins.less";
+
+// Parent container
+.pickList {
+    margin-bottom: @baseLineHeight;
+    display: block;
+}
+
+.source {
+    .list();
+}
+
+.target {
+    .list();
+}
+
+.pickList {
+    .buttonColumnPickList {
+        text-align: right;
+        .btn-group-vertical {
+            margin: auto;
+            display: inline-block;
+
+            button {
+                padding: 6px;
+            }
+
+            .first {
+                padding-top: 5px;
+            }
+
+            .first i {
+                border-left: @grayDark solid 2px;
+            }
+
+            .last {
+                padding-bottom: 5px;
+            }
+
+            .last i {
+                border-right: @grayDark solid 2px;
+            }
+
+        }
+    }
+}

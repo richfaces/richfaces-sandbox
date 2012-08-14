@@ -221,7 +221,14 @@
             );
             this.content.append(
                 $('<div />').addClass('buttonColumn span2').append(buttonStack));
-            this.content.find('.buttonColumn').position({of: this.content, my: "right center", at: "right center" })
+            this._repositionButtons();
+        },
+
+        _repositionButtons: function() {
+            var buttonGroup = this.outer.find('.btn-group-vertical');
+            buttonGroup.position({of: this.content, my: "right center", at: "right center" , using: function(position) {
+                buttonGroup.css('top', position.top);
+            } })
         },
 
         _addMouseHandles: function () {
@@ -245,13 +252,13 @@
         _addParents: function() {
             var contentSpan = (this.options.showButtons === true) ? 'span10' : 'span12';
             this.element.addClass("list").wrap(
-                $("<div />").addClass('orderingList container-fluid').append(
+                $("<div />").addClass('orderingList outer container-fluid').append(
                     $('<div />').addClass('content row-fluid').append(
                         $('<div />').addClass(contentSpan)
                     )
                 )
             );
-            this.outer = this.element.parents(".orderingList").first();
+            this.outer = this.element.parents(".outer").first();
             this.outer.prepend(
                 $("<div />").addClass("row-fluid").append(
                     $("<div />").addClass('span12 header').append(
@@ -291,9 +298,8 @@
 
         _removeDomElements: function() {
             // TODO: impl
-            var parent = this.element.parents(".orderingList").get(0);
             var list = this.element.detach();
-            $(parent).replaceWith(list);
+            this.outer.replaceWith(list);
 
 //                .unwrap()  // container-fluid
 //                .unwrap()  // row

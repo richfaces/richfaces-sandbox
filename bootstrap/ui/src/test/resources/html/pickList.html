@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Static html for developing the OrderingList widget</title>
+    <link rel="stylesheet/less" type="text/css" href="../../../main/resources/META-INF/resources/org.richfaces/less/pickList.less"/>
+    <link rel="stylesheet/less" type="text/css" href="../../../main/resources/META-INF/resources/org.richfaces/less/orderingList.less"/>
+    <link rel="stylesheet/less" type="text/css" href="../../../main/resources/META-INF/resources/font-awesome/less/font-awesome.less"/>
+
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/less/less.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+    <!-- stored locally for development, as jquery is provided by richfaces core -->
+
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.position.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.mouse.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.button.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.selectable.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/com.jqueryui/js/jquery.ui.sortable.js"></script>
+
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/widget/orderingList.js"></script>
+    <script type="text/javascript" src="../../../main/resources/META-INF/resources/org.richfaces/widget/pickList.js"></script>
+
+</head>
+
+<script>
+    var pluginOptions1 = {
+        header: "List layout"
+    };
+</script>
+
+<body>
+
+<h2>Example pickList</h2>
+
+<p>Using the pickList plugin, we built a simple pickList widget:</p>
+
+
+<div class="container-fluid ">
+    <div class="row-fluid ">
+        <div class="span6 ">
+            <div id="pickListDemo">
+                <ol class="source">
+                    <li data-key="1" class="num">Item 1</li>
+                    <li data-key="2" class="num">Item 2</li>
+                    <li data-key="3" class="num">Item 3</li>
+                    <li data-key="4" class="num">Item 4</li>
+                    <li data-key="5" class="num">Item 5</li>
+                    <li data-key="6" class="num">Item 6</li>
+                    <li data-key="7" class="num">Item 7</li>
+                    <li data-key="8" class="num">Item 8</li>
+                </ol>
+                <ol class="target">
+                    <li data-key="1" class="let">Item A</li>
+                    <li data-key="2" class="let">Item B</li>
+                    <li data-key="3" class="let">Item C</li>
+                    <li data-key="4" class="let">Item D</li>
+                    <li data-key="5" class="let">Item E</li>
+                    <li data-key="6" class="let">Item F</li>
+                    <li data-key="7" class="let">Item G</li>
+                    <li data-key="8" class="let">Item H</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    $("#pickListDemo").pickList(pluginOptions1);
+</script>

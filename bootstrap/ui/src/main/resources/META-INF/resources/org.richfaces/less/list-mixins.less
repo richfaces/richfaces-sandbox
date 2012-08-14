@@ -1,0 +1,153 @@
+
+.list () {
+    .content {
+        border: 1px solid #e5e5e5;
+        .border-radius(4px);
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .heading {
+        border-bottom: 0;
+    }
+    .list {
+        margin-left: 0;
+        list-style: none;
+    }
+
+    li {
+        display: block;
+        .border-radius(5px);
+        margin: 2px 0;
+        padding-left: 7px;
+    }
+
+    li,  td {
+        cursor: pointer;
+        line-height: 24px; // keeps the overall height an even number
+    }
+
+    .with-handle li {
+        position:relative;
+        padding-left: 28px;
+    }
+
+    li .handle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .handle {
+        .border-radius(5px);
+        line-height: 24px;
+        width: 24px;
+        cursor: move;
+        text-align: center;
+    }
+
+    .handle i {
+        vertical-align: baseline;
+    }
+
+    .disabled .handle i {
+        color: @grayLight;
+    }
+
+    .handle:hover {
+        background: @linkColor;
+    }
+
+    .disabled .handle:hover,
+    .disabled .ui-selectee:hover {
+        background: none;
+    }
+
+    .ui-selectee:hover {
+        text-decoration: none;
+        background-color: @grayLighter;
+    }
+
+    .ui-selected,  .rowhelper {
+        background-color: @linkColor;
+        color: @white;
+    }
+
+    .rowhelper {
+        .border-radius(5px);
+    }
+
+    .ui-selecting {
+        background: @linkColor;
+    }
+
+    .ui-selected:hover,  .rowhelper:hover {
+        background-color: @linkColorHover;
+    }
+
+    .disabled .ui-selectee,
+    .disabled .handle,
+    .disabled li,
+    .disabled td {
+        cursor: default;
+    }
+
+    .buttonColumn {
+        text-align: center;
+    }
+
+    .btn-group-vertical {
+        display: inline-block;
+    }
+
+    .btn-group-vertical button {
+        padding: 6px;
+    }
+
+    .btn-group-vertical .first {
+        padding-top: 5px;
+    }
+
+    .btn-group-vertical .first i {
+        border-top: @grayDark solid 2px;
+    }
+
+    .btn-group-vertical .last {
+        padding-bottom: 5px;
+    }
+
+    .btn-group-vertical .last i {
+        border-bottom: @grayDark solid 2px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table thead {
+        text-align: left;
+    }
+
+    table tr {
+        border-bottom: #ffffff solid 2px;
+    }
+
+    .placeholder {
+        height: 28px;
+    }
+
+    th.handleRow {
+        width: 24px;
+    }
+
+    .first {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    td.last {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
