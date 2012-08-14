@@ -1,42 +1,3 @@
-//Optional parameter includeMargin is used when calculating outer dimensions
-(function($) {
-$.fn.getHiddenDimensions = function(includeMargin) {
-    var $item = this,
-        props = { position: 'absolute', visibility: 'hidden', display: 'block' },
-        dim = { width:0, height:0, innerWidth: 0, innerHeight: 0,outerWidth: 0,outerHeight: 0 },
-        $hiddenParents = $item.parents().andSelf().not(':visible'),
-        includeMargin = (includeMargin == null)? false : includeMargin;
-
-    var oldProps = [];
-    $hiddenParents.each(function() {
-        var old = {};
-
-        for ( var name in props ) {
-            old[ name ] = this.style[ name ];
-            this.style[ name ] = props[ name ];
-        }
-
-        oldProps.push(old);
-    });
-
-    dim.width = $item.width();
-    dim.outerWidth = $item.outerWidth(includeMargin);
-    dim.innerWidth = $item.innerWidth();
-    dim.height = $item.height();
-    dim.innerHeight = $item.innerHeight();
-    dim.outerHeight = $item.outerHeight(includeMargin);
-
-    $hiddenParents.each(function(i) {
-        var old = oldProps[i];
-        for ( var name in props ) {
-            this.style[ name ] = old[ name ];
-        }
-    });
-
-    return dim;
-}
-}(jQuery));
-
 (function($) {
     $.widget("rf.multicomplete", $.extend({}, $.ui.autocomplete.prototype, {
         
@@ -58,11 +19,14 @@ $.fn.getHiddenDimensions = function(includeMargin) {
             }
         },
     
-        _create : function() {
+        _create : function() {            
             // extend jQuery UI Autocomplete
             $.ui.autocomplete.prototype._create.apply(this, arguments);
             
-            var self = this;
+            var self = this,
+                layout = this.options.layout;
+            
+            this._initLayout(layout);
             
             $(this.element).on("autocompletefocus", function( event, ui ) {
                 if (!self.options.autoFill) {
@@ -96,31 +60,23 @@ $.fn.getHiddenDimensions = function(includeMargin) {
             });
         },
         
-        _isTableLayout: function() {
-            return this.options.layout === 'table';
+        _setOption: function( key, value ) {
+            $.ui.autocomplete.prototype._setOption.apply( this, arguments );
+            if ( key === "layout" ) {
+                this._initLayout(value);
+            }
         },
         
-        _renderItem: function( container, item) {
-            var li = $( "<li></li>" )
-                .data( "item.autocomplete", item );
-            var a = $("<a></a>").appendTo(li);
-            
-            if (this._isTableLayout()) {
-                a.css("display", "block").addClass("clearfix");
-                
-                $(item.tr).children("td").each(function(i, td) {
-                    $("<span></span>")
-                        .width($(td).data("width"))
-                        .addClass("ui-menu-item-column")
-                        .css("display", "block")
-                        .html($(td).html())
-                        .appendTo(a);
-                });
-            } else {
-                a.html( item.content || item.label );
-            }
-            
-            li.appendTo( container );
+        _initLayout: function(layout) {
+            $(this.menu.element).removeClass('ui-autocomplete-layout-ul ui-autocomplete-layout-table');
+            $(this.menu.element).addClass('ui-autocomplete-layout-' + layout);
+        },
+        
+        _renderItem: function( ul, item) {
+            return $( "<li></li>" )
+            .data( "item.autocomplete", item )
+            .append( $( "<a></a>" ).html( item.content || item.label ) )
+            .appendTo( ul );
         },
         
         _tokenize: function(term) {

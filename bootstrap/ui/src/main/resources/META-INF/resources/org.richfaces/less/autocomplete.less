@@ -7,16 +7,22 @@
   text-decoration: none;
 }
 
-.ui-menu .ui-menu-item .ui-menu-item-column {
-    display: block;
-    float: left;
-    padding-right: 1em;
-}
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+ul.ui-autocomplete-layout-table {
+    display: table;
+    
+    > li.ui-menu-item {
+        display: table-row-group;
+        
+        > a {
+            display: table-row;
+            
+            > span {
+                display: table-cell;
+                padding: 3px 0.5em;
+                
+                &:first-child { padding-left: 15px }
+                &:last-child { padding-right: 15px }
+            }
+        }
+    }
 }

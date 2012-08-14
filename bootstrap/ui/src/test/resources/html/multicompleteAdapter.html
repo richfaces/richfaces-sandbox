@@ -29,7 +29,7 @@
     <h3>Unordered list</h3>
     <p>Simple input with multicompletion and adapter for ui/li</p>
     
-    <input id="unordered-input" />
+    <input id="unordered-input" type="text" class="input-large" placeholder="language..." />
     <ul id="unordered-suggestions">
         <li>ActionScript</li>
         <li>AppleScript</li>
@@ -72,7 +72,7 @@
     <h3>Custom content</h3>
     <p>Unordered list can contain custom content</p>
     
-    <input id="custom-input" />
+    <input id="custom-input" type="text" class="input-large" placeholder="language..." />
     <ul id="custom-suggestions">
         <li data-label="ActionScript"><b>ActionScript</b></b></li>
         <li data-label="AppleScript"><b>AppleScript</b></li>
@@ -115,40 +115,43 @@
     <h3>Table layout</h3>
     <p></p>
     
-    <input id="table-input" />
-    <table id="table-suggestions">
-        <tbody>
-            <tr data-label="ActionScript"><td>ActionScript</td><td width="100px">xyz</td><td>xyz</td></tr>
-            <tr data-label="AppleScript"><td>AppleScript</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Asp"><td>Asp</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="BASIC"><td>BASIC</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="C"><td>C</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="C++"><td>C++</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Clojure"><td>Clojure</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="COBOL"><td>COBOL</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="ColdFusion"><td>ColdFusion</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Erlang"><td>Erlang</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Fortran"><td>Fortran</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Groovy"><td>Groovy</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Haskell"><td>Haskell</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Java"><td>Java</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="JavaScript"><td>JavaScript</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Lisp"><td>Lisp</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Perl"><td>Perl</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="PHP"><td>PHP</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Python"><td>Python</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Ruby"><td>Ruby</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Scala"><td>Scala</td><td>xyz</td><td>xyz</td></tr>
-            <tr data-label="Scheme"><td>Scheme</td><td>xyz</td><td>xyz</td></tr>
-        </tbody>
-    </table>
+    <input id="table-input" type="text" class="input-large" placeholder="language..." />
+    <ul id="table-suggestions">
+        <li data-label="ActionScript">
+            <span>ActionScript</span>
+            <span>xyz</span>
+            <span>xyz</span>
+        </li>
+        <li data-label="AppleScript"><span>AppleScript</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Asp"><span>Asp</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="BASIC"><span>BASIC</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="C"><span>C</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="C++"><span>C++</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Clojure"><span>Clojure</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="COBOL"><span>COBOL</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="ColdFusion"><span>ColdFusion</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Erlang"><span>Erlang</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Fortran"><span>Fortran</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Groovy"><span>Groovy</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Haskell"><span>Haskell</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Java"><span>Java</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="JavaScript"><span>JavaScript</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Lisp"><span>Lisp</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Perl"><span>Perl</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="PHP"><span>PHP</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Python"><span>Python</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Ruby"><span>Ruby</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Scala"><span>Scala</span><span>xyz</span><span>xyz</span></li>
+        <li data-label="Scheme"><span>Scheme</span><span>xyz</span><span>xyz</span></li>
+    </ul>
     
     <script type="text/javascript">
         $(function() {
             // initial jQuery UI            
             $('#table-input').multicomplete({
                 delay: 0,
-                minLength: 0
+                minLength: 0,
+                layout: 'table'
             });
 
             $('#table-suggestions').multicompleteBridge({
