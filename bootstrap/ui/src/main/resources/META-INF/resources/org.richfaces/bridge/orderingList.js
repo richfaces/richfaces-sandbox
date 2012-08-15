@@ -27,16 +27,16 @@
             var self = this;
             var $element = $(this.element);
             // the widget factory converts all events to lower case
-            $element.bind('orderinglist_orderchanged', function(event, ui) {
+            $element.bind('orderinglist_change', function(event, ui) {
                 var csvKeys = ui.orderedKeys.join(',');
                 self.hiddenInput.val(csvKeys);
                 ui.originalEvent = event;
                 // bubble the event up to the dom element with the id of the component
-                self.component.trigger('orderChanged.orderingList.bootstrap.RICH', ui);
+                self.component.trigger('change.orderingList.bootstrap.RICH', ui);
             });
-            // Bind the client-provided orderChanged listeners
-            if (this.options.onOrderChanged && typeof this.options.onOrderChanged == 'function') {
-                this.component.bind('orderChanged.orderingList.bootstrap.RICH', this.options.onOrderChanged);
+            // Bind the client-provided change listeners
+            if (this.options.onchange && typeof this.options.onchange == 'function') {
+                this.component.bind('change.orderingList.bootstrap.RICH', this.options.onchange);
             }
         },
 

@@ -23,7 +23,7 @@
                 stop: function(event, ui) {
                     var ui = self._dumpState();
                     ui.movement = 'drag';
-                    self._trigger("orderChanged", event, ui);
+                    self._trigger("change", event, ui);
                     }
                 };
             if (this.element.is("table")) {
@@ -115,7 +115,7 @@
             $(items).insertBefore(first);
             var ui = this._dumpState();
             ui.movement = 'moveTop';
-            this._trigger("orderChanged", event, ui);
+            this._trigger("change", event, ui);
         },
 
         moveUp: function (items, event) {
@@ -129,7 +129,7 @@
             });
             var ui = this._dumpState();
             ui.movement = 'moveUp';
-            this._trigger("orderChanged", event, ui);
+            this._trigger("change", event, ui);
         },
 
         moveDown: function (items, event) {
@@ -143,7 +143,7 @@
             });
             var ui = this._dumpState();
             ui.movement = 'moveDown';
-            this._trigger("orderChanged", event, ui);
+            this._trigger("change", event, ui);
         },
 
         moveLast: function (items, event) {
@@ -152,7 +152,7 @@
             $(items).insertAfter(last);
             var ui = this._dumpState();
             ui.movement = 'moveLast';
-            this._trigger("orderChanged", event, ui);
+            this._trigger("change", event, ui);
         },
 
         getOrderedElements: function () {
@@ -300,10 +300,6 @@
             // TODO: impl
             var list = this.element.detach();
             this.outer.replaceWith(list);
-
-//                .unwrap()  // container-fluid
-//                .unwrap()  // row
-//                .unwrap(); // span
         },
 
         /** Event Handlers **/

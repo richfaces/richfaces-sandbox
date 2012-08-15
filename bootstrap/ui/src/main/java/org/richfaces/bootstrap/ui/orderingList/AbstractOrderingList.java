@@ -66,7 +66,7 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
     @Attribute
     public abstract String getCaption();
 
-    @Attribute(events = @EventName("orderChanged"))
-    public abstract String getOnOrderChanged();
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
+    public abstract String getOnchange();
 
 }

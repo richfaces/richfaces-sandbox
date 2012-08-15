@@ -33,6 +33,15 @@
             <ui:param name="sample" value="table"/>
         </ui:include>
 
+        <h2>Nested ajax behavior:</h2>
+
+        <p>Nest an ajax tag to trigger server-side actions for client-side events.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="orderingList"/>
+            <ui:param name="sample" value="ajax"/>
+        </ui:include>
+
     </ui:define>
 </ui:composition>
 </html>

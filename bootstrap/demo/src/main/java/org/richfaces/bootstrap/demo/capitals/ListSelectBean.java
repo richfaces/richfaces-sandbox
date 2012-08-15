@@ -27,4 +27,12 @@ public class ListSelectBean {
     public void setSelectedCapitals(List<Capital> selectedCapitals) {
         this.selectedCapitals = selectedCapitals;
     }
+
+    public String getCapitalsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Capital capital : capitals) {
+            sb.append(capital.getName()).append(" ");
+        }
+        return sb.toString().trim();
+    }
 }

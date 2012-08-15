@@ -16,4 +16,8 @@ public class Bean implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public void logMessage(String message) {
+        System.out.println(message);
+    }
 }

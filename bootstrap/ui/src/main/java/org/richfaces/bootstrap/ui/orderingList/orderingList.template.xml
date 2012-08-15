@@ -21,7 +21,7 @@
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
                         <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
-                            <li>#{item.label}</li>
+                            <li data-key="#{item.convertedValue}">#{item.label}</li>
                         </c:forEach>
                     </ol>
                 </c:when>
@@ -46,7 +46,7 @@
             </cdk:scriptObject>
             <cdk:scriptObject name="bridgeOptions">
                 <cdk:scriptOption name="componentId" value="#{clientId}" />
-                <cdk:scriptOption attributes="onOrderChanged" wrapper="eventHandler" />
+                <cdk:scriptOption attributes="onchange" wrapper="eventHandler" />
             </cdk:scriptObject>
             jQuery(function() {
                 var $list = $(document.getElementById('#{clientId}List'));
