@@ -7,60 +7,91 @@
     <b:commandButton id="button1" 
       render=":complexForm1:complexModalOne"
       oncomplete="#{b:show('complexModalOne')};return false;"
-      value="Show modal 1" />
+      value="Give money to Lukas" />
   
     <b:commandButton id="button2"
       render=":complexForm2:complexModalTwoBody"
       oncomplete="#{b:show('complexModalTwo')};return false;"
-      value="Show modal 2"
+      value="Give money to Paul"
       style="margin-left:10px;" />
   </h:form>
   
-  <!-- Output -->
+  <!-- Lukas' Output -->
   <h:form id="complexForm">
-    <h:outputText id="hail"
-      value="#{not empty viewBean.value ? 'Value from modal 1: '.concat(viewBean.value) : ''}" />
+    <h:panelGroup id="hail" layout="block">
+      <b:alert severity="success" rendered="#{!empty(viewBean.value) and viewBean.value gt 10}">
+        <h:outputText value="Thanks a lot for those $#{viewBean.value}! Lukas will dedicate one of those beer especially to you!" />
+      </b:alert>
+      
+      <b:alert severity="info" rendered="#{!empty(viewBean.value) and viewBean.value le 10 and viewBean.value ge 5}">
+        <h:outputText value="Well... Thanks man, but $#{viewBean.value} will not buy enough beer to fully stop Lukas' thirst." />
+      </b:alert>
+      
+      <b:alert rendered="#{!empty(viewBean.value) and viewBean.value lt 5 and viewBean.value ge 0}">
+        <h:outputText value="Come on! We dring real beer at RichFaces! $#{viewBean.value} isn't enough. There is no way Lukas can buy a good pint with that amount!!" />
+      </b:alert>
+      
+      <b:alert severity="error" rendered="#{!empty(viewBean.value) and viewBean.value lt 0}">
+        <h:outputText value="Wait a minute... Are you trying to steal money from Lukas?" />
+      </b:alert>
+    </h:panelGroup>
   </h:form>
   
-  <h:outputText id="hail-outside"
-    value="#{not empty viewBean.value ? 'Value from modal 2: '.concat(viewBean.value) : ''}"/>
+  <!-- Paul's Output -->
+  <h:panelGroup id="hail-outside" layout="block">
+    <b:alert severity="success" rendered="#{!empty(viewBean.value) and viewBean.value gt 50}">
+      <h:outputText value="Woot!! You can ask Paul whatever demo you want, he will be drunk anyway with $#{viewBean.value} of beer." />
+    </b:alert>
+    
+    <b:alert severity="info" rendered="#{!empty(viewBean.value) and viewBean.value le 50 and viewBean.value ge 10}">
+      <h:outputText value="Thanks man, Paul can buy something with that... Just kidding, Paul drinks beer at breakfast, and with only $#{viewBean.value}, he will not last until lunch!!" />
+    </b:alert>
+    
+    <b:alert rendered="#{!empty(viewBean.value) and viewBean.value lt 10 and viewBean.value ge 0}">
+      <h:outputText value="One think you should know is that Paul is French and mostly drinks Belgium beer which cost a bit more than $#{viewBean.value} for a good pint." />
+    </b:alert>
+    
+    <b:alert severity="error" rendered="#{!empty(viewBean.value) and viewBean.value lt 0}">
+      <h:outputText value="Wait a minute... Are you trying to steal money from Paul?" />
+    </b:alert>
+  </h:panelGroup>
 
   <!-- First modal (classic one) -->
-  <h:form id="complexForm1">
-    <b:modal id="complexModalOne" header="Modal One">
+  <h:form id="complexForm1" styleClass="form-horizontal">
+    <b:modal id="complexModalOne" header="How much for Lukas?">
       <ui:include src="name-component.xhtml" />
       
       <f:facet name="footer">
         <b:commandButton value="Submit" execute="@form"
-          render=":complexForm:hail"
+          render=":complexForm:hail amountWrapper"
           severity="primary"
-          oncomplete="#{b:hide('complexModalOne')};return false;"/>
+          oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('complexModalOne')}"/>
           
-        <b:commandButton value="Cancel"
+        <b:commandButton value="Cancel (double click)"
           mode="client"
-          onclick="#{b:hide('complexModalOne')};return false;"/>
+          ondblclick="#{b:hide('complexModalOne')}"/>
       </f:facet>
     </b:modal>
   </h:form>
 
   <!-- Second modal (custom one) -->
   <b:modal id="complexModalTwo" closeable="false">
-    <b:headerFacet><h3>Modal Two</h3></b:headerFacet>
+    <b:headerFacet><h3>How much for Paul?</h3></b:headerFacet>
 
-    <h:form id="complexForm2" style="margin: 0">
+    <h:form id="complexForm2" style="margin: 0" styleClass="form-horizontal">
       <b:bodyFacet id="complexModalTwoBody">
         <ui:include src="name-component.xhtml" />
       </b:bodyFacet>
 
       <b:footerFacet>
         <b:commandButton value="Submit" execute="@form"
-          render=":hail-outside"
+          render=":hail-outside amountWrapper"
           severity="primary"
-          oncomplete="#{b:hide('complexModalTwo')};return false;"/>
+          oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('complexModalTwo')}"/>
           
         <b:commandButton value="Cancel"
           mode="client"
-          onclick="#{b:hide('complexModalTwo')};return false;"/>
+          onclick="#{b:hide('complexModalTwo')}"/>
       </b:footerFacet>
     </h:form>
   </b:modal>

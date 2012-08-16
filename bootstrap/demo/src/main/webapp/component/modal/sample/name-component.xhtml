@@ -4,11 +4,24 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
-  <h:panelGrid columns="2">
-    <h:outputLabel value="Value:" for="value"/>
-    <h:inputText id="value" value="#{viewBean.value}"/>
-  </h:panelGrid>
-
+  <h:panelGroup id="amountWrapper">
+    <div class="control-group">
+      <h:outputLabel value="Amount*:" for="amount" styleClass="control-label"/>
+      <div class="controls">
+        <h:inputText id="amount" value="#{viewBean.value}" required="true" label="Amount">
+          <f:validateLongRange maximum="100" />
+        </h:inputText>
+      </div>
+    </div>
+    
+    <h:message for="amount"
+      infoClass="alert alert-info"
+      warnClass="alert"
+      errorClass="alert alert-error"
+      fatalClass="alert alert-error"/>
+  </h:panelGroup>
 </ui:composition>
