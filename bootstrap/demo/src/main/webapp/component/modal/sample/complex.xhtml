@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+  <!-- Display buttons -->
+  <h:form>
+    <b:commandButton id="button1" 
+      render=":complexForm1:complexModalOne"
+      oncomplete="#{b:show('complexModalOne')};return false;"
+      value="Show modal 1" />
+  
+    <b:commandButton id="button2"
+      render=":complexForm2:complexModalTwoBody"
+      oncomplete="#{b:show('complexModalTwo')};return false;"
+      value="Show modal 2"
+      style="margin-left:10px;" />
+  </h:form>
+  
+  <!-- Output -->
+  <h:form id="complexForm">
+    <h:outputText id="hail"
+      value="#{not empty viewBean.value ? 'Value from modal 1: '.concat(viewBean.value) : ''}" />
+  </h:form>
+  
+  <h:outputText id="hail-outside"
+    value="#{not empty viewBean.value ? 'Value from modal 2: '.concat(viewBean.value) : ''}"/>
+
+  <!-- First modal (classic one) -->
+  <h:form id="complexForm1">
+    <b:modal id="complexModalOne" header="Modal One">
+      <ui:include src="name-component.xhtml" />
+      
+      <f:facet name="footer">
+        <b:commandButton value="Submit" execute="@form"
+          render=":complexForm:hail"
+          severity="primary"
+          oncomplete="#{b:hide('complexModalOne')};return false;"/>
+          
+        <b:commandButton value="Cancel"
+          mode="client"
+          onclick="#{b:hide('complexModalOne')};return false;"/>
+      </f:facet>
+    </b:modal>
+  </h:form>
+
+  <!-- Second modal (custom one) -->
+  <b:modal id="complexModalTwo" closeable="false">
+    <b:headerFacet><h3>Modal Two</h3></b:headerFacet>
+
+    <h:form id="complexForm2" style="margin: 0">
+      <b:bodyFacet id="complexModalTwoBody">
+        <ui:include src="name-component.xhtml" />
+      </b:bodyFacet>
+
+      <b:footerFacet>
+        <b:commandButton value="Submit" execute="@form"
+          render=":hail-outside"
+          severity="primary"
+          oncomplete="#{b:hide('complexModalTwo')};return false;"/>
+          
+        <b:commandButton value="Cancel"
+          mode="client"
+          onclick="#{b:hide('complexModalTwo')};return false;"/>
+      </b:footerFacet>
+    </h:form>
+  </b:modal>
+</ui:composition>
