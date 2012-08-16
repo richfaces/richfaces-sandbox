@@ -35,7 +35,7 @@
                 <span class="uneditable-input #{component.scale != null ? component.scale.inputStyleClass : ''}">#{component.value}</span>
             </c:when>
             <c:otherwise>
-                <input id="#{clientId}" cdk:passThrough="style value placeholder type"
+                <input id="#{clientId}" name="#{clientId}" cdk:passThrough="style value placeholder type"
                     class="#{component.scale != null ? component.scale.inputStyleClass : ''} #{component.isDisabled() ? 'disabled' : ''} #{component.styleClass}">
                     <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
                 </input>
