@@ -6,11 +6,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     
-    <div class="bs-docs-example" style="#{!empty(overflow) ? 'overflow:'.concat(overflow).concat(';') : ''}">
-        <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
-    </div>
+    <h:panelGroup layout="block"
+      rendered="#{empty(onlySource) ? true : !onlySource}"
+      styleClass="bs-docs-example"
+      style="#{!empty(overflow) ? 'overflow:'.concat(overflow).concat(';') : ''}">
+      <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
+    </h:panelGroup>
     
-    <b:codeblock styleClass="lang-html">
+    <b:codeblock styleClass="lang-html #{!empty(onlySource) and onlySource ? 'onlysource' : ''}">
         <h:outputText value="/component/#{tag}/sample/#{sample}.xhtml" escape="true" converter="FileConverter" />
     </b:codeblock>
 </ui:composition>
