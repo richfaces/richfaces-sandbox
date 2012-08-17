@@ -2,6 +2,10 @@ body {
 	padding-top: 60px;
 }
 
+h2 {
+  padding-top: 80px;
+}
+
 .required {
 	text-decoration: underline;
 }
