@@ -17,7 +17,6 @@
         <cdk:object type="java.util.Iterator" name="targetSelectItems" value="#{getTargetSelectItems(clientSelectItems)}" />
 
         <div id="#{clientId}" class="#{component.styleClass}">
-            <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}SourceList" class="source">

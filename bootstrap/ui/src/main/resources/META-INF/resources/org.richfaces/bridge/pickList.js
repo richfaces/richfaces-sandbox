@@ -11,9 +11,14 @@
         _create: function() {
             $.rf.bridgeBase.prototype._create.call( this );
             var self = this;
-            this.component = this.options.componentId === null ? $(this.element) : $(document.getElementById(this.options.componentId));
+            var componentId = this.options.componentId === null ? $(this.element).attr('id') : this.options.componentId;
+            this.component = $(document.getElementById(componentId));
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
+            this.element.parents("pickList").first().append(
+                $("input").attr('id', hiddenInputId).attr('name', componentId).attr("type", "hidden")
+            );
+
             this.hiddenInput = $(document.getElementById(hiddenInputId)); // getElementById workaround for JSF ":" separator
         },
 
