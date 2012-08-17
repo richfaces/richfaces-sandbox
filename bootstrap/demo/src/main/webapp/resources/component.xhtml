@@ -4,7 +4,7 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="content">
-        <b:gridRow fluid="#{sessionBean.fluid}">
+        <b:gridRow fluid="#{sessionBean.fluid}" styleClass="component">
             <b:gridColumn span="6">
                 <ui:insert name="body">Body</ui:insert>
             </b:gridColumn>

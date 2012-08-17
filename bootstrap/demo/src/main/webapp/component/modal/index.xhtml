@@ -12,12 +12,16 @@
     <ui:define name="body">
         <ui:param name="tag" value="modal" />
         
+        <ui:include src="/resources/tocnavbar.xhtml">
+            <ui:param name="sections" value="basic,custom,complex" />
+        </ui:include>
+        
         <h1><code>b:modal</code></h1>
         <p>The <code>b:modal</code> is used to display a modal panel in top of the current page.</p>
         
         <p>There is two ways to use the modal component : the <code>basic</code> one and the <code>custom</code> one. Learn in the two following examples.</p>
         
-        <h2>Basic usage</h2>
+        <h2 id="basic">Basic usage</h2>
         
         <p>The basic usage of the modal suppose that your modal will be divided in 3 parts :</p>
         <ol>
@@ -33,7 +37,7 @@
             <ui:param name="sample" value="basic" />
         </ui:include>
         
-        <h2>Custom usage</h2>
+        <h2 id="custom">Custom usage</h2>
 
         <p>If the default structure doesn't correspond to your needs, you will probably want to customize with no restriction. You can do that of course. Just use a semantic component inside the modal and that's it! No more auto-generated <code>div</code>, you can put whatever you want inside your modal component. Here are the 3 semantic components that will make your modal custom:</p>
         
@@ -50,7 +54,7 @@
             <ui:param name="sample" value="custom" />
         </ui:include>
         
-        <h2>Complex usage</h2>
+        <h2 id="complex">Complex usage</h2>
         
         <p>Here is a more complex example. Let's say Lukas and Paul are good guys working, from time to time, on RichFaces Bootstrap.
           So if you like their work, feel free to give them a few bucks to buy a beer! They can't accept more than $100.</p>

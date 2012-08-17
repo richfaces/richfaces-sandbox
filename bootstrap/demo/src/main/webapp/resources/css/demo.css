@@ -283,3 +283,7 @@ pre.prettyprint + pre.onlysource {
   padding-top: 15px;
   z-index: -2;
 }
+
+.component h2 {
+  padding-top: 80px;
+}
