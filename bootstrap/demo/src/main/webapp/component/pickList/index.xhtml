@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="pickList"/>
+        <h1><code>b:pickList</code></h1>
+        <p>The <code>b:pickList</code> is used to select items from list.</p>
+
+        <h2>Basic Usage:</h2>
+
+        <p>Select items, then move them up or down using the button controls.  Alternatively use the drag points to move
+        item.</p>
+
+        <p>Select multiple items with the ctrl key, or click-drag the mouse over multiple items.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pickList"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Table Layout:</h2>
+
+        <p>Use a columnar layout to achieve more rich control over your item display.</p>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pickList"/>
+            <ui:param name="sample" value="table"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,10 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:pickList value="#{listSelectBean.selectedCapitals}" sourceCaption="Available cities" targetCaption="Selected cities" orderable="true">
+            <f:selectItems value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" />
+            <f:converter converterId="CapitalsConverter" />
+    </b:pickList>
+</ui:composition>

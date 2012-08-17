@@ -7,7 +7,8 @@
             header: '',
             showButtons: true,
             mouseOrderable: true,
-            widgetEventPrefix: 'orderingList_'
+            widgetEventPrefix: 'orderingList_',
+            dropOnEmpty: true
         },
 
         _create: function() {
@@ -17,6 +18,7 @@
             };
             this.sortableOptions = { handle: ".handle",
                 disabled: this.options.disabled,
+                dropOnEmpty: this.options.dropOnEmpty,
                 start: function(event, ui) {
                     $(self.element).find(".ui-selected").removeClass('ui-selected');
                     $(ui.item).addClass('ui-selected');

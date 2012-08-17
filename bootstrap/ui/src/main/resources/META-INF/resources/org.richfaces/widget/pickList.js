@@ -8,16 +8,18 @@
         },
 
         _create: function() {
-            this.source = this.element.find(".source");
-            this.target = this.element.find(".target")
+            this.sourceList = this.element.find(".source");
+            this.targetList = this.element.find(".target")
             this._addDomElements();
-            this.source.orderingList({
-                showButtons: false
+            this.sourceList.orderingList({
+                showButtons: false,
+                widgetEventPrefix: 'sourceList_'
             });
-            this.target.orderingList();
-            this.source.sortable("option", "connectWith", this.target);
-            this.target.sortable("option", "connectWith", this.source);
-            this._repositionButtons();
+            this.targetList.orderingList({
+                widgetEventPrefix: 'targetList_'
+            });
+            this.sourceList.sortable("option", "connectWith", this.targetList);
+            this.targetList.sortable("option", "connectWith", this.sourceList);
         },
 
         /** Public API methods **/
@@ -25,19 +27,19 @@
         moveLeft: function (items, event) {
             if (this.options.disabled) return;
             items.detach();
-            this.source.prepend(items);
-//            var ui = this._dumpState();
-//            ui.change = 'remove';
-//            this._trigger("targetChanged", event, ui);
+            this.sourceList.prepend(items);
+            var ui = this._dumpState();
+            ui.change = 'remove';
+            this._trigger("change", event, ui);
         },
 
         moveRight: function (items, event) {
             if (this.options.disabled) return;
             items.detach();
-            this.target.prepend(items);
-//            var ui = this._dumpState();
-//            ui.change = 'remove';
-//            this._trigger("targetChanged", event, ui);
+            this.targetList.prepend(items);
+            var ui = this._dumpState();
+            ui.change = 'remove';
+            this._trigger("change", event, ui);
         },
 
 
@@ -80,20 +82,13 @@
                     .html("<i class='icon-arrow-right'></i>")
                     .bind('click.orderingList', $.proxy(this._rightAllHandler, this))
             );
-            this.source.parent().after(
+            this.sourceList.parent().after(
                 $('<div />').addClass('middle buttonColumnPickList span1').append(buttonStack));
-        },
-
-        _repositionButtons: function() {
-            var buttonGroup = this.outer.find('.buttonColumnPickList > .btn-group-vertical');
-            buttonGroup.position({of: this.outer.find('.right > .orderingList > .content'), my: "right center", at: "left center", using: function(position) {
-                buttonGroup.css('top', position.top);
-            } })
         },
 
         _addParents: function() {
             this.element.addClass("row-fluid").wrap(
-                $("<div />").addClass('pickList outer container-fluid')
+                $("<div />").addClass('pickList outer')
             );
             this.outer = this.element.parents(".outer").first();
             this.outer.prepend(
@@ -103,36 +98,49 @@
                     )
                 )
             );
-            this.source.wrap(
+            this.sourceList.wrap(
                 $("<div />").addClass('left span5')
             )
-            this.target.wrap(
+            this.targetList.wrap(
                 $("<div />").addClass('right span6')
             )
             this.content = this.element;
 
         },
 
-        /** Event Handlers **/
+        _dumpState: function() {
+            var ui = {};
+            ui.pickedElements = this.targetList.orderingList("getOrderedElements");
+            ui.pickedKeys = this.targetList.orderingList("getOrderedKeys");
+            return ui;
+        },
+
+        /** Cleanup methods **/
+
+        _removeDomElements: function() {
+            // TODO: impl
+        },
+
+            /** Event Handlers **/
 
         _leftAllHandler: function (event) {
-            var items = $('.ui-selectee', this.target);
+            var items = $('.ui-selectee', this.targetList);
             this.moveLeft(items, event);
-            this.source.orderingList('selectItem', items);
+            this.sourceList.orderingList('selectItem', items);
         },
 
         _leftHandler: function (event) {
-            this.moveLeft($('.ui-selected', this.target), event);
+            this.moveLeft($('.ui-selected', this.targetList), event);
         },
 
         _rightHandler: function (event) {
-            this.moveRight($('.ui-selected', this.source), event);
+            this.moveRight($('.ui-selected', this.sourceList), event);
         },
 
         _rightAllHandler: function (event) {
-            var items = $('.ui-selectee', this.source);
+            var items = $('.ui-selectee', this.sourceList);
             this.moveRight(items, event);
-            this.target.orderingList('selectItem', items);
+            this.targetList.orderingList('selectItem', items);
         }
 
 });
