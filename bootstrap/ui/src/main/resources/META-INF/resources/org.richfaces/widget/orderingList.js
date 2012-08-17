@@ -6,7 +6,8 @@
             disabled: false,
             header: '',
             showButtons: true,
-            mouseOrderable: true
+            mouseOrderable: true,
+            widgetEventPrefix: 'orderingList_'
         },
 
         _create: function() {
@@ -38,7 +39,7 @@
                 this.selectableOptions.filter = "li";
             }
             this._addDomElements();
-            this.widgetEventPrefix = "orderingList_";
+            this.widgetEventPrefix = this.options.widgetEventPrefix;
             if (this.options.mouseOrderable === true) {
                 this.$pluginRoot.sortable(this.sortableOptions);
             }
@@ -220,15 +221,7 @@
                     .bind('click.orderingList', $.proxy(this._lastHandler, this))
             );
             this.content.append(
-                $('<div />').addClass('buttonColumn span2').append(buttonStack));
-            this._repositionButtons();
-        },
-
-        _repositionButtons: function() {
-            var buttonGroup = this.outer.find('.btn-group-vertical');
-            buttonGroup.position({of: this.content, my: "right center", at: "right center" , using: function(position) {
-                buttonGroup.css('top', position.top);
-            } })
+                $('<div />').addClass('buttonColumn').append(buttonStack));
         },
 
         _addMouseHandles: function () {
@@ -250,20 +243,17 @@
         },
 
         _addParents: function() {
-            var contentSpan = (this.options.showButtons === true) ? 'span10' : 'span12';
-            this.element.addClass("list").wrap(
-                $("<div />").addClass('orderingList outer container-fluid').append(
-                    $('<div />').addClass('content row-fluid').append(
-                        $('<div />').addClass(contentSpan)
+            this.element.wrap(
+                $("<div />").addClass('orderingList outer').append(
+                    $('<div />').addClass('content').append(
+                        $('<div />').addClass('list')
                     )
                 )
             );
             this.outer = this.element.parents(".outer").first();
             this.outer.prepend(
-                $("<div />").addClass("row-fluid").append(
-                    $("<div />").addClass('span12 header').append(
-                        $("<h3/>").html(this.options.header)
-                    )
+                $("<div />").addClass('header').append(
+                    $("<h3/>").html(this.options.header)
                 )
             );
             this.content = this.outer.find(".content");

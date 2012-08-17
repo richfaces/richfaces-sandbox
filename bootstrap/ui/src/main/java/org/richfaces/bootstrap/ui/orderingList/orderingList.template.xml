@@ -12,27 +12,28 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
-                    value="#{getClientSelectItems(facesContext, component)}" />
+        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}" />
 
         <div id="#{clientId}" class="#{component.styleClass}">
             <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
-                        <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
+                        <c:forEach var="itemObject" items="#{clientSelectItems}">
+                            <!-- TODO: Add support for type-arguments to the cdk:object tag -->
+                            <cdk:object name="item" type="org.richfaces.renderkit.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
                         </c:forEach>
                     </ol>
                 </c:when>
                 <c:otherwise>
+                    <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
                     <table id="#{clientId}List">
-                        <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
                                 <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
                             </c:if>
-                            <cdk:renderFragment name="renderColumns" columns="#{columns}" />
+                            <cdk:renderFragment name="renderColumns" columns="#{columns}" clientSelectItems="#{clientSelectItems}"/>
                         </c:if>
 
                     </table>
@@ -85,6 +86,7 @@
     <cdk:fragment name="renderColumns">
         <cc:interface>
             <cc:attribute name="columns" type="java.util.Iterator" />
+            <cc:attribute name="clientSelectItems" type="java.util.List" />
         </cc:interface>
         <cc:implementation>
             <tbody>
@@ -92,7 +94,9 @@
                 <cdk:object name="oldVar" type="java.lang.Object" value="#{requestMap.get(component.getVar())}" />
                 <cdk:object name="columnClasses" type="String[]"
                             value="#{(component.getColumnClasses() != null) ? component.getColumnClasses().split(',') : null}"/>
-                <c:forEach var="item" items="#{getClientSelectItems(facesContext, component)}">
+                <c:forEach var="itemObject" items="#{clientSelectItems}">
+                    <!-- TODO: Add support for type-arguments to the cc:attribute tag -->
+                    <cdk:object name="item" type="org.richfaces.renderkit.ClientSelectItem" value="#{itemObject}" />
                     <!-- TODO: Find an elegant way of resetting the iterator -->
                     <cdk:call expression="columns = component.columns()" />
                     <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>

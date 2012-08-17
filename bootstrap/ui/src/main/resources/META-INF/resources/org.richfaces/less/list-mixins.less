@@ -1,18 +1,36 @@
 
-.list () {
+.list {
+    .outer {
+    }
+
+    .header {
+    }
+
     .content {
+        display: table;
         border: 1px solid #e5e5e5;
         .border-radius(4px);
         padding-left: 2px;
         padding-right: 2px;
+        width:100%;
     }
 
-    .heading {
-        border-bottom: 0;
-    }
     .list {
+        vertical-align: middle;
+        display: table-cell;
+    }
+
+    .list ol {
         margin-left: 0;
         list-style: none;
+    }
+
+    .buttonColumn {
+        line-height: 100px;
+        vertical-align: middle;
+        display: table-cell;
+        width: 24px;
+        padding-left: 2px;
     }
 
     li {
@@ -93,12 +111,8 @@
         cursor: default;
     }
 
-    .buttonColumn {
-        text-align: center;
-    }
-
     .btn-group-vertical {
-        display: inline-block;
+//        display: inline-block;
     }
 
     .btn-group-vertical button {
