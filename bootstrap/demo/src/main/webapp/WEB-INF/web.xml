@@ -24,4 +24,9 @@
         <mime-type>text/css</mime-type>
     </mime-mapping>
 
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/x-font-woff</mime-type>
+    </mime-mapping>
+
 </web-app>
