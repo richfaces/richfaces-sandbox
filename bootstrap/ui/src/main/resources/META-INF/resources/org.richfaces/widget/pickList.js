@@ -59,27 +59,27 @@
             buttonStack
                 .append(
                 button.clone()
-                    .addClass('first')
-                    .html("<i class='icon-arrow-left'></i>")
+                    .addClass('leftAll')
+                    .html("<i class='icon-step-backward'></i>")
                     .bind('click.orderingList', $.proxy(this._leftAllHandler, this))
             )
                 .append(
                 button.clone()
-                    .addClass('up')
-                    .html("<i class='icon-arrow-left'></i>")
+                    .addClass('left')
+                    .html("<i class='icon-fast-backward'></i>")
                     .bind('click.orderingList', $.proxy(this._leftHandler, this))
             )
                 .append(
                 button.clone()
-                    .addClass('down')
-                    .html("<i class='icon-arrow-right'></i>")
+                    .addClass('right')
+                    .html("<i class='icon-step-forward'></i>")
                     .bind('click.orderingList', $.proxy(this._rightHandler, this))
             )
                 .append(
                 button
                     .clone()
-                    .addClass('last')
-                    .html("<i class='icon-arrow-right'></i>")
+                    .addClass('rightAll')
+                    .html("<i class='icon-fast-forward'></i>")
                     .bind('click.orderingList', $.proxy(this._rightAllHandler, this))
             );
             this.sourceList.parent().after(

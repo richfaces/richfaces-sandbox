@@ -11,39 +11,27 @@
     display: block;
 }
 
-.source {
-    .list();
-}
-
-.target {
-    .list();
-}
+//.source {
+//    .list();
+//}
+//
+//.target {
+//    .list();
+//}
 
 .pickList {
     .buttonColumnPickList {
-        text-align: right;
+        text-align: center;
+        position: relative;
+        height: 131px;
         .btn-group-vertical {
             margin: auto;
+            width: 24px;
+            position:absolute; top:50%; margin-top: -62px;
             display: inline-block;
 
             button {
                 padding: 6px;
-            }
-
-            .first {
-                padding-top: 5px;
-            }
-
-            .first i {
-                border-left: @grayDark solid 2px;
-            }
-
-            .last {
-                padding-bottom: 5px;
-            }
-
-            .last i {
-                border-right: @grayDark solid 2px;
             }
 
         }
