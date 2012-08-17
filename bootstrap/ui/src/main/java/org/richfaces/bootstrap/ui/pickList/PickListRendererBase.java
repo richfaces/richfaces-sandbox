@@ -54,6 +54,7 @@ import java.util.List;
         @ResourceDependency(library = "com.jqueryui", name = "js/jquery.ui.sortable.js"),
 
         @ResourceDependency(library = "org.richfaces", name = "widget/pickList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "widget/orderingList.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge/bootstrap.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge/bridgeBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "bridge/pickList.js")
