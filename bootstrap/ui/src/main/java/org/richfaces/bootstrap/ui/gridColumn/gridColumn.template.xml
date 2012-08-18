@@ -12,8 +12,8 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="#{component.spanClass} #{component.offsetClass}"
-             cdk:passThrough="on*">
+        <div id="#{clientId}" class="#{component.spanClass} #{component.offsetClass} #{component.styleClass}"
+             cdk:passThrough="style title on*">
             <cdk:body />
         </div>
     </cc:implementation>

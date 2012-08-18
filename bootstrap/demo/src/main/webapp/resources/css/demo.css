@@ -275,7 +275,11 @@ table.attributes td {
 
 pre.prettyprint {
   position: relative;
-  z-index: -1; 
+  z-index: -1;
+}
+
+.bs-docs-example > pre.prettyprint {
+  z-index: 0;
 }
 
 pre.prettyprint + pre.onlysource {
