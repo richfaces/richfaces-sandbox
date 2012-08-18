@@ -25,11 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.bootstrap.component.BootstrapSize;
+import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
+import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
 import org.richfaces.bootstrap.ui.commandButton.AbstractCommandButton;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -40,7 +41,7 @@ import org.richfaces.component.attribute.CoreProps;
 /**
  * Base class for the label component
  * 
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  *
  */
 @JsfComponent(
@@ -48,7 +49,7 @@ import org.richfaces.component.attribute.CoreProps;
         family = AbstractInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = InputRendererBase.RENDERER_TYPE),
         tag = @Tag(name="input"))
-public abstract class AbstractInput extends UIInput implements CoreProps {
+public abstract class AbstractInput extends UIInput implements CoreProps, BootstrapSeverityProps, BootstrapScaleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Input";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Input";
     
@@ -110,12 +111,6 @@ public abstract class AbstractInput extends UIInput implements CoreProps {
     
     @Attribute
     public abstract boolean isDisabled();
-    
-    @Attribute
-    public abstract BootstrapSize getScale();
-    
-    @Attribute
-    public abstract BootstrapSeverity getSeverity();
     
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();

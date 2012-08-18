@@ -21,14 +21,14 @@
  */
 package org.richfaces.bootstrap.ui.commandButton;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.bootstrap.component.BootstrapSize;
-import org.richfaces.bootstrap.component.HorizontalPosition;
-import org.richfaces.bootstrap.component.VerticalPosition;
+import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
+import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -48,7 +48,8 @@ import org.richfaces.component.attribute.CoreProps;
         type = AbstractCommandButton.COMPONENT_TYPE, family = AbstractCommandButton.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
         tag = @Tag(name="commandButton"))
-public abstract class AbstractCommandButton extends AbstractActionComponent implements AjaxProps, CoreProps, CommandButtonProps {
+public abstract class AbstractCommandButton extends AbstractActionComponent implements AjaxProps, CoreProps,
+    CommandButtonProps, BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
 
@@ -81,18 +82,6 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
 
     @Attribute(hidden = true)
     public abstract Object getValue();
-    
-    @Attribute
-    public abstract BootstrapSeverity getSeverity();
-    
-    @Attribute
-    public abstract BootstrapSize getScale();
-    
-    @Attribute
-    public abstract HorizontalPosition getHorizontal();
-    
-    @Attribute
-    public abstract VerticalPosition getVertical();
     
     @Attribute
     public abstract String getColor();

@@ -23,8 +23,7 @@ package org.richfaces.bootstrap.ui.badge;
 
 import javax.faces.component.UIOutput;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -33,7 +32,7 @@ import org.richfaces.component.attribute.CoreProps;
 /**
  * Base class for the badge component
  * 
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  *
  */
 @JsfComponent(
@@ -41,10 +40,7 @@ import org.richfaces.component.attribute.CoreProps;
         family = AbstractBadge.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = BadgeRendererBase.RENDERER_TYPE),
         tag = @Tag(name="badge"))
-public abstract class AbstractBadge extends UIOutput implements CoreProps {
+public abstract class AbstractBadge extends UIOutput implements CoreProps, BootstrapSeverityProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Badge";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Badge";
-    
-    @Attribute
-    public abstract BootstrapSeverity getSeverity();
 }

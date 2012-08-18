@@ -32,7 +32,7 @@ import org.richfaces.component.attribute.CoreProps;
 /**
  * Base class for the icon component
  * 
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  *
  */
 @JsfComponent(

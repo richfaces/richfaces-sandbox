@@ -23,7 +23,6 @@ package org.richfaces.bootstrap.ui.modal;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.component.HorizontalPosition;
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.bootstrap.semantic.RenderBodyFacetCapable;
 import org.richfaces.bootstrap.semantic.RenderFooterFacetCapable;
@@ -37,7 +36,7 @@ import org.richfaces.component.attribute.CoreProps;
 /**
  * Base class for the modal component
  * 
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  * 
  */
 @BootstrapJSPlugin(name = "modal")
@@ -68,9 +67,6 @@ public abstract class AbstractModal extends UIPanel implements CoreProps, Render
     
     @Attribute(defaultValue = "", suggestedValue = "fade")
     public abstract String getEffect();
-
-    @Attribute
-    public abstract HorizontalPosition getCancelPosition();
     
     private boolean custom = false;
     

@@ -23,10 +23,9 @@ package org.richfaces.bootstrap.ui.buttonDropdown;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.bootstrap.component.BootstrapSize;
-import org.richfaces.bootstrap.component.HorizontalPosition;
-import org.richfaces.bootstrap.component.VerticalPosition;
+import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
+import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -43,7 +42,8 @@ import org.richfaces.component.attribute.EventsMouseProps;
         family = AbstractButtonDropdown.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
         tag = @Tag(name = "buttonDropdown"))
-public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps {
+public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps,
+    BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";
 
@@ -52,16 +52,4 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
 
     @Attribute
     public abstract String getButtonStyle();
-    
-    @Attribute
-    public abstract BootstrapSeverity getSeverity();
-    
-    @Attribute
-    public abstract BootstrapSize getScale();
-    
-    @Attribute
-    public abstract HorizontalPosition getHorizontal();
-    
-    @Attribute
-    public abstract VerticalPosition getVertical();
 }
