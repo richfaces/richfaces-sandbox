@@ -21,31 +21,23 @@
  */
 package org.richfaces.bootstrap.semantic;
 
-import org.richfaces.bootstrap.component.AbstractSemanticComponent;
-import org.richfaces.bootstrap.component.HorizontalPosition;
-import org.richfaces.bootstrap.component.VerticalPosition;
-import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
  * Base class for the FacetPosition component.
  *
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  */
 @JsfComponent(
         type = AbstractPositionFacet.COMPONENT_TYPE,
         family = AbstractPositionFacet.COMPONENT_FAMILY,
         tag = @Tag(name="positionFacet"))
-public abstract class AbstractPositionFacet extends AbstractSemanticComponent<RenderPositionFacetCapable> {
+public abstract class AbstractPositionFacet extends AbstractSemanticComponentBase<RenderPositionFacetCapable>
+    implements CardinalPositionProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.PositionFacet";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.PositionFacet";
-
-    @Attribute
-    public abstract HorizontalPosition getHorizontal();
-    
-    @Attribute
-    public abstract VerticalPosition getVertical();
     
     @Override
     public Class<RenderPositionFacetCapable> getRendererCapability() {

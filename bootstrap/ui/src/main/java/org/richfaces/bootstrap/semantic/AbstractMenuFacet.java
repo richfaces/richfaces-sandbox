@@ -23,7 +23,6 @@ package org.richfaces.bootstrap.semantic;
 
 import javax.faces.component.UIComponent;
 
-import org.richfaces.bootstrap.component.AbstractSemanticComponent;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
@@ -31,13 +30,13 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * Base class for the menuFacet component.
  *
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  */
 @JsfComponent(
         type = AbstractMenuFacet.COMPONENT_TYPE,
         family = AbstractMenuFacet.COMPONENT_FAMILY,
         tag = @Tag(name="menuFacet"))
-public abstract class AbstractMenuFacet extends AbstractSemanticComponent<RenderMenuFacetCapable> {
+public abstract class AbstractMenuFacet extends AbstractSemanticComponentBase<RenderMenuFacetCapable> {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.MenuFacet";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.MenuFacet";
     public static final String ACTIVE_ATTRIBUTE_NAME = "active";

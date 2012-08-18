@@ -21,7 +21,6 @@
  */
 package org.richfaces.bootstrap.semantic;
 
-import org.richfaces.bootstrap.component.AbstractSemanticComponent;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
@@ -29,14 +28,14 @@ import org.richfaces.component.attribute.CoreProps;
 /**
  * Base class for the footer component
  * 
- * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
+ * @author <a href="http://pauldijou.fr">Paul Dijou</a>
  * 
  */
 @JsfComponent(
         type = AbstractFooterFacet.COMPONENT_TYPE,
         family = AbstractFooterFacet.COMPONENT_FAMILY,
         tag = @Tag(name="footerFacet"))
-public abstract class AbstractFooterFacet extends AbstractSemanticComponent<RenderFooterFacetCapable> implements CoreProps {
+public abstract class AbstractFooterFacet extends AbstractSemanticComponentBase<RenderFooterFacetCapable> implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.FooterFacet";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.FooterFacet";
     
