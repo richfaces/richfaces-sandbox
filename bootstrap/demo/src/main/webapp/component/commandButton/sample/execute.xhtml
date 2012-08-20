@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+  <h:form>
+    <p>
+      <h:outputText id="executeOutput" value="Value: #{empty(requestBean.value) ? 'nothing so far... Do something! Click somewhere' : requestBean.value}." />
+    </p>
+    
+    <h:inputText id="executeInput" value="#{requestBean.value}"/>
+    
+    <h:panelGrid columns="3" cellpadding="10">
+      <b:commandButton value="Submit @none" execute="@none" render="executeOutput">
+        <f:setPropertyActionListener target="#{requestBean.value}" value="Will reset the output since the bean is @RequestScope but will not submit this value" />
+      </b:commandButton>
+    
+      <b:commandButton value="Submit @this" execute="@this" render="executeOutput">
+        <f:setPropertyActionListener target="#{requestBean.value}" value="@this" />
+      </b:commandButton>
+      
+      <b:commandButton value="Submit default (= @form)" render="executeOutput"/>
+      
+      <b:commandButton value="Submit @form" execute="@form" render="executeOutput" />
+      
+      <b:commandButton value="Submit @all" execute="@all" render="executeOutput"/>
+      
+      <b:commandButton value="Submit only the input" execute="executeInput" render="executeOutput"/>
+    </h:panelGrid>
+  </h:form>
+</ui:composition>
