@@ -26,6 +26,7 @@ import javax.faces.component.UIPanel;
 import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
 import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
+import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -43,7 +44,7 @@ import org.richfaces.component.attribute.EventsMouseProps;
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
         tag = @Tag(name = "buttonDropdown"))
 public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps,
-    BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps {
+    BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps, RenderSeparatorFacetCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";
 
@@ -52,4 +53,9 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
 
     @Attribute
     public abstract String getButtonStyle();
+    
+    @Override
+    public String getSeparatorFacetRendererType() {
+        return "org.richfaces.bootstrap.ButtonDropdownSeparatorFacetRenderer";
+    }
 }

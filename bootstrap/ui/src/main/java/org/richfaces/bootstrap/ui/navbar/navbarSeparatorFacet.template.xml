@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.navbar.NavbarSeparatorFacetRenderer</cdk:class>
+        <cdk:component-family>org.richfaces.bootstrap.SeparatorFacet</cdk:component-family>
+        <cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.NavbarSeparatorFacetRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.semantic.AbstractSeparatorFacet</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+    	<li id="#{clientId}" class="divider-vertical"></li>
+    </cc:implementation>
+</cdk:root>

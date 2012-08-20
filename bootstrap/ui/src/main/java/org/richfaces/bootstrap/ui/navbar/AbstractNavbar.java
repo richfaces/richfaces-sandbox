@@ -25,6 +25,7 @@ import javax.faces.component.UIPanel;
 
 import org.richfaces.bootstrap.semantic.RenderMenuFacetCapable;
 import org.richfaces.bootstrap.semantic.RenderPositionFacetCapable;
+import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -40,7 +41,8 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractNavbar.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = NavbarRendererBase.RENDERER_TYPE),
         tag = @Tag(name="navbar"))
-public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetCapable, RenderPositionFacetCapable {
+public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetCapable,
+    RenderPositionFacetCapable, RenderSeparatorFacetCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Navbar";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Navbar";
 
@@ -61,5 +63,10 @@ public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetC
     @Override
     public String getPositionFacetRendererType() {
         return "org.richfaces.bootstrap.NavbarPositionFacetRenderer";
+    }
+    
+    @Override
+    public String getSeparatorFacetRendererType() {
+        return "org.richfaces.bootstrap.NavbarSeparatorFacetRenderer";
     }
 }
