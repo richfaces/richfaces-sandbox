@@ -19,11 +19,50 @@
             this.sortableOptions = { handle: ".handle",
                 disabled: this.options.disabled,
                 dropOnEmpty: this.options.dropOnEmpty,
+                placeholder: "placeholder",
+                tolerance: "pointer",
                 start: function(event, ui) {
-                    $(self.element).find(".ui-selected").removeClass('ui-selected');
-                    $(ui.item).addClass('ui-selected');
+                    self.currentItems = ui.item.parent().children('.ui-selected').not('.placeholder').not('.helper-item');
+                    var helper = ui.helper;
+                    var placeholder = self.element.find('.placeholder')
+                    placeholder.css('height', helper.css('height'));
+                    self.currentItems.not(ui.item).hide();
+                },
+                sort: function (event, ui) {
+                    var helper_top = ui.helper.position().top,
+                        helper_bottom = helper_top + ui.helper.outerHeight();
+                        self.element.children('.ui-selectee').not('.placeholder').not('.helper-item').not('.ui-selected').each(function () {
+                        var item = $(this);
+                        var item_top = item.position().top;
+                        var item_middle = item.position().top + item.outerHeight()/2;
+                        // if the helper overlaps half of an item, move the placeholder
+                        if (helper_top < item_middle && item_middle < helper_bottom) {
+                            if (item_top > helper_top) {
+                                $('.placeholder', self.element).insertAfter(item);
+                            } else {
+                                $('.placeholder', self.element).insertBefore(item);
+                            }
+                            return false;
+                        }
+                    });
+                },
+                cancel: function(event, ui) {
+                    self.currentItems.show();
+                },
+                receive: function(event, ui) {
+                    ui.item.after(ui.sender.find(".ui-selected"));
+                },
+                beforeStop: function(event, ui) {
                 },
                 stop: function(event, ui) {
+                    var first = self.currentItems.first();
+                    if (first.get(0) !== ui.item.get(0)) {
+                        ui.item.before(first);
+                        first.after(self.currentItems.not(first).detach());
+                    } else {
+                        ui.item.after(self.currentItems.not(ui.item).detach());
+                    }
+                    self.currentItems.not('.placeholder').show();
                     var ui = self._dumpState();
                     ui.movement = 'drag';
                     self._trigger("change", event, ui);
@@ -33,12 +72,12 @@
                 this.strategy = "table";
                 this.$pluginRoot = $( this.element).find("tbody");
                 this.selectableOptions.filter = "tr";
-                this.sortableOptions.placeholder = "placeholder";
                 this.sortableOptions.helper = $.proxy(this._rowHelper, this);
             } else {
                 this.strategy = "list";
                 this.$pluginRoot = $( this.element);
                 this.selectableOptions.filter = "li";
+                this.sortableOptions.helper = $.proxy(this._listHelper, this);
             }
             this._addDomElements();
             this.widgetEventPrefix = this.options.widgetEventPrefix;
@@ -60,13 +99,26 @@
             return this;
         },
 
-        _rowHelper: function(e, tr) {
-            var $helper = tr.clone();
-            $helper.addClass("ui-selected rowhelper");
+        _listHelper: function(e, item) {
+            if (! item.hasClass('ui-selected')) {
+                item.siblings('.ui-selected').removeClass('ui-selected');
+                item.addClass('ui-selected');
+            }
+            var $helper = $("<ol />").addClass('helper').css('height', 'auto').css('width', this.element.css('width'));
+            item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
+            return $helper;
+        },
+
+        _rowHelper: function(e, item) {
+            if (! item.hasClass('ui-selected')) {
+                item.siblings('.ui-selected').removeClass('ui-selected');
+                item.addClass('ui-selected');
+            }
+            var $helper = $("<tbody />").addClass('helper').css('height', 'auto').css('width', this.element.css('width'));
+            item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             // we lose the cell width in the clone, so we re-set it here:
-            $helper.css('width', tr.css('width'));
-            $helper.children().each(function (index) {
-                var original_cell = tr.children().get(index);
+            $helper.children().first().children().each(function (index) {
+                var original_cell = item.children().get(index);
                 var original_width = $(original_cell).css('width');
                 $(this).css('width', original_width);
             });

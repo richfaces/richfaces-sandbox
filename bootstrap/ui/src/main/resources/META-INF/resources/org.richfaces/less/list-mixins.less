@@ -26,6 +26,11 @@
         min-height: 122px;
     }
 
+    .list ol.helper {
+        min-height: 0px;
+        margin: 0;
+    }
+
     .buttonColumn {
         line-height: 100px;
         vertical-align: middle;
@@ -75,7 +80,11 @@
     }
 
     .handle:hover {
-        background: @linkColor;
+        background: @grayLighter;
+    }
+
+    .ui-selected .handle:hover {
+        background: @linkColorHover;
     }
 
     .disabled .handle:hover,
@@ -88,12 +97,12 @@
         background-color: @grayLighter;
     }
 
-    .ui-selected,  .rowhelper {
+    .ui-selected,  .helper tr {
         background-color: @linkColor;
         color: @white;
     }
 
-    .rowhelper {
+    .helper tr {
         .border-radius(5px);
     }
 
@@ -101,7 +110,7 @@
         background: @linkColor;
     }
 
-    .ui-selected:hover,  .rowhelper:hover {
+    .ui-selected:hover,  .helper-item {
         background-color: @linkColorHover;
     }
 
@@ -110,10 +119,6 @@
     .disabled li,
     .disabled td {
         cursor: default;
-    }
-
-    .btn-group-vertical {
-//        display: inline-block;
     }
 
     .btn-group-vertical button {
