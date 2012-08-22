@@ -21,10 +21,15 @@ Please take a time to read more about [Sandbox process](https://community.jboss.
 All the feature requests, suggestions for improvements and bugs are tracked in [JBoss JIRA issue tracker](https://issues.jboss.org/browse/RFSBOX)
 
 [User Forums](http://www.jboss.org/index.html?module=bb&op=viewforum&f=261)
------------
+---------------------
 
-The best place to start with contributions is [user forum](http://www.jboss.org/index.html?module=bb&op=viewforum&f=261)
+The best place to start with contributions is [user forum](http://www.jboss.org/index.html?module=bb&op=viewforum&f=261).
 
+
+Continuous Integration
+----------------------
+
+Each commit and each pull request is guarded by [continuous integration build](https://buildhive.cloudbees.com/job/richfaces/job/sandbox/).
 
 
 Build Instructions
