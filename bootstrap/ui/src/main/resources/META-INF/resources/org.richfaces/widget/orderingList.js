@@ -29,18 +29,19 @@
                     self.currentItems.not(ui.item).hide();
                 },
                 sort: function (event, ui) {
+                    var that = $(this);
                     var helper_top = ui.helper.position().top,
                         helper_bottom = helper_top + ui.helper.outerHeight();
-                        self.element.children('.ui-selectee').not('.placeholder').not('.helper-item').not('.ui-selected').each(function () {
+                    that.children('.ui-selectee').not('.placeholder').not('.helper-item').not('.ui-selected').each(function () {
                         var item = $(this);
                         var item_top = item.position().top;
                         var item_middle = item.position().top + item.outerHeight()/2;
                         // if the helper overlaps half of an item, move the placeholder
                         if (helper_top < item_middle && item_middle < helper_bottom) {
                             if (item_top > helper_top) {
-                                $('.placeholder', self.element).insertAfter(item);
+                                $('.placeholder', that).insertAfter(item);
                             } else {
-                                $('.placeholder', self.element).insertBefore(item);
+                                $('.placeholder', that).insertBefore(item);
                             }
                             return false;
                         }
