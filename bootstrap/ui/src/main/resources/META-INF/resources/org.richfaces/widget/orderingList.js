@@ -8,7 +8,8 @@
             showButtons: true,
             mouseOrderable: true,
             widgetEventPrefix: 'orderingList_',
-            dropOnEmpty: true
+            dropOnEmpty: true,
+            dragSelect: false
         },
 
         _create: function() {
@@ -16,7 +17,7 @@
             this.selectableOptions = {
                 disabled: self.options.disabled
             };
-            this.sortableOptions = { handle: ".handle",
+            this.sortableOptions = { handle: this.options.dragSelect ? ".handle" : false,
                 disabled: this.options.disabled,
                 dropOnEmpty: this.options.dropOnEmpty,
                 placeholder: "placeholder",
@@ -89,6 +90,34 @@
             if (this.options.disabled === true) {
                 self._disable();
             }
+            var selector = '.handle';
+            if (this.options.dragSelect == false) {
+                this.element.find('.ui-selectee').on("mousedown", function(event) {
+                    var item = $(this);
+                    if (! item.hasClass('ui-selected')) {
+                        var list = item.parents('.list').first();
+                        list.data('selectable')._mouseStart(event);
+                        list.data('selectable')._mouseStop(event);
+                    }
+                });
+                this.element.find('.ui-selectee').on("mouseup", function(event) {
+                    var item = $(this);
+                    if (item.hasClass('ui-selected')) {
+                        var list = item.parents('.list').first();
+                        list.data('selectable')._mouseStart(event);
+                        list.data('selectable')._mouseStop(event);
+                    }
+                });
+            } else {
+                this.element.find('.handle').on("mousedown", function(event) {
+                    var item = $(this).parents('.ui-selectee').first();
+                    if (! item.hasClass('ui-selected')) {
+                        var list = item.parents('.list').first();
+                        list.data('selectable')._mouseStart(event);
+                        list.data('selectable')._mouseStop(event);
+                    }
+                });
+            }
         },
 
         destroy: function() {
@@ -101,25 +130,18 @@
         },
 
         _listHelper: function(e, item) {
-            if (! item.hasClass('ui-selected')) {
-                item.siblings('.ui-selected').removeClass('ui-selected');
-                item.addClass('ui-selected');
-            }
             var $helper = $("<ol />").addClass('helper').css('height', 'auto').css('width', this.element.css('width'));
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             return $helper;
         },
 
         _rowHelper: function(e, item) {
-            if (! item.hasClass('ui-selected')) {
-                item.siblings('.ui-selected').removeClass('ui-selected');
-                item.addClass('ui-selected');
-            }
-            var $helper = $("<tbody />").addClass('helper').css('height', 'auto').css('width', this.element.css('width'));
+            var $helper = $("<tbody />").addClass('helper').css('height', 'auto');
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             // we lose the cell width in the clone, so we re-set it here:
-            $helper.children().first().children().each(function (index) {
-                var original_cell = item.children().get(index);
+            var firstRow = $helper.children("tr").first();  // we only need to set the column widths on the first row
+            firstRow.children().each(function (colindex) {
+                var original_cell = item.children().get(colindex);
                 var original_width = $(original_cell).css('width');
                 $(this).css('width', original_width);
             });
@@ -230,7 +252,8 @@
 
         _addDomElements: function() {
             this._addParents();
-            this._addMouseHandles();
+                this._addMouseHandles();
+//            }
             if (this.options.showButtons === true) {
                 this._addButtons();
             }
@@ -280,28 +303,41 @@
         },
 
         _addMouseHandles: function () {
-            if (this.options.mouseOrderable === true) {
+            if (this.options.mouseOrderable !== true) {
+                return
+            }
+            if (this.options.dragSelect === true) {
                 this.content.addClass('with-handle');
                 if (this.strategy === 'table') {
                     $( this.element )
                         .find( "tbody > tr" )
-                        .prepend( "<th class='handleRow'><div class='handle'><i class='icon-move'></i></div></th>");
+                        .prepend( "<th class='handleCell'><div class='handle'><i class='icon-move'></i></div></th>");
                     $( this.element )
                         .find("thead > tr")
-                        .prepend( "<th class='handleRow'></th>");
+                        .prepend( "<th class='handleCell'></th>");
                 } else if (this.strategy === 'list') {
                     $( this.element )
                         .find( "li" )
                         .prepend( "<div class='handle'><i class='icon-move'></i></div>" );
                 }
+            } else {
+                if (this.strategy === 'table') {
+                    // This empty cell is required to get the helper positioned correctly
+                    $( this.element )
+                        .find( "tbody > tr" )
+                        .prepend( "<th class='emptyCell'></th>");
+                    $( this.element )
+                        .find("thead > tr")
+                        .prepend( "<th class='emptyCell'></th>");
+                }
             }
         },
 
         _addParents: function() {
-            this.element.wrap(
+            this.element.addClass('list').wrap(
                 $("<div />").addClass('orderingList outer').append(
                     $('<div />').addClass('content').append(
-                        $('<div />').addClass('list')
+                        $('<div />').addClass('listBox')
                     )
                 )
             );

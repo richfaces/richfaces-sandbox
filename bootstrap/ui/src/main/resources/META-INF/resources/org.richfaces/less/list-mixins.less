@@ -15,12 +15,12 @@
         width:100%;
     }
 
-    .list {
+    .listBox {
         vertical-align: middle;
         display: table-cell;
     }
 
-    .list ol {
+    ol.list {
         margin-left: 0;
         list-style: none;
         min-height: 122px;
@@ -97,12 +97,12 @@
         background-color: @grayLighter;
     }
 
-    .ui-selected,  .helper tr {
+    .ui-selected,  tr.helper-item {
         background-color: @linkColor;
         color: @white;
     }
 
-    .helper tr {
+    tr.helper-item {
         .border-radius(5px);
     }
 
@@ -157,8 +157,12 @@
         height: 28px;
     }
 
-    th.handleRow {
+    th.handleCell {
         width: 24px;
+    }
+
+    th.emptyCell {
+        width: 5px;
     }
 
     .first {
