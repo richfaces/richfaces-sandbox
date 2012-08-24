@@ -60,13 +60,13 @@
                 .append(
                 button.clone()
                     .addClass('leftAll')
-                    .html("<i class='icon-step-backward'></i>")
+                    .html("<i class='icon-fast-backward'></i>")
                     .bind('click.orderingList', $.proxy(this._leftAllHandler, this))
             )
                 .append(
                 button.clone()
                     .addClass('left')
-                    .html("<i class='icon-fast-backward'></i>")
+                    .html("<i class='icon-step-backward'></i>")
                     .bind('click.orderingList', $.proxy(this._leftHandler, this))
             )
                 .append(
