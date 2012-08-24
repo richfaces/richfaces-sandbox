@@ -37,7 +37,7 @@
                         var item = $(this);
                         var item_top = item.position().top;
                         var item_middle = item.position().top + item.outerHeight()/2;
-                        // if the helper overlaps half of an item, move the placeholder
+                        /* if the helper overlaps half of an item, move the placeholder */
                         if (helper_top < item_middle && item_middle < helper_bottom) {
                             if (item_top > helper_top) {
                                 $('.placeholder', that).insertAfter(item);
@@ -92,20 +92,33 @@
             }
             var selector = '.handle';
             if (this.options.dragSelect == false) {
-                this.element.find('.ui-selectee').on("mousedown", function(event) {
+                this.element.on("mousedown", '.ui-selectee', function(event) {
                     var item = $(this);
-                    if (! item.hasClass('ui-selected')) {
-                        var list = item.parents('.list').first();
-                        list.data('selectable')._mouseStart(event);
-                        list.data('selectable')._mouseStop(event);
+                    var list = item.parents('.list').first();
+                    list.data('orderingList').mouseStarted = true;
+                });
+                this.$pluginRoot.on("mousemove", '.ui-selectee', function(event) {
+                    var item = $(this);
+                    var list = item.parents('.list').first();
+                    var orderingList = list.data('orderingList');
+                    if (orderingList.mouseStarted) {
+                        orderingList.mouseStarted = false;
+                        if (! item.hasClass('ui-selected')) {
+                            var selectable = orderingList.$pluginRoot.data('selectable');
+                            selectable._mouseStart(event);
+                            selectable._mouseStop(event);
+                        }
                     }
                 });
-                this.element.find('.ui-selectee').on("mouseup", function(event) {
+                this.element.on("mouseup", '.ui-selectee', function(event) {
                     var item = $(this);
-                    if (item.hasClass('ui-selected')) {
-                        var list = item.parents('.list').first();
-                        list.data('selectable')._mouseStart(event);
-                        list.data('selectable')._mouseStop(event);
+                    var list = item.parents('.list').first();
+                    var orderingList = list.data('orderingList');
+                    if (orderingList.mouseStarted) {
+                        orderingList.mouseStarted = false;
+                        var selectable = orderingList.$pluginRoot.data('selectable');
+                        selectable._mouseStart(event);
+                        selectable._mouseStop(event);
                     }
                 });
             } else {
@@ -113,6 +126,7 @@
                     var item = $(this).parents('.ui-selectee').first();
                     if (! item.hasClass('ui-selected')) {
                         var list = item.parents('.list').first();
+                        var selectable = orderingList.$pluginRoot.data('selectable');
                         list.data('selectable')._mouseStart(event);
                         list.data('selectable')._mouseStop(event);
                     }
@@ -138,8 +152,8 @@
         _rowHelper: function(e, item) {
             var $helper = $("<tbody />").addClass('helper').css('height', 'auto');
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
-            // we lose the cell width in the clone, so we re-set it here:
-            var firstRow = $helper.children("tr").first();  // we only need to set the column widths on the first row
+            /* we lose the cell width in the clone, so we re-set it here: */
+            var firstRow = $helper.children("tr").first();  /* we only need to set the column widths on the first row */
             firstRow.children().each(function (colindex) {
                 var original_cell = item.children().get(colindex);
                 var original_width = $(original_cell).css('width');
@@ -252,12 +266,11 @@
 
         _addDomElements: function() {
             this._addParents();
-                this._addMouseHandles();
-//            }
+            this._addMouseHandles();
             if (this.options.showButtons === true) {
                 this._addButtons();
             }
-            if (this.strategy === 'table') { // round the table row corners
+            if (this.strategy === 'table') { /* round the table row corners */
                 $( this.element )
                     .find( "tr").each(function() {
                         $(this).children().last().addClass('last');
@@ -322,7 +335,7 @@
                 }
             } else {
                 if (this.strategy === 'table') {
-                    // This empty cell is required to get the helper positioned correctly
+                    /* This empty cell is required to get the helper positioned correctly */
                     $( this.element )
                         .find( "tbody > tr" )
                         .prepend( "<th class='emptyCell'></th>");
