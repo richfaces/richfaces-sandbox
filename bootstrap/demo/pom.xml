@@ -93,21 +93,10 @@
             </build>
         </profile>
         <profile>
-            <id>openshift</id>
+            <id>production</id>
             <properties>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <outputDirectory>deployments</outputDirectory>
-                            <warName>ROOT</warName>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>
