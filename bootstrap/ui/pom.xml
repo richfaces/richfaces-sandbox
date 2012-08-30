@@ -174,7 +174,7 @@
                                     </pluginExecutionFilter>
                                     <action>
                                         <execute>
-                                            <runOnIncremental>true</runOnIncremental>
+                                            <runOnIncremental>false</runOnIncremental>
                                         </execute>
                                     </action>
                                 </pluginExecution>
