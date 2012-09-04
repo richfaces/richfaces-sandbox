@@ -138,17 +138,6 @@
                             <targetGroups>rf-bootstrap-js</targetGroups>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>rf-bootstrap-responsive</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <wroFile>${basedir}/src/main/wro4j/rf-bootstrap-responsive.xml</wroFile>
-                            <extraConfigFile>${basedir}/src/main/wro4j/less-min.properties</extraConfigFile>
-                            <targetGroups>rf-bootstrap-responsive</targetGroups>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -228,6 +217,17 @@
                                     <wroFile>${basedir}/src/main/wro4j/rf-bootstrap-css.xml</wroFile>
                                     <extraConfigFile>${basedir}/src/main/wro4j/less-min.properties</extraConfigFile>
                                     <targetGroups>rf-bootstrap-css</targetGroups>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>rf-bootstrap-responsive</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <wroFile>${basedir}/src/main/wro4j/rf-bootstrap-responsive.xml</wroFile>
+                                    <extraConfigFile>${basedir}/src/main/wro4j/less-min.properties</extraConfigFile>
+                                    <targetGroups>rf-bootstrap-responsive</targetGroups>
                                 </configuration>
                             </execution>
                         </executions>
