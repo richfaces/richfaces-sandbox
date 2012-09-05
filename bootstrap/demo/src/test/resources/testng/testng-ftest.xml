@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Functional tests">
+    
+    <test name="Webdriver tests">
+        <groups>
+            <run>
+                <exclude name="broken" />
+            </run>
+        </groups>
+        
+        <packages>
+            <package name="org.richfaces.bootstrap.demo.ftest.webdriver.*" />
+        </packages>
+    </test>
+    
+</suite>
