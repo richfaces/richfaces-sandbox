@@ -1,7 +1,7 @@
 <groups xmlns="http://www.isdc.ro/wro">
 
     <group name="rf-bootstrap-responsive">
-        <css>/bootstrap/less/responsive.less</css>
+        <css>/org.richfaces/less/main-responsive.less</css>
     </group>
 
 </groups>

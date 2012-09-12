@@ -40,7 +40,6 @@ import org.richfaces.renderkit.RendererBase;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "bootstrap-responsive.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-js.reslib")
 })
 public abstract class NavbarRendererBase extends RendererBase {
