@@ -24,97 +24,128 @@
 
     rf.ui = rf.ui || {};
 
+    function evaluate(o) {
+        if (o instanceof Function) {
+            return o();
+        } else {
+            var value;
+            with (object) {
+                value = eval(o);
+            }
+            return value;
+        }
+    }
+
     /**
      * Creates new color picker component.
      * @param componentId identifier of script component with code invoking this method
      */
-    rf.ui.ColorPicker = function(componentId, options) {
-        options = $.extend({okLabel:"Ok",cancelLabel:"Cancel",onchange:null}, options);
-        /**
-         * Small square that is used to show or hide picker.
-         */
-        var toggler = $(document.getElementById(componentId));
-        /**
-         * Hidden input that will be used to submit value to server
-         */
-        var valueInput = $(".rf-cp-i", toggler);
-        /**
-         * Container for picker plugin
-         */
-        var pickerContainer = $(".rf-cp-h", toggler);
-        /**
-         * Picker plugin will be stored with this delegate
-         */
-        this.delegate = $.farbtastic(pickerContainer);
-        /**
-         * In some places we won't be able to get to this.delegate cause this will be something different so we store it in local variable
-         */
-        var delegate = this.delegate;
-        valueInput.change(function() {
-            if (options.onchange != null) {
-                options.onchange();
-            }
-        });
-        /**
-         * Setup OK button.
-         */
-        $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-o").val(options.okLabel).click(function() {
+    rf.ui.ColorPicker = rf.BaseComponent.extendClass({
+        name:"ColorPicker",
+        init:function (componentId, options) {
+            $super.constructor.call(this, componentId, options);
+            this.attachToDom(componentId);
+            options = $.extend({okLabel:"Ok", cancelLabel:"Cancel", onchange:null, onshow:null, onhide:null}, options);
             /**
-             * We update value and trigger change event if value really changed
+             * Small square that is used to show or hide picker.
              */
-            var oldValue = valueInput.val();
-            var valueDiffers = false;
-            if ((oldValue != null && delegate.color != null && oldValue.toLowerCase() != delegate.color.toLowerCase()) || (oldValue == null && delegate.color
-                != null || oldValue != null && delegate.color == null)) {
-                valueDiffers = true;
-                valueInput.val(delegate.color);
-                valueInput.change();
+            var toggler = $(document.getElementById(componentId));
+            /**
+             * Hidden input that will be used to submit value to server
+             */
+            var valueInput = $(".rf-cp-i", toggler);
+            /**
+             * Container for picker plugin
+             */
+            var pickerContainer = $(".rf-cp-h", toggler);
+            /**
+             * Picker plugin will be stored with this delegate
+             */
+            this.delegate = $.farbtastic(pickerContainer);
+            /**
+             * In some places we won't be able to get to this.delegate cause this will be something different so we store it in local variable
+             */
+            var delegate = this.delegate;
+            var picker = this;
+            valueInput.change(function () {
+                if (options.onchange != null) {
+                    options.onchange();
+                }
+            });
+            /**
+             * Setup OK button.
+             */
+            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-o").val(options.okLabel).click(function () {
+                /**
+                 * We update value and trigger change event if value really changed
+                 */
+                var oldValue = valueInput.val();
+                if ((oldValue != null && delegate.color != null && oldValue.toLowerCase() != delegate.color.toLowerCase()) || (oldValue == null && delegate.color
+                        != null || oldValue != null && delegate.color == null)) {
+                    valueInput.val(delegate.color);
+                    valueInput.change();
+                }
+                picker.hide();
+            });
+            /**
+             * Cancel function used to restore original color and hide the picker
+             */
+            var cancel = function () {
+                delegate.setColor(valueInput.val());
+                picker.hide();
+            };
+            /**
+             * Setup cancel button
+             */
+            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-c").val(options.cancelLabel).click(cancel);
+            /**
+             * Attach click handler to toggler. If color picker is visible then we bind event to document so that user can cancel by clicking anywhere on the screen
+             */
+            toggler.click(function (e) {
+                e.stopPropagation();
+                if (pickerContainer.css("display") == "none") {
+                    picker.show();
+                    var handler = function () {
+                        cancel();
+                        $(document).unbind('click', handler);
+                    };
+                    $(document).click(handler);
+                } else {
+                    picker.hide();
+                }
+            });
+            /**
+             * If we click on color picker then we dont want the event to be propagated to document which would invoke cancel
+             */
+            pickerContainer.click(function (e) {
+                e.stopPropagation();
+            });
+            /**
+             * We want to change color of toggler when user playing with colors so it can act as preview
+             */
+            this.delegate.linkTo(function (color) {
+                toggler.css("background-color", color);
+            });
+            /**
+             * We set initial color to the picker
+             */
+            this.delegate.setColor(valueInput.val());
+
+            this.show = function () {
+                if (options.onshow != null) {
+                    evaluate(options.onshow);
+                }
+                pickerContainer.show();
+
+            };
+            this.hide = function () {
+                if (options.onhide != null) {
+                    evaluate(options.onhide);
+                }
+                pickerContainer.hide();
             }
-            pickerContainer.hide();
-        });
-        /**
-         * Cancel function used to restore original color and hide the picker
-         */
-        var cancel = function() {
-            delegate.setColor(valueInput.val());
-            pickerContainer.hide();
-        };
-        /**
-         * Setup cancel button
-         */
-        $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-c").val(options.cancelLabel).click(cancel);
-        /**
-         * Attach click handler to toggler. If color picker is visible then we bind event to document so that user can cancel by clicking anywhere on the screen
-         */
-        toggler.click(function(e) {
-            e.stopPropagation();
-            pickerContainer.toggle();
-            if (pickerContainer.css("display") != "none") {
-                var handler = function() {
-                    cancel();
-                    $(document).unbind('click', handler);
-                };
-                $(document).click(handler);
-            }
-        });
-        /**
-         * If we click on color picker then we dont want the event to be propagated to document which would invoke cancel
-         */
-        pickerContainer.click(function(e) {
-            e.stopPropagation();
-        });
-        /**
-         * We want to change color of toggler when user playing with colors so it can act as preview
-         */
-        this.delegate.linkTo(function(color) {
-            toggler.css("background-color", color);
-        });
-        /**
-         * We set initial color to the picker
-         */
-        this.delegate.setColor(valueInput.val());
-    };
-    rf.BaseComponent.extend(rf.ui.ColorPicker);
+        }
+    });
 
     // define super class link
     var $super = rf.ui.ColorPicker.$super;

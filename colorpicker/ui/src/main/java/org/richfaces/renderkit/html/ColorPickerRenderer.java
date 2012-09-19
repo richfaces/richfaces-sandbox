@@ -42,12 +42,12 @@ import java.util.Map;
 
 @JsfRenderer(family = AbstractColorPicker.COMPONENT_FAMILY, type = ColorPickerRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),
-        @ResourceDependency(name = "richfaces.js", target = "head"),
-        @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
-        @ResourceDependency(name = "farbtastic.js", target = "head"),
-        @ResourceDependency(name = "richfaces.colorpicker.js", target = "head"),
-        @ResourceDependency(name = "richfaces.colorpicker.css", target = "head"),
-        @ResourceDependency(name = "farbtastic.css", target = "head")})
+    @ResourceDependency(name = "richfaces.js", target = "head"),
+    @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
+    @ResourceDependency(name = "farbtastic.js", target = "head"),
+    @ResourceDependency(name = "richfaces.colorpicker.js", target = "head"),
+    @ResourceDependency(name = "richfaces.colorpicker.css", target = "head"),
+    @ResourceDependency(name = "farbtastic.css", target = "head")})
 public class ColorPickerRenderer extends InputRendererBase {
 // ------------------------------ FIELDS ------------------------------
 
@@ -105,7 +105,7 @@ public class ColorPickerRenderer extends InputRendererBase {
 
     protected void addOptionIfSetAndNotDefault(String optionName, Object value, Map<String, Object> options) {
         if (value != null && !"".equals(value) && !value.equals(DEFAULTS.get(
-                optionName)) && !(value instanceof Collection && ((Collection) value).size() == 0) && !(value instanceof Map && ((Map) value).size() == 0)) {
+            optionName)) && !(value instanceof Collection && ((Collection) value).size() == 0) && !(value instanceof Map && ((Map) value).size() == 0)) {
             options.put(optionName, value);
         }
     }
@@ -118,7 +118,13 @@ public class ColorPickerRenderer extends InputRendererBase {
         addOptionIfSetAndNotDefault("okLabel", colorpicker.getOkLabel(), options);
         addOptionIfSetAndNotDefault("cancelLabel", colorpicker.getCancelLabel(), options);
         RenderKitUtils.addToScriptHash(options, "onchange", RenderKitUtils.getAttributeAndBehaviorsValue(context, colorpicker,
-                RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+            RenderKitUtils.attributes().generic("onchange", "onchange", "change", "valueChange").first()), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+
+        RenderKitUtils.addToScriptHash(options, "onhide", RenderKitUtils.getAttributeAndBehaviorsValue(context, colorpicker,
+            RenderKitUtils.attributes().generic("onhide", "onhide", "hide", "hide").first()), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+
+        RenderKitUtils.addToScriptHash(options, "onshow", RenderKitUtils.getAttributeAndBehaviorsValue(context, colorpicker,
+            RenderKitUtils.attributes().generic("onshow", "onshow", "show", "show").first()), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
         return options;
     }
 }

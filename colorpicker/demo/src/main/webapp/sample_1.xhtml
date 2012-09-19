@@ -37,11 +37,11 @@
     <ui:include src="menu.xhtml"/>
 
     <h:form>
-        <colorpicker:colorPicker value="#{colorpickerBean.stringColor}" okLabel="Zapisz" cancelLabel="Anuluj"
-                                 style="border:1px solid black" styleClass="gienia"/>
-        <colorpicker:colorPicker value="#{colorpickerBean.objectColor}"
+        <colorpicker:colorPicker id="cp1" value="#{colorpickerBean.stringColor}" okLabel="Zapisz" cancelLabel="Anuluj"
+                                 style="border:1px solid black" styleClass="gienia" onshow="#{rich:component('cp2')}.hide()" onhide="alert('cp1 hiding')"/>
+        <colorpicker:colorPicker id="cp2" value="#{colorpickerBean.objectColor}"
                                  onchange="RichFaces.ui.Notify({summary:'Value changed'})"
-                                 converter="#{colorpickerBean.colorConverter}">
+                                 converter="#{colorpickerBean.colorConverter}"  onshow="#{rich:component('cp1')}.hide()">
             <a4j:ajax render="out"/>
         </colorpicker:colorPicker>
         <h:commandButton value="Submit"/>

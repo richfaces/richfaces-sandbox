@@ -22,14 +22,19 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.ColorPickerRenderer;
 
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 @JsfComponent(tag = @Tag(name = "colorPicker", type = TagType.Facelets),
-        renderer = @JsfRenderer(family = AbstractColorPicker.COMPONENT_FAMILY, type = ColorPickerRenderer.RENDERER_TYPE), attributes = "core-props.xml")
+    renderer = @JsfRenderer(family = AbstractColorPicker.COMPONENT_FAMILY, type = ColorPickerRenderer.RENDERER_TYPE), attributes = "core-props.xml")
 public abstract class AbstractColorPicker extends UIInput implements ClientBehaviorHolder {
 // ------------------------------ FIELDS ------------------------------
 
@@ -47,4 +52,10 @@ public abstract class AbstractColorPicker extends UIInput implements ClientBehav
 
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
+
+    @Attribute(events = @EventName("hide"))
+    public abstract String getOnhide();
+
+    @Attribute(events = @EventName("show"))
+    public abstract String getOnshow();
 }
