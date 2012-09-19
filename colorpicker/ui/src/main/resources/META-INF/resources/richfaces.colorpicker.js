@@ -43,9 +43,10 @@
     rf.ui.ColorPicker = rf.BaseComponent.extendClass({
         name:"ColorPicker",
         init:function (componentId, options) {
-            $super.constructor.call(this, componentId, options);
+            $super.constructor.call(this, componentId);
             this.attachToDom(componentId);
             options = $.extend({okLabel:"Ok", cancelLabel:"Cancel", onchange:null, onshow:null, onhide:null}, options);
+            this.options = options;
             /**
              * Small square that is used to show or hide picker.
              */
@@ -67,11 +68,15 @@
              */
             var delegate = this.delegate;
             var picker = this;
-            valueInput.change(function () {
-                if (options.onchange != null) {
-                    options.onchange();
+            valueInput.change(function (event) {
+                if (picker.options.onchange != null) {
+                    picker.options.onchange.apply(this, [event]);
                 }
             });
+            var cancelHandler = function () {
+                cancel();
+                $(document).unbind('click', cancelHandler);
+            };
             /**
              * Setup OK button.
              */
@@ -105,11 +110,7 @@
                 e.stopPropagation();
                 if (pickerContainer.css("display") == "none") {
                     picker.show();
-                    var handler = function () {
-                        cancel();
-                        $(document).unbind('click', handler);
-                    };
-                    $(document).click(handler);
+                    $(document).click(cancelHandler);
                 } else {
                     picker.hide();
                 }
@@ -143,6 +144,7 @@
                     evaluate(options.onhide);
                 }
                 pickerContainer.hide();
+                $(document).unbind('click', cancelHandler);
             }
         }
     });
