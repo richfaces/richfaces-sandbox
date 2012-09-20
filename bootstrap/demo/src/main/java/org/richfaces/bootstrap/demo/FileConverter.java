@@ -49,6 +49,33 @@ public class FileConverter implements Converter {
             ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
             inputStream = new BufferedInputStream(servletContext.getResourceAsStream(filePath));
             string = new Scanner(inputStream).useDelimiter("\\A").next();
+            
+            // Suppress useless tags <ui:composition> and </ui:composition>
+            // in order to save space and focus on what is really important
+            if(string.startsWith("<ui:composition")) {
+                int indexOfGt = string.indexOf(">");
+                int indexOfLt = string.lastIndexOf("<");
+                string = string.substring(indexOfGt+1, indexOfLt);
+                
+                // Correct indentation
+                string = string.replaceAll("\n    ", "\n");
+            }
+            
+            // Removing useless empty lines at the beginning and at the end
+            // of the code source
+            int indexOfNewline = string.indexOf("\n");
+            while(indexOfNewline == 0) {
+                string = string.substring(1);
+                indexOfNewline = string.indexOf("\n");
+            }
+            
+            int lastIndexOfNewline = string.lastIndexOf("\n");
+            int length = string.length();
+            while(lastIndexOfNewline+1 == length) {
+                string = string.substring(0, lastIndexOfNewline);
+                lastIndexOfNewline = string.lastIndexOf("\n");
+                length = string.length();
+            }
         } catch (java.util.NoSuchElementException e) {
             throw new ConverterException(e);
         } finally {
