@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.bean.ApplicationScoped;
@@ -38,6 +39,8 @@ import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibTagAttributeType;
 import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibTagType;
 import org.richfaces.bootstrap.demo.jaxb.javaee.FaceletTaglibType;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
@@ -47,6 +50,14 @@ public class TaglibReader {
     private FaceletTaglibType taglib;
     private List<FaceletTaglibTagType> tags;
     private HashMap<String, FaceletTaglibTagType> tagMap;
+    
+    // Attributes separation
+    // One list == one tab on VDL
+    private Map<String, List<FaceletTaglibTagAttributeType>> defaultAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+    private Map<String, List<FaceletTaglibTagAttributeType>> globalAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+    private Map<String, List<FaceletTaglibTagAttributeType>> onEventAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+    
+    private ImmutableList<String> globalAttributeNames = ImmutableList.of("binding", "id", "rendered");
 
     public FaceletTaglibType getTaglib() {
         return taglib;
@@ -84,32 +95,54 @@ public class TaglibReader {
         return this.getClass().getResourceAsStream("/META-INF/bootstrap.taglib.xml");
     }
     
-    public List<FaceletTaglibTagAttributeType> getOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
-        List<FaceletTaglibTagAttributeType> onEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
-        
-        if(allAttributes != null) {
-            for(FaceletTaglibTagAttributeType attribute : allAttributes) {
-                if(attribute.getName().getValue().startsWith("on")) {
-                    onEventAttributes.add(attribute);
-                }
-            }
+    public List<FaceletTaglibTagAttributeType> getDefaultAttributes(String tagName) {
+        if(defaultAttributes.get(tagName) == null) {
+            initAttributesForTagName(tagName);
         }
-        
-        return onEventAttributes;
+        return defaultAttributes.get(tagName);
     }
     
-    public List<FaceletTaglibTagAttributeType> getNonOnEventAttributes(List<FaceletTaglibTagAttributeType> allAttributes) {
-        List<FaceletTaglibTagAttributeType> nonOnEventAttributes = new ArrayList<FaceletTaglibTagAttributeType>();
+    public List<FaceletTaglibTagAttributeType> getGlobalAttributes(String tagName) {
+        if(globalAttributes.get(tagName) == null) {
+            initAttributesForTagName(tagName);
+        }
+        return globalAttributes.get(tagName);
+    }
+    
+    public List<FaceletTaglibTagAttributeType> getOnEventAttributes(String tagName) {
+        if(onEventAttributes.get(tagName) == null) {
+            initAttributesForTagName(tagName);
+        }
+        return onEventAttributes.get(tagName);
+    }
+    
+    private List<FaceletTaglibTagAttributeType> getAllAttributesFromTagName(String tagName) {
+        return tagMap.get(tagName).getAttribute();
+    }
+    
+    private void initAttributesForTagName(String tagName) {
+        List<FaceletTaglibTagAttributeType> allAttributes = getAllAttributesFromTagName(tagName);
+        
+        List<FaceletTaglibTagAttributeType> defaultAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
+        List<FaceletTaglibTagAttributeType> globalAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
+        List<FaceletTaglibTagAttributeType> onEventAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
         
         if(allAttributes != null) {
             for(FaceletTaglibTagAttributeType attribute : allAttributes) {
-                if(!attribute.getName().getValue().startsWith("on")) {
-                    nonOnEventAttributes.add(attribute);
+                String attributeName = attribute.getName().getValue();
+                if(attributeName.startsWith("on")) {
+                    onEventAttributesForTagName.add(attribute);
+                } else if(globalAttributeNames.contains(attributeName)) {
+                    globalAttributesForTagName.add(attribute);
+                } else {
+                    defaultAttributesForTagName.add(attribute);
                 }
             }
+            
+            defaultAttributes.put(tagName, defaultAttributesForTagName);
+            globalAttributes.put(tagName, globalAttributesForTagName);
+            onEventAttributes.put(tagName, onEventAttributesForTagName);
         }
-        
-        return nonOnEventAttributes;
     }
     
     public String getMainType(String fullType) {

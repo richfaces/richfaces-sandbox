@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+  <table class="attributes table table-bordered">
+      <tbody>
+          <ui:repeat var="attribute" value="#{attributesList}">
+              <tr>
+                  <th style="border-top-width: 3px;"><h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" /></th>
+              </tr>
+              <tr>
+                  <td><h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" /></td>
+              </tr>
+              <tr>
+                  <td>
+                      <ui:repeat value="#{attribute.description}" var="description">
+                          <h:outputText value="#{description.value}" escape="false"/>
+                      </ui:repeat>
+                  </td>
+              </tr>
+          </ui:repeat>
+      </tbody>
+  </table>
+  
+  <div class="well">
+      <h6>Legend</h6>
+      <p>
+          <span class="required">Underline attributes</span> are required.
+      </p>
+  </div>
+</ui:composition>

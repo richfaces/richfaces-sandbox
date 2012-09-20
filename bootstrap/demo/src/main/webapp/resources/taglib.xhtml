@@ -2,6 +2,7 @@
 <html lang="en-US" xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
@@ -19,55 +20,21 @@
     <div class="hidden-phone">
         <b:tabbable>
             <b:tab title="VDL" default="true">
-                <h:dataTable value="#{taglibReader.getNonOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
-                    <h:column>
-                        <f:facet name="header">Attribute</f:facet>
-                        <h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Type</f:facet>
-                        <h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Description</f:facet>
-                        <ui:repeat value="#{attribute.description}" var="description">
-                            <h:outputText value="#{description.value}" escape="false"/>
-                        </ui:repeat>
-                    </h:column>
-                </h:dataTable>
-                
-                <div class="well">
-                    <h6>Legend</h6>
-                    <p>
-                        <span class="required">Underline attributes</span> are required.
-                    </p>
-                </div>
+                <ui:include src="/resources/fragment/attributesDataTable.xhtml">
+                    <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
+                </ui:include>
             </b:tab>
             
-            <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
-                <h:dataTable value="#{taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute)}" var="attribute" styleClass="attributes table table-bordered table-striped">
-                    <h:column>
-                        <f:facet name="header">Attribute</f:facet>
-                        <h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Type</f:facet>
-                        <h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Description</f:facet>
-                        <ui:repeat value="#{attribute.description}" var="description">
-                            <h:outputText value="#{description.value}" escape="false"/>
-                        </ui:repeat>
-                    </h:column>
-                </h:dataTable>
-                
-                <div class="well">
-                    <h6>Legend</h6>
-                    <p>
-                        <span class="required">Underline attributes</span> are required.
-                    </p>
-                </div>
+            <b:tab title="Global">
+                <ui:include src="/resources/fragment/attributesDataTable.xhtml">
+                    <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" />
+                </ui:include>
+            </b:tab>
+            
+            <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
+                <ui:include src="/resources/fragment/attributesDataTable.xhtml">
+                    <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" />
+                </ui:include>
             </b:tab>
         </b:tabbable>
     </div>
@@ -83,61 +50,21 @@
         <div id="vdl" class="collapse">
             <b:tabbable>
                 <b:tab title="VDL" default="true">
-                    <table class="attributes table table-bordered">
-                        <tbody>
-                            <ui:repeat var="attribute" value="#{taglibReader.getNonOnEventAttributes(taglibReader.tagMap[tag].attribute)}">
-                                <tr>
-                                    <th style="border-top-width: 3px;"><h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" /></th>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" /></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ui:repeat value="#{attribute.description}" var="description">
-                                            <h:outputText value="#{description.value}" escape="false"/>
-                                        </ui:repeat>
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </tbody>
-                    </table>
-                    
-                    <div class="well">
-                        <h6>Legend</h6>
-                        <p>
-                            <span class="required">Underline attributes</span> are required.
-                        </p>
-                    </div>
+                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
+                        <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
+                    </ui:include>
                 </b:tab>
                 
-                <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute))}">
-                    <table class="attributes table table-bordered">
-                        <tbody>
-                            <ui:repeat var="attribute" value="#{taglibReader.getOnEventAttributes(taglibReader.tagMap[tag].attribute)}">
-                                <tr>
-                                    <th style="border-top-width: 3px;"><h:outputText value="#{attribute.name.value}" styleClass="#{attribute.required.value.equals('true') ? 'required' : ''}" /></th>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="#{taglibReader.getMainType(attribute.type.value)}" /></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ui:repeat value="#{attribute.description}" var="description">
-                                            <h:outputText value="#{description.value}" escape="false"/>
-                                        </ui:repeat>
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </tbody>
-                    </table>
-                    
-                    <div class="well">
-                        <h6>Legend</h6>
-                        <p>
-                            <span class="required">Underline attributes</span> are required.
-                        </p>
-                    </div>
+                <b:tab title="Global">
+                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
+                        <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" />
+                    </ui:include>
+                </b:tab>
+                
+                <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
+                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
+                        <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" />
+                    </ui:include>
                 </b:tab>
             </b:tabbable>
         </div>
