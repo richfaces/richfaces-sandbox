@@ -10,16 +10,11 @@
             <h1>Base CSS</h1>
             <p class="lead">On top of the scaffolding, basic HTML elements are styled and enhanced with extensible
                 classes to provide a fresh, consistent look and feel.</p>
-            <div class="subnav">
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#typography">Typography</a></li>
-                    <li><a href="#code">Code</a></li>
-                    <li><a href="#tables">Tables</a></li>
-                    <li><a href="#forms">Forms</a></li>
-                    <li><a href="#buttons">Buttons</a></li>
-                    <li><a href="#icons">Icons by Glyphicons</a></li>
-                </ul>
-            </div>
+            
+            <ui:include src="/resources/fragment/spybar.xhtml">
+                <ui:param name="sections" value="typography,code,tables,forms,buttons,icons" />
+                <ui:param name="labels" value="Typography,Code,Tables,Forms,Buttons,Icons" />
+            </ui:include>
         </header>
         
         <h:form></h:form>

@@ -6,23 +6,9 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
     <header id="overview" class="jumbotron subhead">
-        <div class="subnav spybar">
-            <ul class="nav nav-pills">
-                <li><a href="#top" onclick="$('html, body').animate({ scrollTop: 0 }, 'slow');return false;">Samples:</a></li>
-                <ui:repeat var="_section" value="#{sections.split(',')}">
-                    <li>
-                        <h:outputLink value="##{_section}">
-                          <h:outputText value="#{_section}" />
-                        </h:outputLink>
-                    </li>
-                </ui:repeat>
-            </ul>
-        </div>
+        <ui:include src="/resources/fragment/spybar.xhtml">
+            <ui:param name="sections" value="#{sections}" />
+            <ui:param name="scrollTopLabel" value="Samples:" />
+        </ui:include>
     </header>
-    
-    <script>
-      $('body').attr('data-spy','scroll').attr('data-target','.spybar').attr('data-offset','100');
-    </script>
-    
-    <h:outputScript name="subnav.js" library="js" />
 </ui:composition>

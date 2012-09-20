@@ -198,7 +198,6 @@ hr.soften {
 ------------------------- */
 .subhead {
   text-align: left;
-  border-bottom: 1px solid #ddd;
 }
 .subhead h1 {
   font-size: 60px;
@@ -786,9 +785,6 @@ form.bs-docs-example {
 /* Desktop large
 ------------------------- */
 @media (min-width: 1200px) {
-  .bs-docs-container {
-    max-width: 970px;
-  }
   .bs-docs-sidenav {
     width: 258px;
   }

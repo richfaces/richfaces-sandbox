@@ -10,16 +10,11 @@
             <h1>Scaffolding</h1>
             <p class="lead">Bootstrap is built on a responsive 12-column grid. We've also included fixed- and
                 fluid-width layouts based on that system.</p>
-            <div class="subnav">
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#global">Global styles</a></li>
-                    <li><a href="#gridSystem">Grid system</a></li>
-                    <li><a href="#fluidGridSystem">Fluid grid system</a></li>
-                    <li><a href="#gridCustomization">Customizing</a></li>
-                    <li><a href="#layouts">Layouts</a></li>
-                    <li><a href="#responsive">Responsive design</a></li>
-                </ul>
-            </div>
+            
+            <ui:include src="/resources/fragment/spybar.xhtml">
+                <ui:param name="sections" value="global,gridSystem,fluidGridSystem,gridCustomization,layouts,responsive" />
+                <ui:param name="labels" value="Global styles,Grid system,Fluid grid system,Customizing,Layouts,Responsive design" />
+            </ui:include>
         </header>
 
         <section id="global">

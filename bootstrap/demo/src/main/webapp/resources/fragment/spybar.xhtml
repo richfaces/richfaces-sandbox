@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <div class="subnav spybar">
+        <ul class="nav nav-pills">
+            <ui:fragment rendered="#{!empty(scrollTopLabel)}">
+                <li><a href="#top" onclick="$('html, body').animate({ scrollTop: 0 }, 'slow');return false;">
+                    <h:outputText value="#{scrollTopLabel}" />
+                </a></li>
+            </ui:fragment>
+            <ui:repeat var="_section" value="#{sections.split(',')}" varStatus="status">
+                <li>
+                    <h:outputLink value="##{_section}">
+                        <h:outputText value="#{labels.split(',')[status.index]}" rendered="#{!empty(labels)}" />
+                       <h:outputText value="#{_section}" rendered="#{empty(labels)}" />
+                    </h:outputLink>
+                </li>
+            </ui:repeat>
+        </ul>
+    </div>
+    
+    <script>
+      $('body').attr('data-spy','scroll').attr('data-target','.spybar').attr('data-offset','100');
+    </script>
+    
+    <h:outputScript name="subnav.js" library="js" />
+</ui:composition>
