@@ -3,6 +3,8 @@ package org.richfaces.bootstrap.resource;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.bootstrap.BootstrapConfiguration;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 
@@ -30,10 +32,8 @@ public class CssLibrary implements ResourceLibrary {
     public Iterable<ResourceKey> getResources() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ProjectStage stage = facesContext.getApplication().getProjectStage();
-        // TODO add this context-param on CoreConfiguration class and use it the static way
-        // waiting for the huge refactoring to be done
-        String responsiveParam = facesContext.getExternalContext().getInitParameter("org.richfaces.responsiveDesign");
-        Boolean isResponsive = (responsiveParam == null) || new Boolean(responsiveParam);
+        Boolean isResponsive = ConfigurationServiceHelper
+                .getBooleanConfigurationValue(facesContext, BootstrapConfiguration.Items.responsiveDesign);
 
         if (ProjectStage.Development == stage) {
             if(isResponsive) {
