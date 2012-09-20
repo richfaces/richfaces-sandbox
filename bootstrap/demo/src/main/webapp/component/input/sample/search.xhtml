@@ -4,7 +4,11 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h:form styleClass="form-search">
-        <b:input styleClass="search-query" scale="medium"/>    
-        <b:commandButton value="Search"/>
+        <b:input styleClass="search-query" value="#{requestBean.value}" placeholder="Enter your search">
+          <f:facet name="append">
+            <b:commandButton value="Search" render="outputSearch"/>
+          </f:facet>
+        </b:input>
     </h:form>
+    <h:outputText id="outputSearch" value="Your last search: #{requestBean.value}" />
 </ui:composition>
