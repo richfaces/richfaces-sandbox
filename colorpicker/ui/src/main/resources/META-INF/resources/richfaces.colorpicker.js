@@ -54,11 +54,11 @@
             /**
              * Hidden input that will be used to submit value to server
              */
-            var valueInput = $(".rf-cp-i", toggler);
+            var valueInput = $(".rf-cpi-i", toggler);
             /**
              * Container for picker plugin
              */
-            var pickerContainer = $(".rf-cp-h", toggler);
+            var pickerContainer = $(".rf-cpi-h", toggler);
             /**
              * Picker plugin will be stored with this delegate
              */
@@ -80,7 +80,7 @@
             /**
              * Setup OK button.
              */
-            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-o").val(options.okLabel).click(function () {
+            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cpi-btn-o").val(options.okLabel).click(function () {
                 /**
                  * We update value and trigger change event if value really changed
                  */
@@ -102,7 +102,7 @@
             /**
              * Setup cancel button
              */
-            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cp-btn-c").val(options.cancelLabel).click(cancel);
+            $("<input type='button'/>").appendTo(pickerContainer).addClass(".rf-cpi-btn-c").val(options.cancelLabel).click(cancel);
             /**
              * Attach click handler to toggler. If color picker is visible then we bind event to document so that user can cancel by clicking anywhere on the screen
              */
@@ -136,6 +136,8 @@
                 if (options.onshow != null) {
                     evaluate(options.onshow);
                 }
+                var offset = toggler.offset();
+                pickerContainer.offset({top:offset.top+toggler.outerHeight(),left:offset.left});
                 pickerContainer.show();
 
             };

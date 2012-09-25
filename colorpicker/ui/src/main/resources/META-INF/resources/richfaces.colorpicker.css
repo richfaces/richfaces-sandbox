@@ -1,12 +1,11 @@
-.rf-cp {
-    position: relative;
+.rf-cpi {
     width: 1em;
     height: 1em;
     display: inline-block;
     border: 1px solid grey;
 }
 
-.rf-cp .rf-cp-h {
+.rf-cpi .rf-cpi-h {
     z-index: 5;
     position: absolute;
     top: 1em; /**this must equal to .rf-cp@height*/
@@ -17,6 +16,6 @@
     display: inline-block;
 }
 
-.rf-cp .rf-cp-i {
+.rf-cpi .rf-cpi-i {
     display: none;
 }

@@ -75,7 +75,7 @@ public class ColorPickerRenderer extends InputRendererBase {
         String clientId = component.getClientId(context);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, HtmlConstants.ID_ATTRIBUTE);
 
-        String styleClass = "rf-cp";
+        String styleClass = "rf-cpi";
         Object customStyleClass = component.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR);
         if (customStyleClass != null) {
             styleClass += " " + customStyleClass;
@@ -84,7 +84,7 @@ public class ColorPickerRenderer extends InputRendererBase {
         getUtils().encodePassThru(context, component, null);
         getUtils().encodeAttributesFromArray(context, component, HtmlConstants.PASS_THRU_STYLES);
         writer.startElement(HtmlConstants.DIV_ELEM, null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-cp-h", HtmlConstants.STYLE_CLASS_ATTR);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-cpi-h", HtmlConstants.STYLE_CLASS_ATTR);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", HtmlConstants.STYLE_ATTRIBUTE);
         writer.endElement(HtmlConstants.DIV_ELEM);
         writer.startElement(HtmlConstants.INPUT_ELEM, null);
@@ -92,7 +92,7 @@ public class ColorPickerRenderer extends InputRendererBase {
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId, HtmlConstants.NAME_ATTRIBUTE);
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, getInputValue(context, component), HtmlConstants.VALUE_ATTRIBUTE);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "hidden", HtmlConstants.TYPE_ATTR);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-cp-i", HtmlConstants.STYLE_CLASS_ATTR);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-cpi-i", HtmlConstants.STYLE_CLASS_ATTR);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "type");
         writer.startElement(HtmlConstants.SCRIPT_ELEM, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
