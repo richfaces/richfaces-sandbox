@@ -45,7 +45,7 @@
         init:function (componentId, options) {
             $super.constructor.call(this, componentId);
             this.attachToDom(componentId);
-            options = $.extend({okLabel:"Ok", cancelLabel:"Cancel", onchange:null, onshow:null, onhide:null}, options);
+            options = $.extend({okLabel:"Ok", cancelLabel:"Cancel", popup:true, onchange:null, onshow:null, onhide:null}, options);
             this.options = options;
             /**
              * Small square that is used to show or hide picker.
@@ -132,16 +132,23 @@
              */
             this.delegate.setColor(valueInput.val());
 
+            var initialTogglerCoords = {outerHeight:toggler.outerHeight()};
+
             this.show = function () {
+                if (!options.popup) {
+                    return;
+                }
                 if (options.onshow != null) {
                     evaluate(options.onshow);
                 }
-                var offset = toggler.offset();
-                pickerContainer.offset({top:offset.top+toggler.outerHeight(),left:offset.left});
                 pickerContainer.show();
+                pickerContainer.offset({top:toggler.offset().top + initialTogglerCoords.outerHeight, left:toggler.offset().left});
 
             };
             this.hide = function () {
+                if (!options.popup) {
+                    return;
+                }
                 if (options.onhide != null) {
                     evaluate(options.onhide);
                 }

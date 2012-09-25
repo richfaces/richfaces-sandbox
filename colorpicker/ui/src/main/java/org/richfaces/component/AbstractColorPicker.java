@@ -58,4 +58,7 @@ public abstract class AbstractColorPicker extends UIInput implements ClientBehav
 
     @Attribute(events = @EventName("show"))
     public abstract String getOnshow();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isPopup();
 }

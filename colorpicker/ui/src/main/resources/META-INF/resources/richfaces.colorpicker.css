@@ -1,19 +1,25 @@
 .rf-cpi {
+    display: inline-block;
+}
+
+.rf-cpi-pop {
     width: 1em;
     height: 1em;
-    display: inline-block;
     border: 1px solid grey;
 }
 
 .rf-cpi .rf-cpi-h {
     z-index: 5;
-    position: absolute;
-    top: 1em; /**this must equal to .rf-cp@height*/
     text-align: center;
     padding: 0.5em;
     background-color: #fff;
     border: 1px solid #AAAAAA;
     display: inline-block;
+}
+
+.rf-cpi-pop .rf-cpi-h {
+    position: absolute;
+    top: 1em; /**this must equal to .rf-cpi-pop@height*/
 }
 
 .rf-cpi .rf-cpi-i {
