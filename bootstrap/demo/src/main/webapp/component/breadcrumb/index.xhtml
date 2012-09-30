@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="breadcrumb" />
+        <h1>
+            <code>b:breadcrumb</code>
+        </h1>
+        <p>
+            <code>b:breadcrumb</code>
+            is a navigation aid used in user interfaces. It allows users to keep track of their locations within programs or
+            documents.
+        </p>
+
+        <h2>Basic usage</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="breadcrumb" />
+            <ui:param name="sample" value="basic" />
+        </ui:include>
+
+
+    </ui:define>
+</ui:composition>
+</html>
