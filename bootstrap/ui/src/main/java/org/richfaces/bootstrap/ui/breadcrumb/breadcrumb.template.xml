@@ -21,7 +21,11 @@
                 </li>
 
                 <c:if test="#{!status.isLast()}">
-                    <span class="divider">#{component.divider}</span>
+                    <span class="divider">
+                        <cc:renderFacet name="divider">
+                            #{component.divider}
+                        </cc:renderFacet>
+                    </span>
                 </c:if>
             </c:forEach>
 

@@ -8,7 +8,11 @@
         <h:outputText value="Data" />
     </b:breadcrumb>
 
-    <b:breadcrumb divider="->">
+    <b:breadcrumb>
+        <f:facet name="divider">
+            <b:icon value="arrow-right" />
+        </f:facet>
+
         <h:link>Home</h:link>
         <h:link>Library</h:link>
         <h:outputText value="Data" />
