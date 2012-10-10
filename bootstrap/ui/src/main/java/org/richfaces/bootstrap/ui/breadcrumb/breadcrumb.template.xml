@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
-          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
-          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
-          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
         <cdk:class>org.richfaces.bootstrap.ui.breadcrumb.BreadcrumbRenderer</cdk:class>
@@ -15,10 +13,19 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}"
-             cdk:passThrough="style">
-            <cdk:body/>
-        </div>
+        <ul id="#{clientId}" class="breadcrumb" cdk:passThrough="style">
+
+            <c:forEach items="#{component.children}" var="child" varStatus="status">
+                <li>
+                    <cdk:call expression="child.encodeAll(facesContext)" />
+                </li>
+
+                <c:if test="#{!status.isLast()}">
+                    <span class="divider">#{component.divider}</span>
+                </c:if>
+            </c:forEach>
+
+        </ul>
     </cc:implementation>
 
 </cdk:root>
