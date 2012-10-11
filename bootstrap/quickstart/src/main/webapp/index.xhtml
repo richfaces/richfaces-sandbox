@@ -1,0 +1,21 @@
+<ui:composition template="/resources/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="content">
+        <b:gridContainer>
+            <b:gridRow>
+                <b:gridColumn span="12">
+                    <b:heroUnit heading="RichFaces Bootstrap Quickstart">
+                        Use this project as a quickstart to "bootstrap" your applications.
+                    </b:heroUnit>
+
+                    <b:alert severity="warning">
+                        RichFaces Bootstrap is a Sandbox project, and not yet meant for production use.  API's and component
+                        implementations will change.  Not for production use!
+                    </b:alert>
+                </b:gridColumn>
+            </b:gridRow>
+        </b:gridContainer>
+    </ui:define>
+</ui:composition>
