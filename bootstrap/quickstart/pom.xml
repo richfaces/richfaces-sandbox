@@ -71,6 +71,13 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+            </properties>
+        </profile>
+
         <!-- Profile using JRebel for fast development turnaround -->
         <profile>
             <id>jrebel</id>
@@ -91,12 +98,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>production</id>
-            <properties>
-                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
-            </properties>
         </profile>
     </profiles>
 </project>
