@@ -13,6 +13,10 @@
     <artifactId>bootstrap-ui</artifactId>
     <name>Richfaces UI Sandbox Components: bootstrap ui</name>
 
+    <properties>
+        <wro4j.run>true</wro4j.run>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
@@ -201,7 +205,13 @@
         </profile>
 
         <profile>
-            <id>production</id>
+            <id>wro4j</id>
+            <activation>
+                <property>
+                    <name>wro4j.run</name>
+                    <value>!false</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
