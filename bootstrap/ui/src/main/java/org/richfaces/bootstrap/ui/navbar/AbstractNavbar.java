@@ -55,6 +55,9 @@ public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetC
     @Attribute(defaultValue = "true")
     public abstract boolean isCollapsible();
     
+    @Attribute(defaultValue = "false")
+    public abstract boolean isInverse();
+    
     @Override
     public String getMenuFacetRendererType() {
         return "org.richfaces.bootstrap.NavbarMenuFacetRenderer";

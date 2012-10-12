@@ -14,7 +14,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="navbar #{component.fixed ne null and !component.fixed.equals('') ? 'navbar-fixed-'.concat(component.fixed) : ''}">
+        <div id="#{clientId}" class="navbar #{component.isInverse() ? 'navbar-inverse': ''} #{component.fixed ne null and !component.fixed.equals('') ? 'navbar-fixed-'.concat(component.fixed) : ''}">
             <div class="navbar-inner">
                 <div class="container">
                     <c:if test="#{component.isCollapsible()}">
