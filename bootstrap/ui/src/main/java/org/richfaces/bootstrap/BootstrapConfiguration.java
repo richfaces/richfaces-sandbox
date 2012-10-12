@@ -28,12 +28,17 @@ import org.richfaces.application.configuration.ConfigurationItem;
  */
 public final class BootstrapConfiguration {
     public static final java.lang.String RESPONSIVE_DESIGN_PARAM_NAME = "org.richfaces.responsiveDesign";
-    
+    public static final java.lang.String CLIENT_SIDE_STYLE_PARAM_NAME = "org.richfaces.clientSideStyle";
+
     private BootstrapConfiguration() {
     }
     
     public enum Items {
         @ConfigurationItem(defaultValue = "true", names = RESPONSIVE_DESIGN_PARAM_NAME)
-        responsiveDesign
+        responsiveDesign,
+
+        @ConfigurationItem(defaultValue = "false", names = CLIENT_SIDE_STYLE_PARAM_NAME)
+        clientSideStyle
+
     }
 }

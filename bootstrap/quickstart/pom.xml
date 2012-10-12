@@ -13,10 +13,6 @@
     <name>Richfaces UI Components: bootstrap quickstart</name>
     <packaging>war</packaging>
 
-    <properties>
-        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
@@ -40,66 +36,11 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <finalName>bootstrap-quickstart</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/webapp</directory>
-                            <filtering>true</filtering>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
-            </properties>
-        </profile>
-
-        <!-- Profile using JRebel for fast development turnaround -->
-        <profile>
-            <id>jrebel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.zeroturnaround</groupId>
-                        <artifactId>jrebel-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-rebel-xml</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
 
 

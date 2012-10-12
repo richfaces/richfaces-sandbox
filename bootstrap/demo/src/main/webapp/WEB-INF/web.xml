@@ -15,6 +15,10 @@
         <param-value>plain</param-value>
     </context-param>
     <context-param>
+        <param-name>org.richfaces.clientSideStyle</param-name>
+        <param-value>true</param-value> <!-- Note this will be overridden by PROJECT_STAGE = Production -->
+    </context-param>
+    <context-param>
         <param-name>org.richfaces.responsiveDesign</param-name>
         <param-value>true</param-value>
     </context-param>

@@ -34,8 +34,10 @@ public class CssLibrary implements ResourceLibrary {
         ProjectStage stage = facesContext.getApplication().getProjectStage();
         Boolean isResponsive = ConfigurationServiceHelper
                 .getBooleanConfigurationValue(facesContext, BootstrapConfiguration.Items.responsiveDesign);
+        Boolean isClientSideStyle = ConfigurationServiceHelper
+                .getBooleanConfigurationValue(facesContext, BootstrapConfiguration.Items.clientSideStyle);
 
-        if (ProjectStage.Development == stage) {
+        if (ProjectStage.Production != stage && isClientSideStyle) {
             if(isResponsive) {
                 return BOOTSTRAP_RESPONSIVE_CLIENT_SIDE;
             } else {

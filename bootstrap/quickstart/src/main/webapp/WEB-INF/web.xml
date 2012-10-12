@@ -19,8 +19,12 @@
         <param-value>true</param-value>
     </context-param>
     <context-param>
+        <param-name>org.richfaces.clientSideStyle</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>${javax.faces.PROJECT_STAGE}</param-value>
+        <param-value>Development</param-value>
     </context-param>
 
     <mime-mapping>
