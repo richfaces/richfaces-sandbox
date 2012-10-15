@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:navbar brand="Nav Bar" inverse="true">
+        <f:facet name="collapsedMenu">
+            <b:icon value="cog" color="white"/>
+            <h:outputText value="Menu" />
+        </f:facet>
+    
+        <h:link outcome="/component/heroUnit/index.xhtml" value="heroUnit"/>
+        <h:link outcome="/component/tabbable/index.xhtml" value="tabbable"/>
+        <h:link outcome="/component/buttonGroup/index.xhtml" value="buttonGroup"/>
+        <h:link outcome="/component/navbar/index.xhtml" value="navbar"/>
+    </b:navbar>
+</ui:composition>

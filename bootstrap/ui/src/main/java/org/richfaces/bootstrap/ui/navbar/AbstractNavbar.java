@@ -35,6 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
  * Base class for the navbar component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="http://community.jboss.org/people/electrobolt">Adrian Chia</a>
  */
 @JsfComponent(
         type = AbstractNavbar.COMPONENT_TYPE,
@@ -46,20 +47,30 @@ public abstract class AbstractNavbar extends UIPanel implements RenderMenuFacetC
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Navbar";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Navbar";
 
+    /**
+     * A simple text / link that display your project or brand name.
+     * */
     @Attribute
     public abstract String getBrand();
     
+	/**
+	* If specified, fix the navbar component to the top or bottom of the viewport.
+	* Possible values are <code>top</code> or <code>bottom</code>
+	*/
     @Attribute
     public abstract String getFixed();
     
+    /**
+     * Implement a collapsing navbar if the browser window is less than 768 pixels width.
+     * Default value is <code>true</code>.
+     * */
     @Attribute(defaultValue = "true")
     public abstract boolean isCollapsible();
     
     /**
      * Color inversion attribute for the navbar component.
      * If true, add "navbar-inverse" class to the current navbar component.
-     * 
-     * @author <a href="http://community.jboss.org/people/electrobolt">Adrian Chia</a>
+     * Default value is <code>false</code>.
      * */
     @Attribute(defaultValue = "false")
     public abstract boolean isInverse();
