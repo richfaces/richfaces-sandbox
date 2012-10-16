@@ -51,9 +51,7 @@
         },
 
         _addButtons: function() {
-            var button = $("<button/>")
-                .attr('type', 'button')
-                .addClass("btn")
+            var button = $('<button type="button" class="btn" />');
             var buttonStack = $("<div/>")
                 .addClass("btn-group-vertical");
             buttonStack

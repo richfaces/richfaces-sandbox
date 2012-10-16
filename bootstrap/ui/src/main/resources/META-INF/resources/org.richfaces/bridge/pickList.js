@@ -16,7 +16,7 @@
             this._registerListeners();
             var hiddenInputId = $(this.element).attr('id') + this.options.hiddenInputSuffix;
             this.element.parents("pickList").first().append(
-                $("input").attr('id', hiddenInputId).attr('name', componentId).attr("type", "hidden")
+                $('<input type="hidden" />').attr('id', hiddenInputId).attr('name', componentId)
             );
 
             this.hiddenInput = $(document.getElementById(hiddenInputId)); // getElementById workaround for JSF ":" separator
