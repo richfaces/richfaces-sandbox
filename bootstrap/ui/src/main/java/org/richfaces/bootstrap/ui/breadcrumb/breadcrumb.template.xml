@@ -22,8 +22,8 @@
 
                 <c:if test="#{!status.isLast()}">
                     <span class="divider">
-                        <cc:renderFacet name="divider">
-                            #{component.divider}
+                        <cc:renderFacet name="separator">
+                            #{component.separator}
                         </cc:renderFacet>
                     </span>
                 </c:if>

@@ -15,12 +15,12 @@ public abstract class AbstractBreadcrumb extends UIOutput {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Breadcrumb";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Breadcrumb";
 
-    public static final String DIVIDER_DEFAULT = "/";
+    public static final String SEPARATOR_DEFAULT = "/";
 
     /**
-     * The divider is a character between each breadcrumb's component, default value is '/'
+     * The separator is a character between each breadcrumb's component, default value is '/'
      */
-    @Attribute(defaultValue = DIVIDER_DEFAULT, suggestedValue = DIVIDER_DEFAULT)
-    public abstract String getDivider();
+    @Attribute(defaultValue = SEPARATOR_DEFAULT, suggestedValue = SEPARATOR_DEFAULT)
+    public abstract String getSeparator();
 
 }
