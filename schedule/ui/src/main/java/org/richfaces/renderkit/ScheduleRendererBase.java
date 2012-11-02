@@ -42,18 +42,18 @@ import java.util.Locale;
 import java.util.Map;
 
 @ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js", target = "head"),
-    @ResourceDependency(name = "richfaces.js", target = "head"),
-    @ResourceDependency(name = "richfaces-event.js", target = "head"),
-    @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
-    @ResourceDependency(name = "ui.core.js", target = "head"),
-    @ResourceDependency(name = "ui.draggable.js", target = "head"),
-    @ResourceDependency(name = "ui.resizable.js", target = "head"),
-    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.js", target = "head"),
-    @ResourceDependency(library = "org.richfaces", name = "richfaces.schedule.js", target = "head"),
-    @ResourceDependency(name = "org.richfaces.renderkit.html.scripts.ScheduleMessages", target = "head"),
-    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.css", target = "head")})
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+    @ResourceDependency(name = "richfaces-event.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.resizable.js"),
+    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.js"),
+    @ResourceDependency(library = "org.richfaces", name = "richfaces.schedule.js"),
+    @ResourceDependency(name = "org.richfaces.renderkit.html.scripts.ScheduleMessages"),
+    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.css")})
 public abstract class ScheduleRendererBase extends RendererBase {
 // ------------------------------ FIELDS ------------------------------
 
