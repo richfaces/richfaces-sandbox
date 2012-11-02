@@ -50,10 +50,10 @@ import java.util.Map;
     @ResourceDependency(name = "ui.core.js", target = "head"),
     @ResourceDependency(name = "ui.draggable.js", target = "head"),
     @ResourceDependency(name = "ui.resizable.js", target = "head"),
-    @ResourceDependency(name = "fullcalendar.js", target = "head"),
-    @ResourceDependency(name = "richfaces.schedule.js", target = "head"),
+    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.js", target = "head"),
+    @ResourceDependency(library = "org.richfaces", name = "richfaces.schedule.js", target = "head"),
     @ResourceDependency(name = "org.richfaces.renderkit.html.scripts.ScheduleMessages", target = "head"),
-    @ResourceDependency(name = "fullcalendar.css", target = "head")})
+    @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.css", target = "head")})
 public abstract class ScheduleRendererBase extends RendererBase {
 // ------------------------------ FIELDS ------------------------------
 
