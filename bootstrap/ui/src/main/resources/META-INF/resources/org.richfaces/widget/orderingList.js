@@ -355,11 +355,11 @@
                 )
             );
             this.outer = this.element.parents(".outer").first();
-            this.outer.prepend(
-                $("<div />").addClass('header').append(
-                    $("<h3/>").html(this.options.header)
-                )
-            );
+            var header = $("<div />").addClass('header');
+            if (this.options.header) {
+                header.append($("<h3/>").html(this.options.header));
+            }
+            this.outer.prepend(header);
             this.content = this.outer.find(".content");
         },
 
