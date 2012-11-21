@@ -8,8 +8,9 @@
         },
 
         _create: function() {
+            this.widgetEventPrefix = "picklist_";
             this.sourceList = this.element.find(".source");
-            this.targetList = this.element.find(".target")
+            this.targetList = this.element.find(".target");
             this._addDomElements();
             this.sourceList.orderingList({
                 showButtons: false,
@@ -20,6 +21,14 @@
             });
             this.sourceList.sortable("option", "connectWith", this.targetList);
             this.targetList.sortable("option", "connectWith", this.sourceList);
+        },
+
+        destroy: function() {
+            $.Widget.prototype.destroy.call( this );
+            this._removeDomElements();
+            this.sourceList.orderingList("destroy");
+            this.targetList.orderingList("destroy");
+            return this;
         },
 
         /** Public API methods **/
@@ -116,7 +125,11 @@
         /** Cleanup methods **/
 
         _removeDomElements: function() {
-            // TODO: impl
+            var list = this.element.detach();
+            this.outer.replaceWith(list);
+            this.element.removeClass("row-fluid");
+            this.sourceList.parents('.left').first().replaceWith(this.sourceList.detach());
+            this.targetList.parents('.right').first().replaceWith(this.targetList.detach());
         },
 
             /** Event Handlers **/
