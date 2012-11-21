@@ -21,6 +21,7 @@
             });
             this.sourceList.sortable("option", "connectWith", this.targetList);
             this.targetList.sortable("option", "connectWith", this.sourceList);
+            this._registerListeners();
         },
 
         destroy: function() {
@@ -47,7 +48,7 @@
             items.detach();
             this.targetList.prepend(items);
             var ui = this._dumpState();
-            ui.change = 'remove';
+            ui.change = 'add';
             this._trigger("change", event, ui);
         },
 
@@ -113,6 +114,27 @@
             )
             this.content = this.element;
 
+        },
+
+        _registerListeners: function() {
+            var self = this;
+            // the widget factory converts all events to lower case
+            this.sourceList.bind('sourcelist_receive', function(event, ui) {
+                var new_ui = self._dumpState();
+                new_ui.change = 'remove';
+                new_ui.originalEvent = event;
+                self._trigger("change", event, new_ui);
+            });
+            this.targetList.bind('targetlist_receive', function(event, ui) {
+                var new_ui = self._dumpState();
+                new_ui.change = 'add';
+                new_ui.originalEvent = event;
+                self._trigger("change", event, new_ui);
+            });
+            // Bind the client-provided change listeners
+            if (this.options.onchange && typeof this.options.onchange == 'function') {
+                this.component.bind('change.pickList.bootstrap.RICH', this.options.onchange);
+            }
         },
 
         _dumpState: function() {

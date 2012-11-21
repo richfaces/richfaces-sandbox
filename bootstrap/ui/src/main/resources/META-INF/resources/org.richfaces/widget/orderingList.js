@@ -53,6 +53,9 @@
                 },
                 receive: function(event, ui) {
                     ui.item.after(ui.sender.find(".ui-selected"));
+                    var new_ui = self._dumpState();
+                    new_ui.originalEvent = event;
+                    self._trigger("receive", event, new_ui);
                 },
                 beforeStop: function(event, ui) {
                 },
