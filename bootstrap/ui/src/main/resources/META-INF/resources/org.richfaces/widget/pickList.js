@@ -99,13 +99,15 @@
                 $("<div />").addClass('pickList outer')
             );
             this.outer = this.element.parents(".outer").first();
-            this.outer.prepend(
-                $("<div />").addClass("row-fluid").append(
-                    $("<div />").addClass('span12 header').append(
-                        $("<h3/>").html(this.options.header)
+            if (this.options.header) {
+                this.outer.prepend(
+                    $("<div />").addClass("row-fluid").append(
+                        $("<div />").addClass('span12 header').append(
+                            $("<h3/>").html(this.options.header)
+                        )
                     )
-                )
-            );
+                );
+            }
             this.sourceList.wrap(
                 $("<div />").addClass('left span5')
             )
@@ -128,6 +130,12 @@
             this.targetList.bind('targetlist_receive', function(event, ui) {
                 var new_ui = self._dumpState();
                 new_ui.change = 'add';
+                new_ui.originalEvent = event;
+                self._trigger("change", event, new_ui);
+            });
+            this.targetList.bind('targetlist_change', function(event, ui) {
+                var new_ui = self._dumpState();
+                new_ui.change = 'sort';
                 new_ui.originalEvent = event;
                 self._trigger("change", event, new_ui);
             });
