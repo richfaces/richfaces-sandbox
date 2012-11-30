@@ -13,6 +13,24 @@
     <name>Richfaces UI Components: bootstrap quickstart</name>
     <packaging>war</packaging>
 
+    <!-- The JBoss SNAPSHOT repository, containing the RichFaces Bootstrap jars-->
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
