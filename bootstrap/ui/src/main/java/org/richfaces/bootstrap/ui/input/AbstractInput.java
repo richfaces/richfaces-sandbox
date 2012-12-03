@@ -29,8 +29,8 @@ import java.util.regex.Pattern;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
-import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
-import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
+import org.richfaces.bootstrap.component.BootstrapSize;
 import org.richfaces.bootstrap.ui.commandButton.AbstractCommandButton;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -49,7 +49,7 @@ import org.richfaces.component.attribute.CoreProps;
         family = AbstractInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = InputRendererBase.RENDERER_TYPE),
         tag = @Tag(name="input"))
-public abstract class AbstractInput extends UIInput implements CoreProps, BootstrapSeverityProps, BootstrapScaleProps {
+public abstract class AbstractInput extends UIInput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Input";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Input";
     
@@ -102,6 +102,20 @@ public abstract class AbstractInput extends UIInput implements CoreProps, Bootst
                 + TYPE_URL + ","
                 + TYPE_WEEK)
     public abstract String getType();
+    
+    @Attribute(suggestedValue = BootstrapSeverity.SUCCESS + ","
+            + BootstrapSeverity.INFO + ","
+            + BootstrapSeverity.WARNING + ","
+            + BootstrapSeverity.ERROR)
+    public abstract String getSeverity();
+    
+    @Attribute(suggestedValue = BootstrapSize.MINI + ","
+            + BootstrapSize.SMALL + ","
+            + BootstrapSize.MEDIUM + ","
+            + BootstrapSize.LARGE + ","
+            + BootstrapSize.XLARGE + ","
+            + BootstrapSize.XXLARGE)
+    public abstract String getScale();
     
     @Attribute
     public abstract String getPlaceholder();

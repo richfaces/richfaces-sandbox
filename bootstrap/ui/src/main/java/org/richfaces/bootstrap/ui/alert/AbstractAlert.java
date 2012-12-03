@@ -23,7 +23,7 @@ package org.richfaces.bootstrap.ui.alert;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -42,9 +42,15 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractAlert.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AlertRendererBase.RENDERER_TYPE),
         tag = @Tag(name="alert"))
-public abstract class AbstractAlert extends UIPanel implements BootstrapSeverityProps {
+public abstract class AbstractAlert extends UIPanel {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Alert";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Alert";
+    
+    @Attribute(suggestedValue = BootstrapSeverity.SUCCESS + ","
+            + BootstrapSeverity.INFO + ","
+            + BootstrapSeverity.ERROR + ","
+            + BootstrapSeverity.DANGER)
+    public abstract String getSeverity();
     
     @Attribute
     public abstract String getLayout();

@@ -13,7 +13,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="alert #{component.layout eq 'block' ? 'alert-block' : ''} #{component.severity != null ? component.severity.alertClass : ''}">
+        <div id="#{clientId}" class="alert #{component.layout eq 'block' ? 'alert-block' : ''} #{empty(component.severity) ? '' : 'alert-'.concat(component.severity)}">
             <c:if test="#{component.isClosable()}">
                 <a class="close" data-dismiss="alert">×</a>
             </c:if>

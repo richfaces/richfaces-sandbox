@@ -30,13 +30,15 @@
             </c:forEach>
         </c:if>
         
+        <cdk:object name="scaleClass" type="String" value="#{empty(component.scale) ? '' : 'input-'.concat(component.scale)}" />
+        
         <c:choose>
             <c:when test="#{component.isReadonly()}">
-                <span class="uneditable-input #{component.scale != null ? component.scale.inputStyleClass : ''}">#{component.value}</span>
+                <span class="uneditable-input #{scaleClass}">#{component.value}</span>
             </c:when>
             <c:otherwise>
                 <input id="#{clientId}" name="#{clientId}" cdk:passThrough="style value placeholder type"
-                    class="#{component.scale != null ? component.scale.inputStyleClass : ''} #{component.isDisabled() ? 'disabled' : ''} #{component.styleClass}">
+                    class="#{empty(component.severity) ? '' : 'input-'.concat(component.severity)} #{scaleClass} #{component.isDisabled() ? 'disabled' : ''} #{component.styleClass}">
                     <cdk:call expression="addDisabledAttribute(facesContext, component)"/>
                 </input>
             </c:otherwise>

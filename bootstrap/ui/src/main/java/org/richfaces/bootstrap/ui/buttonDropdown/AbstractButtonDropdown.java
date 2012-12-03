@@ -23,8 +23,8 @@ package org.richfaces.bootstrap.ui.buttonDropdown;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
-import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
+import org.richfaces.bootstrap.component.BootstrapSize;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
@@ -44,10 +44,23 @@ import org.richfaces.component.attribute.EventsMouseProps;
         renderer = @JsfRenderer(type = ButtonDropdownRendererBase.RENDERER_TYPE),
         tag = @Tag(name = "buttonDropdown"))
 public abstract class AbstractButtonDropdown extends UIPanel implements EventsMouseProps,
-    BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps, RenderSeparatorFacetCapable {
+    CardinalPositionProps, RenderSeparatorFacetCapable {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ButtonDropdown";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ButtonDropdown";
 
+    @Attribute(suggestedValue = BootstrapSeverity.PRIMARY + ","
+            + BootstrapSeverity.SUCCESS + ","
+            + BootstrapSeverity.INFO + ","
+            + BootstrapSeverity.WARNING + ","
+            + BootstrapSeverity.DANGER + ","
+            + BootstrapSeverity.INVERSE)
+    public abstract String getSeverity();
+    
+    @Attribute(suggestedValue = BootstrapSize.MINI + ","
+            + BootstrapSize.SMALL + ","
+            + BootstrapSize.LARGE)
+    public abstract String getScale();
+    
     @Attribute
     public abstract String getTitle();
 

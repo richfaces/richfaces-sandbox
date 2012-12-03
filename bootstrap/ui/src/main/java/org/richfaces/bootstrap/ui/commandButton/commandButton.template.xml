@@ -36,9 +36,8 @@
 
             <cdk:object name="styleWhenNotSplit" type="String" value="#{!cc.attrs.split ? component.style : ''}" />
             <cdk:object name="styleClassWhenNotSplit" type="String" value="#{!cc.attrs.split ? component.styleClass : ''}" />
-            <cdk:object name="severityClass" type="String"
-                value="#{component.severity ne null ? component.severity.buttonClass : ''}" />
-            <cdk:object name="scaleClass" type="String" value="#{component.scale ne null ? component.scale.buttonStyleClass : ''}" />
+            <cdk:object name="severityClass" type="String" value="#{empty(component.severity) ? '' : 'btn-'.concat(component.severity)}" />
+            <cdk:object name="scaleClass" type="String" value="#{empty(component.scale) ? '' : 'btn-'.concat(component.scale)}" />
             <cdk:object name="color" type="String" value="#{component.color}" />
             <cdk:object name="colorStyle" type="String" value="color: #{color};" />
             <cdk:object name="colorStyleWhenNotEmpty" type="String" value="#{color ne null and !color.equals('') ? colorStyle : ''}" />
@@ -94,9 +93,8 @@
 
         <cc:implementation>
 
-            <cdk:object name="severityClass" type="String"
-                value="#{component.severity ne null ? component.severity.buttonClass : ''}" />
-            <cdk:object name="scaleClass" type="String" value="#{component.scale ne null ? component.scale.buttonStyleClass : ''}" />
+            <cdk:object name="severityClass" type="String" value="#{empty(component.severity) ? '' : 'btn-'.concat(component.severity)}" />
+            <cdk:object name="scaleClass" type="String" value="#{empty(component.scale) ? '' : 'btn-'.concat(component.scale)}" />
             <cdk:object name="color" type="String" value="#{component.color}" />
             <cdk:object name="colorStyle" type="String" value="border-top-color: #{color}; border-bottom-color: #{color};" />
             <cdk:object name="horizontalClass" type="String"

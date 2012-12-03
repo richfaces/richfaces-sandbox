@@ -14,7 +14,7 @@
 
     <cc:implementation>
         <span id="#{clientId}"
-            class="badge #{component.severity != null ? component.severity.badgeClass : ''} #{component.attributes['styleClass']}"
+            class="badge #{empty(component.severity) ? '' : 'badge-'.concat(component.severity)} #{component.attributes['styleClass']}"
             cdk:passThrough="style">
             
             <c:if test="#{component.value != null and !component.value.equals('')}">#{component.value}</c:if>

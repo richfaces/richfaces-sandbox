@@ -14,7 +14,7 @@
 
     <cc:implementation>
         <div class="btn-group #{component.vertical ne null ? component.vertical.buttonClass : ''}">
-            <a class="btn #{component.severity ne null ? component.severity.buttonClass : ''} #{component.scale ne null ? component.scale.buttonStyleClass : ''} #{component.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
+            <a class="btn #{empty(component.severity) ? '' : 'btn-'.concat(component.severity)} #{empty(component.scale) ? '' : 'btn-'.concat(component.scale)} #{component.buttonStyle} dropdown-toggle" data-toggle="dropdown" href="#"
                cdk:passThrough="on*">
                 #{component.title.concat(' ')}
                 <span class="caret"></span>

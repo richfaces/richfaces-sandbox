@@ -27,8 +27,8 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.bootstrap.component.props.BootstrapScaleProps;
-import org.richfaces.bootstrap.component.props.BootstrapSeverityProps;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
+import org.richfaces.bootstrap.component.BootstrapSize;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
@@ -54,10 +54,23 @@ import org.richfaces.renderkit.AjaxConstants;
         renderer = @JsfRenderer(type = CommandButtonRendererBase.RENDERER_TYPE),
         tag = @Tag(name="commandButton"))
 public abstract class AbstractCommandButton extends AbstractActionComponent implements AjaxProps, CoreProps,
-    CommandButtonProps, BootstrapSeverityProps, BootstrapScaleProps, CardinalPositionProps,
+    CommandButtonProps, CardinalPositionProps,
     RenderSeparatorFacetCapable, MetaComponentResolver {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
+    
+    @Attribute(suggestedValue = BootstrapSeverity.PRIMARY + ","
+            + BootstrapSeverity.SUCCESS + ","
+            + BootstrapSeverity.INFO + ","
+            + BootstrapSeverity.WARNING + ","
+            + BootstrapSeverity.DANGER + ","
+            + BootstrapSeverity.INVERSE)
+    public abstract String getSeverity();
+    
+    @Attribute(suggestedValue = BootstrapSize.MINI + ","
+            + BootstrapSize.SMALL + ","
+            + BootstrapSize.LARGE)
+    public abstract String getScale();
 
     /**
      * <p>Determines how the menu item requests are submitted.  Valid values:</p>

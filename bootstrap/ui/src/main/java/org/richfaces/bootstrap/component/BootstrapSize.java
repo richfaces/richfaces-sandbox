@@ -28,38 +28,21 @@ package org.richfaces.bootstrap.component;
  *
  */
 public enum BootstrapSize {
-    mini("", ""),
-    small("", ""),
-    medium(null, ""),
-    large("", ""),
-    xlarge(null, ""),
-    xxlarge(null, "");
+    mini,
+    small,
+    medium,
+    large,
+    xlarge,
+    xxlarge;
     
-    private BootstrapSize(String buttonStyleClass, String inputStyleClass) {
-        if(buttonStyleClass == null) {
-            this.buttonStyleClass = "";
-        } else if(buttonStyleClass.equals("")) {
-            this.buttonStyleClass = BootstrapSeverity.BUTTON_PREFIX + this.toString();
-        } else {
-            this.buttonStyleClass = BootstrapSeverity.BUTTON_PREFIX + buttonStyleClass;
-        }
+    public static final String MINI = "mini";
+    public static final String SMALL = "small";
+    public static final String MEDIUM = "medium";
+    public static final String LARGE = "large";
+    public static final String XLARGE = "xlarge";
+    public static final String XXLARGE = "xxlarge";
+    
+    private BootstrapSize() {
         
-        if(inputStyleClass == null) {
-            this.inputStyleClass = "";
-        } else if(inputStyleClass.equals("")) {
-            this.inputStyleClass = "input-" + this.toString();
-        } else {
-            this.inputStyleClass = "input-" + inputStyleClass;
-        }
-    }
-    
-    private String buttonStyleClass;
-    private String inputStyleClass;
-    
-    public String getButtonStyleClass() {
-        return buttonStyleClass;
-    }
-    public String getInputStyleClass() {
-        return inputStyleClass;
     }
 }
