@@ -23,20 +23,12 @@ package org.richfaces.bootstrap.component;
 
 
 /**
+ * Class containing sverities supported by Bootstrap
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
  */
-public enum BootstrapSeverity {
-    primary,
-    success,
-    info,
-    warning,
-    error,
-    danger,
-    important,
-    inverse;
-    
+public final class BootstrapSeverity {
     public static final String PRIMARY = "primary";
     public static final String SUCCESS = "success";
     public static final String INFO = "info";
@@ -46,7 +38,5 @@ public enum BootstrapSeverity {
     public static final String IMPORTANT = "important";
     public static final String INVERSE = "inverse";
     
-    private BootstrapSeverity() {
-        
-    }
+    private BootstrapSeverity() {}
 }

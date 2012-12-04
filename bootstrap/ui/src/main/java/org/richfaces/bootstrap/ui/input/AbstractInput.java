@@ -30,7 +30,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
 import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.bootstrap.component.BootstrapSize;
+import org.richfaces.bootstrap.component.BootstrapScale;
 import org.richfaces.bootstrap.ui.commandButton.AbstractCommandButton;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -109,12 +109,12 @@ public abstract class AbstractInput extends UIInput implements CoreProps {
             + BootstrapSeverity.ERROR)
     public abstract String getSeverity();
     
-    @Attribute(suggestedValue = BootstrapSize.MINI + ","
-            + BootstrapSize.SMALL + ","
-            + BootstrapSize.MEDIUM + ","
-            + BootstrapSize.LARGE + ","
-            + BootstrapSize.XLARGE + ","
-            + BootstrapSize.XXLARGE)
+    @Attribute(suggestedValue = BootstrapScale.MINI + ","
+            + BootstrapScale.SMALL + ","
+            + BootstrapScale.MEDIUM + ","
+            + BootstrapScale.LARGE + ","
+            + BootstrapScale.XLARGE + ","
+            + BootstrapScale.XXLARGE)
     public abstract String getScale();
     
     @Attribute

@@ -4,7 +4,7 @@
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
- * This is free software; you can redistribute it and/or modify it
+ * This bstract fiis free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
@@ -22,19 +22,12 @@
 package org.richfaces.bootstrap.component;
 
 /**
- * Enum containing the different size supported by Bootstrap
+ * Class containing scales supported by Bootstrap
  * 
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
  */
-public enum BootstrapSize {
-    mini,
-    small,
-    medium,
-    large,
-    xlarge,
-    xxlarge;
-    
+public final class BootstrapScale {
     public static final String MINI = "mini";
     public static final String SMALL = "small";
     public static final String MEDIUM = "medium";
@@ -42,7 +35,5 @@ public enum BootstrapSize {
     public static final String XLARGE = "xlarge";
     public static final String XXLARGE = "xxlarge";
     
-    private BootstrapSize() {
-        
-    }
+    private BootstrapScale() {}
 }

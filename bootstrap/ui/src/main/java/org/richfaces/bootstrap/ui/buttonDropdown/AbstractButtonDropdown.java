@@ -24,7 +24,7 @@ package org.richfaces.bootstrap.ui.buttonDropdown;
 import javax.faces.component.UIPanel;
 
 import org.richfaces.bootstrap.component.BootstrapSeverity;
-import org.richfaces.bootstrap.component.BootstrapSize;
+import org.richfaces.bootstrap.component.BootstrapScale;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
@@ -56,9 +56,9 @@ public abstract class AbstractButtonDropdown extends UIPanel implements EventsMo
             + BootstrapSeverity.INVERSE)
     public abstract String getSeverity();
     
-    @Attribute(suggestedValue = BootstrapSize.MINI + ","
-            + BootstrapSize.SMALL + ","
-            + BootstrapSize.LARGE)
+    @Attribute(suggestedValue = BootstrapScale.MINI + ","
+            + BootstrapScale.SMALL + ","
+            + BootstrapScale.LARGE)
     public abstract String getScale();
     
     @Attribute
