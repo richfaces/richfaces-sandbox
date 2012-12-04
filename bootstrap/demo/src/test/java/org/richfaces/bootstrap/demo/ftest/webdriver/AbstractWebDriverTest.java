@@ -23,68 +23,37 @@ package org.richfaces.bootstrap.demo.ftest.webdriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.test.selenium.support.pagefactory.StaleReferenceAwareFieldDecorator;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.FieldDecorator;
 import org.richfaces.bootstrap.demo.ftest.AbstractBootsrapDemoTest;
-import org.testng.annotations.BeforeMethod;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public abstract class AbstractWebDriverTest<Page extends BootstrapDemoPage> extends AbstractBootsrapDemoTest {
+public abstract class AbstractWebDriverTest extends AbstractBootsrapDemoTest {
 
     private static final String PREFIX_TEST_URL = "component/";
-    private static final int WD_NUMBER_OF_TRIES = 10;
-    private static final int WD_WAIT_TIME = 5;//s
-    private FieldDecorator fieldDecorator;
-    protected Page page;
+    //
     @Drone
     protected WebDriver driver;
 
-    @BeforeMethod(alwaysRun = true)
-    public void initializeWebDriver() {
-        driver.manage().timeouts().implicitlyWait(WD_WAIT_TIME, TimeUnit.SECONDS);
-    }
-
-    @BeforeMethod(alwaysRun = true, dependsOnMethods = { "initializeWebDriver" })
-    public void initializePage() {
-        PageFactory.initElements(getFieldDecorator(), getPage());
-    }
-
-    /**
-     * @throws MalformedURLException
-     */
-    @BeforeMethod(alwaysRun = true, dependsOnMethods = { "initializePage" })
-    public void initializePageUrl() throws MalformedURLException {
-        driver.get(getPathURL().toString());
-    }
+    abstract protected String getComponentName();
 
     private URL getPathURL() throws MalformedURLException {
         return new URL(deploymentURL, getTestURL());
     }
 
-    private FieldDecorator getFieldDecorator() {
-        if (fieldDecorator == null) {
-            fieldDecorator = new StaleReferenceAwareFieldDecorator(new DefaultElementLocatorFactory(driver), WD_NUMBER_OF_TRIES);
-        }
-        return fieldDecorator;
-    }
-
-    protected Page getPage() {
-        if (page == null) {
-            page = createPage();
-        }
-        return page;
-    }
-
     private String getTestURL() {
-        return PREFIX_TEST_URL + page.getComponentName();
+        return PREFIX_TEST_URL + getComponentName();
     }
 
-    protected abstract Page createPage();
+    @Before
+    public void initialize() throws MalformedURLException {
+        initializePageUrl();
+    }
+
+    public void initializePageUrl() throws MalformedURLException {
+        driver.get(getPathURL().toString());
+    }
 }

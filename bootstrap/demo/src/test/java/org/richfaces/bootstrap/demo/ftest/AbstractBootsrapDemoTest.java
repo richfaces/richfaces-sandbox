@@ -21,21 +21,20 @@
  */
 package org.richfaces.bootstrap.demo.ftest;
 
-import java.io.File;
 import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenImporter;
+import org.junit.runner.RunWith;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-@RunAsClient
-public class AbstractBootsrapDemoTest extends Arquillian {
+@RunWith(Arquillian.class)
+public class AbstractBootsrapDemoTest {
 
     @ArquillianResource
     protected URL deploymentURL;
