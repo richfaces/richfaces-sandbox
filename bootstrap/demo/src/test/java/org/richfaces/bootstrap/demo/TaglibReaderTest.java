@@ -22,8 +22,8 @@
 package org.richfaces.bootstrap.demo;
 
 import java.io.InputStream;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import junit.framework.Assert;
+import org.junit.Test;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
