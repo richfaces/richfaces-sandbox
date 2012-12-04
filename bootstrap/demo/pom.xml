@@ -14,7 +14,6 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.testng>6.7</version.testng>
         <version.jbossas-71>7.1.1.Final</version.jbossas-71>
         <version.graphene.arquillian>2.0.0.Alpha1</version.graphene.arquillian>
         
@@ -22,7 +21,8 @@
         
         <jboss7-1Home>${project.build.directory}/jboss-as-${version.jbossas7-1}</jboss7-1Home>
         
-        <testng.suite.xml>src/test/resources/testng/testng-unit.xml</testng.suite.xml>
+        <junit.suite>**/UnitTestsSuite.java</junit.suite>
+
     </properties>
 
     <dependencies>
@@ -51,14 +51,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- TestNG dependencies -->
+        <!-- junit dependencies -->
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${version.testng}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        
         <!-- Arquillian dependencies -->
         <dependency>
             <groupId>org.jboss.arquillian.graphene</groupId>
@@ -67,8 +65,8 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.testng</groupId>
-            <artifactId>arquillian-testng-container</artifactId>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
         
@@ -88,9 +86,9 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -99,9 +97,9 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFiles>${testng.suite.xml}</suiteXmlFiles>
-                    </suiteXmlFiles>
+                    <includes>
+                        <include>${junit.suite}</include>
+                    </includes>
                 </configuration>
                 <executions>
                     <execution>
@@ -161,56 +159,9 @@
         <profile>
             <id>ftest</id>
             <properties>
-                <testng.suite.xml>src/test/resources/testng/testng-ftest.xml</testng.suite.xml>
+                <junit.suite>**/IntegrationTestsSuite.java</junit.suite>
             </properties>
         </profile>
         
-        <profile>
-            <id>jbossas-managed-7-1</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <!-- unpack JBoss AS -->
-                            <execution>
-                                <id>unpack</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.jboss.as</groupId>
-                                            <artifactId>jboss-as-dist</artifactId>
-                                            <version>${version.jbossas-71}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemProperties>
-                                <arquillian.launch>jbossas-managed-7-1</arquillian.launch>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
