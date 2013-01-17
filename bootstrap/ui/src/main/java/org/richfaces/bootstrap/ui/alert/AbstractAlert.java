@@ -60,4 +60,11 @@ public abstract class AbstractAlert extends UIPanel {
     
     @Attribute
     public abstract boolean isClosable();
+    
+    @Attribute
+    public abstract String getHeaderClass();
+    
+    @Attribute
+    public abstract String getStyleClass();
+    
 }
