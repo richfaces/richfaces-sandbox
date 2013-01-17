@@ -13,8 +13,8 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="hero-unit #{component.styleClass}">
-            <h1>#{component.heading}</h1>
+        <div id="#{clientId}" class="hero-unit #{component.styleClass}" cdk:passThrough="on* style title">
+            <h1 class="#{component.headingClass}">#{component.heading}</h1>
             <c:choose>
                 <c:when test="#{component.getFacet('tagline') != null and component.getFacet('tagline').rendered}">
                     <p>
@@ -22,10 +22,10 @@
                     </p>
                 </c:when>
                 <c:when test="#{component.attributes['tagline']!= null and not component.attributes['tagline'].equals('')}">
-                    <p>#{component.tagline}</p>
+                    <p class="#{component.taglineClass}">#{component.tagline}</p>
                 </c:when>
             </c:choose>
-            <p>
+            <p class="#{component.bodyClass}">
                 <cdk:body />
             </p>
         </div>
