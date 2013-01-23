@@ -20,7 +20,7 @@
             </c:if>
 
             <c:if test="#{component.header != null and !component.header.equals('')}">
-                <h4 class="alert-heading #{component.headerClass}">#{component.header}</h4>
+                <h4 class="alert-heading #{component.headerStyleClass}">#{component.header}</h4>
             </c:if>
 
             <cdk:body />
