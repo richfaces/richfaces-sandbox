@@ -14,7 +14,7 @@
 
     <cc:implementation>
         <div id="#{clientId}" class="hero-unit #{component.styleClass}" cdk:passThrough="on* style title">
-            <h1 class="#{component.headingClass}">#{component.heading}</h1>
+            <h1 class="#{component.headingStyleClass}">#{component.heading}</h1>
             <c:choose>
                 <c:when test="#{component.getFacet('tagline') != null and component.getFacet('tagline').rendered}">
                     <p>
@@ -22,10 +22,10 @@
                     </p>
                 </c:when>
                 <c:when test="#{component.attributes['tagline']!= null and not component.attributes['tagline'].equals('')}">
-                    <p class="#{component.taglineClass}">#{component.tagline}</p>
+                    <p class="#{component.taglineStyleClass}">#{component.tagline}</p>
                 </c:when>
             </c:choose>
-            <p class="#{component.bodyClass}">
+            <p class="#{component.bodyStyleClass}">
                 <cdk:body />
             </p>
         </div>
