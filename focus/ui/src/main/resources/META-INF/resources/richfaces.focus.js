@@ -30,7 +30,7 @@
             }
             if (element != null) {
                 if (typeof element === "string") {
-                    element = document.getElementById("j_idt30:dateInputDate");
+                    element = document.getElementById(element);
                 }
                 element.focus();
                 element.select(element);
