@@ -13,8 +13,8 @@ There are a few guidelines that we need contributors to follow to enable us to m
         * Make sure you have a [GitHub account](http://github.com/)
             * Submit an [issue report](https://issues.jboss.org/browse/RF), assuming one does not already exist.
                     * [Clearly describe the issue](https://community.jboss.org/wiki/SubmittingEffectiveIssueReports) including steps to reproduce when it is a bug.
-                            * Make sure you fill in the earliest version that you know has the issue.
-                            * Fork the RichFaces repository on GitHub
+                    * Make sure you fill in the earliest version that you know has the issue.
+                    * Fork the RichFaces repository on GitHub
 
 ## Making Changes
 
@@ -22,7 +22,7 @@ There are a few guidelines that we need contributors to follow to enable us to m
     * the [First-Time Contributor Workflow](https://community.jboss.org/wiki/RichFacesGitWorkflowModel#FirstTime_Contributor_Workflow)
         * and then the [Contributor Workflow](https://community.jboss.org/wiki/RichFacesGitWorkflowModel#Contributor_Workflow)
 
-        Make sure the code is [properly formatted](https://community.jboss.org/wiki/ImportFormattingRules).  A common mistake is changing the original line-endings (DOS/unix).  Make sure the patch can be cleanly applied (particular line changes are clearly visible when using `git diff HEAD^` or in GitHub commits history)
+Make sure the code is [properly formatted](https://community.jboss.org/wiki/ImportFormattingRules).  A common mistake is changing the original line-endings (DOS/unix).  Make sure the patch can be cleanly applied (particular line changes are clearly visible when using `git diff HEAD^` or in GitHub commits history)
 
 ## Submitting Changes
 
