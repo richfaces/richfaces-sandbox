@@ -67,4 +67,7 @@ public abstract class AbstractAlert extends UIPanel {
     @Attribute
     public abstract String getStyleClass();
     
+    @Attribute
+    public abstract String getIcon();
+    
 }
