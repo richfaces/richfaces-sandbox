@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 
 /**
  * Base class for the alert component
@@ -42,7 +43,7 @@ import org.richfaces.cdk.annotations.Tag;
         family = AbstractAlert.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = AlertRendererBase.RENDERER_TYPE),
         tag = @Tag(name="alert"))
-public abstract class AbstractAlert extends UIPanel {
+public abstract class AbstractAlert extends UIPanel implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Alert";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Alert";
     
@@ -63,9 +64,6 @@ public abstract class AbstractAlert extends UIPanel {
     
     @Attribute
     public abstract String getHeaderStyleClass();
-    
-    @Attribute
-    public abstract String getStyleClass();
     
     @Attribute
     public abstract String getIcon();
