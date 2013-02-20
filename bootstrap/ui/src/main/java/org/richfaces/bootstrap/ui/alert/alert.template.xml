@@ -41,24 +41,25 @@
         </cc:interface>
         
         <cc:implementation>
+            <cdk:object ></cdk:object>
             <c:if test="#{icon == 'default'}">
                 <c:choose>
                     <c:when test="#{empty(severity)}"> <!-- = warning -->
-                        <i class="icon-warning-sign"></i>
+                        <i class="alert-icon icon-warning-sign"></i>
                     </c:when>
                     <c:when test="#{severity == 'success'}">
-                        <i class="icon-ok-sign"></i>
+                        <i class="alert-icon icon-ok-sign"></i>
                     </c:when>
                     <c:when test="#{severity == 'info'}">
-                        <i class="icon-info-sign"></i>
+                        <i class="alert-icon icon-info-sign"></i>
                     </c:when>
                     <c:when test="#{severity == 'error' or severity == 'danger'}">
-                        <i class="icon-remove-sign"></i>
+                        <i class="alert-icon icon-remove-sign"></i>
                     </c:when>
                 </c:choose>
             </c:if>
             <c:if test="#{icon != 'default'}">
-                <i class="icon-#{icon}"></i>
+                <i class="alert-icon icon-#{icon}"></i>
             </c:if>                       
             #{" "}
         </cc:implementation>
