@@ -41,7 +41,6 @@
         </cc:interface>
         
         <cc:implementation>
-            <cdk:object ></cdk:object>
             <c:if test="#{icon == 'default'}">
                 <c:choose>
                     <c:when test="#{empty(severity)}"> <!-- = warning -->
