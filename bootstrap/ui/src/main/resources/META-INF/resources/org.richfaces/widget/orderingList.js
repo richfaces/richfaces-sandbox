@@ -15,7 +15,16 @@
         _create: function() {
             var self = this;
             this.selectableOptions = {
-                disabled: self.options.disabled
+                disabled: self.options.disabled,
+                create: function( event, ui ) {
+                	$(event.target).find(".ui-selectee").addClass(self.options.selecteeClass);
+                },
+                selecting: function( event, ui ) {
+                	$(ui.selecting).addClass(self.options.selectedClass);
+                },
+                unselecting: function( event, ui) {
+                	$(ui.unselecting).removeClass(self.options.selectedClass);
+                }
             };
             this.sortableOptions = { handle: this.options.dragSelect ? ".handle" : false,
                 disabled: this.options.disabled,
@@ -25,7 +34,7 @@
                 start: function(event, ui) {
                     self.currentItems = ui.item.parent().children('.ui-selected').not('.placeholder').not('.helper-item');
                     var helper = ui.helper;
-                    var placeholder = self.element.find('.placeholder')
+                    var placeholder = self.element.find('.placeholder');
                     placeholder.css('height', helper.css('height'));
                     self.currentItems.not(ui.item).hide();
                 },
@@ -89,6 +98,7 @@
             if (this.options.mouseOrderable === true) {
                 this.$pluginRoot.sortable(this.sortableOptions);
             }
+            
             this.$pluginRoot.selectable(this.selectableOptions);
             if (this.options.disabled === true) {
                 self._disable();
@@ -189,11 +199,11 @@
         },
 
         selectItem: function (item) {
-            $(item).addClass('ui-selected');
+            $(item).addClass('ui-selected ' + this.options.selectedClass);
         },
 
         unSelectItem: function (item) {
-            $(item).removeClass('ui-selected');
+            $(item).removeClass('ui-selected ' + this.options.selectedClass);
         },
 
         unSelectAll: function() {
@@ -360,10 +370,12 @@
             this.outer = this.element.parents(".outer").first();
             var header = $("<div />").addClass('header');
             if (this.options.header) {
-                header.append($("<h3/>").html(this.options.header));
+                header.append($("<h3/>").html(this.options.header)).addClass(this.options.headerClass);
             }
             this.outer.prepend(header);
             this.content = this.outer.find(".content");
+            if (this.options.dimensions) this.content.find(".listBox").css(this.options.dimensions);
+            
         },
 
         _disable: function() {
@@ -371,7 +383,7 @@
                 .sortable("option", "disabled", true)
                 .selectable("option", "disabled", true);
             this.element
-                .addClass('disabled')
+                .addClass(this.options.disabledClass)
                 .find(".ui-selected").removeClass('ui-selected');
             $('.buttonColumn', this.content).find("button").attr("disabled", true);
         },
@@ -380,7 +392,7 @@
             this.$pluginRoot
                 .sortable("option", "disabled", false)
                 .selectable("option", "disabled", false);
-            this.element.removeClass('disabled');
+            this.element.removeClass(this.options.disabledClass);
             $('.buttonColumn', this.content).find("button").attr("disabled", false);
         },
 

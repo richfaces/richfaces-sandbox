@@ -12,10 +12,11 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}" />
+        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}"/>
 
-        <div id="#{clientId}" class="#{component.styleClass}">
+        <div id="#{clientId}" class="#{component.styleClass}" cdk:passThrough="on* style">
             <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
+            
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
@@ -41,9 +42,20 @@
             </c:choose>
         </div>
         <script type="text/javascript">
+            <cdk:scriptObject name="listDimensions">
+                <cdk:scriptOption name="width" value="#{component.listWidth}"/>
+                <cdk:scriptOption name="height" value="#{component.listHeight}"/>
+                <cdk:scriptOption name="min-height" value="#{component.minListHeight}"/>
+                <cdk:scriptOption name="max-height" value="#{component.maxListHeight}"/>
+            </cdk:scriptObject>
             <cdk:scriptObject name="widgetOptions">
                 <cdk:scriptOption name="header" value="#{component.caption}" />
+                <cdk:scriptOption name="headerClass" value="#{component.captionStyleClass}" />
                 <cdk:scriptOption name="disabled" value="#{component.disabled}" />
+                <cdk:scriptOption name="disabledClass" value="disabled #{component.disabledClass}" />
+                <cdk:scriptOption name="selecteeClass" value="#{component.itemStyleClass}" />
+                <cdk:scriptOption name="selectedClass" value="#{component.selectedItemStyleClass}" />
+                <cdk:scriptOption name="dimensions" value="#{listDimensions}" />
             </cdk:scriptObject>
             <cdk:scriptObject name="bridgeOptions">
                 <cdk:scriptOption name="componentId" value="#{clientId}" />
