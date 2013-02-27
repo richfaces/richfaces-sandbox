@@ -78,4 +78,24 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
     @Attribute
     public abstract String getItemStyleClass();
     
+    @Attribute
+    public abstract String getButtonsStyleClass();
+    
+    @Attribute
+    public abstract boolean isDragSelect();
+    
+    @Attribute
+    public abstract boolean isHideButtons();
+    
+    @Attribute
+    public abstract boolean isDisableMouse();
+    
+    @Attribute
+    public abstract boolean isContained();
+    
+    @Attribute
+    public abstract String getPlaceholderStyleClass();
+    
+    @Attribute
+    public abstract String getHelperStyleClass();
 }

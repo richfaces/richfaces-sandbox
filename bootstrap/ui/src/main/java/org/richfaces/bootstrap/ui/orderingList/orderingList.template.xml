@@ -16,7 +16,6 @@
 
         <div id="#{clientId}" class="#{component.styleClass}" cdk:passThrough="on* style">
             <input id="#{clientId}ListInput" name="#{clientId}" type="hidden" />
-            
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
@@ -52,10 +51,17 @@
                 <cdk:scriptOption name="header" value="#{component.caption}" />
                 <cdk:scriptOption name="headerClass" value="#{component.captionStyleClass}" />
                 <cdk:scriptOption name="disabled" value="#{component.disabled}" />
-                <cdk:scriptOption name="disabledClass" value="disabled #{component.disabledClass}" />
+                <cdk:scriptOption name="disabledClass" value="#{component.disabledClass}" />
                 <cdk:scriptOption name="selecteeClass" value="#{component.itemStyleClass}" />
                 <cdk:scriptOption name="selectedClass" value="#{component.selectedItemStyleClass}" />
                 <cdk:scriptOption name="dimensions" value="#{listDimensions}" />
+                <cdk:scriptOption name="dragSelect" value="#{component.dragSelect}" />
+                <cdk:scriptOption name="showButtons" value="#{component.hideButtons ? 'false' : ''}" />
+                <cdk:scriptOption name="mouseOrderable" value="#{component.disableMouse ? 'false' : ''}" />
+                <cdk:scriptOption name="contained" value="#{component.contained}" />
+                <cdk:scriptOption name="buttonsStyleClass" value="#{component.buttonsStyleClass}" />
+                <cdk:scriptOption name="placeholderStyleClass" value="#{component.placeholderStyleClass}" />
+                <cdk:scriptOption name="helperStyleClass" value="#{component.helperStyleClass}" />
             </cdk:scriptObject>
             <cdk:scriptObject name="bridgeOptions">
                 <cdk:scriptOption name="componentId" value="#{clientId}" />
