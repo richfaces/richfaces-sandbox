@@ -98,7 +98,6 @@
                 this.selectableOptions.filter = "li";
                 this.sortableOptions.helper = $.proxy(this._listHelper, this);
             }
-            console.log(this.options.mouseOrderable)
             if (this.options.mouseOrderable !== true) {this.options.showButtons = true;} 
             		// if mouse ordering is disabled buttons have to be shown
             this._addDomElements();
