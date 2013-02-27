@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+        <b:orderingList id="myOrderingList"
+                value="#{listSelectBean.capitals}"
+                var="capital"
+                caption="Ordering State Capitals"
+                contained="true"
+                hideButtons="true">
+            <f:converter converterId="CapitalsConverter" />
+            <h:column>
+                <f:facet name="header">Flag</f:facet>
+                <h:graphicImage library="img/capitals" name="#{capital.stateFlag}" alt="flag"  width="33" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{capital.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">State</f:facet>
+                #{capital.state}
+            </h:column>
+        </b:orderingList>
+</ui:composition>
