@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.slidfast</groupId>
         <artifactId>slidfast-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>4.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>slidfast-ui</artifactId>

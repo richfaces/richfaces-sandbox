@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.watermark</groupId>
         <artifactId>watermark-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>4.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>watermark-ui</artifactId>

@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.syntaxhighlighter</groupId>
         <artifactId>syntaxhighlighter-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>4.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>syntaxhighlighter-demo</artifactId>

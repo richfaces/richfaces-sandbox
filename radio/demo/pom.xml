@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.radio</groupId>
         <artifactId>radio-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>4.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>radio-demo</artifactId>
