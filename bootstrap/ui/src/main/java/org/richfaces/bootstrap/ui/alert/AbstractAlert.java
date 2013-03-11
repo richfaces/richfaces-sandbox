@@ -47,24 +47,43 @@ public abstract class AbstractAlert extends UIPanel implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Alert";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Alert";
     
+    /**
+     * Severity of the alert. Possible values: "success", "info", "error" or "danger".
+     */
     @Attribute(suggestedValue = BootstrapSeverity.SUCCESS + ","
             + BootstrapSeverity.INFO + ","
             + BootstrapSeverity.ERROR + ","
             + BootstrapSeverity.DANGER)
     public abstract String getSeverity();
     
+    /**
+     * Equivalent of the CSS 'display' attribute. Supported value: "block".
+     */
     @Attribute
     public abstract String getLayout();
     
+    /**
+     * Header value of the alert.
+     */
     @Attribute
     public abstract String getHeader();
     
+    /**
+     * If set to "true" the alert can be closed with a button. Default: "false."
+     */
     @Attribute
     public abstract boolean isClosable();
     
+    /**
+     * CSS class(es) to be applied to the header.
+     */
     @Attribute
     public abstract String getHeaderStyleClass();
     
+    /**
+     * If set will show an icon in the corner of the alert. Can be set to "default" which will apply a pre-defined icon based on the severity of the alert.
+     * Shows no icon by default.
+     */
     @Attribute
     public abstract String getIcon();
     
