@@ -58,7 +58,7 @@
                 <cdk:scriptOption name="dragSelect" value="#{component.dragSelect}" />
                 <cdk:scriptOption name="showButtons" value="#{component.hideButtons ? 'false' : ''}" />
                 <cdk:scriptOption name="mouseOrderable" value="#{component.disableMouse ? 'false' : ''}" />
-                <cdk:scriptOption name="contained" value="#{component.contained}" />
+                <cdk:scriptOption name="contained" value="#{!component.contained ? 'false': ''}" />
                 <cdk:scriptOption name="buttonsStyleClass" value="#{component.buttonsStyleClass}" />
                 <cdk:scriptOption name="placeholderStyleClass" value="#{component.placeholderStyleClass}" />
                 <cdk:scriptOption name="helperStyleClass" value="#{component.helperStyleClass}" />

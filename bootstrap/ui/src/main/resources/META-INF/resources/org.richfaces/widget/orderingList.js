@@ -31,9 +31,8 @@
             this.sortableOptions = { handle: this.options.dragSelect ? ".handle" : false,
                 disabled: this.options.disabled,
                 dropOnEmpty: this.options.dropOnEmpty,
-                axis: this.options.contained ? 'y' : '',
-                containment: this.options.contained ? 'parent' : '',
-                placeholder: "placeholder " + this.options.placeholderStyleClass,
+                scroll: true,
+                placeholder: "placeholder " + (this.options.placeholderStyleClass || ''),
                 tolerance: "pointer",
                 start: function(event, ui) {
                     self.currentItems = ui.item.parent().children('.ui-selected').not('.placeholder').not('.helper-item');
@@ -86,7 +85,11 @@
                     ui.movement = 'drag';
                     self._trigger("change", event, ui);
                     }
-                };
+                };  
+            if (this.options.contained != "false") {
+                this.sortableOptions.containment = this.element;
+                this.sortableOptions.axis = "y";
+            }            
             if (this.element.is("table")) {
                 this.strategy = "table";
                 this.$pluginRoot = $( this.element).find("tbody");
@@ -98,6 +101,7 @@
                 this.selectableOptions.filter = "li";
                 this.sortableOptions.helper = $.proxy(this._listHelper, this);
             }
+            
             if (this.options.mouseOrderable !== true) {this.options.showButtons = true;} 
             		// if mouse ordering is disabled buttons have to be shown
             this._addDomElements();
@@ -164,7 +168,8 @@
         },
 
         _listHelper: function(e, item) {
-            var $helper = $("<ol />").addClass('helper ' + this.options.helperStyleClass).css('height', 'auto').css('width', this.element.css('width'));
+            var $helper = $("<ol />").addClass('helper ' + (this.options.helperStyleClass || ''))
+                .css('height', 'auto').css('width', this.element.css('width'));
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             return $helper;
         },
@@ -381,8 +386,7 @@
             }
             this.outer.prepend(header);
             this.content = this.outer.find(".content");
-            if (this.options.dimensions) this.content.find(".listBox").css(this.options.dimensions);
-            
+            if (this.options.dimensions) this.element.css(this.options.dimensions);
         },
 
         _disable: function() {
