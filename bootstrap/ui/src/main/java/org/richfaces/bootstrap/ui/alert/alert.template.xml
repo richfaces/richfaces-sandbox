@@ -13,17 +13,54 @@
     </cc:interface>
 
     <cc:implementation>
-        <div id="#{clientId}" class="alert #{component.layout eq 'block' ? 'alert-block' : ''} #{empty(component.severity) ? '' : 'alert-'.concat(component.severity)}">
+        <div id="#{clientId}" class="alert #{component.layout eq 'block' ? 'alert-block' : ''} #{empty(component.severity) ? '' : 'alert-'.concat(component.severity)} #{component.styleClass}"
+                 cdk:passThrough="style title on*">
             <c:if test="#{component.isClosable()}">
                 <a class="close" data-dismiss="alert">×</a>
             </c:if>
             
             <c:if test="#{component.header != null and !component.header.equals('')}">
-                <h4 class="alert-heading">#{component.header}</h4>
+                <h4 class="alert-heading #{component.headerStyleClass}">
+                    <c:if test="#{not empty component.icon}">
+                        <cdk:renderFragment name="renderIcon" icon="#{component.icon}" severity="#{component.severity}" />
+                    </c:if>
+                    #{component.header}</h4>
             </c:if>
             
+            <c:if test="#{component.header == null or component.header.equals('') and not empty component.icon}">
+                <cdk:renderFragment name="renderIcon" icon="#{component.icon}" severity="#{component.severity}" />
+            </c:if>
             <cdk:body />
         </div>
     </cc:implementation>
 
+    <cdk:fragment name="renderIcon">
+        <cc:interface>
+            <cc:attribute name="icon" type="String" />
+            <cc:attribute name="severity" type="String" />
+        </cc:interface>
+        
+        <cc:implementation>
+            <c:if test="#{icon == 'default'}">
+                <c:choose>
+                    <c:when test="#{empty(severity)}"> <!-- = warning -->
+                        <i class="alert-icon icon-warning-sign"></i>
+                    </c:when>
+                    <c:when test="#{severity == 'success'}">
+                        <i class="alert-icon icon-ok-sign"></i>
+                    </c:when>
+                    <c:when test="#{severity == 'info'}">
+                        <i class="alert-icon icon-info-sign"></i>
+                    </c:when>
+                    <c:when test="#{severity == 'error' or severity == 'danger'}">
+                        <i class="alert-icon icon-remove-sign"></i>
+                    </c:when>
+                </c:choose>
+            </c:if>
+            <c:if test="#{icon != 'default'}">
+                <i class="alert-icon icon-#{icon}"></i>
+            </c:if>                       
+            #{" "}
+        </cc:implementation>
+    </cdk:fragment>
 </cdk:root>
