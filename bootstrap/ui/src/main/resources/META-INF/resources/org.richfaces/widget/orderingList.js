@@ -15,18 +15,31 @@
         _create: function() {
             var self = this;
             this.selectableOptions = {
-                disabled: self.options.disabled
+                disabled: self.options.disabled,
+                create: function( event, ui ) {
+                	$(event.target).find(".ui-selectee").addClass(self.options.selecteeClass);
+                },
+                selecting: function( event, ui ) {
+                	$(ui.selecting).addClass(self.options.selectedClass);
+                },
+                unselecting: function( event, ui) {
+                	if (self.options.selectedClass) {
+                		$(ui.unselecting).removeClass(self.options.selectedClass);
+                	}
+                }
             };
             this.sortableOptions = { handle: this.options.dragSelect ? ".handle" : false,
                 disabled: this.options.disabled,
                 dropOnEmpty: this.options.dropOnEmpty,
-                placeholder: "placeholder",
+                scroll: true,
+                placeholder: "placeholder " + (this.options.placeholderStyleClass || ''),
                 tolerance: "pointer",
                 start: function(event, ui) {
                     self.currentItems = ui.item.parent().children('.ui-selected').not('.placeholder').not('.helper-item');
                     var helper = ui.helper;
-                    var placeholder = self.element.find('.placeholder')
+                    var placeholder = self.element.find('.placeholder');
                     placeholder.css('height', helper.css('height'));
+                    
                     self.currentItems.not(ui.item).hide();
                 },
                 sort: function (event, ui) {
@@ -72,7 +85,11 @@
                     ui.movement = 'drag';
                     self._trigger("change", event, ui);
                     }
-                };
+                };  
+            if (this.options.contained != "false") {
+                this.sortableOptions.containment = this.element;
+                this.sortableOptions.axis = "y";
+            }            
             if (this.element.is("table")) {
                 this.strategy = "table";
                 this.$pluginRoot = $( this.element).find("tbody");
@@ -84,11 +101,15 @@
                 this.selectableOptions.filter = "li";
                 this.sortableOptions.helper = $.proxy(this._listHelper, this);
             }
+            
+            if (this.options.mouseOrderable !== true) {this.options.showButtons = true;} 
+            		// if mouse ordering is disabled buttons have to be shown
             this._addDomElements();
             this.widgetEventPrefix = this.options.widgetEventPrefix;
             if (this.options.mouseOrderable === true) {
                 this.$pluginRoot.sortable(this.sortableOptions);
             }
+            
             this.$pluginRoot.selectable(this.selectableOptions);
             if (this.options.disabled === true) {
                 self._disable();
@@ -129,7 +150,7 @@
                     var item = $(this).parents('.ui-selectee').first();
                     if (! item.hasClass('ui-selected')) {
                         var list = item.parents('.list').first();
-                        var selectable = orderingList.$pluginRoot.data('selectable');
+                        var selectable = list.data('orderingList').$pluginRoot.data('selectable');
                         list.data('selectable')._mouseStart(event);
                         list.data('selectable')._mouseStop(event);
                     }
@@ -147,13 +168,14 @@
         },
 
         _listHelper: function(e, item) {
-            var $helper = $("<ol />").addClass('helper').css('height', 'auto').css('width', this.element.css('width'));
+            var $helper = $("<ol />").addClass('helper ' + (this.options.helperStyleClass || ''))
+                .css('height', 'auto').css('width', this.element.css('width'));
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             return $helper;
         },
 
         _rowHelper: function(e, item) {
-            var $helper = $("<tbody />").addClass('helper').css('height', 'auto');
+            var $helper = $("<tbody />").addClass('helper ' + this.options.helperStyleClass).css('height', 'auto');
             item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass("helper-item").show().appendTo($helper);
             /* we lose the cell width in the clone, so we re-set it here: */
             var firstRow = $helper.children("tr").first();  /* we only need to set the column widths on the first row */
@@ -189,11 +211,11 @@
         },
 
         selectItem: function (item) {
-            $(item).addClass('ui-selected');
+            $(item).addClass('ui-selected ' + this.options.selectedClass);
         },
 
         unSelectItem: function (item) {
-            $(item).removeClass('ui-selected');
+            $(item).removeClass('ui-selected ' + this.options.selectedClass);
         },
 
         unSelectAll: function() {
@@ -287,7 +309,7 @@
                 .attr('type', 'button')
                 .addClass("btn")
             var buttonStack = $("<div/>")
-                .addClass("btn-group-vertical");
+                .addClass("btn-group-vertical").addClass(this.options.buttonsStyleClass);
             buttonStack
                 .append(
                 button.clone()
@@ -360,10 +382,11 @@
             this.outer = this.element.parents(".outer").first();
             var header = $("<div />").addClass('header');
             if (this.options.header) {
-                header.append($("<h3/>").html(this.options.header));
+                header.append($("<h3/>").html(this.options.header)).addClass(this.options.headerClass);
             }
             this.outer.prepend(header);
             this.content = this.outer.find(".content");
+            if (this.options.dimensions) this.element.css(this.options.dimensions);
         },
 
         _disable: function() {
@@ -371,7 +394,7 @@
                 .sortable("option", "disabled", true)
                 .selectable("option", "disabled", true);
             this.element
-                .addClass('disabled')
+                .addClass("disabled  " + this.options.disabledClass)
                 .find(".ui-selected").removeClass('ui-selected');
             $('.buttonColumn', this.content).find("button").attr("disabled", true);
         },
@@ -380,7 +403,10 @@
             this.$pluginRoot
                 .sortable("option", "disabled", false)
                 .selectable("option", "disabled", false);
-            this.element.removeClass('disabled');
+            this.element.removeClass("disabled");
+            if (this.options.disabledClass) {
+            	this.element.removeClass(this.options.disabledClass);
+            }
             $('.buttonColumn', this.content).find("button").attr("disabled", false);
         },
 

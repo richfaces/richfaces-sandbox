@@ -65,8 +65,67 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
      */
     @Attribute
     public abstract String getCaption();
+    
+    /**
+     * CSS class(es) to be applied to the caption.
+     */
+    @Attribute
+    public abstract String getCaptionStyleClass();
 
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
-
+    
+    /**
+     * CSS class(es) to be applied to the selected items.
+     */
+    @Attribute
+    public abstract String getSelectedItemStyleClass();
+    
+    /**
+     * CSS class(es) to be applied to the items of the list.
+     */
+    @Attribute
+    public abstract String getItemStyleClass();
+    
+    /**
+     * CSS class(es) to be applied to the buttons.
+     */
+    @Attribute
+    public abstract String getButtonsStyleClass();
+    
+    /**
+     * If "true" multiple items can be selected by dragging, as opposed to Ctrl+click. Default: "false".
+     */
+    @Attribute
+    public abstract boolean isDragSelect();
+    
+    /**
+     * If "true" the buttons are hidden. Default: "false".
+     */
+    @Attribute
+    public abstract boolean isHideButtons();
+    
+    /**
+     * If "true" the items cannot be dragged. Default: "false".
+     */
+    @Attribute
+    public abstract boolean isDisableMouse();
+    
+    /**
+     * If "true" the items cannot be dragged outside of the list. Default: "true".
+     */
+    @Attribute(defaultValue = "true")
+    public abstract boolean isContained();
+    
+    /**
+     * CSS class(es) to be applied to the placeholder - the empty space below the dragged item.
+     */
+    @Attribute
+    public abstract String getPlaceholderStyleClass();
+    
+    /**
+     * CSS class(es) to be applied to the helper - the dragged item(s).
+     */
+    @Attribute
+    public abstract String getHelperStyleClass();
 }
