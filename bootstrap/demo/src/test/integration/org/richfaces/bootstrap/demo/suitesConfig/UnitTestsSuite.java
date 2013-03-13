@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,28 +18,16 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- **/
-package org.richfaces.bootstrap.demo;
+ */
+package org.richfaces.bootstrap.demo.suitesConfig;
 
-import java.io.InputStream;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public class TaglibReaderTest {
-
-    @Test
-    public void getStreamTest() throws Exception {
-        TaglibReader reader = new TaglibReader();
-        InputStream stream = reader.getStream();
-        Assert.assertNotNull(stream.read());
-    }
-
-    @Test
-    public void readTaglibTest() throws Exception {
-        TaglibReader taglibReader = new TaglibReader();
-        Assert.assertNotNull(taglibReader.getTaglib());
-    }
+@RunWith(Runners.UnitTestsRunner.class)
+//Runs all tests that are only in package 'org.richfaces.bootstrap.demo'
+public class UnitTestsSuite {
+    //empty
 }

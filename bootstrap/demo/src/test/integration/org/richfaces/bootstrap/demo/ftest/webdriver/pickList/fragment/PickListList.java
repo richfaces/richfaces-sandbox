@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,28 +18,33 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- **/
-package org.richfaces.bootstrap.demo;
+ */
 
-import java.io.InputStream;
-import junit.framework.Assert;
-import org.junit.Test;
+package org.richfaces.bootstrap.demo.ftest.webdriver.pickList.fragment;
 
 /**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public class TaglibReaderTest {
+public interface PickListList extends Iterable<String> {
 
-    @Test
-    public void getStreamTest() throws Exception {
-        TaglibReader reader = new TaglibReader();
-        InputStream stream = reader.getStream();
-        Assert.assertNotNull(stream.read());
-    }
+    /**
+     * Checks if list contains element specified by @key.
+     * @param key key specifier of the item (attribute 'data-key')
+     * @return true if element was found
+     */
+    boolean contains(String key);
 
-    @Test
-    public void readTaglibTest() throws Exception {
-        TaglibReader taglibReader = new TaglibReader();
-        Assert.assertNotNull(taglibReader.getTaglib());
-    }
+    /**
+     * Returns a key of element at @index.
+     * @param index index of element in list (indexed from 0)
+     * @return
+     */
+    String getKeyAtIndex(int index);
+
+    boolean isEmpty();
+
+    boolean isVisible();
+
+    int size();
+
 }
