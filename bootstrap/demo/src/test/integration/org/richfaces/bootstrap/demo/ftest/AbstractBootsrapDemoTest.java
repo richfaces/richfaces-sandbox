@@ -21,13 +21,15 @@
  */
 package org.richfaces.bootstrap.demo.ftest;
 
+import java.io.File;
 import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenImporter;
 import org.junit.runner.RunWith;
 
 /**
@@ -41,7 +43,10 @@ public class AbstractBootsrapDemoTest {
 
     @Deployment(testable = false)
     public static WebArchive createTestArchive() {
-        return ShrinkWrap.create(MavenImporter.class, "bootstrap-demo.war").loadEffectivePom("pom.xml").importBuildOutput()
+        // TODO doesn't work
+        // return ShrinkWrap.create(MavenImporter.class, "bootstrap-demo.war").loadPomFromFile("pom.xml").importBuildOutput()
+        // .as(WebArchive.class);
+        return ShrinkWrap.create(ZipImporter.class, "bootstrap-demo.war").importFrom(new File("target/bootstrap-demo.war"))
                 .as(WebArchive.class);
     }
 }

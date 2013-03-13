@@ -14,15 +14,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.jbossas-71>7.1.1.Final</version.jbossas-71>
-        <version.graphene.arquillian>2.0.0.Alpha1</version.graphene.arquillian>
-        
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
-        
-        <jboss7-1Home>${project.build.directory}/jboss-as-${version.jbossas7-1}</jboss7-1Home>
-        
-        <junit.suite>**/UnitTestsSuite.java</junit.suite>
-
     </properties>
 
     <dependencies>
@@ -51,36 +43,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- junit dependencies -->
+        <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- Arquillian dependencies -->
-        <dependency>
-            <groupId>org.jboss.arquillian.graphene</groupId>
-            <artifactId>graphene-webdriver</artifactId>
-            <scope>test</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- Resolution of JAR libraries into WAR archive -->
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- Opera driver, selenium dependencies --> 
-        <dependency>
-            <groupId>com.opera</groupId>
-            <artifactId>operadriver</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -93,24 +59,13 @@
 
     <build>
         <finalName>bootstrap-demo</finalName>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
         <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>${junit.suite}</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
@@ -152,14 +107,6 @@
             <id>production</id>
             <properties>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
-            </properties>
-        </profile>
-        
-        
-        <profile>
-            <id>ftest</id>
-            <properties>
-                <junit.suite>**/IntegrationTestsSuite.java</junit.suite>
             </properties>
         </profile>
         
