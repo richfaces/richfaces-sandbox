@@ -29,7 +29,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
         <version>4.3.1-SNAPSHOT</version>
-        <relativePath>../../build/parent/pom.xml</relativePath>
+        <relativePath />
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
@@ -37,11 +37,44 @@
     <packaging>pom</packaging>
     <name>Richfaces UI Sandbox Components: bootstrap parent</name>
 
+    <properties>
+        <version.richfaces>4.3.1-SNAPSHOT</version.richfaces>
+    </properties>
+
     <modules>
         <module>ui</module>
         <module>demo</module>
         <module>quickstart</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+                <artifactId>bootstrap-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-cdk-plugin</artifactId>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <version>${version.richfaces}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <profiles>
         <profile>
