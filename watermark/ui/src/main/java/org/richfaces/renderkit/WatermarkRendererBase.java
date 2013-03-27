@@ -14,9 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ResourceDependencies({
-    @ResourceDependency(name = "jquery.js", target = "head"),
-    @ResourceDependency(name = "jquery.watermark.js", target = "head"),
     @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),
+    @ResourceDependency(name = "jquery.watermark.js", target = "head"),
     @ResourceDependency(name = "richfaces.watermark.js", target = "head")
 })
 public abstract class WatermarkRendererBase extends InputRendererBase {

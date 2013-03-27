@@ -22,18 +22,9 @@
     border: 1px solid;
     border-color: "#{richSkin.panelBorderColor}";
     border-radius: 3px;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=80)";
 }
 
 .rf-ak-u {
     font-style: normal;
     text-decoration: underline;
-}
-
-* html .rf-ak-p {
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity = 80);
-}
-
-*:first-child+html .rf-ak-p {
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity = 80);
 }

@@ -51,8 +51,9 @@ import java.util.Map;
 
 @JsfRenderer(family = AbstractDashboard.COMPONENT_FAMILY, type = DashboardRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),
-    @ResourceDependency(name = "richfaces.js", target = "head"), @ResourceDependency(name = "richfaces-event.js", target = "head"),
+    @ResourceDependency(name = "richfaces.js", target = "head"),
     @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
+    @ResourceDependency(name = "richfaces-event.js", target = "head"),
     @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js", target = "head"),
     @ResourceDependency(name = "jquery.ui.sortable.js", target = "head"), @ResourceDependency(name = "richfaces.dashboard.js", target = "head"),
     @ResourceDependency(name = "dashboard.css", target = "head")})

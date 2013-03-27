@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
         @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
         @ResourceDependency(name = "jquery.Jcrop.js", target = "head"),
         @ResourceDependency(name = "richfaces.imageSelectTool.js", target = "head"),
-        @ResourceDependency(name = "richfaces.imageSelectTool.css", target = "head")})
+        @ResourceDependency(name = "richfaces.imageSelectTool.ecss", target = "head")})
 public class ImageSelectToolRenderer extends RendererBase {
 // ------------------------------ FIELDS ------------------------------
 
