@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
-            <version>${project.version}</version>
+            <version>${version.richfaces}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -90,7 +90,7 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
                 <executions>
                     <execution>
                         <id>cdk-generate-sources</id>
