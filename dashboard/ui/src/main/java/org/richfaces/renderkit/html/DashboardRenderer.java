@@ -54,8 +54,11 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces.js", target = "head"),
     @ResourceDependency(name = "richfaces-base-component.js", target = "head"),
     @ResourceDependency(name = "richfaces-event.js", target = "head"),
-    @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js", target = "head"),
-    @ResourceDependency(name = "jquery.ui.sortable.js", target = "head"), @ResourceDependency(name = "richfaces.dashboard.js", target = "head"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js", target = "head"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js", target = "head"),
+    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js", target = "head"),
+    @ResourceDependency(name = "jquery.ui.sortable.js", target = "head"),
+    @ResourceDependency(name = "richfaces.dashboard.js", target = "head"),
     @ResourceDependency(name = "dashboard.css", target = "head")})
 public class DashboardRenderer extends RendererBase {
 // ------------------------------ FIELDS ------------------------------
