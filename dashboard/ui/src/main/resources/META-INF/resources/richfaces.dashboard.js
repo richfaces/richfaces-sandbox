@@ -12,10 +12,10 @@
     rf.ui = rf.ui || {};
     // Default options definition if needed for the component
     //    var defaultOptions = {};
-    const SUBMIT_EVENT_FUNCTION = 'submitEventFunction';
-    const DASHBOARD_CHANGE = "dashboardChanged";
-    const DASHBOARD_START_POSITION = "dashboardStartPosition";
-    const ORIGINAL_MIN_HEIGHT = "dashboardOriginalMinHeight";
+    var SUBMIT_EVENT_FUNCTION = 'submitEventFunction';
+    var DASHBOARD_CHANGE = "dashboardChanged";
+    var DASHBOARD_START_POSITION = "dashboardStartPosition";
+    var ORIGINAL_MIN_HEIGHT = "dashboardOriginalMinHeight";
 
     /**
      * Calculates child index for given item within it's parent.
@@ -115,7 +115,7 @@
             };
             this.options.disabled = !this.options.enabled;
             this.options.placeholder = this.options["placeholderClass"];
-            const placeholderRF = "rf-db-plh";
+            var placeholderRF = "rf-db-plh";
             this.options = jQuery.extend({
                 placeholder:placeholderRF,
                 forcePlaceholderSize:true,
