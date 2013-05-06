@@ -82,7 +82,7 @@
          * Utility functions.
          */
         __getResponseComponentData : function(event) {
-            return event.componentData[this.id];
+            return event.componentData === undefined ? undefined : event.componentData[this.id];
         },
         /**
          * Converts javascript date into integer that can be used as param
