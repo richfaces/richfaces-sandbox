@@ -41,6 +41,7 @@
                            dateRangeChangeListener="#{myBean.dateRangeChanged}"
                            dateRangeSelectListener="#{myBean.dateRangeSelected}"
                            dateSelectListener="#{myBean.dateSelected}"
+                           showCurrentTimeline="#{myBean.showCurrentTimeline}"
 
                            ondaterangeselect="#{rich:component('schedule')}.unselect()">
             <schedule:scheduleItem eventId="#{event.id}" startDate="#{event.startDate}" title="#{event.title}"

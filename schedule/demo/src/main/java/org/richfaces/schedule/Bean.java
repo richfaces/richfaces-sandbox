@@ -98,6 +98,8 @@ public class Bean implements Serializable {
 
     private boolean showWeekends;
 
+    private boolean showCurrentTimeline = true;
+
     private Integer slotMinutes = 30;
 
     private String switchType = "ajax";
@@ -447,6 +449,14 @@ public class Bean implements Serializable {
 
     public void setShowWeekends(boolean showWeekends) {
         this.showWeekends = showWeekends;
+    }
+
+    public boolean isShowCurrentTimeline() {
+        return showCurrentTimeline;
+    }
+
+    public void setShowCurrentTimeline(boolean showCurrentTimeline) {
+        this.showCurrentTimeline = showCurrentTimeline;
     }
 
 // -------------------------- OTHER METHODS --------------------------

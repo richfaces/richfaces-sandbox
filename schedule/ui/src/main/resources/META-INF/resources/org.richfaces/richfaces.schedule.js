@@ -12,6 +12,48 @@
     // Default options definition if needed for the component
     //    var defaultOptions = {};
     var SUBMIT_EVENT_FUNCTION = 'submitEventFunction';
+
+    /**
+     * Function to set line showing current time.
+     * This is taken from http://code.google.com/p/fullcalendar/issues/detail?id=143
+     */
+    function setTimeline(calendar) {
+        var parentDiv = $(".fc-agenda-slots:visible").parent();
+        var timeline = parentDiv.children(".timeline");
+        if (timeline.length == 0) { //if timeline isn't there, add it
+            timeline = $("<hr>").addClass("timeline");
+            parentDiv.prepend(timeline);
+        }
+
+        var curTime = new Date();
+
+        var curCalView = calendar.fullCalendar("getView");
+        if (curCalView.visStart < curTime && curCalView.visEnd > curTime) {
+            timeline.show();
+        } else {
+            timeline.hide();
+        }
+        var startSeconds = curCalView.getMinMinute()*60;
+        var endSeconds = curCalView.getMaxMinute()*60;
+        var curSeconds = (curTime.getHours() * 60 * 60) + (curTime.getMinutes() * 60) + curTime.getSeconds();
+        var percentOfDay = (curSeconds-startSeconds) / (endSeconds-startSeconds);
+        var topLoc = Math.floor(parentDiv.height() * percentOfDay);
+
+        timeline.css("top", topLoc + "px");
+
+        if (curCalView.name == "agendaWeek") { //week view, don't want the timeline to go the whole way across
+            var dayCol = $(".fc-today:visible");
+            if (dayCol.size() > 0) {
+                var left = dayCol.position().left + 1;
+                var width = dayCol.width();
+                timeline.css({
+                    left: left + "px",
+                    width: width + "px"
+                });
+            }
+        }
+    }
+
     // Extending component class with new properties and methods using extendClass
     // $super - reference to the parent prototype, will be available inside those methods
     rf.ui.Schedule = rf.BaseComponent.extendClass({
@@ -32,6 +74,7 @@
              * Message bundle & event handlers setup.
              */
             options = jQuery.extend({
+                showCurrentTimeline: false,
                 events: function(startDate, endDate, callback) {
                     _this.__dateRangeChange(startDate, endDate, callback)
                 },
@@ -416,6 +459,19 @@
                 }
             }
             this.selectedView = view;
+            var isViewTimelineCapable = view.getMinMinute instanceof Function;
+            if (isViewTimelineCapable && this.options.showCurrentTimeline === true) {
+                var timelineInterval = this.__getDelegate().data("timelineInterval");
+                if (timelineInterval != undefined) {
+                    window.clearInterval(timelineInterval);
+                }
+                var delegate = this.__getDelegate();
+                timelineInterval = window.setInterval(function () {
+                    setTimeline(delegate);
+                }, 60000);
+                this.__getDelegate().data("timelineInterval", timelineInterval);
+                setTimeline(delegate);
+            }
         },
         /**
          * Called by fullCalendar when some date range is selected (user clicks

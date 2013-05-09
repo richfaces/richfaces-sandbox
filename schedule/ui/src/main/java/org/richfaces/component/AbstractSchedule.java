@@ -739,6 +739,9 @@ public abstract class AbstractSchedule extends UIComponentBase implements Schedu
     @Attribute
     public abstract String getEventTextColor();
 
+    @Attribute(defaultValue = "false")
+    public abstract boolean isShowCurrentTimeline();
+
     public void setDataModel(DataModel model) {
         this.model = model;
     }

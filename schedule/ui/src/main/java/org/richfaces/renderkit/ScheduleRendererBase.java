@@ -52,6 +52,7 @@ import java.util.Map;
     @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.resizable.js"),
     @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.js"),
     @ResourceDependency(library = "org.richfaces", name = "richfaces.schedule.js"),
+    @ResourceDependency(library = "org.richfaces", name = "richfaces.schedule.css"),
     @ResourceDependency(name = "org.richfaces.renderkit.html.scripts.ScheduleMessages"),
     @ResourceDependency(library = "com.arshaw/fullcalendar", name = "fullcalendar.css")})
 public abstract class ScheduleRendererBase extends RendererBase {
@@ -149,6 +150,7 @@ public abstract class ScheduleRendererBase extends RendererBase {
         defaults.put("onbeforedaterangeselect", "");
         defaults.put("ondaterangeselect", "");
         defaults.put("ondaterangechange", "");
+        defaults.put("showCurrentTimeline", false);
         DEFAULTS = Collections.unmodifiableMap(defaults);
     }
 
@@ -340,6 +342,7 @@ public abstract class ScheduleRendererBase extends RendererBase {
         addOptionIfSetAndNotDefault("eventBackgroundColor", schedule.getEventBackgroundColor(), options);
         addOptionIfSetAndNotDefault("eventBorderColor", schedule.getEventBorderColor(), options);
         addOptionIfSetAndNotDefault("eventTextColor", schedule.getEventTextColor(), options);
+        addOptionIfSetAndNotDefault("showCurrentTimeline", schedule.isShowCurrentTimeline(), options);
         addOptionHash("dragOpacity", schedule, options);
         addOptionHash("titleFormat", schedule, options);
         addOptionHash("timeFormat", schedule, options);
