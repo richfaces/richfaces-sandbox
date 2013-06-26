@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.sandbox.input.AutocompleteRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.sandbox.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.sandbox.AutocompleteFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.sandbox.AutocompleteRenderer</cdk:renderer-type>
+        
+        <cdk:resource-dependency library="org.richfaces.widgets" name="dist/styles/richfaces.css" />
+        
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.core.js" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.widget.js" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.position.js" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.menu.js" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces.widgets" name="src/scripts/richfaces/autocomplete.js" />
+    </cc:interface>
+
+    <cc:implementation>
+        <input id="#{clientId}" type="text" />
+        <script>
+            $(document.getElementById('#{clientId}')).autocompleteBridge({ suggestions: ['Java', 'Haskell'] });
+        </script>
+    </cc:implementation>
+
+</cdk:root>
