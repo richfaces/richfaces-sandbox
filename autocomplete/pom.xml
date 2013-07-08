@@ -31,10 +31,10 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-    <artifactId>componentName-parent</artifactId>
+    <groupId>org.richfaces.sandbox.ui.autocomplete</groupId>
+    <artifactId>autocomplete-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Sandbox Components: componentName parent</name>
+    <name>Richfaces UI Sandbox Components: Autocomplete parent</name>
 
     <modules>
         <module>ui</module>

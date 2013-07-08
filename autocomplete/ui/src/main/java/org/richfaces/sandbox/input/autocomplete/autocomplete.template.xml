@@ -10,23 +10,57 @@
         <cdk:superclass>org.richfaces.sandbox.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.sandbox.AutocompleteFamily</cdk:component-family>
         <cdk:renderer-type>org.richfaces.sandbox.AutocompleteRenderer</cdk:renderer-type>
-        
-        <cdk:resource-dependency library="org.richfaces.widgets" name="dist/styles/richfaces.css" />
+        <cdk:component-base-class>org.richfaces.sandbox.input.autocomplete.AbstractAutocomplete</cdk:component-base-class>
+
+        <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
+        <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.css" />
         
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.core.js" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.widget.js" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.position.js" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.menu.js" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="components/jquery-ui/ui/jquery.ui.autocomplete.js" />
-        <cdk:resource-dependency library="org.richfaces.widgets" name="src/scripts/richfaces/autocomplete.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.position.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.js" />
     </cc:interface>
 
     <cc:implementation>
-        <input id="#{clientId}" type="text" />
-        <script>
-            $(document.getElementById('#{clientId}')).autocompleteBridge({ suggestions: ['Java', 'Haskell'] });
-        </script>
+        <div id="#{clientId}">
+            <input id="#{clientId}Input" type="text"
+                   value="#{getInputValue(facesContext, component)}"
+                   cdk:passThroughWithExclusions=""
+                   disabled="#{component.disabled}" />
+            <cdk:renderFragment name="renderItems" />
+            <script>
+                $(document.getElementById('#{clientId}Input')).autocompleteBridge({
+                    choices: document.getElementById('#{clientId}Suggestions'),
+                    showButton: true
+                });
+            </script>
+        </div>
     </cc:implementation>
+    
+    <cdk:fragment name="renderList">
+        <cc:interface>
+            <cc:attribute name="items" type="java.lang.Iterable" />
+        </cc:interface>
+        <cc:implementation>
+            <ul id="#{clientId}Suggestions">
+                <c:forEach var="item" items="#{items}">
+                    <li>#{item}</li>
+                </c:forEach>
+            </ul>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderItems">
+        <cc:implementation>
+            <c:choose>
+                <c:when test="#{component.layout == 'list'}">
+                    <cdk:renderFragment name="renderList" items="#{getItems(facesContext, component)}" />
+                </c:when>
+            </c:choose>
+        </cc:implementation>
+    </cdk:fragment>
 
 </cdk:root>

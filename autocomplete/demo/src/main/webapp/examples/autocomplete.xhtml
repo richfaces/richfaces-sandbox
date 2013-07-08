@@ -30,11 +30,14 @@
                 xmlns:s="http://richfaces.org/sandbox/prototyping">
 <ui:param name="title" value="Autocomplete" />
 
-<!-- content -->
+<!-- content -->Manzel
 <ui:define name="content">
 
-    <h:form>
-    	<s:autocomplete />
+    <h:form prependId="false">
+    	<s:autocomplete id="autocomplete" autocompleteList="#{bean.suggestions}" mode="client" layout="list" />
+        
+        <r:log mode="console" />
+        <r:commandButton render="autocomplete" value="Re-render" />
     </h:form>
 
 </ui:define>
