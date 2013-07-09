@@ -22,6 +22,7 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
         <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocompleteBridge.js" />
     </cc:interface>
 
     <cc:implementation>
@@ -32,9 +33,17 @@
                    disabled="#{component.disabled}" />
             <cdk:renderFragment name="renderItems" />
             <script>
-                $(document.getElementById('#{clientId}Input')).autocompleteBridge({
-                    choices: document.getElementById('#{clientId}Suggestions'),
-                    showButton: true
+                $(document.getElementById('#{clientId}Input')).richAutocompleteBridge({
+                    choices: '##{clientId}Suggestions',
+                    showButton: true,
+                    update: function(request, done) {
+                        var params = {
+                            '#{clientId}.ajax': '1',
+                            '#{clientId}Value': request.term
+                        };
+                        RichFaces.ajax(#{clientId}, null, {parameters: params, error: done, complete: done});
+                    }
+                    
                 });
             </script>
         </div>

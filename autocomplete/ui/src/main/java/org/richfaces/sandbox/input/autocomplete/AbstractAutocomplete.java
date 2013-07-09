@@ -21,9 +21,14 @@
  */
 package org.richfaces.sandbox.input.autocomplete;
 
+import java.io.IOException;
+
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -33,23 +38,27 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.FocusProps;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.input.autocomplete.AutocompleteMode;
 
 /**
  * <p>The &lt;r:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
  * supports client-side suggestions, browser-like selection, and customization of the look and feel.</p>
  *
- * @author Nick Belaevski
  * @author Lukas Fryc
  */
 @JsfComponent(
-        tag = @Tag(type = TagType.Facelets, name = "autocomplete"),
+        tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         type = "org.richfaces.sandbox.Autocomplete",
         renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
-public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps {
+public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps, MetaComponentResolver, MetaComponentEncoder {
 
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
@@ -368,39 +377,42 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
 
-//    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-//        if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
-//            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
-//        }
-//
-//        return null;
-//    }
-//
-//    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-//
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean visitTree(VisitContext context, VisitCallback callback) {
-//        if (context instanceof ExtendedVisitContext) {
-//            ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
-//            if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-//
-//                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-//                    ITEMS_META_COMPONENT_ID);
-//                if (result == VisitResult.COMPLETE) {
-//                    return true;
-//                } else if (result == VisitResult.REJECT) {
-//                    return false;
-//                }
-//            }
-//        }
-//
-//        return super.visitTree(context, callback);
-//    }
-//
-//    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
-//        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
-//    }
+    @Override
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+
+        return null;
+    }
+
+    @Override
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+
+        return null;
+    }
+
+    @Override
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (context instanceof ExtendedVisitContext) {
+            ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
+            if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
+
+                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
+                    ITEMS_META_COMPONENT_ID);
+                if (result == VisitResult.COMPLETE) {
+                    return true;
+                } else if (result == VisitResult.REJECT) {
+                    return false;
+                }
+            }
+        }
+
+        return super.visitTree(context, callback);
+    }
+
+    @Override
+    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
+        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }
 }

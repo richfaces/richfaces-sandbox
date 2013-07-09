@@ -34,12 +34,13 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.input.autocomplete.AutocompleteEncodeStrategy;
 import org.richfaces.util.InputUtils;
 
-public abstract class AutocompleteRendererBase extends InputRendererBase {
+public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
     public static final String RENDERER_TYPE = "org.richfaces.sandbox.AutocompleteRenderer";
 
@@ -141,6 +142,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase {
         }
     }
 
+    @Override
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractAutocomplete.ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
 

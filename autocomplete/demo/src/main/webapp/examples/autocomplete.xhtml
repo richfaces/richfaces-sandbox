@@ -34,7 +34,7 @@
 <ui:define name="content">
 
     <h:form prependId="false">
-    	<s:autocomplete id="autocomplete" autocompleteList="#{bean.suggestions}" mode="client" layout="list" />
+    	<s:autocomplete id="autocomplete" autocompleteMethod="#{bean.suggest}" mode="client" layout="list" />
         
         <r:log mode="console" />
         <r:commandButton render="autocomplete" value="Re-render" />
