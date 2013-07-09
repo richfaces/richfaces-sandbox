@@ -213,26 +213,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     @Attribute
     public abstract String getClientFilterFunction();
 
-    // ----------- selected core-props.xml
-
-    /**
-     * CSS style(s) to be applied when this component is rendered.
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
-
-
-    // ----------- focus-props.xml
-
-    public abstract String getTabindex();
-
     // ----------- Event Attributes
 
     /**
@@ -308,48 +288,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      */
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
-
-    // ----------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    // ----------- events-key-props.xml
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    // ----------- focus-props.xml
-
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
 
     // ----------- selected ajax props
 
