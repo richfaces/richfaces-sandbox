@@ -23,6 +23,7 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
         <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.js" />
         <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocompleteBridge.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridges/input/autocompleteJsfBridge.js" />
     </cc:interface>
 
     <cc:implementation>
@@ -33,16 +34,8 @@
                    disabled="#{component.disabled}" />
             <cdk:renderFragment name="renderSuggestions" />
             <script>
-                $(document.getElementById('#{clientId}Input')).richAutocompleteBridge({
-                    choices: '##{clientId}Suggestions',
-                    update: function(request, done) {
-                        var params = {
-                            '#{clientId}SearchTerm': request.term
-                        };
-                        RichFaces.ajax(#{clientId}, null, {parameters: params, error: done, complete: done});
-                    }
-                    
-                });
+                var options = {};
+                $(document.getElementById('#{clientId}')).richAutocompleteJsfBridge(options);
             </script>
         </div>
     </cc:implementation>
@@ -52,7 +45,7 @@
             <cc:attribute name="items" type="java.lang.Iterable" />
         </cc:interface>
         <cc:implementation>
-            <ul id="#{clientId}Suggestions">
+            <ul id="#{clientId}Suggestions" style="display: none">
                 <c:forEach var="item" items="#{items}">
                     <li>#{item}</li>
                 </c:forEach>
@@ -64,7 +57,7 @@
         <cc:implementation>
             <c:choose>
                 <c:when test="#{component.layout == 'list'}">
-                    <cdk:renderFragment name="renderSuggestionsAsList" items="#{getSuggestionsDataModel(facesContext, component)}" />
+                    <cdk:renderFragment name="renderSuggestionsAsList" items="#{getSuggestionsAsDataModel(facesContext, component)}" />
                 </c:when>
             </c:choose>
         </cc:implementation>
