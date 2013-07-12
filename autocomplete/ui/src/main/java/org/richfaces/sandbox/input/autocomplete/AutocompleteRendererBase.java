@@ -33,11 +33,9 @@ import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.input.InputRendererBase;
-import org.richfaces.ui.input.autocomplete.AutocompleteEncodeStrategy;
 import org.richfaces.util.InputUtils;
 
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
@@ -46,93 +44,22 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
-    public JSReference getClientFilterFunction(UIComponent component) {
-        AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
-        String clientFilter = (String) autocomplete.getAttributes().get("clientFilterFunction");
-        if (clientFilter != null && clientFilter.length() != 0) {
-            return new JSReference(clientFilter);
-        }
-
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    protected DataModel<Object> getItems(FacesContext facesContext, AbstractAutocomplete component) {
-        Object itemsObject = null;
-
-        MethodExpression autocompleteMethod = component.getAutocompleteMethod();
-        if (autocompleteMethod != null) {
-            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
-            String value = requestParameters.get(component.getClientId(facesContext) + "Value");
-            try {
-                try {
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                            component, value });
-                } catch (MethodNotFoundException e) {
-                    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                    autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                            autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
-                }
-            } catch (ELException ee) {
-                LOGGER.error(ee.getMessage(), ee);
-            }
-        } else {
-            itemsObject = component.getAutocompleteList();
-        }
-
-        DataModel result;
-
-        if (itemsObject instanceof Object[]) {
-            result = new ArrayDataModel((Object[]) itemsObject);
-        } else if (itemsObject instanceof List) {
-            result = new ListDataModel((List<Object>) itemsObject);
-        } else if (itemsObject instanceof Result) {
-            result = new ResultDataModel((Result) itemsObject);
-        } else if (itemsObject instanceof ResultSet) {
-            result = new ResultSetDataModel((ResultSet) itemsObject);
-        } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
-            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
-            while (iterator.hasNext()) {
-                temp.add(iterator.next());
-            }
-            result = new ListDataModel(temp);
-        } else {
-            result = new ListDataModel(null);
-        }
-
-        return result;
-    }
-
-    public void encodeItem(FacesContext facesContext, AbstractAutocomplete autocomplete, Object item,
-            AutocompleteEncodeStrategy strategy) throws IOException {
-        ResponseWriter writer = facesContext.getResponseWriter();
-        if (autocomplete.getChildCount() > 0) {
-            strategy.encodeItem(facesContext, autocomplete);
-        } else {
-            if (item != null) {
-                strategy.encodeItemBegin(facesContext, autocomplete);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm rf-au-opt rf-au-fnt rf-au-inp", null);
-                writer.writeText(item, null);
-                strategy.encodeItemEnd(facesContext, autocomplete);
-            }
-        }
-    }
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-        AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
+        final AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
+        final Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
+
         if (InputUtils.isDisabled(autocomplete)) {
             return;
         }
-        Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
+
         String value = requestParameters.get(component.getClientId(context) + "Input");
         if (value != null) {
             autocomplete.setSubmittedValue(value);
         }
 
-        if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
+        String searchTerm = requestParameters.get(component.getClientId(context) + "SearchTerm");
+        if (searchTerm != null) {
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(
                     component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
@@ -140,6 +67,12 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
             context.renderResponse();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected DataModel<Object> getSuggestionsDataModel(FacesContext facesContext, AbstractAutocomplete component) {
+        Object suggestions = getSuggestions(facesContext, component);
+        return asDataModel(suggestions);
     }
 
     @Override
@@ -151,7 +84,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
             PartialResponseWriter partialWriter = context.getPartialViewContext().getPartialResponseWriter();
             partialWriter.startUpdate(clientId + "Suggestions");
-            renderItems(FacesContext.getCurrentInstance().getResponseWriter(), context, component);
+            renderSuggestions(FacesContext.getCurrentInstance().getResponseWriter(), context, component);
             partialWriter.endUpdate();
 
             if (!fetchValues.isEmpty()) {
@@ -163,11 +96,58 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
     }
 
-    public abstract void renderItems(ResponseWriter responseWriter, FacesContext facesContext, UIComponent uiComponent)
+    public abstract void renderSuggestions(ResponseWriter responseWriter, FacesContext facesContext, UIComponent uiComponent)
             throws IOException;
 
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
+    }
+
+    protected Object getSuggestions(FacesContext facesContext, AbstractAutocomplete component) {
+        MethodExpression autocompleteMethod = component.getAutocompleteMethod();
+        if (autocompleteMethod != null) {
+            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
+            String searchTerm = requestParameters.get(component.getClientId(facesContext) + "SearchTerm");
+            try {
+                try {
+                    return autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext, component,
+                            searchTerm });
+                } catch (MethodNotFoundException e) {
+                    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                    autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
+                            autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
+                    return autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { searchTerm });
+                }
+            } catch (ELException ee) {
+                LOGGER.error(ee.getMessage(), ee);
+            }
+        } else {
+            return component.getAutocompleteList();
+        }
+
+        return null;
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public DataModel asDataModel(Object suggestions) {
+        if (suggestions instanceof Object[]) {
+            return new ArrayDataModel((Object[]) suggestions);
+        } else if (suggestions instanceof List) {
+            return new ListDataModel((List<Object>) suggestions);
+        } else if (suggestions instanceof Result) {
+            return new ResultDataModel((Result) suggestions);
+        } else if (suggestions instanceof ResultSet) {
+            return new ResultSetDataModel((ResultSet) suggestions);
+        } else if (suggestions != null) {
+            List<Object> temp = new ArrayList<Object>();
+            Iterator<Object> iterator = ((Iterable<Object>) suggestions).iterator();
+            while (iterator.hasNext()) {
+                temp.add(iterator.next());
+            }
+            return new ListDataModel(temp);
+        } else {
+            return new ListDataModel(null);
+        }
     }
 
     private Converter getConverterForValue(FacesContext context, UIComponent component) {
@@ -194,5 +174,15 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         } else {
             return s;
         }
+    }
+
+    public JSReference getClientFilterFunction(UIComponent component) {
+        AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
+        String clientFilter = (String) autocomplete.getAttributes().get("clientFilterFunction");
+        if (clientFilter != null && clientFilter.length() != 0) {
+            return new JSReference(clientFilter);
+        }
+
+        return null;
     }
 }

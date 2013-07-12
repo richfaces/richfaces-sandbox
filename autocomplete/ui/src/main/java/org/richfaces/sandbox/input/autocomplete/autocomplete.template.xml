@@ -31,15 +31,13 @@
                    value="#{getInputValue(facesContext, component)}"
                    cdk:passThroughWithExclusions=""
                    disabled="#{component.disabled}" />
-            <cdk:renderFragment name="renderItems" />
+            <cdk:renderFragment name="renderSuggestions" />
             <script>
                 $(document.getElementById('#{clientId}Input')).richAutocompleteBridge({
                     choices: '##{clientId}Suggestions',
-                    showButton: true,
                     update: function(request, done) {
                         var params = {
-                            '#{clientId}.ajax': '1',
-                            '#{clientId}Value': request.term
+                            '#{clientId}SearchTerm': request.term
                         };
                         RichFaces.ajax(#{clientId}, null, {parameters: params, error: done, complete: done});
                     }
@@ -49,7 +47,7 @@
         </div>
     </cc:implementation>
     
-    <cdk:fragment name="renderList">
+    <cdk:fragment name="renderSuggestionsAsList">
         <cc:interface>
             <cc:attribute name="items" type="java.lang.Iterable" />
         </cc:interface>
@@ -62,11 +60,11 @@
         </cc:implementation>
     </cdk:fragment>
     
-    <cdk:fragment name="renderItems">
+    <cdk:fragment name="renderSuggestions">
         <cc:implementation>
             <c:choose>
                 <c:when test="#{component.layout == 'list'}">
-                    <cdk:renderFragment name="renderList" items="#{getItems(facesContext, component)}" />
+                    <cdk:renderFragment name="renderSuggestionsAsList" items="#{getSuggestionsDataModel(facesContext, component)}" />
                 </c:when>
             </c:choose>
         </cc:implementation>
