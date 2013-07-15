@@ -33,7 +33,6 @@ import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.util.InputUtils;
@@ -44,7 +43,7 @@ import org.richfaces.util.InputUtils;
  * @author Lukas Fryc
  * @author Nick Belaevski
  */
-public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer, MetaComponentEncoder {
+public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
     public static final String RENDERER_TYPE = "org.richfaces.sandbox.AutocompleteRenderer";
 
@@ -100,7 +99,6 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
      * <li>@suggestions</li>
      * </ul>
      */
-    @Override
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractAutocomplete.SUGGESTIONS_META_COMPONENT_ID.equals(metaComponentId)) {
             encodeSuggestions(context, component);

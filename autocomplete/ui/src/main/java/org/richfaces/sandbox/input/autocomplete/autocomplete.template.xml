@@ -6,7 +6,6 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.sandbox.input.AutocompleteRenderer</cdk:class>
         <cdk:superclass>org.richfaces.sandbox.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.sandbox.AutocompleteFamily</cdk:component-family>
         <cdk:renderer-type>org.richfaces.sandbox.AutocompleteRenderer</cdk:renderer-type>

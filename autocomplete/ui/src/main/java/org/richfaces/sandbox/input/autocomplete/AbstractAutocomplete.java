@@ -55,7 +55,7 @@ import org.richfaces.ui.input.autocomplete.AutocompleteMode;
  *
  * @author Lukas Fryc
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class), type = "org.richfaces.sandbox.Autocomplete", renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, generate = true), type = "org.richfaces.sandbox.Autocomplete", renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
 public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps,
         MetaComponentResolver, MetaComponentEncoder {
 
