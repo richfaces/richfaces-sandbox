@@ -55,11 +55,13 @@ import org.richfaces.ui.input.autocomplete.AutocompleteMode;
  *
  * @author Lukas Fryc
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, generate = true), type = "org.richfaces.sandbox.Autocomplete", renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
+@JsfComponent(
+        tag = @Tag(type = TagType.Facelets, generate = true),
+        renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
 public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps,
         MetaComponentResolver, MetaComponentEncoder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
+    public static final String COMPONENT_TYPE = "org.richfaces.sandbox.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
     static final String SUGGESTIONS_META_COMPONENT_ID = "suggestions";

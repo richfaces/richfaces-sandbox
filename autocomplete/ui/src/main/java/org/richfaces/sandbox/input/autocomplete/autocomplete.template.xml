@@ -45,10 +45,46 @@
         </cc:interface>
         <cc:implementation>
             <ul id="#{clientId}Suggestions" style="display: none">
+                <cdk:call expression="Object savedVar = saveVar(facesContext, component.getVar())" />
                 <c:forEach var="item" items="#{items}">
-                    <li>#{item}</li>
+                    <cdk:call expression="setVar(facesContext, component.getVar(), item)" />
+                    <li data-label="#{component.fetchValue}">
+                        <c:choose>
+                            <c:when test="#{empty component.children}">
+                                #{item}
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="c" items="#{component.children}">
+                                    <cdk:call expression="c.encodeAll(facesContext)" />
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
                 </c:forEach>
+                <cdk:call expression="setVar(facesContext, component.getVar(), savedVar)" />
             </ul>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderSuggestionsAsTable">
+        <cc:interface>
+            <cc:attribute name="items" type="java.lang.Iterable" />
+        </cc:interface>
+        <cc:implementation>
+            <table id="#{clientId}Suggestions" style="display: none">
+                <tbody>
+                    <cdk:call expression="Object savedVar = saveVar(facesContext, component.getVar())" />
+                    <c:forEach var="item" items="#{items}">
+                        <cdk:call expression="setVar(facesContext, component.getVar(), item)" />
+                        <tr data-label="#{component.fetchValue}">
+                            <c:forEach var="column" items="#{component.children}">
+                                <td><cdk:call expression="column.encodeAll(facesContext)" /></td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                    <cdk:call expression="setVar(facesContext, component.getVar(), savedVar)" />
+                </tbody>
+            </table>
         </cc:implementation>
     </cdk:fragment>
     
@@ -57,6 +93,9 @@
             <c:choose>
                 <c:when test="#{component.layout == 'list'}">
                     <cdk:renderFragment name="renderSuggestionsAsList" items="#{getSuggestionsAsDataModel(facesContext, component)}" />
+                </c:when>
+                <c:when test="#{component.layout == 'table'}">
+                    <cdk:renderFragment name="renderSuggestionsAsTable" items="#{getSuggestionsAsDataModel(facesContext, component)}" />
                 </c:when>
             </c:choose>
         </cc:implementation>

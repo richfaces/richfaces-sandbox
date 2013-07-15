@@ -32,9 +32,31 @@
 
 <!-- content -->Manzel
 <ui:define name="content">
-
-    <h:form prependId="false">
-    	<s:autocomplete id="autocomplete" autocompleteMethod="#{bean.suggest}" mode="client" layout="list" />
+    
+    <h3>Autocomplete with custom suggestion formatting in list layout</h3>
+    
+    Following sample shows usage of autocomplete in AJAX mode with custom suggestion formatting and fetched value:
+    
+    <h:form id="custom-formatting">
+    	<s:autocomplete id="autocomplete" autocompleteMethod="#{bean.suggest}" mode="ajax" layout="list" var="p" fetchValue="#{p.name}">
+            #{p.name} - #{p.age}
+        </s:autocomplete>
+        
+        <r:log mode="console" />
+        <r:commandButton render="autocomplete" value="Re-render" />
+    </h:form>
+    
+    <h3>Autocomplete with suggestion in table layout</h3>
+    
+    <h:form id="table-layout">
+        <s:autocomplete id="autocomplete" autocompleteMethod="#{bean.suggest}" mode="ajax" layout="table" var="p" fetchValue="#{p.name}">
+            <r:column>
+                #{p.name}
+            </r:column>
+            <r:column>
+                #{p.age}
+            </r:column>
+        </s:autocomplete>
         
         <r:log mode="console" />
         <r:commandButton render="autocomplete" value="Re-render" />

@@ -8,7 +8,7 @@
 			var clientId = this.element.attr('id');
 	        
 			var options = $.extend({}, options, {
-	            choices: '#' + clientId + 'Suggestions',
+	            choices: '[id="' + clientId + 'Suggestions"]',
 	            showButton: true,
 	            update: function(request, done) {
 	                var params = {};

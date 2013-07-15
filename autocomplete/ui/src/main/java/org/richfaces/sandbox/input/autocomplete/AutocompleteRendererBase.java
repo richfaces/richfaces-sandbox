@@ -49,6 +49,34 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
+    /**
+     * Do not render content
+     */
+    @Override
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+    }
+
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
+
+    protected Object saveVar(FacesContext context, String var) {
+        if (var != null) {
+            Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+            return requestMap.get(var);
+        }
+
+        return null;
+    }
+
+    protected void setVar(FacesContext context, String var, Object varObject) {
+        if (var != null) {
+            Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+            requestMap.put(var, varObject);
+        }
+    }
+
     /*
      * (non-Javadoc)
      *
