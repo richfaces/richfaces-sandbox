@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:superclass>org.richfaces.sandbox.chart.ChartRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.sandbox.ChartFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.sandbox.ChartRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.sandbox.chart.component.AbstractChart</cdk:component-base-class>
+
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js" />
+        
+    </cc:interface>
+
+    <cc:implementation>
+        <div>
+        Hello there chart is coming!
+        </div>
+    </cc:implementation>
+    
+</cdk:root>

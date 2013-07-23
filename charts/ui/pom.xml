@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.sandbox.ui.charts</groupId>
+        <artifactId>charts-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>charts-ui</artifactId>
+    <name>Richfaces UI Sandbox Components: Charts ui</name>
+    
+    <properties>
+        <version.cdk>4.5.0-SNAPSHOT</version.cdk>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <version>3.0.1.Final</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+            <version>5.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.cdk</groupId>
+            <artifactId>annotations</artifactId>
+            <version>4.5.0-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-build-resources</artifactId>
+            <version>5.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>precompile-sources-for-cdk</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>cdk-generate-sources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <locale>en</locale>
+                    <templates>
+                        <fileSet>
+                            <directory>src/main/java</directory>
+                            <includes>
+                                <include>**/*.template.xml</include>
+                            </includes>
+                        </fileSet>
+                    </templates>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jboss.spec</groupId>
+                        <artifactId>jboss-javaee-6.0</artifactId>
+                        <version>${version.jboss-javaee}</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.richfaces</groupId>
+                        <artifactId>richfaces-build-resources</artifactId>
+                        <version>${version.richfaces}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
