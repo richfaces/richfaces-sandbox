@@ -5,10 +5,7 @@ import javax.faces.component.UIComponentBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
 
 
 /**
@@ -16,30 +13,29 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Lukas Macko
  */
 @JsfComponent(
-    type = "org.richfaces.sandbox.chart.component.Chart",
+    type = "org.richfaces.sandbox.chart.component.series",
     family = "org.richfaces.sandbox.ChartFamily",
-    renderer = @JsfRenderer(type = "org.richfaces.sanbox.ChartRenderer"),
-    tag = @Tag(name = "chart", generate = true,type = TagType.Facelets))
-public abstract class AbstractChart extends UIComponentBase{
+    tag = @Tag(name = "series"))
+public abstract class AbstractSeries extends UIComponentBase{
 
- 
-     /**
+    @Attribute
+    public abstract String getType();
+    
+    @Attribute
+    public abstract String getSymbol();
+    
+    @Attribute
+    public abstract String getLabel();
+    
+    @Attribute
+    public abstract Object getData();
+    
+    @Attribute
+    public abstract String getColor();
+    
+    /**
       * 
-      * Chart title 
-      */
-     @Attribute
-     public abstract String getTitle();
-     
-     /**
-      * 
-      * Is zooming enable 
-      */
-     @Attribute
-     public abstract boolean isZoom();
-     
-     /**
-      * 
-      * Click handler event for each series  
+      * Click handler event for this series  
       */
      @Attribute(events =
      @EventName("click"))
@@ -48,7 +44,7 @@ public abstract class AbstractChart extends UIComponentBase{
      
      /**
       * 
-      * Mouse over handler event for each series  
+      * Mouse over handler event for this series  
       */
      @Attribute(events =
      @EventName("mouseover"))
@@ -60,7 +56,7 @@ public abstract class AbstractChart extends UIComponentBase{
      public abstract MethodExpression getClickListener();
      
      /**
-     * Server-side listener for mouseover event each series
+     * Server-side listener for mouseover event this series
      * 
      */ 
      @Attribute
@@ -68,6 +64,5 @@ public abstract class AbstractChart extends UIComponentBase{
      //@Signature(parameters = DataClickEvent.class))
      public abstract MethodExpression getMouseOverListener();
      
-    
-    
+ 
 }

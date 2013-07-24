@@ -46,7 +46,7 @@
     </dependencies>
 
     <build>
-        <finalName>componentName-demo</finalName>
+        <finalName>chart-demo</finalName>
     </build>
 
     <profiles>

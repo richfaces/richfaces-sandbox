@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:superclass>org.richfaces.sandbox.chart.ChartRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.sandbox.ChartFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.sandbox.ChartRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.sandbox.chart.component.AbstractChart</cdk:component-base-class>
+
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="javax.faces" name="jsf.js"/>
+        <cdk:resource-dependency name="jquery.js"/>
+        <cdk:resource-dependency name="richfaces.js"/>
+        <cdk:resource-dependency name="richfaces-event.js"/>
+        <cdk:resource-dependency name="richfaces-base-component.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.categories.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.pie.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.stack.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.time.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.canvas.js"/>
+        <cdk:resource-dependency library="flot" name="excanvcas.js"/>
+        <cdk:resource-dependency name="richfaces.charts.js"/>
+        <cdk:resource-dependency name="richfaces.charts.css"/>
+        
+    </cc:interface>
+
+    <cc:implementation>
+        Chart title
+        <div id="#{clientId}" class="richfaces-chart">
+        
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[  
+             var chart = new window.RichFaces.ui.chart("#{clientId}"); 
+            //]]>
+        </script>
+            
+    </cc:implementation>
+    
+</cdk:root>
