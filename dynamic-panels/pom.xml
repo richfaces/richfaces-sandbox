@@ -35,10 +35,7 @@
     <packaging>pom</packaging>
     <name>RichFaces UI Components: Dynamic panels Aggregator</name>
 
-    <modules>
-        <module>ui</module>
-        <module>demo</module>
-    </modules>
+    <modules></modules>
 
     <profiles>
         <profile>
