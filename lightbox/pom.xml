@@ -36,10 +36,7 @@
     <packaging>pom</packaging>
     <name>Richfaces UI Components: lightbox parent</name>
 
-    <modules>
-        <module>ui</module>
-        <module>demo</module>
-    </modules>
+    <modules></modules>
 
     <profiles>
         <profile>

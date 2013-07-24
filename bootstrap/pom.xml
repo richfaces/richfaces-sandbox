@@ -41,11 +41,7 @@
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
     </properties>
 
-    <modules>
-        <module>ui</module>
-        <module>demo</module>
-        <module>quickstart</module>
-    </modules>
+    <modules></modules>
 
     <dependencyManagement>
         <dependencies>
