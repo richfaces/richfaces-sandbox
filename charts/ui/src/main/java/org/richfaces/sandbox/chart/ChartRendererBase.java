@@ -17,7 +17,9 @@ import org.richfaces.sandbox.chart.component.AbstractSeries;
 import org.richfaces.sandbox.chart.component.AbstractXaxis;
 import org.richfaces.sandbox.chart.component.AbstractYaxis;
 import static java.util.Arrays.asList;
-
+import javax.faces.FacesException;
+import org.richfaces.json.JSONArray;
+import org.richfaces.sandbox.chart.model.ChartDataModel;
 
 /**
  *
@@ -48,88 +50,110 @@ public abstract class ChartRendererBase extends RendererBase {
         return obj;
     }
 
-    @Override
-    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        super.encodeBegin(context, component);
-        //cyklus cez tagy potomkov(xaxis,yaxis,legend), ktory nakopiruje atributy do rodicovskeho tagy
-
-        AbstractChart ch = (AbstractChart) component;
-        AbstractChart chart = (AbstractChart) component;
-
-        chart.visitTree(VisitContext.createVisitContext(FacesContext.getCurrentInstance()), new VisitChart(ch));
-    }
-
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
-        
+
         JSONObject xaxis = new JSONObject();
         addAttribute(xaxis, "min", component.getAttributes().get("xmin"));
         addAttribute(xaxis, "max", component.getAttributes().get("xmax"));
-        addAttribute(xaxis, "pad", component.getAttributes().get("xpad"));
+        addAttribute(xaxis, "autoscaleMargin", component.getAttributes().get("xpad"));
         addAttribute(xaxis, "axisLabel", component.getAttributes().get("xlabel"));
         addAttribute(xaxis, "format", component.getAttributes().get("xformat"));
-        
+
         JSONObject yaxis = new JSONObject();
         addAttribute(yaxis, "min", component.getAttributes().get("ymin"));
         addAttribute(yaxis, "max", component.getAttributes().get("ymax"));
-        addAttribute(yaxis, "pad", component.getAttributes().get("ypad"));
+        addAttribute(yaxis, "autoscaleMargin", component.getAttributes().get("ypad"));
         addAttribute(yaxis, "axisLabel", component.getAttributes().get("ylabel"));
         addAttribute(yaxis, "format", component.getAttributes().get("yformat"));
-        
+
         JSONObject legend = new JSONObject();
         addAttribute(legend, "position", component.getAttributes().get("position"));
         addAttribute(legend, "sorted", component.getAttributes().get("sorting"));
-        
+
         addAttribute(obj, "xaxis", xaxis);
         addAttribute(obj, "yaxis", yaxis);
         addAttribute(obj, "legend", legend);
         return obj;
     }
-    
-    class VisitChart implements VisitCallback{
-        
-            private AbstractChart chart;
-            
-            public VisitChart(AbstractChart ch){
-                this.chart = ch;
-            }
-            
-            private void copyAttr(UIComponent src, UIComponent target, String prefix, String attr){
-                Object val = src.getAttributes().get(attr);
-                if(val!=null){
-                    target.getAttributes().put(prefix+attr, val);
-                }
-            }
-            
-            /**
-             * Copy attributes from source UIComponent to target.
-             * @param src
-             * @param target
-             * @param prefix
-             * @param attrs 
-             */ 
-            private void copyAttrs(UIComponent src, UIComponent target, String prefix, List<String> attrs) {
-                for (Iterator<String> it = attrs.iterator(); it.hasNext();) {
-                    String attr = it.next();
-                    copyAttr(src, target, prefix, attr);
-                }
-            }
 
-            @Override
-            public VisitResult visit(VisitContext context, UIComponent target) {
-                
+    public JSONArray getData(FacesContext ctx, UIComponent component) {
+        return (JSONArray) component.getAttributes().get("data");
+    }
 
-                if (target instanceof AbstractLegend) {
-                   copyAttrs(target, chart, "",asList("position","sorting"));
-                } else if (target instanceof AbstractSeries) {
-                    
-                } else if (target instanceof AbstractXaxis) {
-                    copyAttrs(target, chart, "x",asList("min","max","pad","label","format"));
-                } else if (target instanceof AbstractYaxis) {
-                    copyAttrs(target, chart, "y",asList("min","max","pad","label","format"));
-                }
-                return VisitResult.ACCEPT;
+    @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.encodeBegin(context, component);
+
+        AbstractChart chart = (AbstractChart) component;
+
+        VisitChart visitCallback = new VisitChart(chart);
+        //copy attributes to parent tag and process data
+        chart.visitTree(VisitContext.createVisitContext(FacesContext.getCurrentInstance()), visitCallback);
+
+        //store data to parent tag
+        component.getAttributes().put("data", visitCallback.getData());
+
+
+    }
+
+    class VisitChart implements VisitCallback {
+
+        private AbstractChart chart;
+        private JSONArray data;
+
+        public VisitChart(AbstractChart ch) {
+            this.chart = ch;
+            this.data = new JSONArray();
+        }
+
+        private void copyAttr(UIComponent src, UIComponent target, String prefix, String attr) {
+            Object val = src.getAttributes().get(attr);
+            if (val != null) {
+                target.getAttributes().put(prefix + attr, val);
             }
-        
+        }
+
+        /**
+         * Copy attributes from source UIComponent to target.
+         *
+         * @param src
+         * @param target
+         * @param prefix
+         * @param attrs
+         */
+        private void copyAttrs(UIComponent src, UIComponent target, String prefix, List<String> attrs) {
+            for (Iterator<String> it = attrs.iterator(); it.hasNext();) {
+                String attr = it.next();
+                copyAttr(src, target, prefix, attr);
+            }
+        }
+
+        @Override
+        public VisitResult visit(VisitContext context, UIComponent target) {
+
+            if (target instanceof AbstractLegend) {
+                copyAttrs(target, chart, "", asList("position", "sorting"));
+            } else if (target instanceof AbstractSeries) {
+                AbstractSeries s = (AbstractSeries) target;
+                ChartDataModel model = s.getData();
+                model.setAttributes(s.getAttributes());
+                try {
+                    data.put(model.export());
+                } catch (IOException ex) {
+                    throw new FacesException(ex);
+                }
+
+            } else if (target instanceof AbstractXaxis) {
+                copyAttrs(target, chart, "x", asList("min", "max", "pad", "label", "format"));
+            } else if (target instanceof AbstractYaxis) {
+                copyAttrs(target, chart, "y", asList("min", "max", "pad", "label", "format"));
+            }
+            return VisitResult.ACCEPT;
+        }
+
+        public JSONArray getData() {
+            return data;
+        }
     }
 }

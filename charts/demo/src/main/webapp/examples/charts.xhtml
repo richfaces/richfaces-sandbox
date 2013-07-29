@@ -34,9 +34,10 @@
 <ui:define name="content">
     
     <s:chart id="myChart" >
-        <s:xaxis min="4" max="10" label="X-label"/>
+        <s:xaxis max="10" label="X-label"/>
         <s:legend position="sw" sorting="ascending"/>
-        <s:yaxis min="6"/>
+        <s:series data="#{bean.model}" type="line" label="label" color="black" symbol="circle"/>
+        
     </s:chart>
 
 </ui:define>

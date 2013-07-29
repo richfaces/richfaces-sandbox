@@ -1,8 +1,9 @@
 package org.richfaces.sandbox.chart.model;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.richfaces.json.JSONArray;
+import org.richfaces.json.JSONObject;
 
 /**
  *
@@ -15,8 +16,18 @@ public abstract class ChartDataModel<T,S> {
     
     protected ChartStrategy strategy;
     
+    private Map<String,Object> attributes;
+    
     public ChartDataModel(){
         data = new HashMap<T, S>();
+    }
+    
+    public void setData(Map<T,S> data){
+        this.data = data;
+    }
+    
+    public Map<T,S> getData(){
+        return data;
     }
     
     public void put(T key,S value){
@@ -27,9 +38,19 @@ public abstract class ChartDataModel<T,S> {
         data.remove(key);
     }
     
-    public JSONArray export(){
+    public JSONObject export() throws IOException{
         return strategy.export(this);
     }
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+    
+    
     
     public abstract Class getKeyType();
     

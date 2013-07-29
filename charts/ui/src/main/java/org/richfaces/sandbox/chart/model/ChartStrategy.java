@@ -1,6 +1,7 @@
 package org.richfaces.sandbox.chart.model;
 
-import org.richfaces.json.JSONArray;
+import java.io.IOException;
+import org.richfaces.json.JSONObject;
 
 /**
  *
@@ -8,5 +9,5 @@ import org.richfaces.json.JSONArray;
  */
 public interface ChartStrategy {
     
-    public JSONArray export(ChartDataModel model);
+    public JSONObject export(ChartDataModel model)throws IOException;
 }

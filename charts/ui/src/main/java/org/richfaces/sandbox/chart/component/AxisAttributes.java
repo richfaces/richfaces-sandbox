@@ -14,7 +14,7 @@ public interface AxisAttributes {
     
     /**
      * 
-     * Format for axis ticks
+     * Format for axis ticks (Date series only)
      */
     @Attribute
     public abstract String getFormat();

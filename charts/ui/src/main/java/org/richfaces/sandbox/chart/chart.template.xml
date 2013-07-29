@@ -25,6 +25,7 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.canvas.js"/>
         <cdk:resource-dependency library="flot" name="excanvcas.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.symbol.js"/>
         <cdk:resource-dependency name="richfaces.charts.js"/>
         <cdk:resource-dependency name="richfaces.charts.css"/>
         
@@ -39,7 +40,7 @@
         </div>
         <script type="text/javascript">
             //<![CDATA[  
-             var chart = new window.RichFaces.ui.chart("#{clientId}",#{getOpts(facesContext,component)}); 
+             var chart = new window.RichFaces.ui.chart("#{clientId}",#{getData(facesContext,component)},#{getOpts(facesContext,component)}); 
             //]]>
         </script>
             
