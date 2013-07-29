@@ -6,6 +6,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.sandbox.chart.model.ChartDataModel;
 
 
 /**
@@ -28,7 +29,7 @@ public abstract class AbstractSeries extends UIComponentBase{
     public abstract String getLabel();
     
     @Attribute
-    public abstract Object getData();
+    public abstract ChartDataModel getData();
     
     @Attribute
     public abstract String getColor();

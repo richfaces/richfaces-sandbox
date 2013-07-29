@@ -1,3 +1,6 @@
 .richfaces-chart{
     height: 300px;
 }
+.axisLabels{
+    color: black;
+}

@@ -13,7 +13,7 @@
             var lineData=[{data:d1,label:"whatever"},{data:d2,label:"series 2"}];
 
 
-            var plot=$.plot("#"+id,lineData);
+            var plot=$.plot("#"+id,lineData,options);
         
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
