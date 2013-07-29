@@ -8,6 +8,10 @@ import org.richfaces.cdk.annotations.Attribute;
  */
 public interface AxisAttributes {
     
+    /**TODO explanation
+     * 
+     */
+    
     /**
      * 
      * Format for axis ticks

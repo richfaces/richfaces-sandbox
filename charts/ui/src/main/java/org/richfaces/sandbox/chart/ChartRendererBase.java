@@ -61,6 +61,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
+        
         JSONObject xaxis = new JSONObject();
         addAttribute(xaxis, "min", component.getAttributes().get("xmin"));
         addAttribute(xaxis, "max", component.getAttributes().get("xmax"));
@@ -75,8 +76,13 @@ public abstract class ChartRendererBase extends RendererBase {
         addAttribute(yaxis, "axisLabel", component.getAttributes().get("ylabel"));
         addAttribute(yaxis, "format", component.getAttributes().get("yformat"));
         
+        JSONObject legend = new JSONObject();
+        addAttribute(legend, "position", component.getAttributes().get("position"));
+        addAttribute(legend, "sorted", component.getAttributes().get("sorting"));
+        
         addAttribute(obj, "xaxis", xaxis);
         addAttribute(obj, "yaxis", yaxis);
+        addAttribute(obj, "legend", legend);
         return obj;
     }
     
