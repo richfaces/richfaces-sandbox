@@ -24,19 +24,22 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.time.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.canvas.js"/>
         <cdk:resource-dependency library="flot" name="excanvcas.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/>
         <cdk:resource-dependency name="richfaces.charts.js"/>
         <cdk:resource-dependency name="richfaces.charts.css"/>
         
     </cc:interface>
 
     <cc:implementation>
-        Chart title
+          
+        
+        #{component.title}
         <div id="#{clientId}" class="richfaces-chart">
         
         </div>
         <script type="text/javascript">
             //<![CDATA[  
-             var chart = new window.RichFaces.ui.chart("#{clientId}"); 
+             var chart = new window.RichFaces.ui.chart("#{clientId}",#{getOpts(facesContext,component)}); 
             //]]>
         </script>
             
