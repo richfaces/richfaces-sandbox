@@ -50,6 +50,6 @@ public abstract class AbstractLegend extends UIComponentBase{
     };
     
     public enum SortingType{
-      ascending,descending  
+      ascending,descending,reverse  
     }
 }

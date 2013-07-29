@@ -19,11 +19,26 @@ import org.richfaces.sandbox.chart.model.ChartDataModel;
     tag = @Tag(name = "series"))
 public abstract class AbstractSeries extends UIComponentBase{
 
-    @Attribute
-    public abstract String getType();
+    /**
+     * 
+     * 
+     */
+    @Attribute(required = true)
+    public abstract ChartType getType();
     
+    /**
+     * Point symbol for line chart
+     * Allowed values:
+     * <ul>
+     * <li>circle</li>
+     * <li>square</li>
+     * <li>cross</li>
+     * <li>triangle</li>
+     * <li>diamond</li>
+     * </ul>
+     */
     @Attribute
-    public abstract String getSymbol();
+    public abstract SymbolType getSymbol();
     
     @Attribute
     public abstract String getLabel();
@@ -65,5 +80,16 @@ public abstract class AbstractSeries extends UIComponentBase{
      //@Signature(parameters = DataClickEvent.class))
      public abstract MethodExpression getMouseOverListener();
      
+     
+     /**
+      * Point symbols for line chart
+      */
+     public enum SymbolType{
+         circle,square,diamond,triangle,cross
+     }
+     
+     public enum ChartType{
+         line,pie,bar
+     }
  
 }
