@@ -19,7 +19,9 @@ import org.richfaces.sandbox.chart.component.AbstractYaxis;
 import static java.util.Arrays.asList;
 import javax.faces.FacesException;
 import org.richfaces.json.JSONArray;
+import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
+import org.richfaces.sandbox.chart.model.NumberChartDataModel;
 
 /**
  *
@@ -137,11 +139,23 @@ public abstract class ChartRendererBase extends RendererBase {
             } else if (target instanceof AbstractSeries) {
                 AbstractSeries s = (AbstractSeries) target;
                 ChartDataModel model = s.getData();
+
+                if (model == null) {
+                    /**
+                     * data model priority: if there is data model passed
+                     * through data attribute use it. Otherwise nested point
+                     * tags are expected.
+                     */
+                    VisitSeries seriesCallback = new VisitSeries(s.getType());
+                    s.visitTree(VisitContext.createVisitContext(FacesContext.getCurrentInstance()), seriesCallback);
+                    model = seriesCallback.getModel();
+                }
                 model.setAttributes(s.getAttributes());
+                
                 try {
                     data.put(model.export());
                 } catch (IOException ex) {
-                    throw new FacesException(ex);
+                        throw new FacesException(ex);
                 }
 
             } else if (target instanceof AbstractXaxis) {
@@ -154,6 +168,62 @@ public abstract class ChartRendererBase extends RendererBase {
 
         public JSONArray getData() {
             return data;
+        }
+    }
+
+    class VisitSeries implements VisitCallback {
+
+        private ChartDataModel model=null;
+        private ChartDataModel.ChartType type;
+
+        public VisitSeries(ChartDataModel.ChartType type) {
+            this.type = type;
+         
+        }
+
+        @Override
+        public VisitResult visit(VisitContext context, UIComponent target) {
+            
+            if (target instanceof AbstractPoint) {
+
+                AbstractPoint p = (AbstractPoint) target;
+
+                Object x = p.getX();
+                Object y = p.getY();
+
+                //the first point determine type of data model 
+                if (model == null) {
+                    if (x instanceof Number && y instanceof Number) {
+                        model = new NumberChartDataModel(type);
+                    } else {
+                        throw new IllegalArgumentException("Not supported type");
+                    }
+                }
+
+
+                if (model.getKeyType().isAssignableFrom(x.getClass()) &&
+                    model.getValueType().isAssignableFrom(y.getClass())) {
+                    
+                    
+                    if(x instanceof Number && y instanceof Number){
+                       model.put((Number)x,(Number)y);
+                    }
+                    else{
+                       throw new IllegalArgumentException("Not supported types " + x.getClass()+" " +y.getClass()+" for "+model.getClass());
+                    }
+                    
+                   
+                    
+                    
+                } else {
+                    throw new IllegalArgumentException("Not supported types " + x.getClass()+" " +y.getClass()+" for "+model.getClass());
+                }
+            }
+            return VisitResult.ACCEPT;
+        }
+
+        public ChartDataModel getModel() {
+            return model;
         }
     }
 }
