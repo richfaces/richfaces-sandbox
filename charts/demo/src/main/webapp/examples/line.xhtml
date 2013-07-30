@@ -28,12 +28,22 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:r="http://richfaces.org/rich"
                 xmlns:s="http://richfaces.org/sandbox/prototyping">
-    <ui:param name="title" value="line chart" />
+    <ui:param name="title" value="Line chart" />
 
 
 <ui:define name="content">
-    Line charts 
+    <ul>
+        <li>label</li>
+        <li>color</li>
+        <li>symbol</li>
+    </ul>
     
+    <s:chart id="myChart" >
+        <s:legend sorting="ascending"/>
+        <s:series data="#{bean.a}" type="line" label="A product" color="darkcyan" symbol="circle"/>
+        <s:series data="#{bean.b}" type="line" label="B product" color="chocolate" symbol="square"/>
+        <s:series data="#{bean.c}" type="line" label="C product" color="coral" symbol="diamond"/>
+    </s:chart>
 
 </ui:define>
 </ui:composition>

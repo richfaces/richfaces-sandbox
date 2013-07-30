@@ -35,14 +35,14 @@
      
     
     <s:chart id="myChart" >
-        <s:xaxis max="10" label="X-label"/>
-        <s:legend position="se" sorting="ascending"/>
-        <s:series data="#{bean.model}" type="line" label="label" color="black" symbol="circle"/>
-        <s:series data="#{bean.model2}" type="line" label="alabel"/>
+        <s:legend sorting="ascending"/>
+        <s:series data="#{bean.a}" type="line" label="A product" color="green" />
+        <s:series data="#{bean.b}" type="line" label="B product"/>
+        <s:series data="#{bean.c}" type="line" label="C product"/>
     </s:chart>
     
     <s:chart id="barChart" title="Bar chart">
-        <s:xaxis min="0" max="5"/>
+        <s:xaxis min="0" max="10"/>
         <s:series data="#{bean.barModel}" type="bar" label="bar label"/>
     </s:chart>
 
