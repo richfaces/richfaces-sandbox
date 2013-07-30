@@ -32,12 +32,18 @@
 
 
 <ui:define name="content">
+     
     
     <s:chart id="myChart" >
         <s:xaxis max="10" label="X-label"/>
-        <s:legend position="sw" sorting="ascending"/>
+        <s:legend position="se" sorting="ascending"/>
         <s:series data="#{bean.model}" type="line" label="label" color="black" symbol="circle"/>
-        
+        <s:series data="#{bean.model2}" type="line" label="alabel"/>
+    </s:chart>
+    
+    <s:chart id="barChart" title="Bar chart">
+        <s:xaxis min="0" max="5"/>
+        <s:series data="#{bean.barModel}" type="bar" label="bar label"/>
     </s:chart>
 
 </ui:define>
