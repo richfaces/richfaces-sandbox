@@ -24,7 +24,7 @@ public abstract class AbstractSeries extends UIComponentBase{
      * 
      */
     @Attribute(required = true)
-    public abstract ChartType getType();
+    public abstract ChartDataModel.ChartType getType();
     
     /**
      * Point symbol for line chart
@@ -88,8 +88,6 @@ public abstract class AbstractSeries extends UIComponentBase{
          circle,square,diamond,triangle,cross
      }
      
-     public enum ChartType{
-         line,pie,bar
-     }
+     
  
 }
