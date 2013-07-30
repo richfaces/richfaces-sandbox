@@ -7,14 +7,6 @@
         $super.constructor.call(this, id, mergedOptions);
         
         
-        /*var d1=[[0,2],[3,5],[10,4]];
-        var d2=[[1,5],[2,6],[9,8]];
-
-        var lineData=[{data:d1,label:"whatever"},{data:d2,label:"series 2"}];
-
-
-        var plot=$.plot("#"+id,lineData,mergedOptions);
-        */
         var plot=$.plot("#"+id,data,mergedOptions);
         
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
