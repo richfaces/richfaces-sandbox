@@ -39,11 +39,11 @@ public abstract class AbstractChart extends UIComponentBase{
      
      /**
       * 
-      * Click handler event for each series  
+      * Click handler event for each series.  
       */
      @Attribute(events =
-     @EventName("click"))
-     public abstract String getOnClick();
+     @EventName("plotclick"))
+     public abstract String getOnplotclick();
      
      
      /**
