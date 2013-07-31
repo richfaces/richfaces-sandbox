@@ -52,7 +52,15 @@ public abstract class AbstractChart extends UIComponentBase{
       */
      @Attribute(events =
      @EventName("mouseover"))
-     public abstract String getOnMouseOver();
+     public abstract String getOnmouseover();
+     
+     /**
+      * Compolementary event for mouseover fired
+      * when mouse leaves grid.
+      */
+     @Attribute(events =
+     @EventName("mouseout"))
+     public abstract String getOnmouseout();
      
      @Attribute
      //@Attribute(signature =

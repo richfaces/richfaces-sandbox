@@ -20,7 +20,10 @@
     var $super = rf.ui.chart.$super;
 
     var defaultOptions = {
-        grid:{clickable:true}
+        grid:{
+            clickable:true,
+            hoverable:true
+        }
     };
 
     $.extend(rf.ui.chart.prototype, //(function () {
@@ -32,7 +35,10 @@
             },
         
             __events:{
-                'onplotclick':'plotclick'
+                'onplotclick':'plotclick',
+                'onmouseover':'plothover',
+                'onmouseout':'mouseout'
+                        
             },     
             __bindEventHandlers:function(){
                 for(e in this.__events){            //loop events handled
@@ -50,7 +56,7 @@
         
             },
             __getHandlerFunction: function(id,handlers,eventName){
-                if(eventName==='onplotclick'){
+                if(eventName==='onplotclick' || eventName==='onmouseover'){
                     return function(event,pos,item){
                         if(item !== null){
                             //point in a chart clicked
@@ -64,6 +70,11 @@
                             handlers[eventName].call($('#'+id),event);
                         }
                     };
+                }
+                else if(eventName==='onmouseout'){
+                    return function(){
+                        handlers[eventName].call($('#'+id));
+                    }
                 }
             }        
             
