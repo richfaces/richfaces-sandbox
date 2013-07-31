@@ -33,7 +33,7 @@
 
     <cc:implementation>
         <cdk:scriptObject name="events">
-           <cdk:scriptOption attributes="onplotclick onmouseover" wrapper="eventHandler"/>
+           <cdk:scriptOption attributes="onplotclick onmouseover onmouseout" wrapper="eventHandler"/>
            <cdk:scriptOption name="name" value="value"/>
         </cdk:scriptObject>
           
