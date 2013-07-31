@@ -8,7 +8,7 @@
 			var clientId = this.element.attr('id');
 	        
 			var options = $.extend({}, options, {
-	            choices: '[id="' + clientId + 'Suggestions"]',
+	            source: '[id="' + clientId + 'Suggestions"]',
 	            showButton: true,
 	            update: function(request, done) {
 	                var params = {};
@@ -17,7 +17,7 @@
 	            }
             });
 		    
-		    $(document.getElementById(clientId + 'Input')).richAutocompleteBridge(options);
+		    $(document.getElementById(clientId + 'Input')).richAutocomplete(options);
 		}
 	});
 

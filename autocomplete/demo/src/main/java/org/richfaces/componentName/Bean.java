@@ -28,7 +28,10 @@ public class Bean implements Serializable {
         return Collections2.filter(people, new Predicate<Person>() {
             @Override
             public boolean apply(Person input) {
-                return input.name.startsWith(prefix);
+                if (prefix == null) {
+                    return true;
+                }
+                return input.name.toLowerCase().startsWith(prefix);
             }
         });
     }
