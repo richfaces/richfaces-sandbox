@@ -32,6 +32,10 @@
     </cc:interface>
 
     <cc:implementation>
+        <cdk:scriptObject name="events">
+           <cdk:scriptOption attributes="onplotclick onmouseover" wrapper="eventHandler"/>
+           <cdk:scriptOption name="name" value="value"/>
+        </cdk:scriptObject>
           
         
         #{component.title}
@@ -40,7 +44,10 @@
         </div>
         <script type="text/javascript">
             //<![CDATA[  
-             var chart = new window.RichFaces.ui.chart("#{clientId}",#{getData(facesContext,component)},#{getOpts(facesContext,component)}); 
+             var chart = new window.RichFaces.ui.chart("#{clientId}",
+                        #{getData(facesContext,component)},
+                        #{getOpts(facesContext,component)},
+                        #{toScriptArgs(events)}); 
             //]]>
         </script>
             
