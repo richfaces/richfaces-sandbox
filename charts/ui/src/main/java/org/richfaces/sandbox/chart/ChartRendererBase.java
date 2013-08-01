@@ -17,11 +17,17 @@ import org.richfaces.sandbox.chart.component.AbstractSeries;
 import org.richfaces.sandbox.chart.component.AbstractXaxis;
 import org.richfaces.sandbox.chart.component.AbstractYaxis;
 import static java.util.Arrays.asList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.faces.FacesException;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
 import org.richfaces.json.JSONArray;
 import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
+import org.richfaces.ui.common.AjaxFunction;
+import org.richfaces.util.AjaxRendererUtils;
 
 /**
  *
@@ -31,6 +37,13 @@ import org.richfaces.sandbox.chart.model.NumberChartDataModel;
 public abstract class ChartRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.sandbox.ChartRenderer";
+    
+    private static final String X_VALUE = "x";
+    private static final String Y_VALUE = "y";
+    private static final String POINT_INDEX = "pointIndex";
+    private static final String SERIES_INDEX = "seriesIndex";
+    private static final String EVENT_TYPE = "eventType";
+    private static final String PLOT_CLICK_TYPE = "plotclick";
 
     /**
      * Method adds key-value pair to object.
@@ -79,6 +92,37 @@ public abstract class ChartRendererBase extends RendererBase {
         return obj;
     }
 
+    @Override
+    public void decode(FacesContext context, UIComponent component) {
+        super.decode(context, component);
+        
+        if(!component.isRendered()){
+            return;
+        }
+        Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
+        if (requestParameterMap.get(component.getClientId(context)) != null) {
+            String xParam = requestParameterMap.get(getFieldId(component, X_VALUE));
+            String yParam = requestParameterMap.get(getFieldId(component, Y_VALUE));
+            String pointIndexParam = requestParameterMap.get(getFieldId(component, POINT_INDEX));
+            String eventTypeParam = requestParameterMap.get(getFieldId(component, EVENT_TYPE));
+            String seriesIndexParam = requestParameterMap.get(getFieldId(component, SERIES_INDEX));
+            try {
+
+                if (PLOT_CLICK_TYPE.equals(eventTypeParam)) {
+                    double y = Double.parseDouble(yParam);
+                    int seriesIndex = Integer.parseInt(seriesIndexParam);
+                    int pointIndex = Integer.parseInt(pointIndexParam);
+                    String x = xParam;
+                    new PlotClickEvent(component, seriesIndex, pointIndex, x, y).queue();
+                } 
+            } catch (NumberFormatException ex) {
+                throw new FacesException("Cannot convert request parmeters", ex);
+            }
+        }
+    }
+
+    
+    
     public JSONArray getData(FacesContext ctx, UIComponent component) {
         return (JSONArray) component.getAttributes().get("data");
     }
@@ -98,7 +142,37 @@ public abstract class ChartRendererBase extends RendererBase {
 
 
     }
+    
+    public JSFunctionDefinition createEventFunction(FacesContext context, UIComponent component){
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put(getFieldId(component, SERIES_INDEX), new JSReference(SERIES_INDEX));
+        params.put(getFieldId(component, POINT_INDEX), new JSReference(POINT_INDEX));
+        params.put(getFieldId(component, X_VALUE), new JSReference(X_VALUE));
+        params.put(getFieldId(component, Y_VALUE), new JSReference(Y_VALUE));
+        params.put(getFieldId(component, EVENT_TYPE), new JSReference(EVENT_TYPE));
+        
+        
+        AjaxFunction ajaxFce = AjaxRendererUtils.buildAjaxFunction(context, component);
+        ajaxFce.getOptions().getParameters().putAll(params);
+        
+        return new JSFunctionDefinition("event",EVENT_TYPE,SERIES_INDEX,
+                POINT_INDEX,X_VALUE,Y_VALUE).addToBody(ajaxFce);
+    }
+    
+    /**
+     * Method creates unique identifier for request parameter.
+     *
+     * @param component
+     * @param attribute
+     * @return
+     */
+    public String getFieldId(UIComponent component, String attribute) {
+        return component.getClientId() + "-" + attribute;
+    }
 
+    /**
+     * Callback loop through children tags: axis, series, legend
+     */
     class VisitChart implements VisitCallback {
 
         private AbstractChart chart;
@@ -171,6 +245,9 @@ public abstract class ChartRendererBase extends RendererBase {
         }
     }
 
+    /**
+     * Callback loops through series children tags - points
+     */
     class VisitSeries implements VisitCallback {
 
         private ChartDataModel model=null;

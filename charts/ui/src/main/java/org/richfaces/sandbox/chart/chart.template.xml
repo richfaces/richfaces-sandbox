@@ -11,7 +11,7 @@
         <cdk:renderer-type>org.richfaces.sandbox.ChartRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.sandbox.chart.component.AbstractChart</cdk:component-base-class>
 
-        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+
         <cdk:resource-dependency library="javax.faces" name="jsf.js"/>
         <cdk:resource-dependency name="jquery.js"/>
         <cdk:resource-dependency name="richfaces.js"/>
@@ -23,7 +23,7 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.stack.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.time.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.canvas.js"/>
-        <cdk:resource-dependency library="flot" name="excanvcas.js"/>
+        <cdk:resource-dependency library="flot" name="excanvas.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.symbol.js"/>
         <cdk:resource-dependency name="richfaces.charts.js"/>
@@ -34,7 +34,7 @@
     <cc:implementation>
         <cdk:scriptObject name="events">
            <cdk:scriptOption attributes="onplotclick onmouseover onmouseout" wrapper="eventHandler"/>
-           <cdk:scriptOption name="name" value="value"/>
+           <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/>
         </cdk:scriptObject>
           
         

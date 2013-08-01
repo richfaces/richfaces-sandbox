@@ -39,6 +39,10 @@
         <li>mouseout</li>
         
     </ul>
+    Server-side
+    <ul>
+        <li>plotclick</li>
+    </ul>
     
     <script type='text/javascript'>
         //<![CDATA[  
@@ -59,19 +63,22 @@
         //]]>
     </script>
      
-    
-    <s:chart id="myChart" onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()">
-        <s:legend sorting="ascending"/>
-        <s:series data="#{bean.a}" type="line" label="A product" color="green" />
-        <s:series data="#{bean.b}" type="line" label="B product"/>
-        <s:series data="#{bean.c}" type="line" label="C product"/>
-    </s:chart>
+    <h:form>
+        <s:chart id="myChart" onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
+            <s:legend sorting="ascending"/>
+            <s:series data="#{eventBean.a}" type="line" label="A product" color="green" />
+            <s:series data="#{eventBean.b}" type="line" label="B product"/>
+            <s:series data="#{eventBean.c}" type="line" label="C product"/>
+            <r:ajax event="plotclick" render="msg" execute="msg" />
+        </s:chart>
+        <h:outputText id="msg" value="#{eventBean.msg}"/>
+    </h:form>
     <span id='hoverInfo'/><br/>
     <span id='clickInfo'></span>
     <br/>
     <s:chart id="barChart" title="Bar chart" onplotclick="log(event,'Bar chart')" onmouseover="barHover(event)" onmouseout="clear()">
         <s:xaxis min="0" max="10"/>
-        <s:series data="#{bean.barModel}" type="bar" label="bar label"/>
+        <s:series data="#{eventBean.barModel}" type="bar" label="bar label"/>
     </s:chart>
     <span id='barHover'/>
     See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/events.xhtml">source</a>

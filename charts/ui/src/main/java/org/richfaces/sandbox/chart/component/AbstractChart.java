@@ -2,13 +2,21 @@ package org.richfaces.sandbox.chart.component;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+
+import org.richfaces.sandbox.chart.PlotClickEvent;
+import org.richfaces.sandbox.chart.PlotClickListener;
 
 
 /**
@@ -19,7 +27,9 @@ import org.richfaces.cdk.annotations.TagType;
     type = "org.richfaces.sandbox.chart.component.Chart",
     family = "org.richfaces.sandbox.ChartFamily",
     renderer = @JsfRenderer(type = "org.richfaces.sanbox.ChartRenderer"),
-    tag = @Tag(name = "chart", generate = true,type = TagType.Facelets))
+    tag = @Tag(name = "chart", generate = true,type = TagType.Facelets),
+    fires = {
+            @Event(value = PlotClickEvent.class, listener = PlotClickListener.class)})
 public abstract class AbstractChart extends UIComponentBase{
 
  
@@ -55,26 +65,34 @@ public abstract class AbstractChart extends UIComponentBase{
      public abstract String getOnmouseover();
      
      /**
-      * Compolementary event for mouseover fired
+      * Complementary event for mouseover fired
       * when mouse leaves grid.
       */
      @Attribute(events =
      @EventName("mouseout"))
      public abstract String getOnmouseout();
      
-     @Attribute
-     //@Attribute(signature =
-     //@Signature(parameters = DataClickEvent.class))
-     public abstract MethodExpression getClickListener();
      
-     /**
-     * Server-side listener for mouseover event each series
-     * 
-     */ 
-     @Attribute
-     //@Attribute(signature =
-     //@Signature(parameters = DataClickEvent.class))
-     public abstract MethodExpression getMouseOverListener();
+     @Attribute(signature =
+     @Signature(parameters = PlotClickEvent.class))
+     public abstract MethodExpression getClickListener();
+
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        
+        
+        if(event instanceof PlotClickEvent){
+            FacesContext context = getFacesContext();
+            MethodExpression expression = getClickListener();
+            
+            if(expression!=null){
+                expression.invoke(context.getELContext(), new Object[]{event});
+            }
+        }
+        super.broadcast(event); 
+    }
+     
+     
      
     
     
