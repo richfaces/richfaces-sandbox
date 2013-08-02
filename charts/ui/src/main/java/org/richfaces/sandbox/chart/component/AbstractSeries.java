@@ -51,20 +51,22 @@ public abstract class AbstractSeries extends UIComponentBase{
     
     /**
       * 
-      * Click handler event for this series  
+      * Click handler event for this series only.  
       */
      @Attribute(events =
-     @EventName("click"))
-     public abstract String getOnClick();
+     @EventName("plotclick"))
+     public abstract String getOnplotclick();
      
      
      /**
       * 
-      * Mouse over handler event for this series  
+      * Mouse over handler event for this series only.
       */
      @Attribute(events =
      @EventName("mouseover"))
-     public abstract String getOnMouseOver();
+     public abstract String getOnmouseover();
+     
+     
      
      @Attribute
      //@Attribute(signature =
