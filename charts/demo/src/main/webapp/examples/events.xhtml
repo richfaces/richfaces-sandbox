@@ -50,6 +50,9 @@
                $('#clickInfo').text(type+" Series index: "+e.data.seriesIndex
                        +" DataIndex: "+e.data.dataIndex+' ['+e.data.x+','+e.data.y+']');
            }
+           function bClick(e){
+               $("#bInfo").text("This handler is callend only when B product clicked");
+           }
            function hover(e){
                $("#hoverInfo").text('['+e.data.x+','+e.data.y+']');
            }
@@ -67,14 +70,15 @@
         <s:chart id="myChart" onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
             <s:legend sorting="ascending"/>
             <s:series data="#{eventBean.a}" type="line" label="A product" color="green" />
-            <s:series data="#{eventBean.b}" type="line" label="B product" onplotclick="console.log('B')"/>
-            <s:series data="#{eventBean.c}" type="line" label="C product" onmouseover="alert('C')"/>
+            <s:series data="#{eventBean.b}" type="line" label="B product" onplotclick="bClick(event)"/>
+            <s:series data="#{eventBean.c}" type="line" label="C product" />
             <r:ajax event="plotclick" render="msg" execute="msg" />
         </s:chart>
         <h:outputText id="msg" value="#{eventBean.msg}"/>
     </h:form>
     <span id='hoverInfo'/><br/>
-    <span id='clickInfo'></span>
+    <span id='clickInfo'></span><br/>
+    <span id='bInfo'/>
     <br/>
     <s:chart id="barChart" title="Bar chart" onplotclick="log(event,'Bar chart')" onmouseover="barHover(event)" onmouseout="clear()">
         <s:xaxis min="0" max="10"/>
