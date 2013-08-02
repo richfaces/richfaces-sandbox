@@ -2,7 +2,7 @@
 
     rf.ui = rf.ui || {};
 
-    rf.ui.chart = function (id, data, options,eventHandlers) {
+    rf.ui.chart = function (id, data, options,eventHandlers,seriesSpecificHandlers) {
         var escId = RichFaces.escapeCSSMetachars(id);
         if($("#"+escId)===[]){
             throw "Element with id '"+id+"' not found.";
@@ -11,7 +11,7 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
 
         
-        this.init(eventHandlers);
+        this.init(eventHandlers,seriesSpecificHandlers);
         
         $super.constructor.call(this, escId, mergedOptions);
         
@@ -35,8 +35,9 @@
         /*return*/{
             name:"chart",
             
-            init: function(eventHandlers){
+            init: function(eventHandlers,seriesSpecificHandlers){
                 this.eventHandlers = eventHandlers;
+                this.seriesEventHandlers = seriesSpecificHandlers;
             },
         
             __events:{
@@ -53,6 +54,7 @@
                                 this.__getHandlerFunction(
                                         this.id,
                                         this.eventHandlers,
+                                        this.seriesEventHandlers,
                                         e));
                     }
                 }
@@ -60,7 +62,7 @@
                 
         
             },
-            __getHandlerFunction: function(id,handlers,eventName){
+            __getHandlerFunction: function(id,handlers,seriesHandlers,eventName){
                 if(eventName==='onplotclick'){
                     return function(event,pos,item){
                         if(item !== null){
@@ -72,14 +74,19 @@
                                 y: item.datapoint[1],
                                 item:item
                             };
-                            //server-side
+                            //server-side 
+                            //!!! will not work withou client cause of if in __bindEventHandlers
                             handlers.eventFunction(event,'plotclick',
                                 event.data.seriesIndex,
                                 event.data.dataIndex,
                                 event.data.x,
                                 event.data.y);
                             //client-side
-                            handlers[eventName].call($('#'+id),event);    
+                            handlers[eventName].call($('#'+id),event);  
+                            //client-side series specific
+                            //if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
+                            //    seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
+                            //}
                         }
                     };
                 }

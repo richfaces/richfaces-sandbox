@@ -23,6 +23,7 @@ import javax.faces.FacesException;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.json.JSONArray;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
@@ -126,6 +127,7 @@ public abstract class ChartRendererBase extends RendererBase {
     public JSONArray getData(FacesContext ctx, UIComponent component) {
         return (JSONArray) component.getAttributes().get("data");
     }
+    
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -139,9 +141,15 @@ public abstract class ChartRendererBase extends RendererBase {
 
         //store data to parent tag
         component.getAttributes().put("data", visitCallback.getData());
+        
+        component.getAttributes().put("handlers", visitCallback.getSeriesSpecificHandlers());
 
 
     }
+    
+    public JSONObject getSeriesSpecifHandler(FacesContext context,UIComponent component){
+        return (JSONObject) component.getAttributes().get("handlers");
+    };
     
     public JSFunctionDefinition createEventFunction(FacesContext context, UIComponent component){
         Map<String,Object> params = new HashMap<String, Object>();
@@ -177,10 +185,24 @@ public abstract class ChartRendererBase extends RendererBase {
 
         private AbstractChart chart;
         private JSONArray data;
-
+        private JSONObject seriesSpecificHandlers;
+        private JSONArray plotClickHandlers;
+        private JSONArray mouseoverHandlers;
+        private RenderKitUtils.ScriptHashVariableWrapper eventWrapper=RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         public VisitChart(AbstractChart ch) {
+            
             this.chart = ch;
             this.data = new JSONArray();
+            this.seriesSpecificHandlers = new JSONObject();
+            this.plotClickHandlers = new JSONArray();
+            this.mouseoverHandlers = new JSONArray();
+            
+            try{
+                addAttribute(seriesSpecificHandlers, "onplotclick", plotClickHandlers);
+                addAttribute(seriesSpecificHandlers, "onmouseover", mouseoverHandlers);
+            } catch (IOException ex){
+                throw new FacesException(ex);
+            }
         }
 
         private void copyAttr(UIComponent src, UIComponent target, String prefix, String attr) {
@@ -208,12 +230,37 @@ public abstract class ChartRendererBase extends RendererBase {
         @Override
         public VisitResult visit(VisitContext context, UIComponent target) {
 
+            
+            
+            
+            
             if (target instanceof AbstractLegend) {
                 copyAttrs(target, chart, "", asList("position", "sorting"));
             } else if (target instanceof AbstractSeries) {
                 AbstractSeries s = (AbstractSeries) target;
                 ChartDataModel model = s.getData();
-
+                
+                //Collect Series specific handler
+                Map<String,Object> optMap = new HashMap<String, Object>();
+                
+                if(s.getOnplotclick()!=null){
+                    RenderKitUtils.addToScriptHash(optMap, "onclick", s.getOnplotclick(), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+                    plotClickHandlers.put(optMap.get("onclick"));
+                }
+                else{
+                    plotClickHandlers.put(s.getOnplotclick());
+                }
+                
+                if(s.getOnmouseover()!=null){
+                    RenderKitUtils.addToScriptHash(optMap, "onmouseover", s.getOnmouseover(), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+                    mouseoverHandlers.put(optMap.get("onmouseover"));
+                }
+                else{
+                    mouseoverHandlers.put(s.getOnmouseover());
+                }
+                
+                
+                
                 if (model == null) {
                     /**
                      * data model priority: if there is data model passed
@@ -229,7 +276,7 @@ public abstract class ChartRendererBase extends RendererBase {
                 try {
                     data.put(model.export());
                 } catch (IOException ex) {
-                        throw new FacesException(ex);
+                    throw new FacesException(ex);
                 }
 
             } else if (target instanceof AbstractXaxis) {
@@ -243,6 +290,11 @@ public abstract class ChartRendererBase extends RendererBase {
         public JSONArray getData() {
             return data;
         }
+
+        public JSONObject getSeriesSpecificHandlers() {
+            return seriesSpecificHandlers;
+        }
+        
     }
 
     /**

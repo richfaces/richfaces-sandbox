@@ -34,7 +34,7 @@
     <cc:implementation>
         <cdk:scriptObject name="events">
            <cdk:scriptOption attributes="onplotclick onmouseover onmouseout" wrapper="eventHandler"/>
-           <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/>
+           <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/> 
         </cdk:scriptObject>
           
         
@@ -47,7 +47,8 @@
              var chart = new window.RichFaces.ui.chart("#{clientId}",
                         #{getData(facesContext,component)},
                         #{getOpts(facesContext,component)},
-                        #{toScriptArgs(events)}); 
+                        #{toScriptArgs(events)},
+                        #{getSeriesSpecifHandler(facesContext,component)}); 
             //]]>
         </script>
             

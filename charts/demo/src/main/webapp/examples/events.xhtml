@@ -67,7 +67,7 @@
         <s:chart id="myChart" onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
             <s:legend sorting="ascending"/>
             <s:series data="#{eventBean.a}" type="line" label="A product" color="green" />
-            <s:series data="#{eventBean.b}" type="line" label="B product"/>
+            <s:series data="#{eventBean.b}" type="line" label="B product" onplotclick="log(event,'B Product only')"/>
             <s:series data="#{eventBean.c}" type="line" label="C product"/>
             <r:ajax event="plotclick" render="msg" execute="msg" />
         </s:chart>

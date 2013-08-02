@@ -36,8 +36,8 @@
     <s:chart id="myChart" >
         <s:legend sorting="ascending"/>
         <s:series data="#{bean.a}" type="line" label="A product" color="green" />
-        <s:series data="#{bean.b}" type="line" label="B product"/>
-        <s:series data="#{bean.c}" type="line" label="C product"/>
+        <s:series data="#{bean.b}" type="line" label="B product" onplotclick="console.log(2)"/>
+        <s:series data="#{bean.c}" type="line" label="C product" onmouseover="console.log(3)"/>
     </s:chart>
     
     <s:chart id="barChart" title="Bar chart">
