@@ -84,9 +84,9 @@
                             //client-side
                             handlers[eventName].call($('#'+id),event);  
                             //client-side series specific
-                            //if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
-                            //    seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
-                            //}
+                            if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
+                                seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
+                            }
                         }
                     };
                 }
@@ -101,7 +101,12 @@
                                 y: item.datapoint[1],
                                 item:item
                             };
+                            //client-side
                             handlers[eventName].call($('#'+id),event);
+                            //client-side series specific
+                            if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
+                                seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
+                            }
                         }
                     };
                 }

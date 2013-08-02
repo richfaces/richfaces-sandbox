@@ -24,6 +24,8 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.json.JSONArray;
 import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
@@ -229,7 +231,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
         @Override
         public VisitResult visit(VisitContext context, UIComponent target) {
-
+            
             
             
             
@@ -240,25 +242,29 @@ public abstract class ChartRendererBase extends RendererBase {
                 AbstractSeries s = (AbstractSeries) target;
                 ChartDataModel model = s.getData();
                 
-                //Collect Series specific handler
+                //Collect Series specific handlers
                 Map<String,Object> optMap = new HashMap<String, Object>();
+                RenderKitUtils.Attributes seriesEvents = attributes()
+                .generic("onmouseover","onmouseover","mouseover")
+	        .generic("onplotclick","onplotclick","plotclick");
                 
-                if(s.getOnplotclick()!=null){
-                    RenderKitUtils.addToScriptHash(optMap, "onclick", s.getOnplotclick(), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
-                    plotClickHandlers.put(optMap.get("onclick"));
+                addToScriptHash(optMap, context.getFacesContext(), target, seriesEvents, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
+                
+                if(optMap.get("onplotclick")!=null){
+                    plotClickHandlers.put(new RawJSONString(optMap.get("onplotclick").toString()));
                 }
                 else{
                     plotClickHandlers.put(s.getOnplotclick());
                 }
                 
-                if(s.getOnmouseover()!=null){
-                    RenderKitUtils.addToScriptHash(optMap, "onmouseover", s.getOnmouseover(), null, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
-                    mouseoverHandlers.put(optMap.get("onmouseover"));
+                
+                if(optMap.get("onmouseover")!=null){
+                    mouseoverHandlers.put(new RawJSONString(optMap.get("onmouseover").toString()));
                 }
                 else{
                     mouseoverHandlers.put(s.getOnmouseover());
                 }
-                
+                //end collect series specific handler
                 
                 
                 if (model == null) {
