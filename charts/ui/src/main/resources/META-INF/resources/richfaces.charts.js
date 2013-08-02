@@ -48,7 +48,7 @@
             },     
             __bindEventHandlers:function(){
                 for(e in this.__events){            //loop events handled
-                    if(this.eventHandlers[e]){      //is there handler for this ev
+                    //if(this.eventHandlers[e]){      //is there handler for this ev
                         $('#'+this.id).bind(
                                 this.__events[e],   //event name
                                 this.__getHandlerFunction(
@@ -56,7 +56,7 @@
                                         this.eventHandlers,
                                         this.seriesEventHandlers,
                                         e));
-                    }
+                    //}
                 }
                 
                 
@@ -75,14 +75,15 @@
                                 item:item
                             };
                             //server-side 
-                            //!!! will not work withou client cause of if in __bindEventHandlers
                             handlers.eventFunction(event,'plotclick',
                                 event.data.seriesIndex,
                                 event.data.dataIndex,
                                 event.data.x,
                                 event.data.y);
                             //client-side
-                            handlers[eventName].call($('#'+id),event);  
+                            if(handlers[eventName]){
+                                handlers[eventName].call($('#'+id),event);
+                            }
                             //client-side series specific
                             if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
                                 seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
@@ -102,7 +103,9 @@
                                 item:item
                             };
                             //client-side
-                            handlers[eventName].call($('#'+id),event);
+                            if(handlers[eventName]){
+                                handlers[eventName].call($('#'+id),event);
+                            }
                             //client-side series specific
                             if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
                                 seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
@@ -112,7 +115,9 @@
                 }
                 else if(eventName==='onmouseout'){
                     return function(){
-                        handlers[eventName].call($('#'+id));
+                        if(handlers[eventName]){
+                            handlers[eventName].call($('#'+id));
+                        }
                     };
                 }
             }        
