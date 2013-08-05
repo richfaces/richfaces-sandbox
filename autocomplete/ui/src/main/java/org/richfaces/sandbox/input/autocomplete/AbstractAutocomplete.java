@@ -129,10 +129,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      * <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
      * <dt>ajax</dt>
      * <dd>fetches suggestions with every input change using Ajax requests</dd>
-     * <dt>lazyClient</dt>
-     * <dd>
-     * pre-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start until
-     * the input length matches a minimum value. Set the minimum value with the minChars attribute.</dd>
      * <dt>cachedAjax</dt>
      * <dd>
      * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the minChars
@@ -143,7 +139,7 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      * Default: cachedAjax
      * </p>
      */
-    @Attribute
+    @Attribute(defaultValue = "AutocompleteMode.cachedAjax")
     public abstract AutocompleteMode getMode();
 
     /**
@@ -162,7 +158,7 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      * Default: div
      * </p>
      */
-    @Attribute
+    @Attribute(defaultValue = "list")
     public abstract String getLayout();
 
     /**

@@ -11,8 +11,9 @@
         <cdk:renderer-type>org.richfaces.sandbox.AutocompleteRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.sandbox.input.autocomplete.AbstractAutocomplete</cdk:component-base-class>
 
+        <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
         <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
-        <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.css" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.css" />
         
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
@@ -20,8 +21,9 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.position.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
-        <cdk:resource-dependency library="org.richfaces" name="widgets/input/autocomplete.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridges/input/autocompleteJsfBridge.js" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/input/autocompleteBridge.js" />
     </cc:interface>
 
     <cc:implementation>
@@ -32,8 +34,11 @@
                    disabled="#{component.disabled}" />
             <cdk:renderFragment name="renderSuggestions" />
             <script>
-                var options = {};
-                $(document.getElementById('#{clientId}')).richAutocompleteJsfBridge(options);
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="mode" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="" />
+                </cdk:scriptObject>
+                $(document.getElementById('#{clientId}')).richAutocompleteBridge(#{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>
