@@ -9,5 +9,5 @@ import org.richfaces.json.JSONObject;
  */
 public interface ChartStrategy {
     
-    public JSONObject export(ChartDataModel model)throws IOException;
+    public Object export(ChartDataModel model)throws IOException;
 }

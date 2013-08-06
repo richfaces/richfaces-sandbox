@@ -7,6 +7,16 @@
         if($("#"+escId)===[]){
             throw "Element with id '"+id+"' not found.";
         }
+
+        //check if piechart 
+        if(options.charttype==='pie'){
+            data=data[0]; //for pie chart data should not be in a collection
+            options.series={};
+            var pieOpt = {};
+            pieOpt.show = true;
+            options.series.pie=pieOpt;
+            
+        }
         
         var mergedOptions = $.extend({}, defaultOptions, options);
 

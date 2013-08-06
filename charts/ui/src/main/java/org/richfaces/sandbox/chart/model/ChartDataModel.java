@@ -23,8 +23,9 @@ public abstract class ChartDataModel<T,S> {
     
     private Map<String,Object> attributes;
     
-    public ChartDataModel(){
+    public ChartDataModel(ChartType type){
         data = new HashMap<T, S>();
+        this.type = type;
     }
     
     public void setData(Map<T,S> data){
@@ -65,7 +66,7 @@ public abstract class ChartDataModel<T,S> {
         return output;
     }
     
-    public JSONObject export() throws IOException{
+    public Object export() throws IOException{
         return strategy.export(this);
     }
 
