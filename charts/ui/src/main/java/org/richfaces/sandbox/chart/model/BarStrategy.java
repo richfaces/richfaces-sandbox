@@ -11,7 +11,7 @@ import org.richfaces.sandbox.chart.ChartRendererBase;
 public class BarStrategy implements ChartStrategy{
 
     @Override
-    public JSONObject export(ChartDataModel model) throws IOException {
+    public Object export(ChartDataModel model) throws IOException {
        JSONObject obj = model.defaultExport();
        
        JSONObject bars = new JSONObject();

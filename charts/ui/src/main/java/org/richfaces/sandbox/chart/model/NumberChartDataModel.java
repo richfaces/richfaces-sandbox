@@ -7,7 +7,7 @@ package org.richfaces.sandbox.chart.model;
 public class NumberChartDataModel extends ChartDataModel<Number, Number>{
     
     public NumberChartDataModel(ChartType type){
-        super();
+        super(type);
         switch(type){
             case line:
                 strategy = new LineStrategy();
@@ -16,7 +16,7 @@ public class NumberChartDataModel extends ChartDataModel<Number, Number>{
                 strategy = new BarStrategy();
                 break;
             default:
-                strategy = null;
+                                throw new IllegalArgumentException(type + "not supported by StringChartDataModel" );
         }
     }
 

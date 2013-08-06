@@ -11,7 +11,7 @@ import org.richfaces.sandbox.chart.ChartRendererBase;
 public class LineStrategy implements ChartStrategy{
 
     @Override
-    public JSONObject export(ChartDataModel model) throws IOException{
+    public Object export(ChartDataModel model) throws IOException{
         JSONObject output = model.defaultExport();
         
         //points->symbol

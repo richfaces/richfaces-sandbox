@@ -70,6 +70,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
+        addAttribute(obj, "charttype", component.getAttributes().get("charttype"));
 
         JSONObject xaxis = new JSONObject();
         addAttribute(xaxis, "min", component.getAttributes().get("xmin"));
@@ -144,6 +145,8 @@ public abstract class ChartRendererBase extends RendererBase {
         //store data to parent tag
         component.getAttributes().put("data", visitCallback.getData());
         
+        component.getAttributes().put("charttype", visitCallback.getChartType());
+        
         component.getAttributes().put("handlers", visitCallback.getSeriesSpecificHandlers());
 
 
@@ -190,10 +193,14 @@ public abstract class ChartRendererBase extends RendererBase {
         private JSONObject seriesSpecificHandlers;
         private JSONArray plotClickHandlers;
         private JSONArray mouseoverHandlers;
+        private ChartDataModel.ChartType chartType;
+        private Class keyType;
+        private Class valType;
         private RenderKitUtils.ScriptHashVariableWrapper eventWrapper=RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         public VisitChart(AbstractChart ch) {
             
             this.chart = ch;
+            this.chartType = null;
             this.data = new JSONArray();
             this.seriesSpecificHandlers = new JSONObject();
             this.plotClickHandlers = new JSONArray();
@@ -280,6 +287,23 @@ public abstract class ChartRendererBase extends RendererBase {
                 model.setAttributes(s.getAttributes());
                 
                 try {
+                    //Check model/series compatibility
+                    
+                    if(chartType==null){
+                        chartType= model.getType();
+                        keyType  = model.getKeyType();
+                        valType  = model.getValueType();
+                    }
+                    else{
+                        if(chartType== ChartDataModel.ChartType.pie){
+                            throw new IllegalArgumentException("Pie chart supports only one series.");
+                        }
+                    }
+                    if(keyType != model.getKeyType() || valType != model.getValueType()){
+                        throw new IllegalArgumentException("Data model is not valid for this chart type.");
+                    }
+                    
+                    
                     data.put(model.export());
                 } catch (IOException ex) {
                     throw new FacesException(ex);
@@ -297,6 +321,11 @@ public abstract class ChartRendererBase extends RendererBase {
             return data;
         }
 
+        public ChartDataModel.ChartType getChartType() {
+            return chartType;
+        }
+
+        
         public JSONObject getSeriesSpecificHandlers() {
             return seriesSpecificHandlers;
         }

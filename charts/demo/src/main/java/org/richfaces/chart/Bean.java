@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
+import org.richfaces.sandbox.chart.model.StringChartDataModel;
 
 
 @ManagedBean(name = "bean")
@@ -17,6 +18,8 @@ public class Bean implements Serializable {
     NumberChartDataModel b;
     NumberChartDataModel c;
     NumberChartDataModel barModel;
+    
+    StringChartDataModel pie;
     
     
     
@@ -64,7 +67,12 @@ public class Bean implements Serializable {
         c.put(10, 6);
         c.put(15, 8);
         c.put(14, 4);
-                
+    
+        
+        pie = new StringChartDataModel(ChartDataModel.ChartType.pie);
+        pie.put("a", 3);
+        pie.put("b", 4);
+        pie.put("c", 5);
     }
 
     public NumberChartDataModel getA() {
@@ -83,6 +91,10 @@ public class Bean implements Serializable {
 
     public NumberChartDataModel getBarModel() {
         return barModel;
+    }
+
+    public StringChartDataModel getPie() {
+        return pie;
     }
     
     
