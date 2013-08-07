@@ -35,8 +35,9 @@
             <cdk:renderFragment name="renderSuggestions" />
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="mode" />
+                    <cdk:scriptOption attributes="mode showButton layout minChars selectFirst" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="" />
+                    <cdk:scriptOption name="filter" value="#{this.getClientFilterFunction(component)}" />
                 </cdk:scriptObject>
                 $(document.getElementById('#{clientId}')).richAutocompleteBridge(#{toScriptArgs(options)});
             </script>
