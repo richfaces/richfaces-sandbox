@@ -20,6 +20,8 @@ public class Bean implements Serializable {
     NumberChartDataModel barModel;
     
     StringChartDataModel pie;
+    StringChartDataModel category;
+    StringChartDataModel category2;
     
     
     
@@ -73,6 +75,17 @@ public class Bean implements Serializable {
         pie.put("a", 3);
         pie.put("b", 4);
         pie.put("c", 5);
+        
+        category = new StringChartDataModel(ChartDataModel.ChartType.bar);
+        category.put("A", 1);
+        category.put("B", 2);
+        category.put("C", 3);
+        
+        category2 = new StringChartDataModel(ChartDataModel.ChartType.bar);
+        category2.put("A", 1);
+        category2.put("B", 2);
+        category2.put("C", 3);
+        
     }
 
     public NumberChartDataModel getA() {
@@ -85,6 +98,14 @@ public class Bean implements Serializable {
 
     public NumberChartDataModel getC() {
         return c;
+    }
+
+    public StringChartDataModel getCategory() {
+        return category;
+    }
+
+    public StringChartDataModel getCategory2() {
+        return category2;
     }
 
     

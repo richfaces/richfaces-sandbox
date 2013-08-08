@@ -17,6 +17,58 @@
             options.series.pie=pieOpt;
             
         }
+        else if(options.charttype==='bar'){
+            if(options.xtype==='class java.lang.String'){
+                var ticks=[];
+                var keys=[];
+                var first=true;
+                var order=0;
+                for(index in data){
+                    var convertedData=[];
+                    var cnt=0;
+                    if(first){
+                        for(key in data[index].data){
+                            ticks.push([cnt,key]);//TODO only first series vyriesit
+                            keys.push(key);
+                            convertedData.push([cnt,data[index].data[key]]);
+                            cnt++;
+                        }
+                        first=false;
+                    }
+                    else{
+                        for(tick in ticks){
+                            if(data[index].data[tick]){
+                                convertedData.push([cnt,data[index].data[tick]]);
+                            }
+                            cnt++;
+                        }
+                    }
+                    data[index].data=convertedData;
+                    var bars={};
+                    bars.order=order;
+                    bars.show=true;
+                    data[index].bars=bars;
+                    order++;
+                    
+                }
+                console.log(data);
+                if(options.xaxis){
+                    options.xaxis.ticks=ticks;
+                    options.xaxis.tickLength=0;
+                }
+                else{
+                    options.xaxis={};
+                    options.xaxis.ticks=ticks;
+                    options.xaxis.tickLength=0;
+                }
+                var bars= {
+                    show: true,
+                    barWidth: 0.2,
+                    align:'center'
+                };
+                options.bars=bars;
+            }
+        }
         
         var mergedOptions = $.extend({}, defaultOptions, options);
 

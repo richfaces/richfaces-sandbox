@@ -10,6 +10,9 @@ public class StringChartDataModel extends ChartDataModel<String, Number>{
     public StringChartDataModel(ChartType type){
         super(type);
         switch(type){
+            case bar:
+                strategy = new CategoryBarStrategy();
+                break;
             case pie:
                 strategy = new PieStrategy();
                 break;
