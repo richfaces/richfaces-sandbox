@@ -71,6 +71,8 @@ public abstract class ChartRendererBase extends RendererBase {
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
         addAttribute(obj, "charttype", component.getAttributes().get("charttype"));
+        addAttribute(obj, "xtype", component.getAttributes().get("xtype"));
+        addAttribute(obj, "ytype", component.getAttributes().get("ytype"));
 
         JSONObject xaxis = new JSONObject();
         addAttribute(xaxis, "min", component.getAttributes().get("xmin"));
@@ -146,6 +148,8 @@ public abstract class ChartRendererBase extends RendererBase {
         component.getAttributes().put("data", visitCallback.getData());
         
         component.getAttributes().put("charttype", visitCallback.getChartType());
+        component.getAttributes().put("xtype", visitCallback.getKeyType());
+        component.getAttributes().put("ytype", visitCallback.getValType());
         
         component.getAttributes().put("handlers", visitCallback.getSeriesSpecificHandlers());
 
@@ -320,6 +324,15 @@ public abstract class ChartRendererBase extends RendererBase {
         public JSONArray getData() {
             return data;
         }
+
+        public Class getKeyType() {
+            return keyType;
+        }
+
+        public Class getValType() {
+            return valType;
+        }
+        
 
         public ChartDataModel.ChartType getChartType() {
             return chartType;
