@@ -28,7 +28,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:r="http://richfaces.org/rich"
                 xmlns:s="http://richfaces.org/sandbox/prototyping">
-    <ui:param name="title" value="Bar chart" />
+    <ui:param name="title" value="Bar charts" />
 
 
 <ui:define name="content">
@@ -38,6 +38,7 @@
         <s:legend sorting="ascending"/>
         <s:series data="#{bean.category}" type="bar"/>
         <s:series data="#{bean.category2}" type="bar"/>
+        
     </s:chart>
     See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/pie.xhtml">source</a>
 </ui:define>
