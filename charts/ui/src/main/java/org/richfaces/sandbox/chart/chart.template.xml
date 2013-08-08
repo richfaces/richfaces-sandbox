@@ -27,6 +27,7 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.symbol.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.orderBars.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/>
         
         <cdk:resource-dependency name="richfaces.charts.js"/>
         <cdk:resource-dependency name="richfaces.charts.css"/>

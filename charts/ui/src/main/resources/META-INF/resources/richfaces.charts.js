@@ -15,6 +15,14 @@
             var pieOpt = {};
             pieOpt.show = true;
             options.series.pie=pieOpt;
+            options.tooltipOpts=  {
+                            content: " %p.0%, %s",
+                            shifts: {
+                                x: 20,
+                                y: 0
+                            },
+                            defaultTheme: false
+                        };
             
         }
         else if(options.charttype==='bar'){
@@ -91,6 +99,15 @@
         grid:{
             clickable:true,
             hoverable:true
+        },
+        tooltip:true,
+        tooltipOpts: {
+               content: "%s  [%x,%y]",
+               shifts: {
+                  x: 20,
+                  y: 0
+               },
+               defaultTheme: false
         }
     };
 
@@ -148,7 +165,7 @@
                                 handlers[eventName].call($('#'+id),event);
                             }
                             //client-side series specific
-                            if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
+                            if(seriesHandlers[eventName][event.data.seriesIndex]){
                                 seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
                             }
                         }
@@ -170,7 +187,7 @@
                                 handlers[eventName].call($('#'+id),event);
                             }
                             //client-side series specific
-                            if(seriesHandlers[eventName][event.data.seriesIndex]!==null){
+                            if(seriesHandlers[eventName][event.data.seriesIndex]){
                                 seriesHandlers[eventName][event.data.seriesIndex].call($('#'+id),event);  
                             }
                         }
