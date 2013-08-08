@@ -36,9 +36,10 @@
                         first=false;
                     }
                     else{
-                        for(tick in ticks){
-                            if(data[index].data[tick]){
-                                convertedData.push([cnt,data[index].data[tick]]);
+                        for(k in keys){
+                            var key=keys[k];
+                            if(data[index].data[key]){
+                                convertedData.push([cnt,data[index].data[key]]);
                             }
                             cnt++;
                         }
