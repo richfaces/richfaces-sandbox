@@ -19,8 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.tests.page.fragments.impl.autocomplete.SelectOrConfirm;
-import org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -73,17 +71,17 @@ public class ITAutocompleteModes {
     }
 
     private void performAutocompleteSearchAndConfirmation(String input, String expectedFirstChoice) {
-        assertEquals(0, autocomplete.advanced().getSuggestions().size());
+        assertEquals(0, autocomplete.getSuggestions().size());
 
-        SelectOrConfirm selectOrConfirm = autocomplete.type(input);
-        autocomplete.advanced().waitForSuggestionsToShow();
+        autocomplete.type(input);
+        autocomplete.waitForSuggestionsToShow();
 
-        assertEquals(4, autocomplete.advanced().getSuggestions().size());
+        assertEquals(2, autocomplete.getSuggestions().size());
 
-        selectOrConfirm.select(ChoicePickerHelper.byIndex().first());
-        autocomplete.advanced().waitForSuggestionsToHide();
+        autocomplete.selectFirst();
+        autocomplete.waitForSuggestionsToHide();
 
-        assertEquals(expectedFirstChoice, autocomplete.advanced().getInput().getStringValue());
+        assertEquals(expectedFirstChoice, autocomplete.getInput().getAttribute("value"));
     }
 
     private static void addClientModePage(ComponentDeployment deployment) {
