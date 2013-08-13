@@ -70,6 +70,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
+        addAttribute(obj, "zoom", component.getAttributes().get("zoom"));
         addAttribute(obj, "charttype", component.getAttributes().get("charttype"));
         addAttribute(obj, "xtype", component.getAttributes().get("xtype"));
         addAttribute(obj, "ytype", component.getAttributes().get("ytype"));
