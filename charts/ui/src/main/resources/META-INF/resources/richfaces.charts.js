@@ -78,11 +78,16 @@
                 options.bars=bars;
             }
         }
+        else if(options.charttype==='line'){
+            if(options.zoom){
+                options.selection={mode: "xy"};
+            }
+        }
         
         var mergedOptions = $.extend({}, defaultOptions, options);
 
         
-        this.init(eventHandlers,seriesSpecificHandlers);
+        this.init(eventHandlers,seriesSpecificHandlers,data);
         
         $super.constructor.call(this, escId, mergedOptions);
         
@@ -115,9 +120,11 @@
         /*return*/{
             name:"chart",
             
-            init: function(eventHandlers,seriesSpecificHandlers){
+            init: function(eventHandlers,seriesSpecificHandlers,data){
                 this.eventHandlers = eventHandlers;
                 this.seriesEventHandlers = seriesSpecificHandlers;
+                this.data = data;
+                
             },
         
             __events:{
@@ -127,6 +134,8 @@
                         
             },     
             __bindEventHandlers:function(){
+                
+        
                 for(e in this.__events){            //loop events handled
                     //if(this.eventHandlers[e]){      //is there handler for this ev
                         $('#'+this.id).bind(
@@ -139,6 +148,13 @@
                     //}
                 }
                 
+                
+                //zoom line chart
+                if(this.options.charttype==='line'){
+                    if(this.options.zoom){
+                        $('#'+this.id).bind("plotselected", this.__getZoomHandler(this.id,this.data,this.options));
+                    }
+                }
                 
         
             },
@@ -200,7 +216,31 @@
                         }
                     };
                 }
-            }        
+            },
+            __getZoomHandler: function(id,data,options){
+                return function (event, ranges) {
+
+			// clamp the zooming to prevent eternal zoom
+
+			if (ranges.xaxis.to - ranges.xaxis.from < 0.00001) {
+				ranges.xaxis.to = ranges.xaxis.from + 0.00001;
+			}
+
+			if (ranges.yaxis.to - ranges.yaxis.from < 0.00001) {
+				ranges.yaxis.to = ranges.yaxis.from + 0.00001;
+			}
+
+			// do the zooming
+
+			plot = $.plot("#"+id, data,
+				$.extend(true, {}, options, {
+					xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
+					yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
+				})
+			);
+
+                  };
+            }
             
 
             // place shared prototype attributes and methods here.  Prepend "__" ahead of private methods
