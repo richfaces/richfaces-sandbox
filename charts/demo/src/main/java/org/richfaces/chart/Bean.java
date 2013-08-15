@@ -1,11 +1,13 @@
 package org.richfaces.chart;
 
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
+import org.richfaces.sandbox.chart.model.DateChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
 import org.richfaces.sandbox.chart.model.StringChartDataModel;
 
@@ -22,6 +24,9 @@ public class Bean implements Serializable {
     StringChartDataModel pie;
     StringChartDataModel category;
     StringChartDataModel category2;
+    
+    DateChartDataModel dateModel;
+    
     
     
     
@@ -86,6 +91,11 @@ public class Bean implements Serializable {
         category2.put("B", 2);
         category2.put("C", 3);
         
+        dateModel = new DateChartDataModel(ChartDataModel.ChartType.line);
+        dateModel.put(new GregorianCalendar(2013, 4, 1).getTime(), 4);
+        dateModel.put(new GregorianCalendar(2013, 4, 2).getTime(), 5);
+        dateModel.put(new GregorianCalendar(2013, 4, 3).getTime(), 6);
+        
     }
 
     public NumberChartDataModel getA() {
@@ -117,6 +127,12 @@ public class Bean implements Serializable {
     public StringChartDataModel getPie() {
         return pie;
     }
+
+    public DateChartDataModel getDateModel() {
+        return dateModel;
+    }
+    
+    
     
     
     
