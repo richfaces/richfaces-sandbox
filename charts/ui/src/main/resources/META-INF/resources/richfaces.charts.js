@@ -82,6 +82,16 @@
             if(options.zoom){
                 options.selection={mode: "xy"};
             }
+            if(options.xtype==='class java.util.Date'){
+                if(options.xaxis){
+                    options.xaxis.mode="time";
+                    options.xaxis.timeformat="%Y/%m/%d";
+                    options.xaxis.minTickSize=[1,'day'];
+                }
+                else{
+                    options.xaxis={mode:"time",timeformat: "%Y/%m/%d"};
+                }
+            }
         }
         
         var mergedOptions = $.extend({}, defaultOptions, options);
