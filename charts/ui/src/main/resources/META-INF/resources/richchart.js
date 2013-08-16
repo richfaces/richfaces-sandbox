@@ -109,6 +109,9 @@
                 }
                 if(this.options.xtype==='class java.util.Date'){
                     this.options = $.extend(this.options,this.dateDefaults);
+                    if(this.options.xaxis.format){
+                        this.options.xaxis.timeformat=this.options.xaxis.format;
+                    }
                 }
             }
         },
@@ -242,6 +245,10 @@
         // Use the destroy method to clean up any modifications your widget has made to the DOM
         destroy: function() {
             this.plot.shutDown();
+            this.element.unbind("plotclick");
+            this.element.unbind("plothover");
+            this.element.unbind("plotselected");
+            this.element.unbind("mouseout");
             // In jQuery UI 1.8, you must invoke the destroy method from the base widget
             $.Widget.prototype.destroy.call( this );
             // In jQuery UI 1.9 and above, you would define _destroy instead of destroy and not call the base method
