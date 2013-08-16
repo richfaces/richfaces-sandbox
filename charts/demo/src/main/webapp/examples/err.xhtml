@@ -28,27 +28,17 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:r="http://richfaces.org/rich"
                 xmlns:s="http://richfaces.org/sandbox/prototyping">
-    <ui:param name="title" value="Line chart" />
+    <ui:param name="title" value="Err chart" />
 
 
 <ui:define name="content">
-    <ul>
-        <li>label</li>
-        <li>color</li>
-        <li>symbol</li>
-        <li>zoom</li>
-    </ul>
     
-    <s:chart id="myChart" zoom="true" >
+    
+    <s:chart id="myChart" >
         <s:legend sorting="ascending"/>
-        <s:series data="#{bean.a}" type="line" label="A product" color="darkcyan" symbol="circle"/>
-        <s:series data="#{bean.b}" type="line" label="B product" color="chocolate" symbol="square"/>
-        <s:series data="#{bean.c}" type="line" label="C product" color="coral" symbol="diamond"/>
+        <s:series data="#{bean.barModel}" type="bar"/>
+        <s:series data="#{bean.a}" type="line"/>
     </s:chart>
-    
-    <a href="#" onclick="$('#myChart').chart('resetZoom');">Reset zoom</a>
-    <br/><br/>
-    
-    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/line.xhtml">source</a>
+    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/pie.xhtml">source</a>
 </ui:define>
 </ui:composition>
