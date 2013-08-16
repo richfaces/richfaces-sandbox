@@ -33,6 +33,11 @@ class CategoryBarStrategy implements ChartStrategy {
        ChartRendererBase.addAttribute(bars, "show", true);
        ChartRendererBase.addAttribute(obj, "bars", bars);
        
+       //label
+       ChartRendererBase.addAttribute(obj, "label", model.getAttributes().get("label"));
+       //color
+       ChartRendererBase.addAttribute(obj, "color", model.getAttributes().get("color"));
+       
        return obj;
     }
     

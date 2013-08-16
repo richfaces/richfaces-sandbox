@@ -14,8 +14,8 @@
 
         <cdk:resource-dependency library="javax.faces" name="jsf.js"/>
         <cdk:resource-dependency name="jquery.js"/>
-        <cdk:resource-dependency library="jquery-ui/ui" name="jquery.ui.core.js"/>
-        <cdk:resource-dependency library="jquery-ui/ui" name="jquery.ui.widget.js"/>
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js"/>
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js"/>
         
         
         <cdk:resource-dependency name="richfaces.js"/>
@@ -47,7 +47,7 @@
           
         
         #{component.title}
-        <div id="#{clientId}" class="richfaces-chart">
+        <div id="#{clientId}" class="#{component.styleClass} richfaces-chart">
         
         </div>
         <script type="text/javascript">

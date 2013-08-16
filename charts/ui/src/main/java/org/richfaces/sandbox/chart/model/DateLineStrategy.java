@@ -29,10 +29,10 @@ class DateLineStrategy implements ChartStrategy {
             jsdata.put(point);
         }
         ChartRendererBase.addAttribute(output,"data", jsdata);
-        //TODO label
-        //ChartRendererBase.addAttribute(output, "label", getAttributes().get("label"));
-        //TODO color
-        //ChartRendererBase.addAttribute(output, "color", getAttributes().get("color"));
+        //label
+        ChartRendererBase.addAttribute(output, "label", model.getAttributes().get("label"));
+        //color
+        ChartRendererBase.addAttribute(output, "color", model.getAttributes().get("color"));
         
         return output;
     }

@@ -40,6 +40,9 @@ public abstract class AbstractChart extends UIComponentBase{
      @Attribute
      public abstract String getTitle();
      
+     @Attribute
+     public abstract String getStyleClass();
+     
      /**
       * 
       * Is zooming enable 
