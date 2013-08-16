@@ -14,6 +14,10 @@
 
         <cdk:resource-dependency library="javax.faces" name="jsf.js"/>
         <cdk:resource-dependency name="jquery.js"/>
+        <cdk:resource-dependency library="jquery-ui/ui" name="jquery.ui.core.js"/>
+        <cdk:resource-dependency library="jquery-ui/ui" name="jquery.ui.widget.js"/>
+        
+        
         <cdk:resource-dependency name="richfaces.js"/>
         <cdk:resource-dependency name="richfaces-event.js"/>
         <cdk:resource-dependency name="richfaces-base-component.js"/>
@@ -30,7 +34,7 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/>
         
-        <cdk:resource-dependency name="richfaces.charts.js"/>
+        <cdk:resource-dependency name="richchart.js"/>
         <cdk:resource-dependency name="richfaces.charts.css"/>
         
     </cc:interface>
@@ -48,11 +52,16 @@
         </div>
         <script type="text/javascript">
             //<![CDATA[  
-             var chart = new window.RichFaces.ui.chart("#{clientId}",
-                        #{getData(facesContext,component)},
-                        #{getOpts(facesContext,component)},
-                        #{toScriptArgs(events)},
-                        #{getSeriesSpecifHandler(facesContext,component)}); 
+             var escId = RichFaces.escapeCSSMetachars("#{clientId}");
+             $("#"+escId).chart(
+                                   $.extend({
+                                    handlers: #{toScriptArgs(events)},
+                                    particularSeriesHandlers: #{getSeriesSpecifHandler(facesContext,component)},
+                                    data: #{getData(facesContext,component)},
+                                    },
+                                    #{getOpts(facesContext,component)}
+                                   )
+                                ); 
             //]]>
         </script>
             
