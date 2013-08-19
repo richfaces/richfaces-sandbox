@@ -157,7 +157,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
     }
     
-    public JSONObject getSeriesSpecifHandler(FacesContext context,UIComponent component){
+    public JSONObject getParticularSeriesHandler(FacesContext context,UIComponent component){
         return (JSONObject) component.getAttributes().get("handlers");
     };
     

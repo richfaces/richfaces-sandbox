@@ -56,7 +56,7 @@
              $("#"+escId).chart(
                                    $.extend({
                                     handlers: #{toScriptArgs(events)},
-                                    particularSeriesHandlers: #{getSeriesSpecifHandler(facesContext,component)},
+                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
                                     data: #{getData(facesContext,component)},
                                     },
                                     #{getOpts(facesContext,component)}
