@@ -36,7 +36,10 @@
     <packaging>pom</packaging>
     <name>Richfaces UI Sandbox Components: componentName parent</name>
 
-    <modules></modules>
+    <modules>
+        <module>ui</module>
+        <module>demo</module>
+    </modules>
 
     <profiles>
         <profile>
