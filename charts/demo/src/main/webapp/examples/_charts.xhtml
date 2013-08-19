@@ -43,6 +43,17 @@
         <s:series data="#{bean.c}" type="line" label="C product" onmouseover="console.log(3)"/>
     </s:chart>
     
+    <s:chart>
+        <r:repeat value="#{bean.countries}" var="country" >
+            <s:series label="#{country.name}" type="line">
+                <r:repeat value="#{country.data}" var="record">
+                    <s:point x="#{record.year}" y="#{record.tons}" />
+                </r:repeat>
+            </s:series>
+        </r:repeat>
+        <s:series data="#{bean.usaModel}" type="line" />
+    </s:chart>
+    
     <s:chart id="barChart" title="Bar chart">
         <s:xaxis min="0" max="10"/>
         <s:series data="#{bean.barModel}" type="bar" label="bar label"/>

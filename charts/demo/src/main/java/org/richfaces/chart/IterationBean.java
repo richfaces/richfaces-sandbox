@@ -19,8 +19,8 @@ public class IterationBean implements Serializable {
     public void init(){
         
         points = new LinkedList<Point>();
-        points.add(new Point(4,6));
-        points.add(new Point(5,2));
+        points.add(new Point(4.0,6));
+        points.add(new Point(5,2.0));
         points.add(new Point(6,5));
         points.add(new Point(7,8));
                 
