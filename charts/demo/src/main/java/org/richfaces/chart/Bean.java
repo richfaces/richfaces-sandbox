@@ -2,10 +2,8 @@ package org.richfaces.chart;
 
 import java.io.Serializable;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
@@ -20,7 +18,7 @@ import org.richfaces.sandbox.chart.model.StringChartDataModel;
 @ManagedBean(name = "bean")
 @RequestScoped
 public class Bean implements Serializable {
-    String msg;
+
     
     NumberChartDataModel a;
     NumberChartDataModel b;
@@ -45,7 +43,7 @@ public class Bean implements Serializable {
     
     @PostConstruct
     public void init(){
-        msg="no server-side event";
+        
         
         a = new NumberChartDataModel(ChartDataModel.ChartType.line);
         a.put(1, 8);
@@ -91,9 +89,9 @@ public class Bean implements Serializable {
     
         
         pie = new StringChartDataModel(ChartDataModel.ChartType.pie);
-        pie.put("a", 3);
-        pie.put("b", 4);
-        pie.put("c", 5);
+        pie.put("Industrial sector", 2995787);
+        pie.put("Agricultural sector", 188217);
+        pie.put("Service sector", 12500746);
         
         category = new StringChartDataModel(ChartDataModel.ChartType.bar);
         category.put("A", 1);
@@ -232,13 +230,9 @@ public class Bean implements Serializable {
         return gdp;
     }
     
-    public void handler(PlotClickEvent event){
-        msg="Server's speaking:"+event.toString();
-    }
+    
 
-    public String getMsg() {
-        return msg;
-    }
+ 
     
     
     

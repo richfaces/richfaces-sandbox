@@ -69,13 +69,14 @@
     <h:form>
         
         <s:chart onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
-            <r:repeat value="#{bean.countries}" var="country" >
+            <r:repeat value="#{eventBean.countries}" var="country" >
                 <s:series label="#{country.name}" type="line">
                     <r:repeat value="#{country.data}" var="record">
                         <s:point x="#{record.year}" y="#{record.tons}" />
                     </r:repeat>
                 </s:series>
             </r:repeat>
+            <r:ajax event="plotclick" render="msg" execute="msg"/>
             <s:xaxis  label="year"/>
             <s:yaxis label="metric tons of CO2 per capita"/>
         </s:chart>
@@ -86,11 +87,7 @@
     <span id='clickInfo'></span><br/>
     <br/>
     
-    <!--<s:chart id="barChart" title="Bar chart" onplotclick="log(event,'Bar chart')" onmouseover="barHover(event)" onmouseout="clear()">
-        <s:xaxis min="0" max="10"/>
-        <s:series data="#{eventBean.barModel}" type="bar" label="bar label"/>
-    </s:chart>
-    <span id='barHover'/>-->
+  
     See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/events.xhtml">source</a>
 </ui:define>
 </ui:composition>
