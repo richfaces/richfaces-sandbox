@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.richfaces.sandbox.chart.PlotClickEvent;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.DateChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
@@ -19,6 +20,7 @@ import org.richfaces.sandbox.chart.model.StringChartDataModel;
 @ManagedBean(name = "bean")
 @RequestScoped
 public class Bean implements Serializable {
+    String msg;
     
     NumberChartDataModel a;
     NumberChartDataModel b;
@@ -32,13 +34,19 @@ public class Bean implements Serializable {
     DateChartDataModel dateModel;
     
     List<Country> countries;
+    StringChartDataModel cars;
     
-    NumberChartDataModel usaModel;
+    List<GDPRecord> gdp;
+    
+    
+  
     
     
     
     @PostConstruct
     public void init(){
+        msg="no server-side event";
+        
         a = new NumberChartDataModel(ChartDataModel.ChartType.line);
         a.put(1, 8);
         a.put(2, 12);
@@ -157,23 +165,23 @@ public class Bean implements Serializable {
                 
         
         countries = new LinkedList<Country>();
-        //countries.add(usa);
+        countries.add(usa);
         countries.add(china);
         countries.add(japan);
         countries.add(russia);
         
-        usaModel = new NumberChartDataModel(ChartDataModel.ChartType.line);
-        usaModel.put(1990,19.1);
-        usaModel.put(1991,18.9);
-        usaModel.put(1992,18.6);
-        usaModel.put(1993,19.5);
-        usaModel.put(1994,19.5);
-        usaModel.put(1995,19.3);
-        usaModel.put(1996,19.4);
-        usaModel.put(1997,19.7);
-        usaModel.put(1998,19.5);
-        usaModel.put(1999,19.5);
-        usaModel.put(2000,20.0);
+        cars = new StringChartDataModel(ChartDataModel.ChartType.bar);
+        cars.put("San Marino", 1263);
+        cars.put("United States", 797);
+        cars.put("Denmark", 480);
+        cars.put("Vietnam", 13);
+        cars.put("Croatia",380);
+        
+        gdp = new LinkedList<GDPRecord>();
+        gdp.add(new GDPRecord("United States", 188217, 2995787, 12500746));
+        gdp.add(new GDPRecord("China", 830931, 3726848, 3669259));
+        gdp.add(new GDPRecord("Japan", 71568, 1640091, 4258274));
+        gdp.add(new GDPRecord("Germany", 27205, 955563, 2417812));
         
         
     }
@@ -216,9 +224,22 @@ public class Bean implements Serializable {
         return countries;
     }
 
-    public NumberChartDataModel getUsaModel() {
-        return usaModel;
+    public StringChartDataModel getCars() {
+        return cars;
     }
+
+    public List<GDPRecord> getGdp() {
+        return gdp;
+    }
+    
+    public void handler(PlotClickEvent event){
+        msg="Server's speaking:"+event.toString();
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+    
     
     
     
@@ -263,6 +284,38 @@ public class Bean implements Serializable {
             
         }
                 
+        
+    }
+    
+    public class GDPRecord{
+        private String state;
+        private int agricult;
+        private int industry;
+        private int service;
+
+        public GDPRecord(String country, int agricult, int industry, int service) {
+            this.state = country;
+            this.agricult = agricult;
+            this.industry = industry;
+            this.service = service;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public int getAgricult() {
+            return agricult;
+        }
+
+        public int getIndustry() {
+            return industry;
+        }
+
+        public int getService() {
+            return service;
+        }
+        
         
     }
     

@@ -36,13 +36,16 @@
         .graf{width:450px;}
     </style>
     
-    <s:chart id="myChart" styleClass="graf">
+   <!-- <s:chart id="myChart" styleClass="graf">
         <s:legend sorting="ascending"/>
         <s:series data="#{bean.a}" type="line" label="A product" color="green" />
         <s:series data="#{bean.b}" type="line" label="B product" onplotclick="console.log(2)"/>
         <s:series data="#{bean.c}" type="line" label="C product" onmouseover="console.log(3)"/>
     </s:chart>
-    
+    -->
+    Countries by carbon dioxide emissions per capita.
+    <a href="http://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions_per_capita">data</a>
+    <br/><br/>
     <s:chart>
         <r:repeat value="#{bean.countries}" var="country" >
             <s:series label="#{country.name}" type="line">
@@ -51,14 +54,19 @@
                 </r:repeat>
             </s:series>
         </r:repeat>
-        <s:series data="#{bean.usaModel}" type="line" />
+        <s:xaxis  label="year"/>
+        <s:yaxis label="metric tons of CO2 per capita"/>
+    </s:chart>
+   
+    
+    Countries by vehicles per capita
+    <a href="http://en.wikipedia.org/wiki/List_of_countries_by_vehicles_per_capita">data</a>
+    <br/><br/>
+    <s:chart id="barChart" >
+        <s:series data="#{bean.cars}" type="bar" />
+        <s:yaxis label="Motor vehicles per 1000 people"/>
     </s:chart>
     
-    <s:chart id="barChart" title="Bar chart">
-        <s:xaxis min="0" max="10"/>
-        <s:series data="#{bean.barModel}" type="bar" label="bar label"/>
-    </s:chart>
-
     See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/_charts.xhtml#L37">source</a>
 </ui:define>
 </ui:composition>
