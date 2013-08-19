@@ -36,7 +36,10 @@
     <name>Richfaces UI Components: accesskeyhelper parent</name>
     <packaging>pom</packaging>
 
-    <modules></modules>
+    <modules>
+        <module>ui</module>
+        <module>demo</module>
+    </modules>
 
     <profiles>
         <profile>
