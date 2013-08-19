@@ -29,6 +29,7 @@ import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
+import org.richfaces.sandbox.chart.model.StringChartDataModel;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.util.AjaxRendererUtils;
 
@@ -373,7 +374,11 @@ public abstract class ChartRendererBase extends RendererBase {
                 if (model == null) {
                     if (x instanceof Number && y instanceof Number) {
                         model = new NumberChartDataModel(type);
-                    } else {
+                    }
+                    else if(x instanceof String && y instanceof Number){
+                        model = new StringChartDataModel(type);
+                    }
+                    else {
                         throw new IllegalArgumentException("Not supported type");
                     }
                 }
@@ -385,6 +390,9 @@ public abstract class ChartRendererBase extends RendererBase {
                     
                     if(x instanceof Number && y instanceof Number){
                        model.put((Number)x,(Number)y);
+                    }
+                    else if(x instanceof String && y instanceof Number){
+                       model.put((String) x, (Number)y);
                     }
                     else{
                        throw new IllegalArgumentException("Not supported types " + x.getClass()+" " +y.getClass()+" for "+model.getClass());

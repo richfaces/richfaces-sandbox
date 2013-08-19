@@ -40,27 +40,29 @@
          <li>format</li>
      </ul>
     <br/><br/><br/>
-    <s:chart id="myChart" >
-        <s:xaxis min="5" max="10" label="amount"/>
-        <s:yaxis pad="0.1" label="price"/>
-        <s:legend sorting="ascending"/>
-        <s:series data="#{bean.a}" type="line" label="A product" color="green" />
-        <s:series data="#{bean.b}" type="line" label="B product"/>
-        <s:series data="#{bean.c}" type="line" label="C product"/>
+    <s:chart>
+        <r:repeat value="#{bean.countries}" var="country" >
+            <s:series label="#{country.name}" type="line">
+                <r:repeat value="#{country.data}" var="record">
+                    <s:point x="#{record.year}" y="#{record.tons}" />
+                </r:repeat>
+            </s:series>
+        </r:repeat>
+        <s:xaxis  label="year" />
+        <s:yaxis label="metric tons of CO2 per capita" min="7"/>
     </s:chart>
     <p>Same chart as in <h:link outcome="_charts">general</h:link> with following changes
         <ul>
             <li>x-axis:
                 <ul>
-                    <li>min = 5</li>
-                    <li>max = 10</li>
-                    <li>label = amount</li>
+                    
+                    <li>label = year</li>
                 </ul> 
             </li>
             <li>y-axis:
                 <ul>
-                    <li>pad =0.1</li>
-                    <li>label =price</li>
+                    <li>min = 7</li>
+                    <li>label = metric tons of CO2 per capita</li>
                 </ul>
                     
             </li>
