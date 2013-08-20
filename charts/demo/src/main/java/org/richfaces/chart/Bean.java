@@ -1,6 +1,8 @@
 package org.richfaces.chart;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +20,12 @@ import org.richfaces.sandbox.chart.model.StringChartDataModel;
 @ManagedBean(name = "bean")
 @RequestScoped
 public class Bean implements Serializable {
-
+    List<String> positions;
+    List<String> sortings;
+    
+    String position;
+    String sorting;
+    
     
     NumberChartDataModel a;
     NumberChartDataModel b;
@@ -43,7 +50,10 @@ public class Bean implements Serializable {
     
     @PostConstruct
     public void init(){
-        
+        position = "ne";
+        sorting = "";
+        positions = new ArrayList<String>(Arrays.asList("nw","sw","ne","se"));
+        sortings = new ArrayList<String>(Arrays.asList("ascending","descending",""));
         
         a = new NumberChartDataModel(ChartDataModel.ChartType.line);
         a.put(1, 8);
@@ -84,8 +94,8 @@ public class Bean implements Serializable {
         c.put(3, 8);
         c.put(5, 4);
         c.put(10, 6);
-        c.put(15, 8);
-        c.put(14, 4);
+        c.put(14, 8);
+        c.put(15, 4);
     
         
         pie = new StringChartDataModel(ChartDataModel.ChartType.pie);
@@ -229,6 +239,31 @@ public class Bean implements Serializable {
     public List<GDPRecord> getGdp() {
         return gdp;
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public List<String> getPositions() {
+        return positions;
+    }
+
+    public String getSorting() {
+        return sorting;
+    }
+
+    public List<String> getSortings() {
+        return sortings;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setSorting(String sorting) {
+        this.sorting = sorting;
+    }
+    
     
     
 
