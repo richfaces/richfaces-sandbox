@@ -52,8 +52,9 @@
         </div>
         <script type="text/javascript">
             //<![CDATA[  
-             var escId = RichFaces.escapeCSSMetachars("#{clientId}");
-             $("#"+escId).chart(
+             
+             
+                    $(document.getElementById("#{clientId}")).chart(
                                    $.extend({
                                     handlers: #{toScriptArgs(events)},
                                     particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
@@ -61,7 +62,8 @@
                                     },
                                     #{getOpts(facesContext,component)}
                                    )
-                                ); 
+                      ); 
+             
             //]]>
         </script>
             

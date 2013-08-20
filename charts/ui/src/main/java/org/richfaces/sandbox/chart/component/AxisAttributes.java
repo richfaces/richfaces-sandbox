@@ -8,25 +8,22 @@ import org.richfaces.cdk.annotations.Attribute;
  */
 public interface AxisAttributes {
     
-    /**TODO explanation
-     * 
-     */
+   
     
     /**
-     * 
      * Format for axis ticks (Date series only)
      */
     @Attribute
     public abstract String getFormat();
     
     /*
-     * Axis description
+     * Text shown next to axis.
      */
     @Attribute
     public abstract String getLabel();
     
     /**
-     * Minimum value of the axis
+     * Minimum value shown on the axis.
      */
     @Attribute
     public abstract String getMin();

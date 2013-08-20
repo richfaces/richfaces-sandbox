@@ -35,24 +35,34 @@ public abstract class AbstractChart extends UIComponentBase{
  
      /**
       * 
-      * Chart title 
+      * Chart title shown above the chart.
       */
      @Attribute
      public abstract String getTitle();
      
+     
+     /**
+      * 
+      * The attribute assign CSS class to component div. 
+      */
      @Attribute
      public abstract String getStyleClass();
      
      /**
       * 
-      * Is zooming enable 
+      * Attribute define whether zoom is enabled. To reset zoom
+      * you can use JS API $('#id').chart('resetZoom')
+      * Attribute is currently supported by line chart.
+      * 
       */
      @Attribute
      public abstract boolean isZoom();
      
      /**
       * 
-      * Click handler event for each series.  
+      * Javascript handler function for plotclick event called for each series.
+      * You can setup handler for particular series only. See series tag attribute
+      * onplotclick.
       */
      @Attribute(events =
      @EventName("plotclick"))
@@ -61,7 +71,9 @@ public abstract class AbstractChart extends UIComponentBase{
      
      /**
       * 
-      * Mouse over handler event for each series  
+      * Javascript handler function for mouseover event for each series.
+      * You can setup handler for particular series only. See series tag attribute
+      * onmouseover.
       */
      @Attribute(events =
      @EventName("mouseover"))
@@ -69,13 +81,16 @@ public abstract class AbstractChart extends UIComponentBase{
      
      /**
       * Complementary event for mouseover fired
-      * when mouse leaves grid.
+      * when mouse leaves the chart grid.
       */
      @Attribute(events =
      @EventName("mouseout"))
      public abstract String getOnmouseout();
      
-     
+     /**
+      * 
+      * Server-side listener for plotclick event.
+      */
      @Attribute(signature =
      @Signature(parameters = PlotClickEvent.class))
      public abstract MethodExpression getClickListener();
