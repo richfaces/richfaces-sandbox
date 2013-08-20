@@ -32,12 +32,16 @@
 
 
 <ui:define name="content">
-    <s:chart>
-        <s:series type="line">
-            <r:repeat value="#{iter.points}" var="p">
-                <s:point x="#{p.x}" y="#{p.y}"/>
-            </r:repeat>
-        </s:series>
+     <s:chart>
+        <r:repeat value="#{bean.countries}" var="country" >
+            <s:series label="#{country.name}" type="line">
+                <r:repeat value="#{country.data}" var="record">
+                    <s:point x="#{record.year}" y="#{record.tons}" />
+                </r:repeat>
+            </s:series>
+        </r:repeat>
+        <s:xaxis  label="year"/>
+        <s:yaxis label="metric tons of CO2 per capita"/>
     </s:chart>
     See source:  <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/iteration.xhtml#L37">facelet</a> and <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/java/org/richfaces/chart/IterationBean.java">bean</a>
     
