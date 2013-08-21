@@ -3,16 +3,18 @@ package org.richfaces.sandbox.chart;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+
 import org.richfaces.sandbox.chart.PlotClickEvent;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.StringChartDataModel;
 
 
-@ManagedBean
+@Named
 @ViewScoped
 public class EventBean implements Serializable {
     /**
