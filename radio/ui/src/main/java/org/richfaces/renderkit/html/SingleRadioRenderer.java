@@ -1,16 +1,17 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractRadio;
-import org.richfaces.component.util.InputUtils;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractRadio;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.util.InputUtils;
 
 @JsfRenderer(family = AbstractRadio.COMPONENT_FAMILY, type = SingleRadioRenderer.RENDERER_TYPE)
 public class SingleRadioRenderer extends RendererBase {

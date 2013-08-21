@@ -22,14 +22,24 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.renderkit.html.SyntaxHighlighterRenderer;
-
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.event.*;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.PreRenderComponentEvent;
+import javax.faces.event.PreRenderViewEvent;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import javax.faces.render.Renderer;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.SyntaxHighlighterRenderer;
 
 @JsfComponent(tag = @Tag(name = "syntaxhighlighter", type = TagType.Facelets),
         renderer = @JsfRenderer(family = AbstractSyntaxHighlighter.COMPONENT_FAMILY, type = SyntaxHighlighterRenderer.RENDERER_TYPE), attributes = "core-props.xml")

@@ -22,13 +22,7 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractFocus;
-import org.richfaces.component.AbstractFocusModifier;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -37,7 +31,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractFocus;
+import org.richfaces.component.AbstractFocusModifier;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 @JsfRenderer(family = AbstractFocus.COMPONENT_FAMILY, type = HtmlFocusRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
@@ -65,7 +66,7 @@ public class HtmlFocusRenderer extends RendererBase {
                     "The timing attribute of the focus component (id='" + clientId + "') must be set to 'onJScall' when name attribute is specified");
         }
         if ((_for == null || "".equals(_for)) && (targetClientId == null || "".equals(targetClientId)) && !(component.getParent() instanceof UIInput)
-                && getUtils().getNestingForm(context, component) == null) {
+                && getUtils().getNestingForm(component) == null) {
             throw new FacesException("Focus component must have either one of 'for' or 'targetClientId' attributes specified or be nested within UIForm or UIInput component");
         }
     }

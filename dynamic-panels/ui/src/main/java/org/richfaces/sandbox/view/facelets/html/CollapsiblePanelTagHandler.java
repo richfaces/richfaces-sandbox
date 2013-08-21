@@ -32,7 +32,7 @@ import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.sandbox.component.AbstractCollapsiblePanel;
 import org.richfaces.sandbox.event.MethodExpressionPanelToggleListener;
-import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleEvent;
 
 /**
  * @author akolonitsky

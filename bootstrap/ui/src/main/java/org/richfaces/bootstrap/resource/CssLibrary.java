@@ -3,8 +3,8 @@ package org.richfaces.bootstrap.resource;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.bootstrap.BootstrapConfiguration;
+import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 

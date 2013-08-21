@@ -27,8 +27,8 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 
 /**
  * Base class for the gridColumn component

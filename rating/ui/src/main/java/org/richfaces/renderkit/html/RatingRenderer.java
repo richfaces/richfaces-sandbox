@@ -22,13 +22,12 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractRating;
-import org.richfaces.component.util.SelectUtils;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.InputRendererBase;
-import org.richfaces.renderkit.RenderKitUtils;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.el.ELException;
 import javax.faces.application.ResourceDependencies;
@@ -38,12 +37,14 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractRating;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.input.InputRendererBase;
+import org.richfaces.ui.select.SelectUtils;
 
 @JsfRenderer(family = AbstractRating.COMPONENT_FAMILY, type = RatingRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),

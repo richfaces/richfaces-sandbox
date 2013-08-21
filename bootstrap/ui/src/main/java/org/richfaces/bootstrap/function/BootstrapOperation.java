@@ -6,7 +6,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.bootstrap.javascript.BootstrapJSPlugin;
-import org.richfaces.function.RichFunction;
+import org.richfaces.ui.misc.RichFunction;
 
 /**
  * Bootstrap components client-side API operation.

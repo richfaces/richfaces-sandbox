@@ -25,10 +25,10 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSLiteral;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * Base class for the popover renderer

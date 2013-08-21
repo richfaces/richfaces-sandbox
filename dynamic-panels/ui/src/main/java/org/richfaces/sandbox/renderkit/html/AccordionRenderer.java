@@ -28,10 +28,10 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSObject;
 import org.richfaces.sandbox.component.AbstractAccordion;
-import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author akolonitsky

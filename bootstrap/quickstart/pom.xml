@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
         <artifactId>bootstrap-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>bootstrap-quickstart</artifactId>
@@ -33,12 +33,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
             <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
@@ -47,7 +43,6 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>3.0.1.Final</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>

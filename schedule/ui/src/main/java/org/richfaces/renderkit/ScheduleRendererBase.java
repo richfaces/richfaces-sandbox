@@ -1,35 +1,5 @@
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptString;
-import org.richfaces.component.AbstractSchedule;
-import org.richfaces.component.AbstractScheduleAgendaDayView;
-import org.richfaces.component.AbstractScheduleAgendaWeekView;
-import org.richfaces.component.AbstractScheduleBasicDayView;
-import org.richfaces.component.AbstractScheduleBasicWeekView;
-import org.richfaces.component.AbstractScheduleMonthView;
-import org.richfaces.component.ScheduleCommonViewAttributes;
-import org.richfaces.component.SwitchType;
-import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
-import org.richfaces.component.event.ScheduleDateRangeSelectEvent;
-import org.richfaces.component.event.ScheduleDateSelectEvent;
-import org.richfaces.component.event.ScheduleItemMoveEvent;
-import org.richfaces.component.event.ScheduleItemResizeEvent;
-import org.richfaces.component.event.ScheduleItemSelectEvent;
-import org.richfaces.component.event.ScheduleViewChangeEvent;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.RendererUtils;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -40,6 +10,38 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.richfaces.component.AbstractSchedule;
+import org.richfaces.component.AbstractScheduleAgendaDayView;
+import org.richfaces.component.AbstractScheduleAgendaWeekView;
+import org.richfaces.component.AbstractScheduleBasicDayView;
+import org.richfaces.component.AbstractScheduleBasicWeekView;
+import org.richfaces.component.AbstractScheduleMonthView;
+import org.richfaces.component.ScheduleCommonViewAttributes;
+import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
+import org.richfaces.component.event.ScheduleDateRangeSelectEvent;
+import org.richfaces.component.event.ScheduleDateSelectEvent;
+import org.richfaces.component.event.ScheduleItemMoveEvent;
+import org.richfaces.component.event.ScheduleItemResizeEvent;
+import org.richfaces.component.event.ScheduleItemSelectEvent;
+import org.richfaces.component.event.ScheduleViewChangeEvent;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptString;
+import org.richfaces.ui.common.AjaxFunction;
+import org.richfaces.ui.common.SwitchType;
+import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.RendererUtils;
 
 @ResourceDependencies({
     @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
@@ -261,7 +263,7 @@ public abstract class ScheduleRendererBase extends RendererBase {
             jsFunction = ajaxFunction;
         } else if (SwitchType.server.equals(component.getSwitchType())) {
             jsFunction = new JSFunction("RichFaces.submitForm", "#"
-                + RendererUtils.getInstance().getNestingForm(context, component).getClientId(context),
+                + RendererUtils.getInstance().getNestingForm(component).getClientId(context),
                 params,
                 "");
         } else {

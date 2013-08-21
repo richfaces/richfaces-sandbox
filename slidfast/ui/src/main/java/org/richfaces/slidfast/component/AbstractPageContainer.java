@@ -21,12 +21,12 @@
  */
 package org.richfaces.slidfast.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.slidfast.renderkit.PageContainerRendererBase;
-
-import javax.faces.component.UIPanel;
 
 /**
  * Base class for the pageContainer component

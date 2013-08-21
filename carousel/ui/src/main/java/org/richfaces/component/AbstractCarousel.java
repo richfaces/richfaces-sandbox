@@ -22,8 +22,13 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.CarouselRenderer;
+import org.richfaces.ui.iteration.repeat.UIRepeat;
 
 @JsfComponent(tag = @Tag(name = "carousel", type = TagType.Facelets),
         renderer = @JsfRenderer(family = AbstractCarousel.COMPONENT_FAMILY, type = CarouselRenderer.RENDERER_TYPE))

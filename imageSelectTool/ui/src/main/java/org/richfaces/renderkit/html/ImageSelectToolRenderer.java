@@ -1,13 +1,10 @@
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractImageSelectTool;
-import org.richfaces.component.util.InputUtils;
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
+import java.awt.Rectangle;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -17,11 +14,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import java.awt.*;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractImageSelectTool;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.InputUtils;
 
 @JsfRenderer(family = AbstractImageSelectTool.COMPONENT_FAMILY, type = org.richfaces.renderkit.html.ImageSelectToolRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),

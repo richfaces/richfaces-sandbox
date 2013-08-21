@@ -3,7 +3,7 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import org.richfaces.renderkit.html.BaseGradient;
+import org.richfaces.ui.images.BaseGradient;
 
 /**
  * @author asmirnov

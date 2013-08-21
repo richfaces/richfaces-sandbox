@@ -1,8 +1,8 @@
 package org.richfaces.component.model;
 
-import org.ajax4jsf.model.Range;
-
 import java.util.Date;
+
+import org.richfaces.model.Range;
 
 public class DateRange implements Range {
 

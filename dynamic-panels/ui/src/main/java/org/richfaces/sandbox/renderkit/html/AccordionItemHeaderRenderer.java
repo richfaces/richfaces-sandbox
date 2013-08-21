@@ -1,9 +1,9 @@
 package org.richfaces.sandbox.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
 import static org.richfaces.sandbox.renderkit.html.DivPanelRenderer.attributeAsString;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
 
 import java.io.IOException;
 
@@ -12,9 +12,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.sandbox.component.AbstractAccordionItem;
 import org.richfaces.sandbox.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.util.PanelIcons;
-import org.richfaces.renderkit.util.PanelIcons.State;
+import org.richfaces.ui.common.PanelIcons;
+import org.richfaces.ui.common.PanelIcons.State;
+import org.richfaces.util.HtmlUtil;
 
 class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
     public AccordionItemHeaderRenderer() {

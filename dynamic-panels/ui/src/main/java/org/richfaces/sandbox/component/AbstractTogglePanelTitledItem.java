@@ -21,9 +21,9 @@
  */
 package org.richfaces.sandbox.component;
 
-import org.richfaces.sandbox.renderkit.html.DivPanelRenderer;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.sandbox.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky

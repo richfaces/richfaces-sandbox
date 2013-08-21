@@ -29,14 +29,14 @@ import java.util.regex.Pattern;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.component.BootstrapScale;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.ui.commandButton.AbstractCommandButton;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.ui.attribute.CoreProps;
 
 /**
  * Base class for the label component

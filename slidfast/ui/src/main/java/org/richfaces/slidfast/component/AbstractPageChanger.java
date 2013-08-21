@@ -22,13 +22,13 @@
 package org.richfaces.slidfast.component;
 
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponentBase;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

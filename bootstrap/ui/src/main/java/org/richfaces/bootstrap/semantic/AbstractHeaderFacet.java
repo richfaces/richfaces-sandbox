@@ -23,7 +23,7 @@ package org.richfaces.bootstrap.semantic;
 
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.ui.attribute.CoreProps;
 
 /**
  * Base class for the header component

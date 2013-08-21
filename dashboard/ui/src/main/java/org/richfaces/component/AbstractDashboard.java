@@ -22,6 +22,14 @@
 
 package org.richfaces.component;
 
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
@@ -34,14 +42,7 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.PositionChangeEvent;
 import org.richfaces.event.PositionChangeListener;
 import org.richfaces.renderkit.html.DashboardRenderer;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
+import org.richfaces.ui.common.SwitchType;
 
 @JsfComponent(tag = @Tag(name = "dashboard", handler = "org.richfaces.view.facelets.html.DashboardTagHandler", generate = true, type = TagType.Facelets),
     fires = {@Event(value = PositionChangeEvent.class, listener = PositionChangeListener.class)},

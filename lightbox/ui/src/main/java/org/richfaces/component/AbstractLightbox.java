@@ -1,13 +1,13 @@
 package org.richfaces.component;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.LightboxRenderer;
-
-import javax.faces.component.UIComponentBase;
 
 @JsfComponent(tag = @Tag(name = "lightbox", type = TagType.Facelets),
     renderer = @JsfRenderer(family = AbstractLightbox.COMPONENT_FAMILY, type = LightboxRenderer.RENDERER_TYPE),

@@ -21,41 +21,42 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.sandbox.component.AbstractTab;
-import org.richfaces.sandbox.component.AbstractTabPanel;
-import org.richfaces.sandbox.component.AbstractTogglePanel;
-import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
-import org.richfaces.sandbox.component.AbstractTogglePanelItemVisitor;
-import org.richfaces.sandbox.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.active;
+import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
+import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.SPAN_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.active;
-import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
-import static org.richfaces.sandbox.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.SPAN_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.sandbox.component.AbstractTab;
+import org.richfaces.sandbox.component.AbstractTabPanel;
+import org.richfaces.sandbox.component.AbstractTogglePanel;
+import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
+import org.richfaces.sandbox.component.AbstractTogglePanelItemVisitor;
+import org.richfaces.sandbox.component.AbstractTogglePanelTitledItem;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author akolonitsky

@@ -21,12 +21,12 @@
  */
 package org.richfaces.sandbox.event;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.MethodExpressionEventListener;
-
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
+
+import org.richfaces.ui.common.MethodExpressionEventListener;
+import org.richfaces.ui.toggle.ItemChangeEvent;
+import org.richfaces.ui.toggle.ItemChangeListener;
 
 /**
  * <p>

@@ -21,22 +21,22 @@
  */
 package org.richfaces.sandbox.component;
 
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.AbstractActionComponent;
-import org.richfaces.component.ComponentIterators;
-import org.richfaces.component.SwitchType;
 import org.richfaces.sandbox.renderkit.html.DivPanelRenderer;
-
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
+import org.richfaces.ui.common.AbstractActionComponent;
+import org.richfaces.ui.common.ComponentIterators;
+import org.richfaces.ui.common.SwitchType;
 
 /**
  * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including

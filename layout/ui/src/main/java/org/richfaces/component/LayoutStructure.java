@@ -1,11 +1,12 @@
 package org.richfaces.component;
 
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
 
 public class LayoutStructure implements Serializable {
 // ------------------------------ FIELDS ------------------------------

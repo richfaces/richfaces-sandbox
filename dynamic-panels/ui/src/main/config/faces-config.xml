@@ -6,25 +6,25 @@
 
     <faces-config-extension>
         <cdk:faces-event>
-            <cdk:event-class>org.richfaces.event.ItemChangeEvent</cdk:event-class>
-            <cdk:listener-class>org.richfaces.event.ItemChangeListener</cdk:listener-class>
-            <cdk:source-class>org.richfaces.event.ItemChangeSource</cdk:source-class>
+            <cdk:event-class>org.richfaces.ui.toggle.ItemChangeEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.ui.toggle.ItemChangeListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.ui.toggle.ItemChangeSource</cdk:source-class>
             <cdk:tag>
                 <cdk:tag-name>itemChangeListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
-                <cdk:handler-class>org.richfaces.sandbox.view.facelets.html.ItemChangeListenerHandler</cdk:handler-class>
+                <cdk:handler-class>org.richfaces.ui.toggle.ItemChangeListenerHandler</cdk:handler-class>
                 <cdk:generate>false</cdk:generate>
             </cdk:tag>
         </cdk:faces-event>
 
         <cdk:faces-event>
-            <cdk:event-class>org.richfaces.event.PanelToggleEvent</cdk:event-class>
-            <cdk:listener-class>org.richfaces.event.PanelToggleListener</cdk:listener-class>
-            <cdk:source-class>org.richfaces.event.PanelToggleSource</cdk:source-class>
+            <cdk:event-class>org.richfaces.ui.toggle.PanelToggleEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.ui.toggle.PanelToggleListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.ui.toggle.PanelToggleSource</cdk:source-class>
             <cdk:tag>
                 <cdk:tag-name>panelToggleListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
-                <cdk:handler-class>org.richfaces.sandbox.view.facelets.html.PanelToggleListenerHandler</cdk:handler-class>
+                <cdk:handler-class>org.richfaces.ui.toggle.ItemChangeListenerHandler</cdk:handler-class>
                 <cdk:generate>false</cdk:generate>
             </cdk:tag>
         </cdk:faces-event>

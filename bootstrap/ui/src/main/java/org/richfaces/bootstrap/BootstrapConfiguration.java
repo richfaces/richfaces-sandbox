@@ -21,7 +21,7 @@
  */
 package org.richfaces.bootstrap;
 
-import org.richfaces.application.configuration.ConfigurationItem;
+import org.richfaces.configuration.ConfigurationItem;
 
 /**
  * @author <a href="http://pauldijou.fr">Paul Dijou</a>
@@ -32,7 +32,7 @@ public final class BootstrapConfiguration {
 
     private BootstrapConfiguration() {
     }
-    
+
     public enum Items {
         @ConfigurationItem(defaultValue = "true", names = RESPONSIVE_DESIGN_PARAM_NAME)
         responsiveDesign,

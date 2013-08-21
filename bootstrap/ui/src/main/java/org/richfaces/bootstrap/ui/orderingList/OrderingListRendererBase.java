@@ -21,14 +21,13 @@
  */
 package org.richfaces.bootstrap.ui.orderingList;
 
-import org.richfaces.component.AbstractSelectManyComponent;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.SelectManyRendererBase;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIColumn;
+
+import org.richfaces.ui.select.AbstractSelectManyComponent;
+import org.richfaces.ui.select.SelectManyRendererBase;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * Base class for the orderingList renderer

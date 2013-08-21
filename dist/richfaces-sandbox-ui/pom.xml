@@ -23,8 +23,8 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <artifactId>richfaces-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.sandbox.ui</groupId>
@@ -35,13 +35,13 @@
     <properties>
         <shade-transformers.version>7</shade-transformers.version>
         <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
-        <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
+        <assembly.projects.group>org.richfaces</assembly.projects.group>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
             <scope>compile</scope>
         </dependency>
 

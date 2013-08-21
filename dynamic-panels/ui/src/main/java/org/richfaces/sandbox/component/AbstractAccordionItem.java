@@ -21,16 +21,16 @@
  */
 package org.richfaces.sandbox.component;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.ComponentIterators;
-import org.richfaces.component.SwitchType;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import org.richfaces.ui.common.ComponentIterators;
+import org.richfaces.ui.common.SwitchType;
 
 /**
  * <p>The &lt;rich:accordionItem&gt; component is a panel for use with the &lt;rich:accordion&gt; component.

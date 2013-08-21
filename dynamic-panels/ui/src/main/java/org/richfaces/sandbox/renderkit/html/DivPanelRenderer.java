@@ -21,10 +21,10 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 
 import java.io.IOException;
 import java.util.Map;
@@ -33,9 +33,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author akolonitsky

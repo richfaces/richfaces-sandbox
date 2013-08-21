@@ -21,12 +21,12 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-
-import javax.faces.component.UIComponentBase;
 
 @JsfComponent(tag = @Tag(name = "scheduleMonthView", type = TagType.Facelets))
 public abstract class AbstractScheduleMonthView extends UIComponentBase implements ScheduleCommonViewAttributes {

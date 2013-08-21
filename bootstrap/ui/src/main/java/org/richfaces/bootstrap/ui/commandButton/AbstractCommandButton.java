@@ -27,22 +27,22 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.component.BootstrapScale;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.AbstractActionComponent;
-import org.richfaces.component.AjaxContainer;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.Mode;
-import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.component.attribute.CommandButtonProps;
-import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.renderkit.AjaxConstants;
+import org.richfaces.ui.ajax.region.AjaxContainer;
+import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CommandButtonProps;
+import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.common.AbstractActionComponent;
+import org.richfaces.ui.common.AjaxConstants;
+import org.richfaces.ui.common.Mode;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * Base class for the commandButton component
@@ -58,7 +58,7 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
     RenderSeparatorFacetCapable, MetaComponentResolver {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.CommandButton";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.CommandButton";
-    
+
     @Attribute(suggestedValue = BootstrapSeverity.PRIMARY + ","
             + BootstrapSeverity.SUCCESS + ","
             + BootstrapSeverity.INFO + ","
@@ -66,7 +66,7 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
             + BootstrapSeverity.DANGER + ","
             + BootstrapSeverity.INVERSE)
     public abstract String getSeverity();
-    
+
     @Attribute(suggestedValue = BootstrapScale.MINI + ","
             + BootstrapScale.SMALL + ","
             + BootstrapScale.LARGE)
@@ -101,10 +101,10 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
 
     @Attribute(hidden = true)
     public abstract Object getValue();
-    
+
     @Attribute
     public abstract String getColor();
-    
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
@@ -115,12 +115,12 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
         }
         return null;
     }
-    
+
     @Override
     public String getSeparatorFacetRendererType() {
         return "org.richfaces.bootstrap.CommandButtonSeparatorFacetRenderer";
     }
-    
+
     public boolean hasFacet(String facetName) {
         return getFacet(facetName) != null && getFacet(facetName).isRendered();
     }

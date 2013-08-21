@@ -21,9 +21,9 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 
 import java.io.IOException;
 import java.util.Map;
@@ -35,14 +35,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
-import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JSObject;
 import org.richfaces.sandbox.component.AbstractTab;
 import org.richfaces.sandbox.component.AbstractTabPanel;
 import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
-import org.richfaces.component.ComponentIterators;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.ComponentIterators;
+import org.richfaces.ui.common.HtmlConstants;
 
 import com.google.common.base.Predicate;
 

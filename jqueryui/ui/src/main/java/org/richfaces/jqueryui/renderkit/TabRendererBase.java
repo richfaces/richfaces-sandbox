@@ -21,13 +21,12 @@
  */
 package org.richfaces.jqueryui.renderkit;
 
-import org.richfaces.jqueryui.component.AbstractTab;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+
+import org.richfaces.jqueryui.component.AbstractTab;
+import org.richfaces.ui.common.DivPanelRenderer;
 
 @ResourceDependencies({
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),

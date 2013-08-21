@@ -22,6 +22,15 @@
 
 package org.richfaces.component;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.el.MethodExpression;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
@@ -37,14 +46,7 @@ import org.richfaces.component.event.ValueSuggestionEvent;
 import org.richfaces.component.event.ValueSuggestionListener;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.html.VisualsearchRenderer;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import java.util.List;
-import java.util.Map;
+import org.richfaces.ui.common.SwitchType;
 
 @JsfComponent(tag = @Tag(name = "visualsearch", handler = "org.richfaces.view.facelets.html.VisualsearchTagHandler", generate = true, type = TagType.Facelets),
     fires = {@Event(value = FacetSuggestionEvent.class, listener = FacetSuggestionListener.class),

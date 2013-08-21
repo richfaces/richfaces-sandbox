@@ -21,30 +21,12 @@
  */
 package org.richfaces.sandbox.component;
 
-import com.google.common.base.Strings;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.MetaComponentEncoder;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.SwitchType;
-import org.richfaces.component.UIRepeat;
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -64,12 +46,32 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.l10n.FacesMessages;
+import org.richfaces.l10n.MessageFactory;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.common.SwitchType;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.ui.iteration.repeat.UIRepeat;
+import org.richfaces.ui.toggle.ItemChangeEvent;
+import org.richfaces.ui.toggle.ItemChangeListener;
+import org.richfaces.ui.toggle.ItemChangeSource;
+import org.richfaces.util.MessageUtil;
+import org.richfaces.util.RendererUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the

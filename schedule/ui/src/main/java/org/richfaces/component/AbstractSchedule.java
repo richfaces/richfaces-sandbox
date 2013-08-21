@@ -21,9 +21,34 @@
  */
 package org.richfaces.component;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.el.ELContext;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.ResultDataModel;
+import javax.faces.model.ResultSetDataModel;
+import javax.faces.model.ScalarDataModel;
+import javax.servlet.jsp.jstl.sql.Result;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Event;
@@ -49,34 +74,11 @@ import org.richfaces.component.event.ScheduleViewChangeEvent;
 import org.richfaces.component.event.ScheduleViewChangeListener;
 import org.richfaces.component.model.DateRange;
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.renderkit.ScheduleRendererBase;
-
-import javax.el.ELContext;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.faces.model.ScalarDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import org.richfaces.ui.common.SwitchType;
 
 /**
  * Base class for generation of UISchedule component.

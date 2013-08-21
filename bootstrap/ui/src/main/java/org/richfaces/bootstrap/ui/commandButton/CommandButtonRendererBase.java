@@ -1,14 +1,15 @@
 package org.richfaces.bootstrap.ui.commandButton;
 
 import java.io.IOException;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.component.Mode;
-import org.richfaces.renderkit.util.HandlersChain;
+import org.richfaces.ui.behavior.HandlersChain;
+import org.richfaces.ui.common.Mode;
 
 /**
  * Base class for the commandButton renderer
@@ -19,7 +20,7 @@ import org.richfaces.renderkit.util.HandlersChain;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-js.reslib")})
-public class CommandButtonRendererBase extends org.richfaces.renderkit.html.CommandButtonRendererBase {
+public class CommandButtonRendererBase extends org.richfaces.ui.ajax.command.CommandButtonRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.CommandButtonRenderer";
 
     @Override
@@ -67,7 +68,7 @@ public class CommandButtonRendererBase extends org.richfaces.renderkit.html.Comm
 
         return onClick.toString();
     }
-    
+
     protected void encodeId(FacesContext context, UIComponent uiComponent, boolean split, String clientId) throws IOException {
         if(!split) {
             ResponseWriter writer = context.getResponseWriter();

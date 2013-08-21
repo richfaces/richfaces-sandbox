@@ -21,16 +21,16 @@
  **/
 package org.richfaces.slidfast.renderkit;
 
-import org.richfaces.function.RichFunction;
-import org.richfaces.slidfast.component.AbstractPageChanger;
-import org.richfaces.renderkit.RendererBase;
-
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
+
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.slidfast.component.AbstractPageChanger;
+import org.richfaces.ui.misc.RichFunction;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

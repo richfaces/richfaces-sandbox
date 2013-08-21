@@ -1,5 +1,14 @@
 package org.richfaces.component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -7,14 +16,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.SingleRadioRenderer;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import java.util.ArrayList;
-import java.util.List;
 
 @JsfComponent(tag = @Tag(name = "radio", type = TagType.Facelets),
     renderer = @JsfRenderer(family = AbstractRadio.COMPONENT_FAMILY, type = SingleRadioRenderer.RENDERER_TYPE))

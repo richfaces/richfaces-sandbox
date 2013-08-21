@@ -1,10 +1,15 @@
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
+import javax.faces.component.UIPanel;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.AbstractPageRenderer;
 import org.richfaces.skin.SkinFactory;
-
-import javax.faces.component.UIPanel;
 
 @JsfComponent(tag = @Tag(name = "page", type = TagType.Facelets),
         renderer = @JsfRenderer(family = AbstractPage.COMPONENT_FAMILY, type = AbstractPageRenderer.RENDERER_TYPE),

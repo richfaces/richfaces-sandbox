@@ -21,7 +21,7 @@
                     <ol id="#{clientId}List">
                         <c:forEach var="itemObject" items="#{clientSelectItems}">
                             <!-- TODO: Add support for type-arguments to the cdk:object tag -->
-                            <cdk:object name="item" type="org.richfaces.renderkit.ClientSelectItem" value="#{itemObject}" />
+                            <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
                         </c:forEach>
                     </ol>
@@ -114,7 +114,7 @@
                             value="#{(component.getColumnClasses() != null) ? component.getColumnClasses().split(',') : null}"/>
                 <c:forEach var="itemObject" items="#{clientSelectItems}">
                     <!-- TODO: Add support for type-arguments to the cc:attribute tag -->
-                    <cdk:object name="item" type="org.richfaces.renderkit.ClientSelectItem" value="#{itemObject}" />
+                    <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                     <!-- TODO: Find an elegant way of resetting the iterator -->
                     <cdk:call expression="columns = component.columns()" />
                     <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>

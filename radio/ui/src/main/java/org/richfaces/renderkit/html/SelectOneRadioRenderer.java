@@ -6,7 +6,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.renderkit.InputRendererBase;
+import org.richfaces.ui.input.InputRendererBase;
 
 public class SelectOneRadioRenderer extends InputRendererBase {
 // ------------------------------ FIELDS ------------------------------

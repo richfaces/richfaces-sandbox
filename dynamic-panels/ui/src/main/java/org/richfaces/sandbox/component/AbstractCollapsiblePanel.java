@@ -21,23 +21,23 @@
  */
 package org.richfaces.sandbox.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
-import org.richfaces.event.PanelToggleListener;
-import org.richfaces.event.PanelToggleSource;
-
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.toggle.ItemChangeEvent;
+import org.richfaces.ui.toggle.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleListener;
+import org.richfaces.ui.toggle.PanelToggleSource;
 
 /**
  * <p>

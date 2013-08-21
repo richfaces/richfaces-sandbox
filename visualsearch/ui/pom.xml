@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.visualsearch</groupId>
         <artifactId>visualsearch-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>visualsearch-ui</artifactId>
@@ -38,32 +38,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui.core</groupId>
-            <artifactId>richfaces-ui-core-ui</artifactId>
-            <version>${version.richfaces}</version>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
-            <version>${version.richfaces}</version>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
-            <version>${version.richfaces}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-test-stage</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -83,8 +71,7 @@
             </plugin>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-                <version>${version.richfaces}</version>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>cdk-generate-sources</id>
@@ -92,6 +79,25 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/main/java</source>
+                                <source>target/generated-sources/main/resources</source>
+                            </sources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

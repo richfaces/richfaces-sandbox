@@ -1,9 +1,9 @@
 package org.richfaces.sandbox.component;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-
 import javax.faces.context.FacesContext;
+
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
 
 public class AbstractTogglePanelItemVisitor implements DataVisitor {
 // ------------------------------ FIELDS ------------------------------

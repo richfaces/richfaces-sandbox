@@ -1,17 +1,18 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractLayoutPanel;
-import org.richfaces.component.LayoutPosition;
-import org.richfaces.component.LayoutStructure;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractLayoutPanel;
+import org.richfaces.component.LayoutPosition;
+import org.richfaces.component.LayoutStructure;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 @JsfRenderer(family = AbstractLayoutPanel.COMPONENT_FAMILY, type = LayoutPanelRenderer.RENDERER_TYPE)
 public class LayoutPanelRenderer extends RendererBase {

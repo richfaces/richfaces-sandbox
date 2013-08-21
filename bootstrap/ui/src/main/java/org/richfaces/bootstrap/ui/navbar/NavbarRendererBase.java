@@ -22,6 +22,7 @@
 package org.richfaces.bootstrap.ui.navbar;
 
 import java.io.IOException;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;

@@ -21,12 +21,12 @@
  **/
 package org.richfaces.jqueryui.renderkit;
 
-import org.richfaces.jqueryui.component.AbstractDatepicker;
-import org.richfaces.renderkit.InputRendererBase;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+
+import org.richfaces.jqueryui.component.AbstractDatepicker;
+import org.richfaces.ui.input.InputRendererBase;
 
 @ResourceDependencies({
         @ResourceDependency(library = "javax.faces", name = "jsf.js"),

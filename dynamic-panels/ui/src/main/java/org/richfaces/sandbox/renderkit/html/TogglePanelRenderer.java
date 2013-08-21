@@ -21,24 +21,9 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.sandbox.component.AbstractTogglePanel;
-import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
-import org.richfaces.sandbox.component.AbstractTogglePanelItemVisitor;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.AjaxOptions;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.FormUtil;
-import org.richfaces.renderkit.util.HandlersChain;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -46,9 +31,25 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.sandbox.component.AbstractTogglePanel;
+import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
+import org.richfaces.sandbox.component.AbstractTogglePanelItemVisitor;
+import org.richfaces.ui.behavior.HandlersChain;
+import org.richfaces.ui.common.AjaxOptions;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.FormUtil;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author akolonitsky

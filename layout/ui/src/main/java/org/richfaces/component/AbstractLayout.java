@@ -1,12 +1,12 @@
 package org.richfaces.component;
 
+import javax.faces.component.UIPanel;
+
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.LayoutRenderer;
-
-import javax.faces.component.UIPanel;
 
 @JsfComponent(tag = @Tag(name = "layout", type = TagType.Facelets),
         renderer = @JsfRenderer(family = AbstractLayout.COMPONENT_FAMILY, type = LayoutRenderer.RENDERER_TYPE),

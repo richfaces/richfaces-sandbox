@@ -21,24 +21,25 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.sandbox.component.AbstractTogglePanel;
-import org.richfaces.sandbox.component.AbstractTogglePanelItem;
-import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.sandbox.component.AbstractTogglePanel;
+import org.richfaces.sandbox.component.AbstractTogglePanelItem;
+import org.richfaces.sandbox.component.AbstractTogglePanelItemInterface;
 
 /**
  * @author akolonitsky

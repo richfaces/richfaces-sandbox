@@ -1,15 +1,15 @@
 package org.richfaces.sandbox.renderkit.html;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.renderkit.HtmlConstants.ALT_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.IMG_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.SRC_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.TABLE_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.ui.common.HtmlConstants.ALT_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.IMG_ELEMENT;
+import static org.richfaces.ui.common.HtmlConstants.SRC_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.TABLE_ELEMENT;
+import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.util.HtmlUtil.concatClasses;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.util.PanelIcons;
+import org.richfaces.ui.common.PanelIcons;
 
 public abstract class TableIconsRendererHelper<T extends UIComponent> {
     protected final String text;

@@ -1,20 +1,21 @@
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractLightbox;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractLightbox;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 @JsfRenderer(family = AbstractLightbox.COMPONENT_FAMILY, type = LightboxRenderer.RENDERER_TYPE)
 @ResourceDependencies({

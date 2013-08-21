@@ -1,9 +1,14 @@
 package org.richfaces.taglib;
 
+import java.util.Locale;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.view.facelets.*;
-import java.util.Locale;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributeException;
 
 public class PageTagHandler extends ComponentHandler {
 // ------------------------------ FIELDS ------------------------------

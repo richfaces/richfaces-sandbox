@@ -21,10 +21,10 @@
  */
 package org.richfaces.slidfast.renderkit;
 
-import org.richfaces.renderkit.html.DivPanelRenderer;
-import org.richfaces.slidfast.component.AbstractPageContainer;
-
 import javax.faces.component.UIComponent;
+
+import org.richfaces.slidfast.component.AbstractPageContainer;
+import org.richfaces.ui.common.DivPanelRenderer;
 
 /**
  * Base class for the pageContainer renderer

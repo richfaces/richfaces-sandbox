@@ -21,25 +21,26 @@
  */
 package org.richfaces.sandbox.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.sandbox.component.AbstractAccordionItem;
-import org.richfaces.sandbox.component.AbstractTogglePanelTitledItem;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.sandbox.component.AbstractAccordionItem;
+import org.richfaces.sandbox.component.AbstractTogglePanelTitledItem;
 
 /**
  *

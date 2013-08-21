@@ -21,18 +21,20 @@
  */
 package org.richfaces.bootstrap.ui.pickList;
 
-import com.google.common.collect.Iterators;
-import org.richfaces.component.AbstractSelectManyComponent;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.ClientSelectItem;
-import org.richfaces.renderkit.SelectManyHelper;
-import org.richfaces.renderkit.SelectManyRendererBase;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIColumn;
-import java.util.Iterator;
-import java.util.List;
+
+import org.richfaces.ui.select.AbstractSelectManyComponent;
+import org.richfaces.ui.select.ClientSelectItem;
+import org.richfaces.ui.select.SelectManyHelper;
+import org.richfaces.ui.select.SelectManyRendererBase;
+import org.richfaces.util.HtmlUtil;
+
+import com.google.common.collect.Iterators;
 
 /**
  * Base class for the pickList renderer

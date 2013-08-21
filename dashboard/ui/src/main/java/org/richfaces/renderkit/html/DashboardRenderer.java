@@ -22,19 +22,11 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptString;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractDashboard;
-import org.richfaces.component.SwitchType;
-import org.richfaces.event.PositionChangeEvent;
-import org.richfaces.renderkit.AjaxFunction;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -43,11 +35,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractDashboard;
+import org.richfaces.event.PositionChangeEvent;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptString;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.AjaxFunction;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.SwitchType;
+import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.RendererUtils;
 
 @JsfRenderer(family = AbstractDashboard.COMPONENT_FAMILY, type = DashboardRenderer.RENDERER_TYPE)
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js", target = "head"),

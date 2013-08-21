@@ -23,15 +23,15 @@ package org.richfaces.bootstrap.ui.buttonDropdown;
 
 import javax.faces.component.UIPanel;
 
-import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.component.BootstrapScale;
+import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.component.props.CardinalPositionProps;
 import org.richfaces.bootstrap.semantic.RenderSeparatorFacetCapable;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 
 /**
  * Base class for the buttonDropdown component

@@ -11,7 +11,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:call expression="org.richfaces.renderkit.util.FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, component);"/>
+        <cdk:call expression="org.richfaces.util.FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, component);"/>
         <div id="#{clientId}" class="rich-schedule #{component.attributes['styleClass']}">
             <script type="text/javascript">
                 <cdk:call expression="writeInitFunction(facesContext,component);"/>

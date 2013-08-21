@@ -1,13 +1,5 @@
 package org.richfaces.renderkit.html.scripts;
 
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.resource.AbstractCacheableResource;
-import org.richfaces.resource.DynamicResource;
-
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +8,15 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.resource.AbstractCacheableResource;
+import org.richfaces.resource.DynamicResource;
+import org.richfaces.ui.common.HtmlConstants;
 
 @DynamicResource
 public class ScheduleMessages extends AbstractCacheableResource {

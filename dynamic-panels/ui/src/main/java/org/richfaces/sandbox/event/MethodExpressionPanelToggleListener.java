@@ -21,12 +21,12 @@
  */
 package org.richfaces.sandbox.event;
 
-import org.richfaces.event.MethodExpressionEventListener;
-import org.richfaces.event.PanelToggleEvent;
-import org.richfaces.event.PanelToggleListener;
-
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
+
+import org.richfaces.ui.common.MethodExpressionEventListener;
+import org.richfaces.ui.toggle.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleListener;
 
 /**
  * <p>

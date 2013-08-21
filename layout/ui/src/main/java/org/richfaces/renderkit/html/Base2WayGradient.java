@@ -1,11 +1,14 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.renderkit.html.images.GradientType;
-import org.richfaces.renderkit.html.images.GradientType.BiColor;
-
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+
+import org.richfaces.ui.images.BaseGradient;
+import org.richfaces.ui.images.GradientType;
+import org.richfaces.ui.images.GradientType.BiColor;
 
 public class Base2WayGradient extends BaseGradient {
 

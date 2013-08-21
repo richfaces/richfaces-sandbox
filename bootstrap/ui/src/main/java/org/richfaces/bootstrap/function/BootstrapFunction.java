@@ -7,7 +7,7 @@ import org.richfaces.bootstrap.javascript.api.Hideable;
 import org.richfaces.bootstrap.javascript.api.Showable;
 import org.richfaces.bootstrap.javascript.api.Toggleable;
 import org.richfaces.cdk.annotations.Function;
-import org.richfaces.function.RichFunction;
+import org.richfaces.ui.misc.RichFunction;
 
 /**
  * Bootstrap specific functions to operate with client-side component API.

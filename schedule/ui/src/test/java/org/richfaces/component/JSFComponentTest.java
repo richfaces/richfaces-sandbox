@@ -20,8 +20,6 @@
  */
 package org.richfaces.component;
 
-import org.jboss.test.faces.AbstractFacesTest;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,9 +27,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.Ignore;
+
 /**
  * Unit test for simple Component.
  */
+@Ignore
 public class JSFComponentTest
     extends AbstractFacesTest {
 

@@ -32,7 +32,7 @@ import javax.faces.context.ResponseWriter;
 
 /**
  * Base class for the label renderer
- * 
+ *
  * @author <a href="http://www.pauldijou.fr">Paul Dijou</a>
  *
  */
@@ -40,46 +40,46 @@ import javax.faces.context.ResponseWriter;
         @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "bootstrap-css.reslib")})
-public abstract class InputRendererBase extends org.richfaces.renderkit.InputRendererBase {
+public abstract class InputRendererBase extends org.richfaces.ui.input.InputRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.bootstrap.InputRenderer";
 
     public static final String FACET_PREPEND_NAME = "prepend";
     public static final String FACET_APPEND_NAME = "append";
-    
+
     private String wrapperClass = "";
-    
+
     public void encodeBeginWrapper(FacesContext facesContext, UIComponent component) throws IOException {
         AbstractInput input = (AbstractInput) component;
-        
+
         wrapperClass = "";
-        
+
         if(input.hasFacet(FACET_PREPEND_NAME)) {
             wrapperClass += "input-prepend ";
         }
-        
+
         if(input.hasFacet(FACET_APPEND_NAME)) {
             wrapperClass += "input-append ";
         }
-        
+
         if(wrapperClass.length() > 0) {
-            ResponseWriter responseWriter = facesContext.getResponseWriter(); 
+            ResponseWriter responseWriter = facesContext.getResponseWriter();
             responseWriter.startElement("div", component);
             responseWriter.writeAttribute("class", wrapperClass, null);
         }
     }
-    
+
     public void encodeEndWrapper(FacesContext facesContext, UIComponent component) throws IOException {
         if(wrapperClass.length() > 0) {
-            ResponseWriter responseWriter = facesContext.getResponseWriter(); 
+            ResponseWriter responseWriter = facesContext.getResponseWriter();
             responseWriter.endElement("div");
         }
     }
-    
+
     public void addDisabledAttribute(FacesContext facesContext, UIComponent component) throws IOException {
         AbstractInput input = (AbstractInput) component;
-        
+
         if(input.isDisabled()) {
-            ResponseWriter responseWriter = facesContext.getResponseWriter(); 
+            ResponseWriter responseWriter = facesContext.getResponseWriter();
             responseWriter.writeAttribute("disabled", "", null);
         }
     }

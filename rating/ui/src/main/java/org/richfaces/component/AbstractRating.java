@@ -22,6 +22,9 @@
 
 package org.richfaces.component;
 
+import javax.faces.component.UISelectOne;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -29,9 +32,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.RatingRenderer;
-
-import javax.faces.component.UISelectOne;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 
 @JsfComponent(tag = @Tag(name = "rating", type = TagType.Facelets),
     renderer = @JsfRenderer(family = AbstractRating.COMPONENT_FAMILY, type = RatingRenderer.RENDERER_TYPE), attributes = "core-props.xml")

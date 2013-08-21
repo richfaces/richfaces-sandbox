@@ -26,8 +26,8 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.AbstractSelectManyComponent;
-import org.richfaces.component.util.SelectItemsInterface;
+import org.richfaces.ui.select.AbstractSelectManyComponent;
+import org.richfaces.ui.select.SelectItemsInterface;
 
 /**
  *  Base class for the orderingList component

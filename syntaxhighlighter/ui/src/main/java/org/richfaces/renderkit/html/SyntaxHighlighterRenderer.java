@@ -22,11 +22,15 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractSyntaxHighlighter;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.faces.application.Application;
 import javax.faces.application.ResourceDependencies;
@@ -35,9 +39,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.event.*;
-import java.io.IOException;
-import java.util.*;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRenderComponentEvent;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractSyntaxHighlighter;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class, sourceClass = AbstractSyntaxHighlighter.class)
 @JsfRenderer(family = AbstractSyntaxHighlighter.COMPONENT_FAMILY, type = SyntaxHighlighterRenderer.RENDERER_TYPE)

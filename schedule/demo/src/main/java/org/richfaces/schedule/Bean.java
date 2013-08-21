@@ -1,8 +1,19 @@
 package org.richfaces.schedule;
 
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+
 import org.richfaces.component.AbstractSchedule;
 import org.richfaces.component.event.ScheduleDateRangeChangeEvent;
 import org.richfaces.component.event.ScheduleDateRangeChangeListener;
@@ -19,19 +30,9 @@ import org.richfaces.component.event.ScheduleItemSelectListener;
 import org.richfaces.component.event.ScheduleViewChangeEvent;
 import org.richfaces.component.event.ScheduleViewChangeListener;
 import org.richfaces.component.model.DateRange;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
+import org.richfaces.model.Range;
 
 public class Bean implements Serializable {
 // ------------------------------ FIELDS ------------------------------
