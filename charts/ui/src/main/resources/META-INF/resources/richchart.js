@@ -240,6 +240,10 @@
             this._draw();
         },
                 
+        getPlotObject: function(){
+            return this.plot;
+        },        
+                
         _unbind:function(){
             this.element.unbind("plotclick");
             this.element.unbind("plothover");
