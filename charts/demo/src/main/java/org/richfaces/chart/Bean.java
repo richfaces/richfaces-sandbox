@@ -50,6 +50,8 @@ public class Bean implements Serializable {
     
     @PostConstruct
     public void init(){
+    	
+    	
         position = "ne";
         sorting = "";
         positions = new ArrayList<String>(Arrays.asList("nw","sw","ne","se"));
