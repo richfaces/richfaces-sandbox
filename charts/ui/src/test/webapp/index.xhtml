@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:r="http://richfaces.org/rich"
+	xmlns:r="http://richfaces.org"
 	xmlns:s="http://richfaces.org/sandbox/prototyping">
 <h:head>
 	<title>Use my chart</title>
@@ -17,18 +17,21 @@
 </style>
 	<script type="text/javascript">
 //<![CDATA[
-         
+     $(function(){
+    	 $($(document.getElementById("frm:chart")).children()[1]).bind("click",function(event){console.log(event)})
+     });
+           
+     function logClick(event){
+		$("#clickInfo").text(event.data.x+','+event.data.y);
+     }    
     
 //]]>
 </script>
 </h:head>
 <h:body>
 
-	<h:form>
-
-		<s:chart onplotclick="log(event,'Line chart')"
-			onmouseover="hover(event)" onmouseout="clear()"
-			clickListener="#{eventBean.handler}">
+	<h:form id="frm">
+		<s:chart id="chart" onplotclick="logClick(event)">
 			<r:repeat value="#{eventBean.countries}" var="country">
 				<s:series label="#{country.name}" type="line">
 					<r:repeat value="#{country.data}" var="record">
@@ -40,12 +43,9 @@
 			<s:xaxis label="year" />
 			<s:yaxis label="metric tons of CO2 per capita" />
 		</s:chart>
-
 		<h:outputText id="msg" value="#{eventBean.msg}" />
 	</h:form>
 
-	<span id='hoverInfo' />
-	<br />
 	<span id='clickInfo'></span>
 	<br />
 </h:body>

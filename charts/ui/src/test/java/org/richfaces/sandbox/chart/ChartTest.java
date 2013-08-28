@@ -1,13 +1,13 @@
 package org.richfaces.sandbox.chart;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
@@ -19,25 +19,34 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
-@RunAsClient
+
 @RunWith(Arquillian.class)
 public class ChartTest {
 
 	private static final String WEBAPP_PATH = "src/test/webapp";
 	private static final String INDEX_PAGE = "faces/index.xhtml";
 
+	private int seriesCount;
+	
 	@Drone
 	WebDriver browser;
 
 	@ArquillianResource
 	URL deploymentUrl;
 
+	Actions builder;
 	
-	@Deployment(testable=false)
+	@Deployment
 	public static WebArchive createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class,
 				"this-component.jar");
@@ -68,9 +77,56 @@ public class ChartTest {
 
 	}
 	
+	@JavaScript
+	ChartJs chtestjs;
+	
+	
+	@Before
+	public void setExpectedValues(){
+		//eventBean.getCountries().size();
+		seriesCount=4;
+	}
+	
+	@Before 
+	public void init(){
+		builder = new Actions(browser);
+	}
+	
+	@RunAsClient
 	@Test
-	public void Empty() {
-		assertTrue(true);
+	public void ChartCreated() {
+		browser.get(deploymentUrl.toExternalForm());
+		
+		Assert.assertEquals("Hello World!",chtestjs.hello());
+		
+		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chart")));
+		
+		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chart']/canvas[@class='base']")));
+		
+		Assert.assertEquals(seriesCount,chtestjs.seriesLength("frm:chart"));
+	}
+	
+	@FindBy(id="clickInfo")
+	WebElement clickSpan;
+	
+	//class should be flot-base in newer version 
+	@FindBy(xpath="//div[@id='frm:chart']/canvas[@class='overlay']")
+	WebElement chartCanvas;
+	
+	@RunAsClient
+	@Test
+	public void ClientSideClick(){
+		/*browser.get(deploymentUrl.toExternalForm());
+		
+		Action click = builder.moveToElement(chartCanvas,
+				100,//chtestjs.pointXPos("frm:chart", 0, 0),
+				100)//chtestjs.pointYPos("frm:chart", 0, 0))
+				.click().build();
+		
+		click.perform();
+		String expected =   Long.toString(chtestjs.pointX("frm:chart", 0, 0)) + 
+				','+ Long.toString(chtestjs.pointY("frm:chart", 0, 0));
+		Assert.assertEquals(expected, clickSpan.getText());*/
 	}
 
 }
