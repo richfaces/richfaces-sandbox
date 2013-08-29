@@ -24,7 +24,7 @@
 
     <engine>
         <property name="maxTestClassesBeforeRestart">${arquillian.maxTestClassesBeforeRestart:10}</property>
-<!--         <property name="deploymentExportPath">target/</property> -->
+        <property name="deploymentExportPath">target/</property> 
     </engine>
 
     <container qualifier="jbossas71" default="${arquillian.launch.jbossas71}">

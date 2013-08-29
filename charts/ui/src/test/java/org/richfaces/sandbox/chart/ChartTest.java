@@ -116,17 +116,22 @@ public class ChartTest {
 	@RunAsClient
 	@Test
 	public void ClientSideClick(){
-		/*browser.get(deploymentUrl.toExternalForm());
+		browser.get(deploymentUrl.toExternalForm());
 		
 		Action click = builder.moveToElement(chartCanvas,
-				100,//chtestjs.pointXPos("frm:chart", 0, 0),
-				100)//chtestjs.pointYPos("frm:chart", 0, 0))
+				chtestjs.pointXPos("frm:chart", 0, 0),
+				chtestjs.pointYPos("frm:chart", 0, 0))
 				.click().build();
 		
 		click.perform();
-		String expected =   Long.toString(chtestjs.pointX("frm:chart", 0, 0)) + 
-				','+ Long.toString(chtestjs.pointY("frm:chart", 0, 0));
-		Assert.assertEquals(expected, clickSpan.getText());*/
+		
+		//crop decimal places
+		double xVal = chtestjs.pointX("frm:chart", 0, 0);
+		int xValInt = (int) xVal;
+		
+		String expected =  Integer.toString(xValInt)  + 
+				','+ Double.toString(chtestjs.pointY("frm:chart", 0, 0));
+		Assert.assertEquals(expected, clickSpan.getText());
 	}
 
 }

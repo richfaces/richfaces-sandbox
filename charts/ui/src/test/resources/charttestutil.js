@@ -29,6 +29,6 @@ window.charttestutil.pointYPos = function(id,seriesIndex,pointIndex){
 	  //line chart only for now
 	  var yVal = window.charttestutil.pointY(id,seriesIndex,pointIndex);
 	  var plotObj = $(document.getElementById(id)).chart("getPlotObject");
-	  return plotObj.getYAxes()[0].p2c(yVal)+plotObj.offset().top;
+	  return plotObj.getYAxes()[0].p2c(yVal)+plotObj.offset().top-10;
 }
 

@@ -11,8 +11,8 @@ public interface ChartJs {
     String hello();
     int seriesLength(String id);
     int dataLength(String id, int seriesIndex);
-    long pointX(String id, int seriesIndex, int pointIndex);
-    long pointY(String id, int seriesIndex, int pointIndex);
+    double pointX(String id, int seriesIndex, int pointIndex);
+    double pointY(String id, int seriesIndex, int pointIndex);
     int pointXPos(String id, int seriesIndex, int pointIndex);
     int pointYPos(String id, int seriesIndex, int pointIndex);
  
