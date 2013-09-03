@@ -101,7 +101,7 @@ public class ChartTest {
 		
 		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chart")));
 		
-		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chart']/canvas[@class='base']")));
+		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chart']/canvas[@class='flot-base']")));
 		
 		Assert.assertEquals(seriesCount,chtestjs.seriesLength("frm:chart"));
 	}
@@ -110,7 +110,7 @@ public class ChartTest {
 	WebElement clickSpan;
 	
 	//class should be flot-base in newer version 
-	@FindBy(xpath="//div[@id='frm:chart']/canvas[@class='overlay']")
+	@FindBy(xpath="//div[@id='frm:chart']/canvas[@class='flot-overlay']")
 	WebElement chartCanvas;
 	
 	@RunAsClient
