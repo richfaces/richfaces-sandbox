@@ -49,6 +49,7 @@
                 <module>accesskeyhelper</module>
                 <module>bootstrap</module>
                 <module>carousel</module>
+                <module>charts</module>
                 <module>colorpicker</module>
                 <module>component-template</module>
                 <module>dashboard</module>
