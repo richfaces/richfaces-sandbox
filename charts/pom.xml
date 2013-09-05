@@ -72,7 +72,7 @@
                     </releases>
                     <snapshots>
                         <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
+                        <updatePolicy>daily</updatePolicy>
                     </snapshots>
                 </pluginRepository>
             </pluginRepositories>

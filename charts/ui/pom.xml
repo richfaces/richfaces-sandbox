@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
-            <version>4.5.0-SNAPSHOT</version>
+            <version>${version.cdk}</version>
         </dependency>
 
         <dependency>
