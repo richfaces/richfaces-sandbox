@@ -6,7 +6,6 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -28,6 +27,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 
 @RunWith(Arquillian.class)
@@ -37,7 +37,7 @@ public class ChartTest {
 	private static final String INDEX_PAGE = "faces/index.xhtml";
 
 	private int seriesCount;
-	
+
 	@Drone
 	WebDriver browser;
 
@@ -45,7 +45,7 @@ public class ChartTest {
 	URL deploymentUrl;
 
 	Actions builder;
-	
+
 	@Deployment
 	public static WebArchive createDeployment() {
 		JavaArchive jar = ShrinkWrap.create(JavaArchive.class,
@@ -76,60 +76,60 @@ public class ChartTest {
 		return arch;
 
 	}
-	
+
 	@JavaScript
 	ChartJs chtestjs;
-	
-	
+
+
 	@Before
 	public void setExpectedValues(){
 		//eventBean.getCountries().size();
 		seriesCount=4;
 	}
-	
-	@Before 
+
+	@Before
 	public void init(){
 		builder = new Actions(browser);
 	}
-	
+
 	@RunAsClient
 	@Test
 	public void ChartCreated() {
 		browser.get(deploymentUrl.toExternalForm());
-		
+
 		Assert.assertEquals("Hello World!",chtestjs.hello());
-		
+
 		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chart")));
-		
+
 		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chart']/canvas[@class='flot-base']")));
-		
+
 		Assert.assertEquals(seriesCount,chtestjs.seriesLength("frm:chart"));
 	}
-	
+
 	@FindBy(id="clickInfo")
 	WebElement clickSpan;
-	
-	//class should be flot-base in newer version 
+
+	//class should be flot-base in newer version
 	@FindBy(xpath="//div[@id='frm:chart']/canvas[@class='flot-overlay']")
 	WebElement chartCanvas;
-	
+
 	@RunAsClient
 	@Test
 	public void ClientSideClick(){
 		browser.get(deploymentUrl.toExternalForm());
-		
+
 		Action click = builder.moveToElement(chartCanvas,
 				chtestjs.pointXPos("frm:chart", 0, 0),
 				chtestjs.pointYPos("frm:chart", 0, 0))
 				.click().build();
-		
+
 		click.perform();
-		
+
 		//crop decimal places
 		double xVal = chtestjs.pointX("frm:chart", 0, 0);
 		int xValInt = (int) xVal;
-		
-		String expected =  Integer.toString(xValInt)  + 
+
+		String expected =  Integer.toString(xValInt)  +
 				','+ Double.toString(chtestjs.pointY("frm:chart", 0, 0));
 		Assert.assertEquals(expected, clickSpan.getText());
 	}

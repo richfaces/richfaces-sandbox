@@ -14,3 +14,4 @@ rebel.xml
 *.faces-config.xml.jsfdia
 *.faces-config.NavData
 *~
+phantomjsdriver.log
