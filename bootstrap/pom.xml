@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>4.3.4-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -38,7 +38,7 @@
     <name>Richfaces UI Sandbox Components: bootstrap parent</name>
 
     <properties>
-        <version.richfaces>4.3.1-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.3.4-SNAPSHOT</version.richfaces>
     </properties>
 
     <modules>

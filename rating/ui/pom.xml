@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.rating</groupId>
         <artifactId>rating-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>4.3.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>rating-ui</artifactId>

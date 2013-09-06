@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.richfaces.sandbox.ui.accesskeyhelper</groupId>
         <artifactId>accesskeyhelper-parent</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>4.3.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>accesskeyhelper-demo</artifactId>
