@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:r="http://richfaces.org"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:s="http://richfaces.org/sandbox/prototyping">
+    <h:head>
+        <title>Charts quick-start</title>
+        <style type="text/css">
+            .myChart{width:500px}
+        </style>
+        <script type="text/javascript">
+            //<![CDATA[  
+            
+            //]]>
+        </script>
+
+    </h:head>
+    <h:body>
+		
+		<s:chart styleClass="myChart">
+			<r:repeat value="#{bean.countries}" var="country">
+				<s:series label="#{country.name}" type="line">
+					<r:repeat value="#{country.data}" var="record">
+						<s:point x="#{record.year}" y="#{record.tons}" />
+					</r:repeat>
+				</s:series>
+			</r:repeat>
+			<s:xaxis label="year" />
+			<s:yaxis label="metric tons of CO2 per capita" />
+		</s:chart>
+		
+    </h:body>
+</html>

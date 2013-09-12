@@ -39,6 +39,7 @@
     <modules>
         <module>ui</module>
         <module>demo</module>
+        <module>quickstart</module>
     </modules>
 
     <profiles>
