@@ -6,12 +6,14 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+
 import org.richfaces.sandbox.chart.PlotClickEvent;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
+import org.richfaces.sandbox.chart.model.ChartDataModel.ChartType;
 import org.richfaces.sandbox.chart.model.DateChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
 import org.richfaces.sandbox.chart.model.StringChartDataModel;
@@ -43,14 +45,15 @@ public class Bean implements Serializable {
     
     List<GDPRecord> gdp;
     
-    
-  
+    NumberChartDataModel err;
+    List<Country> err2;
     
     
     
     @PostConstruct
     public void init(){
-    	
+    	err2 = new LinkedList<Country>();
+    	err = new NumberChartDataModel(ChartType.line);
     	
         position = "ne";
         sorting = "";
@@ -196,6 +199,10 @@ public class Bean implements Serializable {
         
     }
 
+    public NumberChartDataModel getErr() {
+		return err;
+	}
+    
     public NumberChartDataModel getA() {
         return a;
     }
@@ -216,6 +223,9 @@ public class Bean implements Serializable {
         return category2;
     }
 
+    public List<Country> getErr2() {
+		return err2;
+	}
     
 
     public NumberChartDataModel getBarModel() {

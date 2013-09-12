@@ -3,11 +3,13 @@ package org.richfaces.sandbox.chart;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.RendererBase;
@@ -16,20 +18,27 @@ import org.richfaces.sandbox.chart.component.AbstractLegend;
 import org.richfaces.sandbox.chart.component.AbstractSeries;
 import org.richfaces.sandbox.chart.component.AbstractXaxis;
 import org.richfaces.sandbox.chart.component.AbstractYaxis;
+
 import static java.util.Arrays.asList;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.faces.FacesException;
+
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.json.JSONArray;
 import org.richfaces.renderkit.RenderKitUtils;
+
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
+
 import org.richfaces.sandbox.chart.component.AbstractPoint;
 import org.richfaces.sandbox.chart.model.ChartDataModel;
 import org.richfaces.sandbox.chart.model.NumberChartDataModel;
 import org.richfaces.sandbox.chart.model.StringChartDataModel;
+import org.richfaces.sandbox.chart.model.ChartDataModel.ChartType;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.util.AjaxRendererUtils;
 
@@ -149,9 +158,11 @@ public abstract class ChartRendererBase extends RendererBase {
         //store data to parent tag
         component.getAttributes().put("data", visitCallback.getData());
         
-        component.getAttributes().put("charttype", visitCallback.getChartType());
-        component.getAttributes().put("xtype", visitCallback.getKeyType());
-        component.getAttributes().put("ytype", visitCallback.getValType());
+        if(!visitCallback.isDataEmpty()){
+	        component.getAttributes().put("charttype", visitCallback.getChartType());
+	        component.getAttributes().put("xtype", visitCallback.getKeyType());
+	        component.getAttributes().put("ytype", visitCallback.getValType());
+        }
         
         component.getAttributes().put("handlers", visitCallback.getSeriesSpecificHandlers());
 
@@ -203,8 +214,9 @@ public abstract class ChartRendererBase extends RendererBase {
         private Class keyType;
         private Class valType;
         private RenderKitUtils.ScriptHashVariableWrapper eventWrapper=RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
+        private boolean nodata;
         public VisitChart(AbstractChart ch) {
-            
+            this.nodata=true;
             this.chart = ch;
             this.chartType = null;
             this.data = new JSONArray();
@@ -289,13 +301,35 @@ public abstract class ChartRendererBase extends RendererBase {
                     VisitSeries seriesCallback = new VisitSeries(s.getType());
                     s.visitTree(VisitContext.createVisitContext(FacesContext.getCurrentInstance()), seriesCallback);
                     model = seriesCallback.getModel();
+                    //if series had no data create empty model
+                    if(model==null){
+                    	switch (s.getType()) {
+						case line:
+							model = new NumberChartDataModel(ChartType.line);
+							break;
+						case bar:
+							model = new NumberChartDataModel(ChartType.bar);
+							break;
+						case pie:
+							model = new StringChartDataModel(ChartType.pie);
+							break;
+						default:
+							break;
+						}
+                    }
+                    else{
+                    	nodata=false;
+                    }
+                }
+                else{
+                	nodata=false;
                 }
                 model.setAttributes(s.getAttributes());
                 
                 try {
                     //Check model/series compatibility
                     
-                    if(chartType==null){
+                    if(chartType==null && (!nodata)){
                         chartType= model.getType();
                         keyType  = model.getKeyType();
                         valType  = model.getValueType();
@@ -322,7 +356,10 @@ public abstract class ChartRendererBase extends RendererBase {
             }
             return VisitResult.ACCEPT;
         }
-
+        public boolean isDataEmpty(){
+        	return nodata;
+        }
+        
         public JSONArray getData() {
             return data;
         }
