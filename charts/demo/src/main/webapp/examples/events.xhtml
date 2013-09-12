@@ -32,7 +32,13 @@
 
 
 <ui:define name="content">
-    Client side
+   
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="events"/>
+    </ui:include>
+   
+    
+     Client side
     <ul>
         <li>plotclick</li>
         <li>mouseover</li>
@@ -43,51 +49,6 @@
     <ul>
         <li>plotclick</li>
     </ul>
-    
-    <script type='text/javascript'>
-        //<![CDATA[  
-           function log(e,type){
-               $('#clickInfo').text(type+" Series index: "+e.data.seriesIndex
-                       +" DataIndex: "+e.data.dataIndex+' ['+e.data.x+','+e.data.y+']');
-           }
-           function bClick(e){
-               $("#bInfo").text("This handler is callend only when B product clicked");
-           }
-           function hover(e){
-               $("#hoverInfo").text('['+e.data.x+','+e.data.y+']');
-           }
-           function barHover(e){
-               $("#barHover").text('['+e.data.x+','+e.data.y+']');
-           }
-           function clear(){
-               $("#hoverInfo").text("");
-               $("#barHover").text("");
-           }
-        //]]>
-    </script>
-     
-    <h:form>
-        
-        <s:chart onplotclick="log(event,'Line chart')" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
-            <r:repeat value="#{eventBean.countries}" var="country" >
-                <s:series label="#{country.name}" type="line">
-                    <r:repeat value="#{country.data}" var="record">
-                        <s:point x="#{record.year}" y="#{record.tons}" />
-                    </r:repeat>
-                </s:series>
-            </r:repeat>
-            <r:ajax event="plotclick" render="msg" execute="msg"/>
-            <s:xaxis  label="year"/>
-            <s:yaxis label="metric tons of CO2 per capita"/>
-        </s:chart>
-        
-        <h:outputText id="msg" value="#{eventBean.msg}"/>
-    </h:form>
-    <span id='hoverInfo'/><br/>
-    <span id='clickInfo'></span><br/>
-    <br/>
-    
   
-    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/events.xhtml">source</a>
 </ui:define>
 </ui:composition>

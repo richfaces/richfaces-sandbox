@@ -34,17 +34,10 @@
 <ui:define name="content">
     
     
-    <s:chart id="myChart" >
-        <s:legend sorting="ascending"/>
-        <r:repeat value="#{bean.gdp}" var="country">
-            <s:series label="#{country.state}" type="bar">
-                <s:point x="Agricultural" y="#{country.agricult}"/>
-                <s:point x="Industrial" y="#{country.industry}"/>
-                <s:point x="Service" y="#{country.service}"/>
-            </s:series>
-        </r:repeat>
-    </s:chart>
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="bars"/>
+    </ui:include>
     GDP sector composition <a href="http://en.wikipedia.org/wiki/List_of_countries_by_GDP_sector_composition">data</a>
-    <br/>    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/bar.xhtml">source</a>
+    <br/>
 </ui:define>
 </ui:composition>

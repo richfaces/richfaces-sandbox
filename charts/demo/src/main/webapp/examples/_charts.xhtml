@@ -27,7 +27,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:r="http://richfaces.org"
-                xmlns:s="http://richfaces.org/sandbox/prototyping">
+                xmlns:s="http://richfaces.org/sandbox/prototyping"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:param name="title" value="General" />
 
 
@@ -35,35 +36,18 @@
     <style type="text/css">
         .graf{width:450px;}
     </style>
-    
-  
-    Countries by carbon dioxide emissions per capita.
+      
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="basic"/>
+    </ui:include>
     <a href="http://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions_per_capita">data</a>
-    <br/><br/>
-    <s:chart>
-        <r:repeat value="#{bean.countries}" var="country" >
-            <s:series label="#{country.name}" type="line">
-                <r:repeat value="#{country.data}" var="record">
-                    <s:point x="#{record.year}" y="#{record.tons}" />
-                </r:repeat>
-            </s:series>
-        </r:repeat>
-        <s:xaxis  label="year"/>
-        <s:yaxis label="metric tons of CO2 per capita"/>
-    </s:chart>
-   
-    
-
-    
-    
-    Countries by vehicles per capita
+    <br/>
+    <br/>
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="categoryBar"/>
+    </ui:include>
     <a href="http://en.wikipedia.org/wiki/List_of_countries_by_vehicles_per_capita">data</a>
-    <br/><br/>
-    <s:chart id="barChart" >
-        <s:series data="#{bean.cars}" type="bar" />
-        <s:yaxis label="Motor vehicles per 1000 people"/>
-    </s:chart>
-    
-    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/_charts.xhtml#L37">source</a>
+    <br/>
+    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/java/org/richfaces/chart/Bean.java">backing bean source</a>
 </ui:define>
 </ui:composition>

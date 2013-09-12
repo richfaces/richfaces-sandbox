@@ -32,12 +32,9 @@
 
 
 <ui:define name="content">
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="pie"/>
+    </ui:include>
     
-    
-    <s:chart id="myChart" title="USA GDP" >
-        <s:legend sorting="ascending"/>
-        <s:series data="#{bean.pie}" type="pie"/>
-    </s:chart>
-    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/pie.xhtml">source</a>
 </ui:define>
 </ui:composition>

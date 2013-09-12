@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap"
+    xmlns:s="http://richfaces.org/sandbox/prototyping"
+    xmlns:r="http://richfaces.org">
+<s:chart id="myChart" >
+        <s:legend sorting="ascending"/>
+        <r:repeat value="#{bean.gdp}" var="country">
+            <s:series label="#{country.state}" type="bar">
+                <s:point x="Agricultural" y="#{country.agricult}"/>
+                <s:point x="Industrial" y="#{country.industry}"/>
+                <s:point x="Service" y="#{country.service}"/>
+            </s:series>
+        </r:repeat>
+</s:chart>
+</ui:composition>

@@ -34,11 +34,9 @@
 <ui:define name="content">
     
     
-    <s:chart id="myChart" >
-        <s:legend sorting="ascending"/>
-        <s:series data="#{bean.barModel}" type="bar"/>
-        <s:series data="#{bean.a}" type="line"/>
-    </s:chart>
-    See <a href="https://github.com/Lukindo/richfaces-sandbox/blob/master/charts/demo/src/main/webapp/examples/pie.xhtml">source</a>
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="combined"/>
+    </ui:include>
+   
 </ui:define>
 </ui:composition>

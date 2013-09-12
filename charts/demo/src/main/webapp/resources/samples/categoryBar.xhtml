@@ -1,0 +1,10 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap"
+    xmlns:s="http://richfaces.org/sandbox/prototyping"
+    xmlns:r="http://richfaces.org">
+<s:chart id="barChart" title="Countries by vehicles per capita">
+   <s:series data="#{bean.cars}" type="bar" />
+   <s:yaxis label="Motor vehicles per 1000 people"/>
+</s:chart>
+</ui:composition>

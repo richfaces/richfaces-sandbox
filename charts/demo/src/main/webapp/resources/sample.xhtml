@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    
+    <ui:include src="/resources/samples/#{facelet}.xhtml"/>
+    <b:codeblock styleClass="lang-html">
+        <h:outputText value="/resources/samples/#{facelet}.xhtml" escape="true"  converter="FileConverter" />
+    </b:codeblock>
+</ui:composition>
+</html>

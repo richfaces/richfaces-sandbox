@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap"
+    xmlns:s="http://richfaces.org/sandbox/prototyping"
+    xmlns:r="http://richfaces.org">
+<s:chart id="myChart" zoom="true" >
+        <s:legend sorting="ascending"/>
+        <s:series data="#{bean.a}" type="line" label="A product" color="darkcyan" symbol="circle"/>
+        <s:series data="#{bean.b}" type="line" label="B product" color="chocolate" symbol="square"/>
+        <s:series data="#{bean.c}" type="line" label="C product" color="coral" symbol="diamond"/>
+</s:chart>
+</ui:composition>
+    

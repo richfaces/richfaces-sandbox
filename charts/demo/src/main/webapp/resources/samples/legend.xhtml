@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap"
+    xmlns:s="http://richfaces.org/sandbox/prototyping"
+    xmlns:r="http://richfaces.org">
+<h:form>
+    <s:chart id="co2Chart">
+        <r:repeat value="#{bean.countries}" var="country" >
+            <s:series label="#{country.name}" type="line">
+                <r:repeat value="#{country.data}" var="record">
+                    <s:point x="#{record.year}" y="#{record.tons}" />
+                </r:repeat>
+            </s:series>
+        </r:repeat>
+        <s:xaxis  label="year"/>
+        <s:yaxis label="metric tons of CO2 per capita"/>
+        <s:legend position="#{bean.position}" sorting="#{bean.sorting}"/>
+    </s:chart>
+  
+    
+        <h:selectOneMenu value="#{bean.position}">
+              <f:selectItems value="#{bean.positions}" var="p" itemValue="#{p}"/>
+        </h:selectOneMenu>
+        <h:selectOneMenu value="#{bean.sorting}">
+            <f:selectItems value="#{bean.sortings}" var="s" itemValue="#{s}"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Update" >
+              <r:ajax event="click" execute="@form" render="co2Chart"/>
+        </h:commandButton>
+</h:form>
+</ui:composition>

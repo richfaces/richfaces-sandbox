@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://richfaces.org/sandbox/bootstrap"
+    xmlns:s="http://richfaces.org/sandbox/prototyping"
+    xmlns:r="http://richfaces.org">
+<script type='text/javascript'>
+        //<![CDATA[  
+           function log(e){
+               $('#clickInfo').text("Series index: "+e.data.seriesIndex
+                       +" DataIndex: "+e.data.dataIndex+' ['+e.data.x+','+e.data.y+']');
+           }
+           function hover(e){
+               $("#hoverInfo").text(e.data.item.series.label+' ['+e.data.x+','+e.data.y+']');
+           }
+           function clear(){
+               $("#hoverInfo").text("");
+           }
+        //]]>
+    </script>
+     
+    <h:form>
+        
+        <s:chart onplotclick="log(event)" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
+            <r:repeat value="#{eventBean.countries}" var="country" >
+                <s:series label="#{country.name}" type="line">
+                    <r:repeat value="#{country.data}" var="record">
+                        <s:point x="#{record.year}" y="#{record.tons}" />
+                    </r:repeat>
+                </s:series>
+            </r:repeat>
+            <r:ajax event="plotclick" render="msg" execute="msg"/>
+            <s:xaxis label="year"/>
+            <s:yaxis label="metric tons of CO2 per capita"/>
+        </s:chart>
+        
+        <h:outputText id="msg" value="#{eventBean.msg}"/>
+    </h:form>
+    <span id='hoverInfo'/><br/>
+    <span id='clickInfo'></span><br/>
+</ui:composition>

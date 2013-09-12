@@ -32,36 +32,16 @@
 
 
 <ui:define name="content">
+
+    <ui:include src="/resources/sample.xhtml">
+    	<ui:param name="facelet" value="legend"/>
+    </ui:include>
+    
+    
     Legend customization
     <ul>
        <li>position</li>
        <li>sorting</li>
     </ul>
-    
-    <h:form>
-    <s:chart id="co2Chart">
-        <r:repeat value="#{bean.countries}" var="country" >
-            <s:series label="#{country.name}" type="line">
-                <r:repeat value="#{country.data}" var="record">
-                    <s:point x="#{record.year}" y="#{record.tons}" />
-                </r:repeat>
-            </s:series>
-        </r:repeat>
-        <s:xaxis  label="year"/>
-        <s:yaxis label="metric tons of CO2 per capita"/>
-        <s:legend position="#{bean.position}" sorting="#{bean.sorting}"/>
-    </s:chart>
-  
-    
-        <h:selectOneMenu value="#{bean.position}">
-              <f:selectItems value="#{bean.positions}" var="p" itemValue="#{p}"/>
-        </h:selectOneMenu>
-        <h:selectOneMenu value="#{bean.sorting}">
-            <f:selectItems value="#{bean.sortings}" var="s" itemValue="#{s}"/>
-        </h:selectOneMenu>
-        <h:commandButton value="Update" >
-              <r:ajax event="click" execute="@form" render="co2Chart"/>
-        </h:commandButton>
-    </h:form>
 </ui:define>
 </ui:composition>
