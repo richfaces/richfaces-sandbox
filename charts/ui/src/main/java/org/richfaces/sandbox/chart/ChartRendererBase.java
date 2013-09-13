@@ -78,6 +78,13 @@ public abstract class ChartRendererBase extends RendererBase {
         return obj;
     }
 
+    /**
+     * Method creates JSON containing chart options
+     * @param context
+     * @param component
+     * @return
+     * @throws IOException
+     */
     public JSONObject getOpts(FacesContext context, UIComponent component) throws IOException {
         JSONObject obj = new JSONObject();
         addAttribute(obj, "zoom", component.getAttributes().get("zoom"));
@@ -139,12 +146,20 @@ public abstract class ChartRendererBase extends RendererBase {
     }
 
     
-    
+    /**
+     * Returns chart chart data
+     * @param ctx
+     * @param component
+     * @return
+     */
     public JSONArray getData(FacesContext ctx, UIComponent component) {
         return (JSONArray) component.getAttributes().get("data");
     }
     
 
+    /**
+     * Method process chart tags, it collects chart options and data.  
+     */
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component);
@@ -209,7 +224,7 @@ public abstract class ChartRendererBase extends RendererBase {
         private JSONArray data;
         private JSONObject seriesSpecificHandlers;
         private JSONArray plotClickHandlers;
-        private JSONArray mouseoverHandlers;
+        private JSONArray plothoverHandlers;
         private ChartDataModel.ChartType chartType;
         private Class keyType;
         private Class valType;
@@ -222,11 +237,11 @@ public abstract class ChartRendererBase extends RendererBase {
             this.data = new JSONArray();
             this.seriesSpecificHandlers = new JSONObject();
             this.plotClickHandlers = new JSONArray();
-            this.mouseoverHandlers = new JSONArray();
+            this.plothoverHandlers = new JSONArray();
             
             try{
                 addAttribute(seriesSpecificHandlers, "onplotclick", plotClickHandlers);
-                addAttribute(seriesSpecificHandlers, "onmouseover", mouseoverHandlers);
+                addAttribute(seriesSpecificHandlers, "onplothover", plothoverHandlers);
             } catch (IOException ex){
                 throw new FacesException(ex);
             }
@@ -270,8 +285,8 @@ public abstract class ChartRendererBase extends RendererBase {
                 //Collect Series specific handlers
                 Map<String,Object> optMap = new HashMap<String, Object>();
                 RenderKitUtils.Attributes seriesEvents = attributes()
-                .generic("onmouseover","onmouseover","mouseover")
-	        .generic("onplotclick","onplotclick","plotclick");
+                .generic("onplothover","onplothover","plothover")
+	            .generic("onplotclick","onplotclick","plotclick");
                 
                 addToScriptHash(optMap, context.getFacesContext(), target, seriesEvents, RenderKitUtils.ScriptHashVariableWrapper.eventHandler);
                 
@@ -283,11 +298,11 @@ public abstract class ChartRendererBase extends RendererBase {
                 }
                 
                 
-                if(optMap.get("onmouseover")!=null){
-                    mouseoverHandlers.put(new RawJSONString(optMap.get("onmouseover").toString()));
+                if(optMap.get("onplothover")!=null){
+                    plothoverHandlers.put(new RawJSONString(optMap.get("onplothover").toString()));
                 }
                 else{
-                    mouseoverHandlers.put(s.getOnmouseover());
+                    plothoverHandlers.put(s.getOnplothover());
                 }
                 //end collect series specific handler
                 
@@ -301,7 +316,8 @@ public abstract class ChartRendererBase extends RendererBase {
                     VisitSeries seriesCallback = new VisitSeries(s.getType());
                     s.visitTree(VisitContext.createVisitContext(FacesContext.getCurrentInstance()), seriesCallback);
                     model = seriesCallback.getModel();
-                    //if series had no data create empty model
+                    
+                    //if series has no data create empty model
                     if(model==null){
                     	switch (s.getType()) {
 						case line:
@@ -330,6 +346,7 @@ public abstract class ChartRendererBase extends RendererBase {
                     //Check model/series compatibility
                     
                     if(chartType==null && (!nodata)){
+                    	//if series is empty do not set types
                         chartType= model.getType();
                         keyType  = model.getKeyType();
                         valType  = model.getValueType();

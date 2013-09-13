@@ -46,13 +46,13 @@ public class Bean implements Serializable {
     List<GDPRecord> gdp;
     
     NumberChartDataModel err;
-    List<Country> err2;
+    List<Country> cntry;
     
     
     
     @PostConstruct
     public void init(){
-    	err2 = new LinkedList<Country>();
+    	cntry = new LinkedList<Country>();
     	err = new NumberChartDataModel(ChartType.line);
     	
         position = "ne";
@@ -223,8 +223,8 @@ public class Bean implements Serializable {
         return category2;
     }
 
-    public List<Country> getErr2() {
-		return err2;
+    public List<Country> getCntry() {
+		return cntry;
 	}
     
 

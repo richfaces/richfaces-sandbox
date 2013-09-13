@@ -20,7 +20,7 @@
      
     <h:form>
         
-        <s:chart onplotclick="log(event)" onmouseover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
+        <s:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" clickListener="#{eventBean.handler}">
             <r:repeat value="#{eventBean.countries}" var="country" >
                 <s:series label="#{country.name}" type="line">
                     <r:repeat value="#{country.data}" var="record">

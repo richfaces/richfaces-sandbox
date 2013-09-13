@@ -71,13 +71,13 @@ public abstract class AbstractChart extends UIComponentBase{
      
      /**
       * 
-      * Javascript handler function for mouseover event for each series.
+      * Javascript handler function for plothover event for each series.
       * You can setup handler for particular series only. See series tag attribute
-      * onmouseover.
+      * onplothover.
       */
      @Attribute(events =
-     @EventName("mouseover"))
-     public abstract String getOnmouseover();
+     @EventName("plothover"))
+     public abstract String getOnplothover();
      
      /**
       * Complementary event for mouseover fired

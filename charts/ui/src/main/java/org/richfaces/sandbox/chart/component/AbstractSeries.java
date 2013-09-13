@@ -86,8 +86,8 @@ public abstract class AbstractSeries extends UIComponentBase{
       * Mouse over handler event for this series only.
       */
      @Attribute(events =
-     @EventName("mouseover"))
-     public abstract String getOnmouseover();
+     @EventName("plothover"))
+     public abstract String getOnplothover();
      
      
      
