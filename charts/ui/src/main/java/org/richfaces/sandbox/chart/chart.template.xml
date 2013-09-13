@@ -42,9 +42,9 @@
            <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/> 
         </cdk:scriptObject>
           
-        
-        #{component.title}
-        <div id="#{clientId}" class="#{component.styleClass} richfaces-chart">
+        <div class="#{component.styleClass} richfaces-chart-container">
+        <div class="richfaces-chart-title">#{component.title}</div>
+        <div id="#{clientId}" class="richfaces-chart">
         
         </div>
         <script type="text/javascript">
@@ -60,7 +60,7 @@
                       ); 
             //]]>
         </script>
-        
+        </div>
         
             
     </cc:implementation>
