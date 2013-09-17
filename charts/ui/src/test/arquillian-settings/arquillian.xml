@@ -33,6 +33,13 @@
             <property name="jbossHome">${arquillian.container.home}</property>
         </configuration>
     </container>
+    
+    <container qualifier="wildfly8" default="${arquillian.launch.wildfly8}">
+        <configuration>
+            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
+            <property name="jbossHome">${arquillian.container.home}</property>
+        </configuration>
+    </container>
 
     <container qualifier="tomcat6" default="${arquillian.launch.tomcat6}">
         <configuration>
@@ -77,7 +84,7 @@
     <extension qualifier="webdriver">
         <property name="javascriptEnabled">true</property>
 
-        <property name="browserCapabilities">${arquillian.drone.browser}</property>
+        <property name="browser">${arquillian.drone.browser}</property>
         <property name="remoteReusable">${arquillian.drone.reusable}</property>
         <property name="remoteAddress">http://localhost:4444/wd/hub/</property>
 

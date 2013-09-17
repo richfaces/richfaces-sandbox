@@ -28,6 +28,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.sandbox.chart.ChartJs;
+import org.richfaces.sandbox.chart.EventBean;
 
 
 @RunWith(Arquillian.class)
@@ -99,9 +101,9 @@ public class ChartTest {
 
 		Assert.assertEquals("Hello World!",chtestjs.hello());
 
-		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chart")));
+		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chartChart")));
 
-		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chart']/canvas[@class='flot-base']")));
+		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chartChart']/canvas[@class='flot-base']")));
 
 		Assert.assertEquals(seriesCount,chtestjs.seriesLength("frm:chart"));
 	}
@@ -110,7 +112,7 @@ public class ChartTest {
 	WebElement clickSpan;
 
 	//class should be flot-base in newer version
-	@FindBy(xpath="//div[@id='frm:chart']/canvas[@class='flot-overlay']")
+	@FindBy(xpath="//div[@id='frm:chartChart']/canvas[@class='flot-overlay']")
 	WebElement chartCanvas;
 
 	@RunAsClient
