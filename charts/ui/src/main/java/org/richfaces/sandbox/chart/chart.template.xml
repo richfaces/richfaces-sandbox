@@ -42,24 +42,22 @@
            <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/> 
         </cdk:scriptObject>
           
-        <div class="#{component.styleClass} richfaces-chart-container">
-        <div class="richfaces-chart-title">#{component.title}</div>
-        <div id="#{clientId}" class="richfaces-chart">
-        
-        </div>
-        <script type="text/javascript">
-            //<![CDATA[  
-                    $(document.getElementById("#{clientId}")).chart(
-                                   $.extend({
-                                    handlers: #{toScriptArgs(events)},
-                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
-                                    data: #{getData(facesContext,component)},
-                                    },
-                                    #{getOpts(facesContext,component)}
-                                   )
-                      ); 
-            //]]>
-        </script>
+        <div id="#{clientId}" class="#{component.styleClass} richfaces-chart-container">
+        	<div class="richfaces-chart-title">#{component.title}</div>
+        	<div id="#{clientId}Chart" class="richfaces-chart"></div>
+	        <script type="text/javascript">
+	            //<![CDATA[  
+	                    $(document.getElementById("#{clientId}Chart")).chart(
+	                                   $.extend({
+	                                    handlers: #{toScriptArgs(events)},
+	                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
+	                                    data: #{getData(facesContext,component)},
+	                                    },
+	                                    #{getOpts(facesContext,component)}
+	                                   )
+	                      ); 
+	            //]]>
+	        </script>
         </div>
         
             

@@ -80,7 +80,7 @@ public abstract class AbstractChart extends UIComponentBase{
      public abstract String getOnplothover();
      
      /**
-      * Complementary event for mouseover fired
+      * Complementary event for plothover fired
       * when mouse leaves the chart grid.
       */
      @Attribute(events =
