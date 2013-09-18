@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.ComponentNameRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.ComponentNameRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.ComponentNameFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ComponentNameRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.component.ComponentName" cast="true" name="componentName" value="#{component}"/>
+        <div id="#{clientId}" class="rich-componentName #{component.attributes['styleClass']}">
+            <span>Let's output the attribute value: #{componentName.attr}</span>
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="someOption" value="someValue"/>
+                </cdk:scriptObject>
+                new RichFaces.ui.ComponentName("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

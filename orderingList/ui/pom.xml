@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.sandbox.ui.componentName</groupId>
+        <artifactId>componentName-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>componentName-ui</artifactId>
+    <name>Richfaces UI Sandbox Components: componentName ui</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.cdk</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>precompile-sources-for-cdk</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>cdk-generate-sources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Profile for quick CDK turnaround using JRebel and CDK command-line generator -->
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
