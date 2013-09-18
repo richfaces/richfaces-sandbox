@@ -38,7 +38,7 @@
     Following sample shows usage of the orderingList in AJAX mode with custom suggestion formatting and fetched value:
 
     <h:form id="list-formatting">
-        <s:orderingList value="#{capitalsBean.capitalList}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}">
+        <s:orderingList value="#{capitalsBean.capitalList}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" caption="OrderingList list layout" onlistmouseover="console.log('over')">
             <f:converter converterId="CapitalsConverter" />
         </s:orderingList>
 
@@ -49,7 +49,7 @@
     <h3>OrderingList table layout</h3>
 
     <h:form id="table-layout">
-        <r:orderingList value="#{capitalsBean.capitalList}" var="capital"  listWidth="300px">
+        <s:orderingList value="#{capitalsBean.capitalList}" var="capital"  listWidth="300px">
             <f:converter converterId="CapitalsConverter" />
             <r:column>
                 <f:facet name="header">ID</f:facet>
@@ -63,7 +63,7 @@
                 <f:facet name="header">State</f:facet>
                 #{capital.state}
             </r:column>
-        </r:orderingList>
+        </s:orderingList>
 
         <r:log mode="console" />
         <r:commandButton render="form" value="Re-render" />

@@ -22,111 +22,134 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
         >
 
     <cc:interface>
         <cdk:class>org.richfaces.sandbox.select.orderingList.OrderingListRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.sandbox.select.orderingList.OrderingListRendererBase</cdk:superclass>
+        <cdk:superclass>org.richfaces.ui.select.SelectManyRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.OrderingListRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.select.OrderingListRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.sandbox.select.orderingList.AbstractOrderingList</cdk:component-base-class>
         <cdk:renders-children>true</cdk:renders-children>
+
+        <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
+        <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/select/select-list.css" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/select/ordering-list.css" />
+
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.position.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.mouse.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.button.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.selectable.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.sortable.js" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/select/orderingList.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/select/orderingListBridge.js" />
     </cc:interface>
 
     <cc:implementation>
 
-        <cdk:object type="java.util.List" type-arguments="org.richfaces.ui.select.ClientSelectItem" name="clientSelectItems"
-                    value="#{getClientSelectItems(facesContext, component)}" />
+        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}"/>
 
-        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
-        <cdk:object name="itemClass" value="#{component.attributes['itemClass']}" />
-        <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
-
-        <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'], disabled ? component.attributes['disabledClass'] : '')}" style="#{component.attributes['style']}"
-            cdk:passThrough="onclick:onclick ondblclick:ondblclick onmousedown:onmousedown onmouseup:onmouseup onmouseover:onmouseover
-            onmousemove:onmousemove onmouseout:onmouseout">
-            <table>
-                <tr>
-                    <td cdk:passThrough="onkeypress:onkeypress onkeydown:onkeydown onkeyup:onkeyup">
-                        <div id="#{clientId}List" class="rf-ord-cntr">
-                            <input id="#{clientId}ListFocusKeeper" name="#{clientId}ListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
-                            <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
-                            <c:if test="#{! empty caption}">
-                                <div class="rf-ord-cptn">
-                                    #{caption}
-                                </div>
+        <div id="#{clientId}" cdk:passThrough="onfocus onclick ondblclick onkey* onmouse*">
+            <c:choose>
+                <c:when test="#{! hasColumnChildren(facesContext, component)}">
+                    <ol id="#{clientId}List" cdk:passThrough="on*:onlist*">
+                        <c:forEach var="itemObject" items="#{clientSelectItems}">
+                            <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
+                            <li data-key="#{item.convertedValue}">#{item.label}</li>
+                        </c:forEach>
+                    </ol>
+                </c:when>
+                <c:otherwise>
+                    <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
+                    <table id="#{clientId}List" cdk:passThrough="on*:onlist*">
+                        <c:if test="#{columns != null and columns.hasNext()}">
+                            <c:if test="#{isHeaderExists(facesContext, component)}">
+                                <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
                             </c:if>
-                            <div class="rf-ord-lst-dcrtn"
-                                cdk:passThrough="onclick:onlistclick ondblclick:onlistdblclick onmousedown:onlistmousedown onmouseup:onlistmouseup onmouseover:onlistmouseover
-                                onmousemove:onlistmousemove onmouseout:onlistmouseout onkeypress:onlistkeypress onkeydown:onlistkeydown onkeyup:onlistkeyup">
-                                <div class="rf-ord-lst-scrl" style="#{encodeHeightAndWidth(component)}">
-                                    <c:choose>
-                                        <c:when test="#{! hasColumnChildren}">
-                                            <div id="#{clientId}Items">
-                                                <cdk:call expression="encodeItems(facesContext, component, clientSelectItems);" />
-                                            </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div id="#{clientId}headerBox" class="rf-ord-lst">
-                                                <table class="rf-ord-tbl" cellpadding="0" cellspacing="0">
-                                                    <c:if test="#{isHeaderExists(facesContext, component)}">
-                                                        <thead class="rf-ord-lst-hdr">
-                                                            <cdk:call expression="encodeHeader(facesContext, component);" />
-                                                        </thead>
-                                                    </c:if>
-                                                    <tbody id="#{clientId}Items">
-                                                        <cdk:call expression="encodeRows(facesContext, component, clientSelectItems);" />
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <table>
-                            <tr>
-                                <td>
-                                    <button type="button" name="#{clientId}upTop" class="#{getButtonClass(component, 'rf-ord-up-tp')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button type="button" name="#{clientId}up" class="#{getButtonClass(component, 'rf-ord-up')}" disabled="#{disabled}">#{component.attributes['upText']}</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button type="button" name="#{clientId}down" class="#{getButtonClass(component, 'rf-ord-dn')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button type="button" name="#{clientId}downBottom" class="#{getButtonClass(component, 'rf-ord-dn-bt')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
-            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
-            <script type="text/javascript">
+                            <cdk:renderFragment name="renderColumns" columns="#{columns}" clientSelectItems="#{clientSelectItems}"/>
+                        </c:if>
+
+                    </table>
+                </c:otherwise>
+            </c:choose>
+
+            <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
-                    <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-ord-opt', component.attributes['itemClass'])}" />
-                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-ord-sel', component.attributes['selectItemClass'])}" />
-                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onfocus"
-                        wrapper="eventHandler" />
-                    <cdk:scriptOption attributes="disabled" />
+                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText" />
+                    <cdk:scriptOption name="buttonsText" value="#{component.getButtonsText()}" />
+                    <cdk:scriptOption name="header" value="#{component.getCaption()}" />
+                    <cdk:scriptOption wrapper="eventHandler" name="change" value="#{component.attributes['onchange']}" />
                 </cdk:scriptObject>
-                new RichFaces.ui.OrderingList("#{clientId}", #{toScriptArgs(options)});
+                $(document.getElementById('#{clientId}List')).orderingListBridge(#{toScriptArgs(options)});
             </script>
         </div>
+
     </cc:implementation>
+
+    <cdk:fragment name="renderColumnHeaders">
+        <cc:interface>
+            <cc:attribute name="columns" type="java.util.Iterator" />
+        </cc:interface>
+        <cc:implementation>
+            <thead>
+                <tr>
+                    <c:forEach var="columnObject" items="#{columns}">
+                        <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
+                        <th>
+                            <c:if test='#{hasFacet(column, "header")}'>
+                                <cdk:object name="header" type="javax.faces.component.UIComponent" value="#{column.header}" />
+                                <c:if test='#{header.rendered}'>
+                                    <cdk:call expression="header.encodeBegin(facesContext)" />
+                                    <cdk:call expression="renderChildren(facesContext, header)" />
+                                    <cdk:call expression="header.encodeEnd(facesContext)" />
+                                </c:if>
+                            </c:if>
+                        </th>
+                    </c:forEach>
+                </tr>
+            </thead>
+        </cc:implementation>
+    </cdk:fragment>
+
+    <cdk:fragment name="renderColumns">
+        <cc:interface>
+            <cc:attribute name="columns" type="java.util.Iterator" />
+            <cc:attribute name="clientSelectItems" type="java.util.List" />
+        </cc:interface>
+        <cc:implementation>
+            <tbody>
+                <cdk:object name="requestMap" type="java.util.Map" value="#{facesContext.getExternalContext().getRequestMap()}" />
+                <cdk:object name="oldVar" type="java.lang.Object" value="#{requestMap.get(component.getVar())}" />
+                <c:forEach var="itemObject" items="#{clientSelectItems}">
+                    <!-- TODO: Add support for type-arguments to the cc:attribute tag -->
+                    <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
+                    <!-- TODO: Find an elegant way of resetting the iterator -->
+                    <cdk:call expression="columns = component.columns()" />
+                    <cdk:call expression="requestMap.put(component.getVar(), item.getSelectItem().getValue())"/>
+                    <tr data-key="#{item.convertedValue}">
+                        <c:forEach var="columnObject" items="#{columns}" varStatus="varStatus">
+                            <cdk:object name="column" type="javax.faces.component.UIColumn" value="#{columnObject}" />
+                            <td>
+                                <cdk:call expression="column.encodeBegin(facesContext)" />
+                                <cdk:call expression="renderChildren(facesContext, column)" />
+                                <cdk:call expression="column.encodeEnd(facesContext)" />
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+                <cdk:call expression="requestMap.put(component.getVar(), oldVar)" />
+                <cdk:call expression="oldVar = null" />
+            </tbody>
+        </cc:implementation>
+    </cdk:fragment>
+
 </cdk:root>

@@ -12,7 +12,11 @@
       var orderingListOptions = $.extend({}, this.options, {
       });
 
-      $(document.getElementById(clientId)).orderingList(orderingListOptions);
+      if (orderingListOptions.buttonsText) {
+          orderingListOptions.buttonsText = $.parseJSON(orderingListOptions.buttonsText);
+      }
+
+      this.element.orderingList(orderingListOptions);
     }
   });
 
