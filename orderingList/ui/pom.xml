@@ -5,35 +5,92 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-        <artifactId>componentName-parent</artifactId>
+        <groupId>org.richfaces.sandbox.ui.select</groupId>
+        <artifactId>orderingList-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>componentName-ui</artifactId>
-    <name>Richfaces UI Sandbox Components: componentName ui</name>
+    <artifactId>orderingList-ui</artifactId>
+    <name>Richfaces UI Sandbox Components: OrderingList ui</name>
+
+    <properties>
+        <version.cdk>4.5.0-SNAPSHOT</version.cdk>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <version>3.0.1.Final</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
-            <scope>provided</scope>
+            <version>5.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>4.5.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-build-resources</artifactId>
+            <version>5.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <version>2.0.0.Beta1</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+        	<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/wro4j</source>
+                                <source>${project.build.directory}/generated-sources/main/java</source>
+                                <source>${project.build.directory}/generated-sources/main/resources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
@@ -58,32 +115,33 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <locale>en</locale>
+                    <templates>
+                        <fileSet>
+                            <directory>src/main/java</directory>
+                            <includes>
+                                <include>**/*.template.xml</include>
+                            </includes>
+                        </fileSet>
+                    </templates>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jboss.spec</groupId>
+                        <artifactId>jboss-javaee-6.0</artifactId>
+                        <version>${version.jboss-javaee}</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.richfaces</groupId>
+                        <artifactId>richfaces-build-resources</artifactId>
+                        <version>${version.richfaces}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <!-- Profile for quick CDK turnaround using JRebel and CDK command-line generator -->
-        <profile>
-            <id>jrebel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.zeroturnaround</groupId>
-                        <artifactId>jrebel-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-rebel-xml</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

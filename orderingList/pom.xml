@@ -29,12 +29,13 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
+        <relativePath></relativePath>
     </parent>
 
-    <groupId>org.richfaces.sandbox.ui.componentName</groupId>
-    <artifactId>componentName-parent</artifactId>
+    <groupId>org.richfaces.sandbox.ui.select</groupId>
+    <artifactId>orderingList-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Sandbox Components: componentName parent</name>
+    <name>Richfaces UI Sandbox Components: OrderingList parent</name>
 
     <modules>
         <module>ui</module>

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright , Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,29 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.renderkit.ComponentNameRendererBase;
+package org.richfaces.sandbox.select.orderingList.model;
 
-import javax.faces.component.UIComponentBase;
+import java.io.Serializable;
 
-/**
- * Base class for the component.
- */
-@JsfComponent(
-        type = ComponentName.COMPONENT_TYPE,
-        family = ComponentName.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = ComponentNameRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="bootstrap"))
-public abstract class ComponentName extends UIComponentBase {
-    public static final String COMPONENT_FAMILY = "org.richfaces.ComponentNameFamily";
-    public static final String COMPONENT_TYPE = "org.richfaces.ComponentName";
+import javax.xml.bind.annotation.XmlElement;
 
-    @Attribute
-    abstract public String getAttr();
+public class Capital implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private final Integer id;
+    private final String name;
+    private final String state;
 
+    public Capital(Integer id, String name, String state) {
+        this.id = id;
+        this.name = name;
+        this.state = state;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public Integer getId() {
+        return id;
+    }
 }
