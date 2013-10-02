@@ -58,7 +58,7 @@
 
         <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}"/>
 
-        <div id="#{clientId}" cdk:passThrough="onfocus onclick ondblclick onkey* onmouse*">
+        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List" cdk:passThrough="on*:onlist*">
@@ -84,10 +84,8 @@
 
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText" />
-                    <cdk:scriptOption name="buttonsText" value="#{component.getButtonsText()}" />
-                    <cdk:scriptOption name="header" value="#{component.getCaption()}" />
-                    <cdk:scriptOption wrapper="eventHandler" name="change" value="#{component.attributes['onchange']}" />
+                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText buttonsText header:caption height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />
                 </cdk:scriptObject>
                 $(document.getElementById('#{clientId}List')).orderingListBridge(#{toScriptArgs(options)});
             </script>

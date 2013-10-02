@@ -38,7 +38,7 @@
     Following sample shows usage of the orderingList in AJAX mode with custom suggestion formatting and fetched value:
 
     <h:form id="list-formatting">
-        <s:orderingList value="#{capitalsBean.capitalList}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" caption="OrderingList list layout" onlistmouseover="console.log('over')">
+        <s:orderingList value="#{capitalsBean.capitalList}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" caption="OrderingList list layout">
             <f:converter converterId="CapitalsConverter" />
         </s:orderingList>
 
