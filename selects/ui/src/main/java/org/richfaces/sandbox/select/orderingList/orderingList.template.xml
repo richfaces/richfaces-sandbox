@@ -38,8 +38,8 @@
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
         <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
-        <cdk:resource-dependency library="org.richfaces" name="widget/select/select-list.css" />
-        <cdk:resource-dependency library="org.richfaces" name="widget/select/ordering-list.css" />
+        <cdk:resource-dependency library="io.richwidgets" name="select/select-list.css" />
+        <cdk:resource-dependency library="io.richwidgets" name="select/ordering-list.css" />
 
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
@@ -49,7 +49,7 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.button.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.selectable.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.sortable.js" />
-        <cdk:resource-dependency library="org.richfaces" name="widget/select/orderingList.js" />
+        <cdk:resource-dependency library="io.richwidgets" name="select/orderingList.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/select/orderingListBridge.js" />
     </cc:interface>
