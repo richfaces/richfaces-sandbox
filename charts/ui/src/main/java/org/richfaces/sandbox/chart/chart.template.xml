@@ -31,8 +31,8 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/>
         
-        <cdk:resource-dependency library="org.richfaces" name="widget/output/chart.js"/>
-        <cdk:resource-dependency library="org.richfaces" name="widget/output/chart.css"/>
+        <cdk:resource-dependency library="io.richwidgets" name="output/chart.js"/>
+        <cdk:resource-dependency library="io.richwidgets" name="output/chart.css"/>
         
     </cc:interface>
 
@@ -42,9 +42,9 @@
            <cdk:scriptOption name="eventFunction" value="#{createEventFunction(facesContext,component)}"/> 
         </cdk:scriptObject>
           
-        <div id="#{clientId}" class="#{component.styleClass} richfaces-chart-container">
-        	<div class="richfaces-chart-title">#{component.title}</div>
-        	<div id="#{clientId}Chart" class="richfaces-chart"></div>
+        <div id="#{clientId}" class="#{component.styleClass} chart-container">
+        	<div class="chart-title">#{component.title}</div>
+        	<div id="#{clientId}Chart" class="chart"></div>
 	        <script type="text/javascript">
 	            //<![CDATA[  
 	                    $(document.getElementById("#{clientId}Chart")).chart(
