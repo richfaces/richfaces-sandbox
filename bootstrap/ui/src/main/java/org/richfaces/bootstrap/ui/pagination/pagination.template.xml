@@ -1,0 +1,22 @@
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.pagination.PaginationRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.pagination.PaginationRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.PaginationRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.pagination.AbstractPagination</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}"
+             class="pagination #{component.size ne null and !component.size.equals('') ? 'pagination-'.concat(component.size) : ''} #{component.align ne null and !component.align.equals('') ? 'pagination-'.concat(component.align) : ''} #{component.styleClass}">
+            <ul>
+                <cdk:body/>
+            </ul>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

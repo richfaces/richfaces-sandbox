@@ -1,0 +1,20 @@
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.pageritem.PagerItemRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.pageritem.PagerItemRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.PagerItemRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.pageritem.AbstractPagerItem</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <li id="#{clientId}"
+            class="#{component.disabled ne null and !component.disabled.equals('') and component.getDisabled().equals('true') ? 'disabled' : ''} #{component.align ne null and !empty(component.align) ? (component.align.equals('left') ? 'previous' : (component.align.equals('right') ? 'next' : '')) : ''}">
+            <cdk:body/>
+        </li>
+    </cc:implementation>
+
+</cdk:root>
