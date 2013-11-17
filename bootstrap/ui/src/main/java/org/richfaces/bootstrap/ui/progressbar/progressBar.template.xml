@@ -1,0 +1,24 @@
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.progressbar.ProgressBarRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.progressbar.ProgressBarRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.ProgressBarRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.progressbar.AbstractProgressBar</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="severityClass" type="String"
+                    value="#{component.severity ne null and !component.severity.equals('') ? 'progress-'.concat(component.severity) : ''}"/>
+
+        <div id="#{clientId}"
+             class="progress #{severityClass} #{component.isStriped() ? 'progress-striped' : ''} #{component.isActive() ? 'active' : ''} #{component.styleClass}"
+             style="#{component.style}">
+            <cdk:body/>
+        </div>
+    </cc:implementation>
+
+</cdk:root>
