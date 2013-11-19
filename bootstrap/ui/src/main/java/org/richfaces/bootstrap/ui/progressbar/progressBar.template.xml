@@ -15,7 +15,7 @@
                     value="#{component.severity ne null and !component.severity.equals('') ? 'progress-'.concat(component.severity) : ''}"/>
 
         <div id="#{clientId}"
-             class="progress #{severityClass} #{component.isStriped() ? 'progress-striped' : ''} #{component.isActive() ? 'active' : ''} #{component.styleClass}"
+             class="progress #{severityClass} #{component.isStriped() ? 'progress-striped' : ''} #{component.isAnimated() ? 'active' : ''} #{component.styleClass}"
              style="#{component.style}">
             <cdk:body/>
         </div>

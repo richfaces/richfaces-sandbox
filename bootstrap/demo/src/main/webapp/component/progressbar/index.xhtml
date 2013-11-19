@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="progressBar,bar"/>
+
+        <h1><code>b:progressBar</code></h1>
+
+        <p>The <code>b:progresBar</code> displays a progressbar.
+            A progressbar is built from one or more
+            <code>b:bar</code>. Each with it's own length. The whole progressbar can be stripped an be animated. </p>
+
+        <h2>Basic usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Striped Bar</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="striped"/>
+        </ui:include>
+
+        <h2>Animated Bar</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="animated"/>
+        </ui:include>
+
+        <h2>Stacked</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="stacked"/>
+        </ui:include>
+
+        <h2>Additional Colors</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="colors"/>
+        </ui:include>
+
+        <h2>Striped bars</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="progressbar"/>
+            <ui:param name="sample" value="stripedbars"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

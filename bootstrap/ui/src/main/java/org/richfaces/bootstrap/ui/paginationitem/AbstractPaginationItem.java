@@ -1,10 +1,7 @@
 package org.richfaces.bootstrap.ui.paginationitem;
 
 import org.richfaces.bootstrap.ui.pagination.PaginationRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.ui.attribute.CoreProps;
 
 import javax.faces.component.UIOutput;
@@ -25,10 +22,10 @@ public abstract class AbstractPaginationItem extends UIOutput implements CorePro
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.PaginationItem";
 
     @Attribute(suggestedValue = "true" + ","
-            + "false")
+            + "false", description = @Description("Button active"))
     public abstract String getActive();
 
     @Attribute(suggestedValue = "true" + ","
-            + "false")
+            + "false", description = @Description("Button disabled"))
     public abstract String getDisabled();
 }

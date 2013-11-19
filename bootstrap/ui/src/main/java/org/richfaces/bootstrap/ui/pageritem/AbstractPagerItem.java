@@ -1,12 +1,10 @@
 package org.richfaces.bootstrap.ui.pageritem;
 
 import org.richfaces.bootstrap.ui.pager.PagerRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.ui.attribute.CoreProps;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
 /**
@@ -24,10 +22,10 @@ public abstract class AbstractPagerItem extends UIInput implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.PagerItem";
 
     @Attribute(suggestedValue = "left" + ","
-            + "right")
+            + "right", description = @Description("Defines the aligment of the button. Default value is center. "))
     public abstract String getAlign();
 
-    @Attribute
-    public abstract String getDisabled();
+    @Attribute(description = @Description("Button active"))
+    public abstract boolean isDisabled();
 
 }

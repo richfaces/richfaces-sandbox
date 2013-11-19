@@ -12,7 +12,7 @@
 
     <cc:implementation>
         <li id="#{clientId}"
-            class="#{component.disabled ne null and !component.disabled.equals('') and component.getDisabled().equals('true') ? 'disabled' : ''} #{component.align ne null and !empty(component.align) ? (component.align.equals('left') ? 'previous' : (component.align.equals('right') ? 'next' : '')) : ''}">
+            class="#{component.disabled ? 'disabled' : ''} #{component.align ne null and !empty(component.align) ? (component.align.equals('left') ? 'previous' : (component.align.equals('right') ? 'next' : '')) : ''}">
             <cdk:body/>
         </li>
     </cc:implementation>

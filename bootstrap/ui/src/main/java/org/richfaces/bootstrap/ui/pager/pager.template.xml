@@ -8,11 +8,25 @@
         <cdk:superclass>org.richfaces.bootstrap.ui.pager.PagerRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.PagerRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.bootstrap.ui.pager.AbstractPager</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
     <cc:implementation>
         <ul id="#{clientId}" class="pager #{component.styleClass}">
-            <cdk:body/>
+            <ul>
+                <c:forEach var="child" items="#{component.children}">
+                    <c:choose>
+                        <c:when test="#{component.isPagerItem(child)}">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </ul>
         </ul>
     </cc:implementation>
 

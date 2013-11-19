@@ -2,10 +2,7 @@ package org.richfaces.bootstrap.ui.progressbar;
 
 import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.ui.pagination.PaginationRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.ui.attribute.CoreProps;
 
 import javax.faces.component.UIComponent;
@@ -26,15 +23,15 @@ public abstract class AbstractProgressBar extends UIOutput implements CoreProps 
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.ProgressBar";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.ProgressBar";
 
-    @Attribute
+    @Attribute(description = @Description("Bar Stripped"))
     public abstract boolean isStriped();
 
-    @Attribute
-    public abstract boolean isActive();
+    @Attribute(description = @Description("Bar active animated"))
+    public abstract boolean isAnimated();
 
     @Attribute(suggestedValue = BootstrapSeverity.SUCCESS + ","
             + BootstrapSeverity.INFO + ","
             + BootstrapSeverity.WARNING + ","
-            + BootstrapSeverity.ERROR)
+            + BootstrapSeverity.ERROR, description = @Description("Severity Color of the bar"))
     public abstract String getSeverity();
 }

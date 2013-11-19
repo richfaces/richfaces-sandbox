@@ -8,13 +8,25 @@
         <cdk:superclass>org.richfaces.bootstrap.ui.pagination.PaginationRendererBase</cdk:superclass>
         <cdk:renderer-type>org.richfaces.bootstrap.PaginationRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.bootstrap.ui.pagination.AbstractPagination</cdk:component-base-class>
+        <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
     <cc:implementation>
         <div id="#{clientId}"
-             class="pagination #{component.size ne null and !component.size.equals('') ? 'pagination-'.concat(component.size) : ''} #{component.align ne null and !component.align.equals('') ? 'pagination-'.concat(component.align) : ''} #{component.styleClass}">
+             class="pagination #{component.size ne null and !component.size.equals('') ? 'pagination-'.concat(component.size) : ''} #{component.align ne null ? (component.align.equals('right') ? 'pagination-right': component.align.equals('center') ? 'pagination-centered' : '') : '' } #{component.styleClass}">
             <ul>
-                <cdk:body/>
+                <c:forEach var="child" items="#{component.children}">
+                    <c:choose>
+                        <c:when test="#{component.isPaginationItem(child)}">
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <cdk:call expression="child.encodeAll(facesContext)"/>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
             </ul>
         </div>
     </cc:implementation>

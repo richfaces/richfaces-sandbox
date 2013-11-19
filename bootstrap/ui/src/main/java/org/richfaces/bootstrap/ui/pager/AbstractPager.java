@@ -1,5 +1,6 @@
 package org.richfaces.bootstrap.ui.pager;
 
+import org.richfaces.bootstrap.ui.pageritem.AbstractPagerItem;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -24,4 +25,7 @@ public abstract class AbstractPager extends UIInput implements CoreProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.Pager";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.Pager";
 
+    public boolean isPagerItem(UIComponent component) {
+        return component instanceof AbstractPagerItem;
+    }
 }

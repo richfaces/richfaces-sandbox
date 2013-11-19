@@ -2,10 +2,7 @@ package org.richfaces.bootstrap.ui.bar;
 
 import org.richfaces.bootstrap.component.BootstrapSeverity;
 import org.richfaces.bootstrap.ui.progressbar.ProgressBarRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.ui.attribute.CoreProps;
 
 import javax.faces.component.UIOutput;
@@ -28,9 +25,9 @@ public abstract class AbstractBar extends UIOutput implements CoreProps {
     @Attribute(suggestedValue = BootstrapSeverity.SUCCESS + ","
             + BootstrapSeverity.INFO + ","
             + BootstrapSeverity.WARNING + ","
-            + BootstrapSeverity.ERROR)
+            + BootstrapSeverity.ERROR, description = @Description("Severity Color of the bar"))
     public abstract String getSeverity();
 
-    @Attribute
+    @Attribute(description = @Description("Width of the bar in %"))
     public abstract String getWidth();
 }

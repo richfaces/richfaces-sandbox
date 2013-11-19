@@ -1,12 +1,11 @@
 package org.richfaces.bootstrap.ui.pagination;
 
+import org.richfaces.bootstrap.ui.paginationitem.AbstractPaginationItem;
 import org.richfaces.bootstrap.ui.paginationitem.PaginationItemRendererBase;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.ui.attribute.CoreProps;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
 /**
@@ -27,11 +26,15 @@ public abstract class AbstractPagination extends UIOutput implements CoreProps {
     @Attribute(suggestedValue = "large" + ","
             + "normal" + ","
             + "small" + ","
-            + "mini" + ",")
+            + "mini" + ",", description = @Description("Predefined css based sizes. "))
     public abstract String getSize();
 
     @Attribute(suggestedValue = "left" + ","
             + "center" + ","
-            + "right" + ",")
+            + "right" + ",", description = @Description("Defines the horizontal alignment. The default value is left"))
     public abstract String getAlign();
+
+    public boolean isPaginationItem(UIComponent component) {
+        return component instanceof AbstractPaginationItem;
+    }
 }

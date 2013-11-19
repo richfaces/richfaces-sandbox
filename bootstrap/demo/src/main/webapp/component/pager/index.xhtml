@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="pager,pagerItem"/>
+
+        <h1><code>b:pager</code></h1>
+
+        <p>The <code>b:pager</code> is used to provide a simple version of pagination.
+            Either use a plain <code>a</code> for the buttons or a <code>b:pagerItem</code> if you want more options.
+        </p>
+
+        <h2>Basic usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pager"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Disabled component</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pager"/>
+            <ui:param name="sample" value="disabled"/>
+        </ui:include>
+
+        <h2>Sticking to container border</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pager"/>
+            <ui:param name="sample" value="border"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>
