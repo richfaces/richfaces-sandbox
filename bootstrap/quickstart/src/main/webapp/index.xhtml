@@ -1,8 +1,70 @@
-<ui:composition template="/resources/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
+<ui:composition template="/resources/template.xhtml" xmlns="httb://www.w3.org/1999/xhtml"
+                xmlns:h="httb://java.sun.com/jsf/html" xmlns:f="httb://java.sun.com/jsf/core"
+                xmlns:ui="httb://java.sun.com/jsf/facelets" xmlns:rich="httb://richfaces.org/rich"
+                xmlns:a4j="httb://richfaces.org/a4j" xmlns:b="httb://richfaces.org/sandbox/bootstrap">
     <ui:define name="content">
+        <b:pagination id="pagination">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination size="large">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination size="normal">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination size="small">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination size="mini">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination align="left" size="normal">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination align="center" size="normal">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+        <b:pagination align="right" size="normal">
+            <b:paginationItem active="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem disabled="true"><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+            <b:paginationItem><a href="#">FFS</a></b:paginationItem>
+        </b:pagination>
+
+        <b:pager>
+            <b:pagerItem disabled="true" align="left"><a href="#">FFS</a></b:pagerItem>
+            <b:pagerItem><a href="#">FFS</a></b:pagerItem>
+            <b:pagerItem align="right"><a href="#">FFS</a></b:pagerItem>
+        </b:pager>
         <b:gridContainer>
             <b:gridRow>
                 <b:gridColumn span="12">
@@ -11,7 +73,7 @@
                     </b:heroUnit>
 
                     <b:alert severity="warning">
-                        RichFaces Bootstrap is a Sandbox project, and not yet meant for production use.  API's and component
+                        RichFaces Bootstrap is a Sandbox project, and not yet meant for production use. API's and component
                         implementations will change.
                     </b:alert>
                 </b:gridColumn>
