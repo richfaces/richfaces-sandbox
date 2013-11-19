@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 
 <ui:composition template="/resources/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://richfaces.org/sandbox/bootstrap">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ui:define name="content">
         <b:gridRow fluid="#{sessionBean.fluid}" styleClass="component">
             <b:gridColumn span="6">
                 <ui:insert name="body">Body</ui:insert>
             </b:gridColumn>
             <b:gridColumn span="6">
-                <ui:include src="/resources/taglib.xhtml">
-                    <ui:param name="tag" value="#{tag}" />
-                </ui:include>
+                <c:set value="#{tag.split(',')}" var="tags"/>
+                <ui:repeat value="#{tags}" var="t">
+                    <c:if test="#{fn:length(tags) > 0}">
+                        <h2>b:#{t}</h2>
+                    </c:if>
+                    <ui:include src="/resources/taglib.xhtml">
+                        <ui:param name="tag" value="#{t}"/>
+                    </ui:include>
+                </ui:repeat>
             </b:gridColumn>
         </b:gridRow>
     </ui:define>
