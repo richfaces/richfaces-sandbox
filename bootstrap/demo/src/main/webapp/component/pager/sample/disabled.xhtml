@@ -4,8 +4,8 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <h:panelGrid columns="1" cellpadding="5" style="width: 100%">
         <b:pager>
-            <b:pagerItem disabled="true"><a href="#">&#8592; Previous</a></b:pagerItem>
-            <b:pagerItem><a href="#">Next &#8594;</a></b:pagerItem>
+            <b:pagerItem disabled="true"><h:link outcome="index.xhtml" value="&#8592; Previous"/></b:pagerItem>
+            <b:pagerItem><h:link outcome="index.xhtml" value="Next &#8594;"/></b:pagerItem>
         </b:pager>
     </h:panelGrid>
 </ui:composition>

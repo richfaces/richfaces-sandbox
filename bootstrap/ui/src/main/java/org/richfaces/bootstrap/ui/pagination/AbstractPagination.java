@@ -37,4 +37,28 @@ public abstract class AbstractPagination extends UIOutput implements CoreProps {
     public boolean isPaginationItem(UIComponent component) {
         return component instanceof AbstractPaginationItem;
     }
+
+    public String generateClasses() {
+        StringBuilder sb = new StringBuilder("pagination");
+
+        String size = getSize();
+        if (size != null && !size.isEmpty()) {
+            sb.append(" pagination-").append(size);
+        }
+
+        String align = getAlign();
+        if (align != null && !align.isEmpty()) {
+            if (align.equals("right")) {
+                sb.append(" pagination-right");
+            } else if (align.equals("center")) {
+                sb.append(" pagination-centered");
+            }
+        }
+
+        if (getStyleClass() != null) {
+            sb.append(" ").append(getStyleClass());
+        }
+
+        return sb.toString();
+    }
 }

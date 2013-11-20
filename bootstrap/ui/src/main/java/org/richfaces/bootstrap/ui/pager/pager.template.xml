@@ -13,20 +13,18 @@
 
     <cc:implementation>
         <ul id="#{clientId}" class="pager #{component.styleClass}">
-            <ul>
-                <c:forEach var="child" items="#{component.children}">
-                    <c:choose>
-                        <c:when test="#{component.isPagerItem(child)}">
+            <c:forEach var="child" items="#{component.children}">
+                <c:choose>
+                    <c:when test="#{component.isPagerItem(child)}">
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
                             <cdk:call expression="child.encodeAll(facesContext)"/>
-                        </c:when>
-                        <c:otherwise>
-                            <li>
-                                <cdk:call expression="child.encodeAll(facesContext)"/>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </ul>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </ul>
     </cc:implementation>
 

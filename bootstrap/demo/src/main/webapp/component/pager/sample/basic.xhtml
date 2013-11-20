@@ -2,10 +2,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <h:panelGrid columns="1" cellpadding="5" style="width: 100%">
-        <b:pager>
-            <a href="#">&#8592; Previous</a>
-            <a href="#">Next &#8594;</a>
-        </b:pager>
-    </h:panelGrid>
+
+    <b:pager>
+        <h:link outcome="index.xhtml" value="Previous"/>
+        <h:link outcome="index.xhtml" value="Next"/>
+    </b:pager>
 </ui:composition>

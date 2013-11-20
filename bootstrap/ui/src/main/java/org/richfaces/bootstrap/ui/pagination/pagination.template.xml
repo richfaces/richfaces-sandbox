@@ -13,7 +13,7 @@
 
     <cc:implementation>
         <div id="#{clientId}"
-             class="pagination #{component.size ne null and !component.size.equals('') ? 'pagination-'.concat(component.size) : ''} #{component.align ne null ? (component.align.equals('right') ? 'pagination-right': component.align.equals('center') ? 'pagination-centered' : '') : '' } #{component.styleClass}">
+             class="#{component.generateClasses()}">
             <ul>
                 <c:forEach var="child" items="#{component.children}">
                     <c:choose>
