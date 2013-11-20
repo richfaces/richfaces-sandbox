@@ -21,7 +21,7 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,7 +29,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
@@ -40,27 +40,6 @@
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>JBoss repository</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>JBoss repository2</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>ffs</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>ffs2</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <modules>
         <module>ui</module>
