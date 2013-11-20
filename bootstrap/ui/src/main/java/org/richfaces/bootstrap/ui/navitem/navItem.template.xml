@@ -1,0 +1,19 @@
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.bootstrap.ui.navitem.NavItemRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.bootstrap.ui.navitem.NavItemRendererBase</cdk:superclass>
+        <cdk:renderer-type>org.richfaces.bootstrap.NavItemRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.bootstrap.ui.navitem.AbstractNavItem</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <li class="#{component.generateClass()}" style="#{component.style}">
+            <cdk:body />
+        </li>
+    </cc:implementation>
+
+</cdk:root>

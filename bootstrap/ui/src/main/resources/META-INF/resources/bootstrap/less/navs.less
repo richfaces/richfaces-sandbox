@@ -62,12 +62,14 @@
   padding: 3px 15px;
 }
 .nav-list > .active > a,
-.nav-list > .active > a:hover {
+.nav-list > .active > a:hover
+.nav-list > .active > a:focus{
   color: @white;
   text-shadow: 0 -1px 0 rgba(0,0,0,.2);
   background-color: @linkColor;
 }
-.nav-list [class^="icon-"] {
+.nav-list [class^="icon-"],
+.nav-list [class^=" icon-"] {
   margin-right: 2px;
 }
 // Dividers (basically an hr) within the dropdown
