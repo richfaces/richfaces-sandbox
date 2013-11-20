@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <b:well style="max-width: 200px">
+        <b:navlist>
+            <b:navItem type="header">LIST HEADER</b:navItem>
+            <b:navItem type="active"><h:link outcome="index.jsf" value="Home"/></b:navItem>
+            <b:navItem><h:link outcome="index.jsf" value="Library"/></b:navItem>
+            <b:navItem><h:link outcome="index.jsf" value="Applications"/></b:navItem>
+            <b:navItem type="header">ANOTHER LIST HEADER</b:navItem>
+            <b:navItem><h:link outcome="index.jsf" value="Profile"/></b:navItem>
+            <b:navItem><h:link outcome="index.jsf" value="Settings"/></b:navItem>
+            <b:separatorFacet/>
+            <b:navItem><h:link outcome="index.jsf" value="Help"/></b:navItem>
+        </b:navlist>
+    </b:well>
+</ui:composition>

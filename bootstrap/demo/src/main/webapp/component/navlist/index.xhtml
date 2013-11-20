@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="navlist,navItem"/>
+
+        <h1><code>b:navlist</code></h1>
+
+        <p>A simple and easy way to build groups of nav links with optional headers. They're best used in sidebars like the Finder in OS X.
+            Use links or <code>b:navItem</code> elements for the contents.
+        </p>
+
+        <h2>Basic usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="navlist"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>More complex example</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="navlist"/>
+            <ui:param name="sample" value="complex"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

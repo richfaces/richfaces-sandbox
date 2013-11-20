@@ -16,10 +16,15 @@
             <c:forEach var="child" items="#{component.children}">
                 <c:choose>
                     <c:when test="#{component.isNavItem(child)}">
-                        <cdk:call expression="child.encodeAll(facesContext)" />
+                        <cdk:call expression="child.encodeAll(facesContext)"/>
+                    </c:when>
+                    <c:when test="#{component.isSeparator(child)}">
+                        <cdk:call expression="renderSeparator(facesContext, child)"/>
                     </c:when>
                     <c:otherwise>
-                        <li><cdk:call expression="child.encodeAll(facesContext)" /></li>
+                        <li>
+                            <cdk:call expression="child.encodeAll(facesContext)"/>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
