@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="well"/>
+
+        <h1><code>b:well</code></h1>
+
+        <p>Use the well as a simple effect on an element to give it an inset effect.</p>
+
+        <h2>Basic usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="well"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Different Sizes</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="well"/>
+            <ui:param name="sample" value="sizes"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>
