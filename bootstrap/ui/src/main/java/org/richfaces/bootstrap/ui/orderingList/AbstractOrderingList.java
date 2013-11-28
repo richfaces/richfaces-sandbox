@@ -26,21 +26,26 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.MultiSelectProps;
 import org.richfaces.ui.select.AbstractSelectManyComponent;
 import org.richfaces.ui.select.SelectItemsInterface;
 
 /**
  *  Base class for the orderingList component
  *
+ * @deprecated use the equivalent component from RF 5
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
+@Deprecated
 @JsfComponent(
         type = AbstractOrderingList.COMPONENT_TYPE,
         family = AbstractOrderingList.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = OrderingListRendererBase.RENDERER_TYPE),
-        tag = @Tag(name="orderingList"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
-abstract public class AbstractOrderingList extends AbstractSelectManyComponent implements SelectItemsInterface {
+        tag = @Tag(name="orderingList"))
+abstract public class AbstractOrderingList extends AbstractSelectManyComponent implements SelectItemsInterface, EventsMouseProps, EventsKeyProps, MultiSelectProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.bootstrap.OrderingList";
     public static final String COMPONENT_TYPE = "org.richfaces.bootstrap.OrderingList";
 
@@ -65,7 +70,7 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
      */
     @Attribute
     public abstract String getCaption();
-    
+
     /**
      * CSS class(es) to be applied to the caption.
      */
@@ -74,58 +79,64 @@ abstract public class AbstractOrderingList extends AbstractSelectManyComponent i
 
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
-    
+
     /**
      * CSS class(es) to be applied to the selected items.
      */
     @Attribute
     public abstract String getSelectedItemStyleClass();
-    
+
     /**
      * CSS class(es) to be applied to the items of the list.
      */
     @Attribute
     public abstract String getItemStyleClass();
-    
+
     /**
      * CSS class(es) to be applied to the buttons.
      */
     @Attribute
     public abstract String getButtonsStyleClass();
-    
+
     /**
      * If "true" multiple items can be selected by dragging, as opposed to Ctrl+click. Default: "false".
      */
     @Attribute
     public abstract boolean isDragSelect();
-    
+
     /**
      * If "true" the buttons are hidden. Default: "false".
      */
     @Attribute
     public abstract boolean isHideButtons();
-    
+
     /**
      * If "true" the items cannot be dragged. Default: "false".
      */
     @Attribute
     public abstract boolean isDisableMouse();
-    
+
     /**
      * If "true" the items cannot be dragged outside of the list. Default: "true".
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isContained();
-    
+
     /**
      * CSS class(es) to be applied to the placeholder - the empty space below the dragged item.
      */
     @Attribute
     public abstract String getPlaceholderStyleClass();
-    
+
     /**
      * CSS class(es) to be applied to the helper - the dragged item(s).
      */
     @Attribute
     public abstract String getHelperStyleClass();
+
+    @Attribute
+    public abstract String getListWidth();
+
+    @Attribute
+    public abstract String getDisabledClass();
 }
